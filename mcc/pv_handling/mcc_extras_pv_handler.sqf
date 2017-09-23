@@ -1,14 +1,6 @@
 //==============================================================================XEH================================================================================================
 MCC_3D_PLACER = compile preProcessFileLineNumbers format["%1mcc\pop_menu\3rd_placer.sqf",MCC_path];
 
-MCC_fnc_makeTaks = {[(_this select 0), (_this select 1), (_this select 2), (_this select 3), (_this select 4)] execVM MCC_path + "mcc\pop_menu\tasks_add.sqf"};
-/*
-sf_para = compile preProcessFileLineNumbers format["%1mcc\general_scripts\paradrop\parastart.sqf",MCC_path];
-uav = compile preProcessFileLineNumbers format["%1mcc\general_scripts\uav\create_uav_site.sqf",MCC_path];
-["sf_para", {[(_this select 0)] spawn sf_para}] call CBA_fnc_addEventHandler;
-["LHD_spawn", {[(_this select 0)] execVM MCC_path + "mcc\general_scripts\LHD\CreateLHD.sqf";}] call CBA_fnc_addEventHandler;
-*/
-
 //------------------------------- SERVER FUNCTIONS------------------------------------------
 if ( (isServer) || (MCC_isLocalHC) ) then {
 	//mcc_patrol_switch = compile preProcessFileLineNumbers format["%1mcc\pop_menu\patrol_switch.sqf",MCC_path];

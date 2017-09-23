@@ -1,6 +1,7 @@
 #define MCC_TASKS_NAME 3056
 #define MCC_TASKS_DESCRIPTION 3057
 #define MCC_TASKS_LIST 3058
+#define MCC_TASKS_ICON 30581
 
 class MCC_tasksDialogControls: MCC_RscControlsGroup
 {
@@ -11,12 +12,12 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 	h = 0.274893 * safezoneH;
 
 	class Controls
-	{			
+	{
 		class MCC_tasksDialogFrame: MCC_RscText
 		{
 			idc = -1;
 			colorBackground[] = {0,0,0,0.9};
-			
+
 			w = 0.240625 * safezoneW;
 			h = 0.274893 * safezoneH;
 		};
@@ -42,7 +43,30 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 			h = 0.0280063 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 		};
-		
+
+		class MCC_TaskIconText: MCC_RscText
+		{
+			idc = -1;
+
+			text = "Icon:"; //--- ToDo: Localize;
+			x = 0.00572965 * safezoneW;
+			y = 0.12394 * safezoneH;
+			w = 0.0572917 * safezoneW;
+			h = 0.0219914 * safezoneH;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+		};
+
+		class MCC_TaskIconList: MCC_RscCombo
+		{
+			idc = MCC_TASKS_ICON;
+
+			x = 0.0687497 * safezoneW;
+			y = 0.12394 * safezoneH;
+			w = 0.166146 * safezoneW;
+			h = 0.0219914 * safezoneH;
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+		};
+
 		class MCC_TasksAvaliableTittle: MCC_RscText
 		{
 			idc = -1;
@@ -54,7 +78,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 			h = 0.0219914 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 		};
-		
+
 		class MCC_TasksDescriptionTittle: MCC_RscText
 		{
 			idc = -1;
@@ -85,7 +109,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 			x = 0.0687497 * safezoneW;
 			y = 0.0769698 * safezoneH;
 			w = 0.166146 * safezoneW;
-			h = 0.0549786 * safezoneH;
+			h = 0.045 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 		};
 		class MCC_Taskslist: MCC_RscCombo
@@ -191,7 +215,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 			tooltip = "Delete the selected task"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 		};
-		
+
 		class MCC_tasksClose: MCC_RscButtonMenu
 		{
 			idc = -1;

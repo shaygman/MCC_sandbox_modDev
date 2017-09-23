@@ -12,7 +12,7 @@
 //=================================================================================================================================================================
 
 //Made by Shay_Gman (c) 06.14
-private ["_pos", "_IEDJammable", "_IEDTriggerType", "_IEDAmbushGroup", "_trapdistance", "_iedside", "_dummy","_ok","_iedDir","_init","_helper","_fnc_iedHandle"];
+private ["_pos", "_IEDJammable", "_IEDTriggerType", "_IEDAmbushGroup", "_trapdistance", "_iedside", "_dummy","_ok","_iedDir","_init","_helper","_fnc_iedHandle","_time"];
 disableSerialization;
 
 if (!isServer) exitWIth {};
@@ -131,9 +131,14 @@ _fnc_iedHandle = {
 	if (!_armed ) then {
 		//If IED critical fail while trying to disarm it
 		if (_triggered) then {
-			sleep random 3;
-			[_pos,_trapvolume] spawn _IedExplosion;
-			_explode = true;
+			_time = time + 30 ;
+
+			waituntil {(_dummy getvariable ["iedTrigered",false]) || time > _time};
+
+			if (_dummy getvariable ["iedTrigered",false]) then {
+				[_pos,_trapvolume] spawn _IedExplosion;
+				_explode = true;
+			};
 		} else {
 			if (typeOf _fakeIed in _hidden) then {deleteVehicle _fakeIed};
 		};

@@ -1,3 +1,272 @@
+Change log r22:
+- Added: Faction relations settings to mission settings.
+- Added: Radio message when completing generated/campaign mission.
+- Added: Commander console action to the action menu.
+- Added: Drag resource crates with MCC or ACE interaction.
+- Added: Punchable CAS and Airdrops in the commander console - can be enabled from mission settings module - TO DO WIKI
+- Added: AI group respawn modules to 3den & Zeus - will respawn the group when all units are dead.
+- Added: Enable/disable Only medic can heal from MCC medic settings modules - Zeus or 3den
+- Added: Cinematic when respawning from the MCC spawn Menu - can be disabled with mission settings  - Zeus or 3eden.
+- Added: Template to Melden Island.
+- Added: Kestrels and crows to ambient birds module.
+- Added: Resave missions to MCC after loading mission from MCC.
+- Changed: Shortened MCC campaign/Mission Wizard intro movies time.
+- Changed: Commander Console F1-F5 buttons are more visable.
+- Changed: Reduce needed units around the player to build a FOB or other battle emplacements to zero.
+- Changed: Restrict ambient unit module spawn radius has been doubled.
+- Changed: Remove spawn protection from HQ/Start Location.
+- Fixed: Stuck enable/disable MCC tutorials ("You have picked the commander role... Do you want to show this message in the future?" exc) from MCC UI settings module
+- Fixed: Vehicle Kiosk Custom vehicles array expected [className,[displayName, pictureName],cost] instead of [className,displayName,cost]
+- Fixed: Un-cached and respawned GAIA unit will be controllable from Zeus.
+- Fixed: Respawned GAIA unit will respawn where they spawned and not where they died.
+- Fixed: MCC can resave as many time without loosing data.
+- Fixed: GAIA support for RHS units.
+- Fixed: GAIA settings don't work from Zeus.
+- Fixed: Clear persistent data run localy and not on the server
+- Fixed: Save persistent data will work without inidbi2
+- Fixed: Save persistent data will save every 5 minutes to reduce lags
+- Fixed: Fast rope for CH67 and CH49 wasn't working
+- Fixed: Mission Generator mortars explode on first shot.
+- Fixed: Logistics truck always identified as it was near an FOB/HQ while starting a MCC campaing from Zeus.
+- Fixed: Evac module on 2d editor didn't work
+- Fixed: Can't change Squad name in MCC Squad Menu.
+- Fixed: Error when creating new squad from MCC Squad Menu.
+- Fixed: Addrating command didn't work when Role Selection is on.
+- Fixed: Error missing file "MCC_loadingScreen.paa".
+- Fixed: Medic system blur stays after death.
+- Fixed: Building construction fortification bug.
+
+- Mission Wizard:
+	- Added: Wikia Page - http://mccsandbox.wikia.com/wiki/Mission_Generator
+	- Added: New Tasks icons and tasks parents.
+	- Fixed: Saving generated mission tasks didn't wokrk.
+	- Added: Define master data using arrays in your init.sqf file:
+		- MCC_MWHVT - HVT classes
+		- MCC_MWHVTCamps - HVT composition type - must be a config with this name holding the compsition setup.
+		- MCC_MWFuelTanks - Fuel tanks classes
+		- MCC_MWRadio - Radio Towers
+		- MCC_MWTanks - Armor
+		- MCC_MWAAB - AA Bluefor
+		- MCC_MWAAO -AA Opfor
+		- MCC_MWAAI - AA Resistance
+		- MCC_MWArtilleryB - Artillery Bluefor
+		- MCC_MWArtilleryO - Artillery Opfor
+		- MCC_MWAir - Air vehicles
+		- MCC_MWcache - Weapon cache type
+		- MCC_MWradar - Radar type
+		- MCC_MWIntelObjects - Intel Objects
+		- MCC_MWIED - IEDs
+
+- Tasks
+	- Added: New BI icons for tasks
+
+- Ambient Fire
+	- Reworked the fire look - now the fire looks much more realistic and posses a real threat.
+
+- Zeus
+	- Fixed: Unable to edit groups and WP from MCC
+	- Fixed: Some errors while editing units/vehicles - there is still a bug regarding vehicle respawn which comes from the BI function so it disabled for now.
+
+- IED suicide bombers
+	- Added: MCC_fnc_addVelocity - add velocity sprading from a center position to simulate a shockwave include ragdolls on players.
+	- Added: Shockwaves to all types of IED and suicide bombers (real,fake or disabling).
+	- Added: Suicide bombers will have bombs straped around their pelvis when they attack.
+	- Added: Disable interaction progress by hitting Escape key.
+	- Added: ECM vehicles will make beeping sounds when activelly blocking radio IED.
+
+- RTS
+	- Added: Elapsed day battle's report will show up when RTS has been used and not only on MCC campaign.
+	- Added: UI controls for all available forces to the left hand side - click on any to quickly control it.
+	- Added: Spawn RTS buildings from 3eden or Zeus modules.
+	- Added: Show group information when mouse hovering its icon.
+	- Added: Supply track can withdraw supply crates from the HQ.
+	- Added: Show "get in" text when mouse hovering over enterable building/vehicle.
+	- Added: Engine sounds for generator.
+	- Added: Level 1 HQ will unlock the ability to purchase artillery ammo for the commander console.
+	- Added: Level 2 HQ will unlock the ability to purchase supply drops from the commander console.
+	- Added: Level 3 HQ will unlock the ability to purchase CAS runs from commander console.
+	- Added: Houeses - houses will add more manpower space and the ammount of AI you can recruit.
+	- Added: Build practice targets from barracks.
+	- Changed: Barracks - Barracks will not add more manpower space but will unlock new units to purchase.
+	- Changed: UI for selection circles and borders in RTS interface.
+	- Changed: Different colors for resources.
+	- Changed: MCC capture moduel won't give more resources then the available free storage space.
+	- Changed: MCC campaign missions won't give more resources then the available free storage space.
+	- Fixed: Campaign delete brush deletes RTS groups and buildings.
+	- Fixed: Units info wasn't showing the amount of units and vehicles classes available.
+	- Fixed: Soldiers groups didn't have the place satchel, rules of fire, change stances actions.
+	- Fixed: After building or upgrading a structure the UI didn't reset itself to prevent infinite building exploit
+	- Fixed: Will not show tickets to a side with zero players.
+
+TODO
+	- igui color - https://community.bistudio.com/wiki/User_Interface_Colors
+	- Commander permissions
+	- Build helipad and hanger for building helis exc
+	- Real resources in RTS storage
+	-TODO - resources move to the left and give option on HUD
+	- Wipe save game in campaigns description
+
+TODO - intro script rework
+TODO - Tasks for MW
+TODO - save loadout to string for DB function
+TODO - Weapons shop
+TODO - HVT rescue add wrecks
+TODO - Convoy missions
+TODO - Resource cap points in campaign and passsive occuption
+TODO - persistent save vehicles and groups
+TODO - AAS missions to mod,
+TODO - wiki: Mission Gen and customize it
+TODO - Change mission wizard objectives
+TODO - Change armaments?
+TODO - weather add fog volume and wind direction
+TODO - animation module
+
+Change log r22:
+-= Intel Module =- **NEW**
+	- Added: Set Intel module to Eden and Zeus: Allows making items or unit as Intel providers. Giving the players option to interact with the them in order to get information and map location. - as defined by the mission maker.
+	- Wiki Page - http://mccsandbox.wikia.com/wiki/Intel
+
+-= Aircraft Carrier =-  **NEW**
+	- Added: CUP LHD & BI Aircraft Carrier - Spawn LHD/Carrier that will function as Zeus respawn point and a MCC HQ. Spawn vehicles/aircraft on top of the LHD/Carrier and use the steam catapults to take off and the arresting gears to land.
+	- Wiki Page - http://mccsandbox.wikia.com/wiki/Aircraft_Carrier
+
+-= UI =-
+	- Updated: HUD/UI module Wiki including the Hit Radar and the Tickets HUD - http://mccsandbox.wikia.com/wiki/UI_Module
+	- Added: Show Tickets in the MCC UI/HUD settings. Enable it will show a Battlefield kind of HuD including time left, opposing sides names and flags, tickets left exc
+	- Fixed: Stuck on Squad menu "P".
+	- Fixed: Placing HUD module forces to 1st person.
+
+-= Campaign =-
+	- Added: Enable/Disable loading MCC Campaign data from data base.
+	- Changed: Reduced the amount of ambient patrols while traveling on red squares.
+
+-= CAS =-
+	- Changed: CAS airplanes will have an angle of attack to targets and will react faster.
+	- Changed: Can call any plane type (Addons includded) to act as an AC-130 from CAS Menu.
+	- Fixed: Airdrops didn't worked in the commander console.
+	- Fixed: CAS crash with some mods.
+
+-= Misc =-
+	- Added: MCC wiki page for ambient fire, birds and units http://mccsandbox.wikia.com/wiki/Ambient_fireBirds
+	- Added: GAIA settings module to Zeus.
+	- Added: Hold Shift while editing a unit in Zeus to open the default Zeus menu and not MCC menu.
+	- Added: Modules info in Eden.
+	- Changed: Atmosphere module can select random time and date.
+	- Changed: Enable/disable teleport player to last known location while activating the survival module.
+	- Changed: Decreased ambient birds chance.
+	- Changed: In RTS mode can call HQ missions even while the campaign isn't enabled.
+	- Fixed: MCC redused 2 tickets per death and finished mission when tickets reaches zero even when MCC PvP mod was disabled.
+	- Fixed: Wind set by MCC was too strong.
+	- Fixed: Ambient fire and ambient birds didn't wokr from Zeus when called on local MP.
+	- Fixed: Missing insertion types in start locations.
+	- Fixed: Teleport to team always enabled.
+	- Fixed: Medic system animations.
+	- Fixed: Spawn outside the map when spawning on FOB built by the players.
+	- Fixed: Non lethal ammo didn't work for clients.
+	- Fixed: Non-lethal ammo & breaching ammo didn't work on dedicated.
+	- Fixed: MCC interaction with door on CUP maps didn't work.
+	- Fixed: Ammo/supply/crates box disappear after depletion while on the logistic's truck - Logistics Module.
+
+
+Change log r21:
+- Renamed all MCC items with (MCC) at the begging so you can easily find or disregard them.
+- Fixed: MCC console didn't open with hotkey or action menu.
+- Fixed: Tracked units don't show up in MCC.
+- Fixed: Mismatch sides while spawning using MCC 3d editor.
+- Fixed: Ambient fire if error.
+
+Change log r20:
+
+-= Ambient Birds and Fire=- **NEW**
+	- Added: Ambient birds moudle, try to recrate something similar to the awsome mod for ArmA2 JTD smoke add ambient birds. Placing this module will sometime spawn flocks of scared birds from trees next to the player or AIs units. Can give away your position in PvP or AI position in PvE. Birds chance is based on the unit's speed.
+	- Added: Ambient fire module. Placing this module will give a chance that explosion can cause forest fires that will propagate depends on the wind and the nearby environment. This feature has three features:
+	- Ammunation fire and vehicle fire: Explosive rounds and vehicle explosion have a chance to light the enviorment on fire.
+	- Fire Propagation: The fire will propagate in a 60 degree of the wind direction based on the wind force and humidity. The fire will continue to propagate as long as it have where to spread.
+	- Burning crew: When a vehicle is destroyed there is a chance that the crew inside will catch on fire and will escape the vehicle while burning and screaming and a chance to start new fire where they fall.
+
+-= Arcade Options =- **NEW**
+	- Added: Arcade Stuff ***Spoiler if you like hard core milsim don't read it *******
+		- One Man Tanks (In mechanics settings) - Based on Killzone kid script. Solo drive and shoot a tank.
+		- Disable Fatigue (In mechanics settings) - Disable in game fatigue.
+		- Hit Radar (In HUD settings) - Radial markers shows the general direction of bullets' sources while under fire.
+
+-= Engine =-
+	- added: Define breaching ammo from MCC mechanic module.
+	- Added: Scared civilians behavior. Civis will run away in panic if shots fired nearby.
+	- Added: Show suset and sunrise time in the time change menu.
+	- Changed: While in MCC's artillery computer using the ruler will automatically insert the distance and direction to the computer.
+	- Changed: Converted all MCC's template to Eden 3d editor.
+	- Changed: Garrisson will spawn less units inside buildings.
+	- Fixed: Missing configs entry in spectator mode.
+	- Fixed: Disarmed AI didn't drop their weapons.
+	- Fixed: CBA error CTD.
+	- Fixed: Config error when saving mission in the editor.
+	- Fixed: Unable to spawn groups.
+	- Fixed: Custom group will not shot each other.
+
+-= Zeus =-
+	- Added: MCC's settings module to Zeus.
+	- Added: MCC mechanics settings module to Zeus.
+	- Added: UI settings moudle to Zeus.
+	- Added: Medical System  module to Zeus.
+	- Added: Zeus and Eden module: Spawn Loot in Buildings - spawns loot crates for MCC's survival in buildings.
+	- Fixed: MCC dialogs can be opened while in Zeus camera.
+	- Fixed: When editing a unit in Zeus duplicate menus and units go prone.
+	- Fixed: MCC's modules and units didn't show on non-MCC Zeus.
+	- Fixed: "No unit selected" error when using MCC suicide bomber/armed civilian modules from Zeus.
+
+-= Evac & CAS =-
+	- Added: Real AC-130 (Blackfish) when spawning an AC-130.
+	- Added: Precise landing for helicopters - can land on rooftops.
+	- Changed: CAS will only spawn one aircraft instead of two to limit CAS crushing into each other.
+	- Changed: Evac helicopters precise landing or fast ropes will be smoother.
+	- Fixed: Reinforcement helicopter will drop troops even under fire.
+
+-= Logistics =-
+	- Added: Pacific faction's trucks can be used as MCC logistics trucks.
+	- Added: Build raised MG/HMG.
+	- Fixed: Building fortification and FOB didn't work.
+
+-= UI =-
+	- Added: Custom Atmosphere Environment module (Zeus & Eden). You can set your own atmosphere with color filters, snow, flying branches, newspapers exc.
+	- Added: Name tags reworked. You can select if you want to see name tags over all friendly units around you or only when pointing a unit.
+	- Fixed: Tutorial helicopters message keep on showing even after selecting not to.
+	- Fixed: Losing units markers after respawn in the MCC's UI Compass.
+
+-= Role Selection =-
+	- Added: Role Selection's settings module to Eden and Zeus - might effect previous missions.
+	- Added: In setting module more control over Role Selections - such as:
+			- Manually gain XP
+			- Disable/Enable non pilots/drivers can use heavy vehicles/aircrafts.
+			- Disable/Enable weapon's penalty when picking "out of kit" weapon.
+			- All weapons - unlock all weapons and gear no matter player's level.
+
+-= Commander Console =-
+	- Added: Re introduce the Commander Console as an Item.
+	- Added: Loiter WP for the commander tablet.
+
+-= Medic system =-
+	- Added: Medical system HUD. Mark nearby wounded units.
+	- Fixed: No unconscious animations while inside a vehicle.
+	- Fixed: Medic wounded animation sometimes didn't kick in.
+
+-= Campaign & Persistent Database =-
+	- Fixed: Heavy lags in the MCC Campaign
+	- Fixed: Clear persistent didn't work.
+
+-= Interaction =-
+	- Added: Open & Bang on door interaction. Can open throw a grenade in and close the door while using ACE or MCC interaction on the door.
+	- Fixed: MCC Interaction overlaped ACE interaction.
+	- Fixed: Spot enemies & call support didn't worked in ACE self interaction.
+
+
+TODO:
+- Fix templates
+- switch side button?
+- PvP
+
+
+
 Change log r19:
 
 UI Module:
@@ -7,7 +276,7 @@ UI Module:
 	- Name tags: Show friendly units name/role/rank and vehicle information such as driver,commander, gunner and empty positions left.
 	- Squad Markers: Show friendly squad markers on the map. Only MCC squads from the role selection or Squad dialog.
 	- Squad Members Markers: Show squad members markers on the map.
-	- Suppression: Client side only Supression effects, blur and camera shake depends on the angle of fire, the caliber and more.
+	- Suppression: Client side only Suppression effects, blur and camera shake depends on the angle of fire, the caliber and more.
 - Changed: Name tags, group markers moved to the inGame UI settings module
 - Added: Units that are not in your squad will show in blue while name tags is on.
 - Added: Units markers (mission settings module) Show units markers on the map for all players while playing in a squad from the Squad Dialog
@@ -17,56 +286,104 @@ Role Selection:
 - Changed: Moved to inidbi2 - local db files for each mission - http://mccsandbox.wikia.com/wiki/Configure_role_selection
 - Changed: Total reworked the Role Selection UI and functionality load-outs are not inherent from config files to be - http://mccsandbox.wikia.com/wiki/Configure_role_selection
 - Added: Resupply option from FOB.
-- Added: Resupply will resupply grenade launcer rounds.
+- Added: Resupply will resupply grenade launcher rounds.
 - Added: Ability to build sand bags around FOB - Squad leader - doesn't need resources but there is a limit to 14 sandbags per FOB
+
+Mobile Respawn
+- Added: Support for mobile respawn. Make any vehicle a mobile respawn by adding the presets from MCC 3d editor or Zeus. While mobile vehicle is alive you can spawn inside it if it holds enough space, outside of it if it don't and parachute out of it if its flying.
+
+Logistics:
+- Added: Can place constructions in height such as HMG on balcony exc.
+- Added: Can build fortifications around FOB/Start location
 
 Interaction Menu:
 - Added: From MCC interaction mount/dismount weapons attachments with the proper animations doing so.
 - Added: Switch VON radio channels from the self interaction menu.
+- Added: You can place IED and mines on walls using MCC actions keys.
 - Changed: Total reworked Interaction layout from list to a rose dial menu.
 
 Ambient Civilians Module
-- Added: civilians relations variable added to the module. The civilians relation variable will determine how the ambient civilians will act near players starting form positive behavior to bad behavior where some of the civilians will be spawned as armaed civilians, suicide bombers and place IEDs.
+- Added: civilians relations variable added to the module. The civilians relation variable will determine how the ambient civilians will act near players starting form positive behavior to bad behavior to extreme behavior where the civilian population will start to form militias to fight the players initializing suicide bombers and IEDs.
 In the campaign killing civilians and failing objectives will decrease the player relation with them while while completing objectives will increase.  WIKI - http://mccsandbox.wikia.com/wiki/Modules
 
+Medical System:
+- Reworked unconscious state, new animation and effects and you now have access to the esc menu and can still order AI.
+- AI will revive downed AI or players.
 
 Commander Console:
-- Changed: Commander Console UI.
+- Changed: Completely reworked Commander Console UI.
+
+APEX:
+- added: Apex VTOL planes will now replace the default helicopters in Parachute, HALO or Drop Pods insertions.
+- added: Tanoa templates: Campaign, pvp, Rgular
+
+Persistent Data Base:
+- Added: MCC now support inidbi2 and stopped supporting inidbi 1.
+- Added: MCC now have a persistent DB saving option from the save/load menu in MCC. Turn it on in your mission and MCC will save all players positions, gear, stats (health,calories, water - if used), resources, valor, RTS elements such as base buildings exc. If there is already saved data on the server MCC will load it and will continue saving. Have fun in your campaigns - Requires iniDBi 2.
+- Added: Clear persistent data from players/missions.
+- Added: MCC_fnc_savePlayer, MCC_fnc_saveServer, MCC_fnc_loadPlayer, MCC_fnc_loadServer functions with description for mission maker to use in their missions.
+
+Survival Mode:
+- Added: persistent survival mod. While running inidbi2 on the server MCC will save the players gear, xp, valor, health water, food, location exc every time they join the game.
+- Added: Can enable survival mod without allowing player to search for loot - if you want to add some thirst and hunger element without turning it into a Dayz. Enable it from the mission setting module or missionNamesSpace variable ["MCC_surviveModAllowSearch",false]
+- Fixed: Stuck when enabling Survival mod from module.
 
 RTS:
 - Added: RTS WIKIA for players - http://mccsandbox.wikia.com/wiki/Rts
 - Added: RTS WIKIA for developers - http://mccsandbox.wikia.com/wiki/RTS_editing
-- Changed: Vehicle kiosk will load vehicles by side not by faction by default. - http://mccsandbox.wikia.com/wiki/Vehicle_kiosk
-- Changed: In RTS commander can purchase vehicles from kiosk using reources while players can purchase it using valor points.
+- Added: Players can buy units from barracks/sleeping areas using valor and add them to their squad even if not the actual commanders.
+- Added: Vehicle Kiosk will show vehicle by faction by default - can be changed to side by setting global variable (MCC_vehicleKioskBySide = true); - http://mccsandbox.wikia.com/wiki/Vehicle_kiosk
+- Changed: In RTS commander can purchase vehicles from kiosk using resources while players can purchase it using valor points.
 
 New Game Mods:
-- Added: Advance And Secure (AAS) module - turns sectors to be captured in a specific linar order like in Project Reality AAS.
-- Added: 2 template PvP AAS missions from my days at Project Reality group for ArmA 3 and WIKI on how to create more: http://mccsandbox.wikia.com/wiki/Aas
+- Added: Advance And Secure (AAS) module - turns sectors to be captured in a specific linear order like in Project Reality AAS.
+- Added: 2 template PvP AAS missions and a WIKI on how to create more: http://mccsandbox.wikia.com/wiki/Aas
 
 MCC Campaign:
 - Added: Altis campaign template mission, mix between RTS and FPS on altis but you can create it where ever you want to: http://mccsandbox.wikia.com/wiki/Campaign
-- Added: mission rotation - define how many missions will be generated close to each other before MCC will select a completely different position.
+- Added: The campaign module now categorized the island and divide it into zones.
+- Added: Campaign progress and buildings will be saved when using inidbi2 on the server.
+- Enemy side will attack the players base randomly
+- Added: mission rotation - The random chance to get a recon mission - which isn't near the starting base and behind enemy lines.
+
+Mission Wizard:
+- Pick Intel and rescue HVT missions now supports new BIS hold action.
+- Missions tasks will be available to all sides except the enemy sides.
+- Spawned artillery will roughly marked on map.
+- IED & armed civilians will be hostile to all sides except the enemy sides and not just to the player side.
+- No longer spawn units without primary weapons such as rangemasters for bluefor.
 
 VON Radio System
 - Added: Using the new BI VON commands players will be restricted from not-allowed channels rather then killed when using them.
 
+MCC CAS/Airdrops
+- Added: Cruise missile manually control the missile while guiding it to his target - can be given to the side commander for him to use it as an asset the commander tab.
+- Added: UAV run - allow commanders to call UAV that will mark enemy units around him in a radius defined with MCC_uavdetectRange = 500 put MCC_uavdetectRange = 0; for no detection - can be given to the side commander for him to use it as an asset the commander tab.
+- Added: AC-130 - can be given to the side commander for him to use it as an asset the commander tab.
+
 Misc:
+- Added: MCC will initiate all factions once. Drastically reduce the waiting time when switching factions in MCC.
+- Added: Reinforcement helicopters will be faction related.
+- Added: Respawn on Squad Leader from MCC respawn screen. If enabled with "MCC_respawnOnGroupLeader" or in the MCC settings module
 - Added: Module to create zones from the editor - just sync triggers to the module and they will be zones.
-- Added: Breach locked door by shooting on them use custom ammo such as shoutgun slug (RHS or Prpl by defualt) as defined with MCC_breacingAmmo example: MCC_breacingAmmo = ["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug"];
+- Added: Breach locked door by shooting on them use custom ammo such as shotgun slug (RHS or Prpl by default) as defined with MCC_breacingAmmo example: MCC_breacingAmmo = ["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug"];
 - Added: Start Location modules spawn options (none/teleport/halo/para drop) for each individual spawn point.
 - Added: MCC jukebox will read music and sounds from the mission cfg - description file.
-- Added: Can enable survival mod without allowing player to search for loot - if you want to add some thirst and hunger element for the realisim without turning it into a Dayz. Enable it from the mission setting module or missionNamesSpace variable ["MCC_surviveModAllowSearch",false]
+- Added: 3D markers when spotting enemies.
+- Added: MCC ammoboxes can be placed from MCC self interaction.
+- Changed: Players spawns on Squad Leaders Rally Point will be paradrop and not simply teleported.
 - Changed: Medic system reworked to work with the new protection system.
-- Fixed: Atmoshphere module.
+- Changed: Supply dropping an autonomous vehicle will drop it with crew
+- Fixed: Atmosphere module.
 - Fixed: Error regarding BI fnc sortBy spamming the log file.
-- Fixed: Mission Wizard save hostage mission can be ended on respawn_west/east/gurilla marker.
+- Fixed: Mission Wizard save hostage mission can be ended on respawn_west/east/guerilla marker.
 - Fixed: Self interaction kept working even when disabled when CBA is on.
 - Fixed: Can't login to MCC after the latest patch.
 - Fixed: Medical system was broken (players died instantly instead of falling unconscious) and added a new WIKI page - http://mccsandbox.wikia.com/wiki/MeidcalSystem
 - Fixed: Pressing the delete button while opening MCC delete the last selected group/unit.
 - Fixed: Fast rope didn't worked well on MP.
 - Fixed: Losing Zeus after re-spawn.
-- Fiexd: Zeus editing unit/object didn't work after update.
+- Fixed: Zeus editing unit/object didn't work after update.
 - Fixed: ILS module error when no rings selected
 - Fixed: Restricted ambient civilians module didn't work on dedicated
 - Fixed: Logistic dialogs for helicopters won't show crates that the helicopter can't sling-load.
@@ -74,15 +391,8 @@ Misc:
 - Fixed: Convoy spawn too many cargo units.
 - Fixed: Mini game IED can be disarmed again even after disarming
 - Fixed: RPT errors regarding ; at the end of file
-- Fixed: Stuck when enabling Survival mod from module.
 - Fixed: MCC_make_array_group error on server.
 - Fixed: Disabling MCC logistics will also disable the ability to command building from the SQL PDA
-
-TODO - self interaction in vehicles for opening commander console
-ODO - mission templates, test dedicated
-TODO - save campaign
-TODO - survival spawn crates in houses?!
-
 
 Change log r18:
 -= New IED Mini Game =-

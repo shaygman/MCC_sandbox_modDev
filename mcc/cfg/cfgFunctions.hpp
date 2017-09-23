@@ -51,7 +51,6 @@ class general
 	class dirToString	{description = "Get direction integer and return it as a strin North, east exc";};
 	class startLocations	{description = "Teleport the player when start location has been found";};
 	class spawnGroup	{description = "MCC Custom group spawning";};
-	class createTask	{description = "create a simple task with trigger assigned to a specific object";};
 	class keyToName		{description = "get idkKey and return string with his name";};
 	class makeBriefing	{description = "Server Only - create a Logic based briefing";};
 	class handleAddaction	{description = "Handle addactions after respawn - init";};
@@ -61,6 +60,7 @@ class general
 	class deleteBrush{};
 	class crewCount {description = "return empty seats of a specific vehicle with or without FFV (firing From Vehicles)";};
 	class addVelocity {description = "adds velocity to object depends on its current velocity";};
+	class makeTask {description = "Handles tasks on the server using BI setTask fnc";};
 };
 
 class ui

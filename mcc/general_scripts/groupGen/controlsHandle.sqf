@@ -540,9 +540,8 @@ if (_action == 11) exitWith
 	_control ctrlShow true;
 };
 
-//-------------------------------------------------------------------------------------TASKS----------------------------------------------------------------------------------------------
-if (_action == 12) exitWith
-{
+//-------------------------------------------------------------------------------------TASKS------------------------------------------------------------------------------
+if (_action == 12) exitWith {
 	_control = (_mccdialog displayCtrl 513);
 	_control ctrlShow true;
 
@@ -550,9 +549,18 @@ if (_action == 12) exitWith
 	_comboBox = (_mccdialog displayCtrl 3058);		//fill Tasks
 	lbClear _comboBox;
 	{
-		_displayname = format ["%1",_x select 0];
-		_comboBox lbAdd _displayname;
+		_index = _comboBox lbAdd (_x select 0);
+		_comboBox lbsetpicture [_index, [([_x select 1] call BIS_fnc_taskType)] call BIS_fnc_taskTypeIcon];
 	} foreach (missionNameSpace getVariable ["MCC_tasks",[]]);
+	_comboBox lbSetCurSel 0;
+
+	#define MCC_TASKS_ICON 30581
+	_comboBox = (_mccdialog displayCtrl MCC_TASKS_ICON);		//fill Tasks
+	lbClear _comboBox;
+	{
+		_index = _comboBox lbAdd (configName _x );
+		_comboBox lbsetpicture [_index, (getText (_x >> "icon"))];
+	} foreach ("true" configClasses (configfile >> "CfgTaskTypes"));
 	_comboBox lbSetCurSel 0;
 };
 

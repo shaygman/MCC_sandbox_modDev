@@ -100,10 +100,10 @@ if (_men distance _ied <4) then {
 
 				[[[netid _men,_men], format ["disarmcrit%1", (floor random 2)+1]], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
 
-				_ied setvariable ["armed",false,true];
+				//_ied setvariable ["armed",false,true];
 				sleep 2 + random 3;
 				"SmallSecondary" createVehicle _pos;
-				sleep 2 + random 3;
+				sleep 10 + random 10;
 				_ied setvariable ["iedTrigered",true,true];
 			};
 		}
@@ -124,10 +124,10 @@ if (_men distance _ied <4) then {
 
 				[[[netid _men,_men], format ["disarmcrit%1", (floor random 2)+1]], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
 
-				_ied setvariable ["armed",false,true];
-				sleep 3 + random 3;
+				//_ied setvariable ["armed",false,true];
+				sleep 2 + random 3;
 				"SmallSecondary" createVehicle _pos;
-				sleep 3 + random 3;
+				sleep 10 + random 10;
 				_ied setvariable ["iedTrigered",true,true];
 			};
 		};

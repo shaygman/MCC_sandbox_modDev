@@ -33,7 +33,6 @@ waituntil {!isnil "MCC_path"};
 
 MCC_fnc_MWCreateTask = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWCreateTask.sqf");
 MCC_fnc_customTasks = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_customTasks.sqf");
-MCC_fnc_curatorSetIED = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\cfg\curator\fnc\fn_curatorSetIED.sqf");
 
 //-------------------- Save Gear --------------------------------------------------
 if (isnil "MCC_saveGear") then {MCC_saveGear = true};

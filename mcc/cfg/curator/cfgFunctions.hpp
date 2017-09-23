@@ -10,7 +10,7 @@ class curator
 	class curatorAmbientCivilians {description = "handles the add ambient civilians module";};
 	class curatorMCCCAS {description = "MCC CAS in Zeus";};
 	class curatorSetEvac {description = "Mark Vehicle as Evac Vehicle";};
-	//class curatorSetIED {description = "Make item/object/unit an IED";};
+	class curatorSetIED {description = "Make item/object/unit an IED";};
 	class curatorSetArmedCivilian {description = "Make unit armed civilian";};
 	class curatornightEffects {description = "Manage night effects";};
 	class curatorDoorLock {description = "Manage doors status";};
