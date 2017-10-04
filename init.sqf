@@ -31,6 +31,8 @@ waituntil {!isnil "MCC_path"};
 //if (isnil "MCC_allowedPlayers") then {MCC_allowedPlayers = ["all"]};
 
 
+MCC_fnc_MWinitMission = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWinitMission.sqf");
+MCC_fnc_MWObjectiveIntel = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWObjectiveIntel.sqf");
 MCC_fnc_MWCreateTask = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWCreateTask.sqf");
 MCC_fnc_customTasks = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_customTasks.sqf");
 
@@ -165,7 +167,7 @@ mccPresetsVehicle = [
 					,['Set Empty (Cargo)', 'clearMagazineCargoGlobal _this; clearWeaponCargoGlobal _this; clearItemCargoGlobal _this;']
 					,['Set Locked', '_this setVehicleLock "LOCKED";']
 					,['Clear Cargo', 'clearMagazineCargo _this; clearWeaponCargo _this; clearItemCargo _this;']
-					,['Add Crew (UAV)','if (isServer) then {createVehicleCrew _this;group _this setvariable ["MCC_canbecontrolled",true,true];}']
+					,['Add Crew (UAV)','if (isServer) then {createVehicleCrew _this;group _this setvariable ["MCC_canbecontrolled",true,true];};']
 					,['Add Cargo Units', 'if (isServer) then {[_this] call MCC_fnc_populateVehicle};']
 					,['ECM - can jamm IED','if (isServer) then {_this setvariable ["MCC_ECM",true,true]};']
 					,['Logistic Vehicle - create FOB','_this addAction ["<t color=""#99FF00"">Create FOB </t>", "'+MCC_path+'mcc\roleSelection\scripts\createFOB.sqf",[],6,false, false,"teamSwitch","(driver vehicle _target == _this) && (speed (vehicle _target) == 0)"];']
@@ -527,6 +529,7 @@ MCC_MWMissionType = ["None",
 					 "Destroy Fuel Depot",
 					 "Destroy Radar/Radio",
 					 "Acquire Intel",
+					 "Download Intel",
 					 "Capture Area",
 					 "Disarm IED"
 					 ];

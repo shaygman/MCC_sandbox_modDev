@@ -13,7 +13,7 @@ class missionWizard
 	class MWfindObjectivePos	{description = "Create objective position";};
 	class MWObjectiveHVT		{description = "Create an HVT objective";};
 	class MWObjectiveDestroy	{description = "Create a Destroy objective";};
-	class MWObjectiveIntel		{description = "Create a pick intel objective";};
+	//class MWObjectiveIntel		{description = "Create a pick intel objective";};
 	class MWObjectiveClear		{description = "Create a clear area objective";};
 	class MWObjectiveDisable	{description = "Create a disable IED area objective";};
 	class MWCreateUnitsArray	{description = "Create units array by type";};
@@ -28,7 +28,7 @@ class missionWizard
 	class MWSpawnStatic			{description = "Spawn static weapons in the zone.";};
 	//class customTasks			{description = "Manage custom tasks.";};
 	class MWspawnAnimals		{description = "spawn animals in the area.";};
-	class MWinitMission			{description = "Init generated mission.";};
+	//class MWinitMission			{description = "Init generated mission.";};
 	class populateObjective		{description = "Populate a zone with enemies.";};
 	class createConfigs			{description = "Create configs class for the MW";};
 	class campaignInit			{description = "Init campaign";};

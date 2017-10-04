@@ -492,12 +492,12 @@ if (mcc_missionmaker == (name player)) then {
 		MCC_delete_drawing = false;
 
 		mcc_safe=mcc_safe + FORMAT ['
-								[[%1, %2 select 0, %3],"MCC_fnc_deleteBrush",true,false] spawn BIS_fnc_MP;
+								[%1, %2, %3] remoteExec ["MCC_fnc_deleteBrush",2];
 								sleep 1;'
 								, _pos
 								, _size
 								, _type
 								];
-		[[_pos, _size select 0, _type],"MCC_fnc_deleteBrush",true,false] spawn BIS_fnc_MP;
+		[_pos, _size select 0, _type] remoteExec ["MCC_fnc_deleteBrush",2];
 	};
 };

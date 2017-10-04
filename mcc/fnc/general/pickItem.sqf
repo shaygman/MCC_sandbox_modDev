@@ -57,7 +57,7 @@ if !(_text isEqualTo "") then {
 				_text = "<t size='1.0' font='PuristaBold'>" + _text +"</t>";
 
 				if !(player diarysubjectexists "MCC_intel") then {
-					player creatediarysubject ["MCC_intel","Mission's Intel"];
+					player creatediarysubject ["MCC_intel","Intel"];
 				};
 				player creatediaryrecord ["MCC_intel",[_tittle,_text]];
 

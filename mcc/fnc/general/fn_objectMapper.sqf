@@ -32,12 +32,9 @@ if (!isserver) exitWith {};
 _objs = [];
 
 //DOC sqf or Comp Array?
-if (typeName _script == "ARRAY") then
-{
+if (typeName _script == "ARRAY") then {
 	_objs = _script;
-}
-else
-{
+} else {
 	_objs = call (compile (preprocessFileLineNumbers format ["%1mcc\general_scripts\docobject\%2.sqf",MCC_path,_script]));
 };
 
@@ -93,7 +90,8 @@ for "_i" from 0 to ((count _objs) - 1) do {
 		if !(_variable isEqualTo "") then {_newObj setVariable [_variable,true]};
 
 		//Curator
-		{_x addCuratorEditableObjects [[_newObj],false]} forEach allCurators;
+		{_x addCuratorEditableObjects [[_newObj],true]} forEach allCurators;
 };
+
 publicVariable "MCC_lastSpawn";
 if (!isNil "_target") then {_target};

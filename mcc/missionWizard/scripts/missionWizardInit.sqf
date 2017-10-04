@@ -26,8 +26,7 @@
 #define MCC_MWAnimalsIDC 6023
 #define MCC_MCC_MWMusicIDC 6024
 
-private ["_playersNumber","_difficulty","_totalEnemyUnits","_isCQB","_check","_minObjectivesDistance","_maxObjectivesDistance","_enemySide","_enemyfaction","_sidePlayer","_factionPlayer","_obj1","_obj2","_obj3","_wholeMap",
-		 "_armor","_vehicles","_stealth","_isIED","_isAS","_isRoadblocks","_isCiv","_weatherChange","_isSB","_preciseMarkers","_reinforcement","_artillery","_civFaction","_playMusic","_animals","_markerName"];
+private ["_playersNumber","_difficulty","_totalEnemyUnits","_isCQB","_check","_minObjectivesDistance","_maxObjectivesDistance","_enemySide","_enemyfaction","_sidePlayer","_factionPlayer","_obj1","_obj2","_obj3","_wholeMap","_armor","_vehicles","_stealth","_isIED","_isAS","_isRoadblocks","_isCiv","_weatherChange","_isSB","_preciseMarkers","_reinforcement","_artillery","_civFaction","_playMusic","_animals","_markerName"];
 
 //MCC_MWAnimalsIndex MCC_MWBattleGroundIndex MCC_MWMusicIndex
 if (isnil "MCC_MWisGenerating") then {MCC_MWisGenerating = false};

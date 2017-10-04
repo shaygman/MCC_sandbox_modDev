@@ -26,13 +26,30 @@
 #define MCC_MWBattleGroundIDC 6024
 #define MCC_MCC_MWMusicIDC 6024
 
-private ["_mccdialog","_comboBox","_displayname"];
+private ["_mccdialog","_comboBox","_displayname","_missionTypeIcons"];
 disableSerialization;
 
 uiNamespace setVariable ["MCC_MWDialog", _this select 0];
 _mccdialog = _this select 0;
 
 MCC_mcc_screen = 3;
+
+_missionTypeIcons = ["",
+					 "",
+					"\A3\ui_f\data\igui\cfg\simpleTasks\types\help_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\kill_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\download_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa",
+					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\mine_ca.paa"
+					];
+
 _comboBox = _mccdialog displayCtrl FACTIONCOMBO;		//fill combobox CFG factions
 	lbClear _comboBox;
 	{
@@ -109,27 +126,31 @@ lbClear _comboBox;
 } foreach MCC_MWDifficulty;
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWDifficultyIndex",0]);
 
+//Objective 1
 _comboBox = _mccdialog displayCtrl MCC_MWObjective1IDC;
 lbClear _comboBox;
 {
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
+	_index = _comboBox lbAdd _x;
+	_comboBox lbSetPictureRight [_index,(_missionTypeIcons) select _foreachindex]
 } foreach MCC_MWMissionType;
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWObjective1Index",0]);
 
+//Objective 2
 _comboBox = _mccdialog displayCtrl MCC_MWObjective2IDC;
 lbClear _comboBox;
 {
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
+	_index = _comboBox lbAdd _x;
+	_comboBox lbSetPictureRight [_index,(_missionTypeIcons) select _foreachindex]
 } foreach MCC_MWMissionType;
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWObjective2Index",0]);
 
+
+//Objective 3
 _comboBox = _mccdialog displayCtrl MCC_MWObjective3IDC;
 lbClear _comboBox;
 {
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
+	_index = _comboBox lbAdd _x;
+	_comboBox lbSetPictureRight [_index,(_missionTypeIcons) select _foreachindex]
 } foreach MCC_MWMissionType;
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWObjective3Index",0]);
 

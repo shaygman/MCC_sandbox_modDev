@@ -12,7 +12,19 @@ if (_type<4) then
 	_arti = _this select 1;
 	_arti addeventhandler["fired", {[4,_this select 0, _this select 4] spawn MCC_fnc_amb_Art}]; //Delete the projectile.
 	_dummypos = [getpos _arti, 50, getdir _arti] call BIS_fnc_relPos;
-	sleep 1;
+
+	if (isNull gunner _arti) then {
+		createVehicleCrew _arti;
+		sleep 1;
+		{
+			private _curator = _x;
+			{
+				_curator addCuratorEditableObjects [[_x],true]
+			} forEach (crew _arti);
+
+		} forEach allCurators;
+	};
+
 	(gunner _arti) lookAt [_dummypos select 0, _dummypos select 1,(_dummypos select 2)+100];
 	_arti disableAI "AUTOTARGET";
 	_arti disableAI "TARGET";

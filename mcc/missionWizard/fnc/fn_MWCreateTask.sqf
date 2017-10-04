@@ -211,6 +211,22 @@ switch (_task) do {
       _taskType = "search";
    };
 
+   //Download Intel
+   case "downloadIntel":
+   {
+      _objectName = getText(configFile >> "CfgVehicles" >> typeof _obj >> "displayname");
+      _stringName   = FORMAT ["Hack and download intel from %1", _objectName];
+      _stringDescription =  FORMAT ["Download Intel.<br/><br/>HQ believe that we have an opportunity to acquire top notch information about enemy forces operating in the area.<br/>%3 the target data is in a %2, located %4.<br/>Retrieve the information and bring it back for analysis."
+                             , _missionTime call BIS_fnc_selectRandom
+                             , _objectName
+                             , _missionIntel call BIS_fnc_selectRandom
+                             , _missionWherabouts call BIS_fnc_selectRandom
+                             , _stringName
+                             ];
+      _pic = "\a3\Missions_F_EPA\data\img\A_hub02_overview_CA.paa";
+      _taskType = "download";
+   };
+
    //clear_area
    case "clear_area": {
       _stringName   = "Clear Area";

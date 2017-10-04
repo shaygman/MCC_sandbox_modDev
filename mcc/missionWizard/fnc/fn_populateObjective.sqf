@@ -61,7 +61,7 @@ if (_isCQB) then
 	[[_missionCenter,_missionRadius,0,(_totalEnemyUnits*0.005),_enemyfaction,str _enemySide],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
 
 	//lock some doors
-	[_missionCenter,_missionRadius,11] spawn MCC_fnc_deleteBrush;
+	[_missionCenter,_missionRadius,12] spawn MCC_fnc_deleteBrush;
 };
 
 // Is _isCiv

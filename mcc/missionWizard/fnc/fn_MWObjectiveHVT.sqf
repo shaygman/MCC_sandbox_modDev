@@ -46,142 +46,133 @@ MCC_MWcreateHostage =
 
 
 
-if (_isCQB) then
-	{
-		 _array = [_objPos, 100] call MCC_fnc_MWFindbuildingPos;
-		 _building = _array select 0;
-		 _buildingPos = _array select 1;
+if (_isCQB) then {
+	 _array = [_objPos, 100] call MCC_fnc_MWFindbuildingPos;
+	 _building = _array select 0;
+	 _buildingPos = _array select 1;
 
-		 if (isnil "_buildingPos") exitWith {debuglog "MCC MW - MWObjectiveHVT - No building pos foudn"};
+	 if (isnil "_buildingPos") exitWith {debuglog "MCC MW - MWObjectiveHVT - No building pos foudn"};
 
-		_unitPlaced = false;
-		_time = time;
-		 while {!_unitPlaced && (time <= (_time + 5))} do
-		{
-			_spawnPos	= _building buildingPos (floor random _buildingPos);
-			if (count (nearestObjects [_spawnPos, ["Man"], 1])<1) then		//No other unit in the spawn position?
-			{
-				if (_alive) then
+	_unitPlaced = false;
+	_time = time;
+
+	 while {!_unitPlaced && (time <= (_time + 5))} do {
+		_spawnPos	= _building buildingPos (floor random _buildingPos);
+
+		//No other unit in the spawn position?
+		if (count (nearestObjects [_spawnPos, ["Man"], 1])<1) then {
+			if (_alive) then {
+
+				//Hostage
+				_unitsArray	= [_factionPlayer ,"soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
+				_type = [""];
+
+				//Karts again?!
+				while {(_type select 0) in ["C_Driver_1_F"] || (_type select 0) == ""} do
 				{
-					//Hostage
-					_unitsArray	= [_factionPlayer ,"soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
-					_type = [""];
-
-					//Karts again?!
-					while {(_type select 0) in ["C_Driver_1_F"] || (_type select 0) == ""} do
-					{
-						_type = _unitsArray call BIS_fnc_selectRandom;
-					};
-
-					_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
-					waituntil {alive _unit};
-
-					[_unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
-				}
-				else
-				{
-					//HVT
-					switch _side do
-						{
-							case west: {_type =   _HVTClasses select 0};
-							case east: {_type =   _HVTClasses select 1};
-							case resistance:  {_type =   _HVTClasses select 2};
-							default {_type =   _HVTClasses select 3};
-						};
-					_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
-					waituntil {alive _unit};
-
-					[_unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+					_type = _unitsArray call BIS_fnc_selectRandom;
 				};
 
-				_unitPlaced = true;
-
-				//Lets spawn some body guards
-				[[getpos _unit,30,0,2,_faction, _side],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
-			};
-		};
-	}
-	else
-	{
-		//Open area
-		[_objPos, random 360, (_HVTCampsClasses call BIS_fnc_selectRandom)] call MCC_fnc_objectMapper;
-		_group = creategroup _side;
-
-		if (_alive) then
-		{
-			//Hostage
-
-			//Let's build the faction unit's array
-			_unitsArray	= [_factionPlayer ,"soldier"] call MCC_fnc_makeUnitsArray;
-			_type = _unitsArray call BIS_fnc_selectRandom;
-
-			//Find an empry spot
-			_spawnPos = _objPos findEmptyPosition [0,100,(_type select 0)];
-			_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
-
-			//Start Briefings
-			waituntil {alive _unit};
-
-			[_unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
-			//Static Patrol
-			_walking = false;
-		}
-		else
-		{
-			//HVT
-			switch _side do
-				{
-					case west: {_type =   _HVTClasses select 0};
-					case east: {_type =   _HVTClasses select 1};
-					case resistance:  {_type =   _HVTClasses select 2};
-					default {_type =   _HVTClasses select 3};
-				};
-
-			//Find an empry spot
-			_spawnPos = _objPos findEmptyPosition [0,100,_type];
-
-			//walking HVT?
-			_walking = if (random 1 < 0.5) then {true} else {false};
-
-			if (_walking) then
-			{
-				_unit = _group createUnit [_type ,_spawnPos,[],0.5,"NONE"];
+				_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
 				waituntil {alive _unit};
 
-				MCC_tempName = format ["MCC_objectUnits_%1", ["MCC_objectUnitsCounter",1] call bis_fnc_counter];
-				_init = FORMAT [";%1 = _this;",MCC_tempName];
+				[_unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 
-				[[[netid _unit,_unit], _init], "MCC_fnc_setVehicleInit", true, true] spawn BIS_fnc_MP;
+			} else {
 
-			}
-			else
-			{
+				//HVT
+				switch _side do
+					{
+						case west: {_type =   _HVTClasses select 0};
+						case east: {_type =   _HVTClasses select 1};
+						case resistance:  {_type =   _HVTClasses select 2};
+						default {_type =   _HVTClasses select 3};
+					};
 				_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
+				waituntil {alive _unit};
+
+				[_unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 			};
 
-			[_unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
-		};
+			_unitPlaced = true;
 
-		//Lets spawn some body guards
-		_unitsArray 	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
-
-		for [{_i=0},{_i<3},{_i=_i+1}] do
-		{
-			_type = _unitsArray select round (random 4);
-			_spawnPos = (getpos _unit) findEmptyPosition [0,100,(_type select 0)];
-			_unit = _group createUnit [_type select 0,_spawnPos,[],0.5,"NONE"];
-			waituntil {alive _unit};
-			{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
-		};
-
-		_group setFormDir (round(random 360));
-
-		if (_walking) then
-		{
-			[_group, _spawnPos, 150] call BIS_fnc_taskPatrol;
-		}
-		else
-		{
-			[_group, _spawnPos] call bis_fnc_taskDefend;
+			//Lets spawn some body guards
+			[[getpos _unit,30,0,2,_faction, _side],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
 		};
 	};
+} else {
+	//Open area
+	[_objPos, random 360, (_HVTCampsClasses call BIS_fnc_selectRandom)] call MCC_fnc_objectMapper;
+	_group = creategroup _side;
+
+	if (_alive) then {
+		//Hostage
+
+		//Let's build the faction unit's array
+		_unitsArray	= [_factionPlayer ,"soldier"] call MCC_fnc_makeUnitsArray;
+		_type = _unitsArray call BIS_fnc_selectRandom;
+
+		//Find an empry spot
+		_spawnPos = _objPos findEmptyPosition [0,100,(_type select 0)];
+		_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
+
+		//Start Briefings
+		waituntil {alive _unit};
+
+		[_unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+		//Static Patrol
+		_walking = false;
+
+	} else {
+
+		//HVT
+		switch _side do
+			{
+				case west: {_type =   _HVTClasses select 0};
+				case east: {_type =   _HVTClasses select 1};
+				case resistance:  {_type =   _HVTClasses select 2};
+				default {_type =   _HVTClasses select 3};
+			};
+
+		//Find an empry spot
+		_spawnPos = _objPos findEmptyPosition [0,100,_type];
+
+		//walking HVT?
+		_walking = if (random 1 < 0.5) then {true} else {false};
+
+		if (_walking) then {
+			_unit = _group createUnit [_type ,_spawnPos,[],0.5,"NONE"];
+			waituntil {alive _unit};
+
+			MCC_tempName = format ["MCC_objectUnits_%1", ["MCC_objectUnitsCounter",1] call bis_fnc_counter];
+			_init = FORMAT [";%1 = _this;",MCC_tempName];
+
+			[[[netid _unit,_unit], _init], "MCC_fnc_setVehicleInit", true, true] spawn BIS_fnc_MP;
+
+		} else {
+			_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
+		};
+
+		[_unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+	};
+
+	//Lets spawn some body guards
+	_unitsArray 	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
+
+	for [{_i=0},{_i<3},{_i=_i+1}] do {
+
+		_type = _unitsArray select round (random 4);
+		_spawnPos = (getpos _unit) findEmptyPosition [0,100,(_type select 0)];
+		_unit = _group createUnit [_type select 0,_spawnPos,[],0.5,"NONE"];
+		waituntil {alive _unit};
+		{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
+	};
+
+	_group setFormDir (round(random 360));
+
+	if (_walking) then {
+		[_group, _spawnPos, 150] call BIS_fnc_taskPatrol;
+	} else {
+		[_group, _spawnPos] call bis_fnc_taskDefend;
+	};
+};

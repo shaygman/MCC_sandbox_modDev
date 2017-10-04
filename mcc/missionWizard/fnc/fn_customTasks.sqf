@@ -97,7 +97,7 @@ switch (true) do {
 		};
 	};
 
-	case (_taskType in ["search"]): {
+	case (_taskType in ["search","download"]): {
 		waituntil {isnull _attachedUnit};
 		sleep 5;
 		if (isNull _attachedUnit && ((missionNamespace getVariable ["MCC_pickItem",sideLogic]) in _owners)) then {

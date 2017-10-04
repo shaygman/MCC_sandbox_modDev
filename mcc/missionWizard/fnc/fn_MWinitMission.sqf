@@ -88,18 +88,23 @@ _arrayAssets		= _this select 4;
 _reinforcement 			= _arrayAssets select 0;
 _artillery 				= _arrayAssets select 1;
 
-_objArray			 	= ["Secure HVT",
-						   "Kill HVT",
-						   "Destroy Vehicle",
-						   "Destroy AA",
-						   "Destroy Artillery",
-						   "Destroy Weapon Cahce",
-						   "Destroy Fuel Depot",
-						   "Destroy Radar/Radio",
-						   "Aquire Intel",
-						   "Capture Area",
-						   "Disarm IED"
-						  ];
+_objArray			 	= missionNamespace getVariable ["MCC_MWMissionType",["Secure HVT",
+																			   "Kill HVT",
+																			   "Destroy Vehicle",
+																			   "Destroy AA",
+																			   "Destroy Artillery",
+																			   "Destroy Weapon Cahce",
+																			   "Destroy Fuel Depot",
+																			   "Destroy Radar/Radio",
+																			   "Acquire Intel",
+																			   "Capture Area",
+																			   "Disarm IED"
+																			  ]];
+
+//Remove random and none
+{
+	_objArray = _objArray - [_x];
+} forEach ["None","Random"];
 
 //Lets find the mission maker owner and make sure he'll get the zone markers too.
 private ["_missionMaker"];
@@ -351,10 +356,12 @@ for [{_x = 1},{_x <=3},{_x = _x+1}] do {
 		};
 
 		if (["Destroy", _objType] call BIS_fnc_inString) then {
-			[[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_objType,_campaignMission,_sidePlayer], "MCC_fnc_MWObjectiveDestroy", false, false] call BIS_fnc_MP;
+			[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_objType,_campaignMission,_sidePlayer] remoteExec ["MCC_fnc_MWObjectiveDestroy",2];
 		} else {
-			switch (_objType) do {
-			   case "Secure HVT": {
+			switch (true) do {
+
+				case (_objType in ["Secure HVT"]): {
+
 					private ["_defendingFaction","_defendingSide"];
 					//Change faction because we are dealing with a hostage and not an enemy
 					if ((random 1)>0.5) then {
@@ -366,23 +373,24 @@ for [{_x = 1},{_x <=3},{_x = _x+1}] do {
 					};
 
 					//Spawn a hostage on the server
-					[[_objPos, _isCQB, true, _enemySide, _enemyfaction, _defendingSide, _defendingFaction,_preciseMarkers], "MCC_fnc_MWObjectiveHVT", false, false] call BIS_fnc_MP;
+					[_objPos, _isCQB, true, _enemySide, _enemyfaction, _defendingSide, _defendingFaction,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveHVT",2];
 				};
 
-			  case "Kill HVT": {
-					[[_objPos, _isCQB, false, _enemySide, _enemyfaction, _sidePlayer, _factionPlayer,_preciseMarkers], "MCC_fnc_MWObjectiveHVT", false, false] call BIS_fnc_MP;
+				case (_objType in ["Kill HVT"]): {
+					[_objPos, _isCQB, false, _enemySide, _enemyfaction, _sidePlayer, _factionPlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveHVT",2];
 				};
 
-			  case "Aquire Intel": {
-					[[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_sidePlayer], "MCC_fnc_MWObjectiveIntel", false, false] call BIS_fnc_MP;
+				case (_objType in ["Acquire Intel","Download Intel"]): {
+					[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_sidePlayer,(_objType isEqualTo "Download Intel")] remoteExec ["MCC_fnc_MWObjectiveIntel",2];
+
 				};
 
-			 case "Capture Area": {
-					[[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance], "MCC_fnc_MWObjectiveClear", false, false] call BIS_fnc_MP;
+				case (_objType in ["Capture Area"]): {
+					[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance] remoteExec ["MCC_fnc_MWObjectiveClear",2];
 				};
 
-			 case "Disarm IED": {
-					[[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers], "MCC_fnc_MWObjectiveDisable", false, false] call BIS_fnc_MP;
+				case (_objType in ["Disarm IED"]): {
+					[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveDisable",2];
 				};
 			};
 		};
@@ -490,7 +498,7 @@ for [{_x = 1},{_x <=3},{_x = _x+1}] do {
 
 
 //-----------------------------------------------------------------------------Main zone-----------------------------------------------------------------------------------------------
-private ["_zoneNumber","_unitPlaced","_safepos","_factor"];
+private ["_unitPlaced","_safepos","_factor"];
 
 [_missionCenterTrigger,_enemyfaction,_civFaction,_totalEnemyUnits, false, false, _animals, _vehicles, _armor, _artillery, _isRoadblocks, _isIED, false, false, _reinforcement, _sidePlayer, _enemySide] call MCC_fnc_populateObjective;
 
@@ -552,14 +560,25 @@ if (_weatherChange != 0) then {
 		if (_weatherChange == 4) then {[["snow",false],"MCC_fnc_ppEffects",true,false] call BIS_fnc_MP};
 	};
 };
-/*
+
 //Force AI to use flashlights
-if (sunOrMoon <0.5 &&  random 1 > 0.5) then
-{
-	[getmarkerpos str _zoneNumber,((getmarkersize str _zoneNumber) select 0) max ((getmarkersize str _zoneNumber) select 1),17] spawn MCC_fnc_deleteBrush;
-	[getmarkerpos str _zoneNumber,((getmarkersize str _zoneNumber) select 0) max ((getmarkersize str _zoneNumber) select 1),18] spawn MCC_fnc_deleteBrush;
+
+[position MWMissionArea, (triggerArea MWMissionArea) select 0,(triggerArea MWMissionArea) select 1] spawn {
+	params [
+			["_pos", [0,0,0], [[]]],
+			["_sizeA", 50, [0]],
+			["_sizeB", 40, [0]]
+		];
+	sleep 10;
+
+	if (sunOrMoon <0.5) then {
+
+		[_pos,(_sizeA) max (_sizeB),19,true] spawn MCC_fnc_deleteBrush;
+		[_pos,(_sizeA) max (_sizeB),20,true] spawn MCC_fnc_deleteBrush;
+	};
 };
-*/
+
+
 // ------------------  CREATE BRIEFINGS --------------------------------------------------------------------------
 //-----------------  CREATE BRIEFINGS --------------------------------------------------------------------------
 

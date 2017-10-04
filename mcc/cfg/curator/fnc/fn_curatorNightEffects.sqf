@@ -12,7 +12,7 @@ _pos = getpos _module;
 
 _resualt = ["Set Night Effects",[
  						["Radius",500],
- 						["Destroy Lights",true],
+ 						["Lights Off",true],
  						["Remove Night Vision",true],
  						["Add Flashlights",true],
  						["Ignore Player's Units",false]
@@ -23,11 +23,23 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
 private ["_radius","_ignorePlayers"];
 _radius = _resualt select 0;
 _ignorePlayers = _resualt select 4;
-{
-	if (_resualt select (_foreachIndex+1)) then {
-		[[_pos, _radius, _x,_ignorePlayers], "MCC_fnc_deleteBrush", false, false] call BIS_fnc_MP;
-	}
-} forEach [9,18,19];
+
+//Lights
+if (_resualt select 1) then {
+	[_pos, _radius, 8,_ignorePlayers] remoteExec ["MCC_fnc_deleteBrush",2];
+} else {
+	[_pos, _radius, 9,_ignorePlayers] remoteExec ["MCC_fnc_deleteBrush",2];
+};
+
+//NV
+if (_resualt select 2) then {
+	[_pos, _radius, 19,_ignorePlayers] remoteExec ["MCC_fnc_deleteBrush",2];
+};
+
+//Flashlights
+if (_resualt select 3) then {
+	[_pos, _radius, 20,_ignorePlayers] remoteExec ["MCC_fnc_deleteBrush",2];
+};
 
 
 deleteVehicle _module;

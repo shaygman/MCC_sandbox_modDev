@@ -92,6 +92,7 @@ class CfgFunctions
 		#include "\mcc_sandbox_mod\mcc\helicopters\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\ambient\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\LHD\cfgFunctions.hpp"
+		#include "\mcc_sandbox_mod\mcc\compositions\cfgFunctions.hpp"
 	};
 };
 
@@ -151,6 +152,12 @@ class CfgDebriefing
 		subtitle = "For abusing the radio";
 		description = "You were kicked";
 	};
+};
+
+//Groups
+class CfgGroups
+{
+	#include "\mcc_sandbox_mod\mcc\compositions\cfgGroups.hpp"
 };
 
 class cfgVehicles
