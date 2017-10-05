@@ -42,10 +42,11 @@ Change log r22:
 	- Added: New function MCC_fnc_compositionsPlace load an 3den or Zeus composition
 
 - Mission Wizard:
+	- Added: New Missions: Hack and download data
 	- Added: Wikia Page - http://mccsandbox.wikia.com/wiki/Mission_Generator
 	- Added: New Tasks icons and tasks parents.
 	- Added: Non CQB mission area will be more diverse and will use Zeus and some custom compositions.
-	- Changed: In night ops garrisson AI won't have night vision and will be forced to use flashlights
+		- Changed: In night ops garrisson AI won't have night vision and will be forced to use flashlights
 	- Fixed: Saving generated mission tasks didn't wokrk.
 	- Added: Define master data using arrays in your init.sqf file:
 		- MCC_MWHVT - HVT classes

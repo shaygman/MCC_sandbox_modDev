@@ -98,9 +98,9 @@ switch (true) do {
 	};
 
 	case (_taskType in ["search","download"]): {
-		waituntil {isnull _attachedUnit};
+		waituntil {(isnull _attachedUnit || (_attachedUnit getVariable ["MCC_intelItemDone",false]))};
 		sleep 5;
-		if (isNull _attachedUnit && ((missionNamespace getVariable ["MCC_pickItem",sideLogic]) in _owners)) then {
+		if ((isnull _attachedUnit || (_attachedUnit getVariable ["MCC_intelItemDone",false])) && ((missionNamespace getVariable ["MCC_pickItem",sideLogic]) in _owners)) then {
 			_logic setvariable ["RscAttributeTaskState","Succeeded", true];
 
 			missionNamespace setVariable [format ["MCC_campaignMissionsStatus_%1_succeed",(missionNamespace getVariable ["MCC_pickItem",sideUnknown])],(missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_succeed",(missionNamespace getVariable ["MCC_pickItem",sideUnknown])],0])+1];

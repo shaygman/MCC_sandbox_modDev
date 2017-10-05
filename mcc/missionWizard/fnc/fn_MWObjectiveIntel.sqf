@@ -91,6 +91,7 @@ if (_isDownloadIntel) then {
 	};
 
 	_object setPos _spawnPos;
+	_object setVariable ["MCC_intelItem",true,true];
 
 } else {
 	//Spawn the intel

@@ -77,6 +77,12 @@ publicvariable "MCC_pickItem";
 
 sleep 1;
 
+//Download Data
+if (_object getVariable ["MCC_intelItem",false]) exitWith {
+	[_object,3] call BIS_fnc_dataTerminalAnimate;
+	_object setVariable ["MCC_intelItemDone",true,true]
+};
+
 //Delete after
 if (_delete) then {
 	deleteVehicle _object;
