@@ -79,7 +79,6 @@ sleep 1;
 
 //Download Data
 if (_object getVariable ["MCC_intelItem",false]) exitWith {
-	[_object,3] call BIS_fnc_dataTerminalAnimate;
 	_object setVariable ["MCC_intelItemDone",true,true]
 };
 
@@ -87,9 +86,3 @@ if (_object getVariable ["MCC_intelItem",false]) exitWith {
 if (_delete) then {
 	deleteVehicle _object;
 };
-
-/*
-_this  setVariable ["MCC_intelObjectText",["Baron Info","We have found out that the baron is hidding stash in his house to the north"]];
-_this  setVariable ["MCC_intelObjectMarkerName",["marker1"]];
-_this call MCC_fnc_pickItem;
-*/

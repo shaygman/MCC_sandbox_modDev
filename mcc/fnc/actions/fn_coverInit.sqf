@@ -7,12 +7,5 @@
 
 	waituntil {!(IsNull (findDisplay 46))};
 
-	while {true} do {
-
-		if (missionNameSpace getVariable ["MCC_cover",false]) then {
-			[] call MCC_fnc_cover;
-		};
-
-		sleep 0.1;
-	};
+	["MCC_fnc_coverEH", "onEachFrame", {[] call MCC_fnc_cover}] call BIS_fnc_addStackedEventHandler;
 };

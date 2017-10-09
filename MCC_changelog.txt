@@ -38,6 +38,9 @@ Change log r22:
 - Fixed: Medic system blur stays after death.
 - Fixed: Building construction fortification bug.
 
+- Vault & Cover
+	- Changed: Streamlined vault and cover system - added quick vault over low obstacles
+
 - Compositions
 	- Added: New function MCC_fnc_compositionsPlace load an 3den or Zeus composition
 

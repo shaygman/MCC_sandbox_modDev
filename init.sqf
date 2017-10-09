@@ -35,6 +35,8 @@ MCC_fnc_MWinitMission = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\
 MCC_fnc_MWObjectiveIntel = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWObjectiveIntel.sqf");
 MCC_fnc_MWCreateTask = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_MWCreateTask.sqf");
 MCC_fnc_customTasks = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\missionWizard\fnc\fn_customTasks.sqf");
+MCC_fnc_vault = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\fnc\actions\fn_vault.sqf");
+MCC_fnc_cover = compile (preprocessFileLineNumbers "mcc_sandbox_mod\mcc\fnc\actions\fn_cover.sqf");
 
 //-------------------- Save Gear --------------------------------------------------
 if (isnil "MCC_saveGear") then {MCC_saveGear = true};
