@@ -6,8 +6,9 @@
 //_faction = enemy Faction
 // Return - nothing
 //===============================================================================================================================================================*/
+#define MCC_MWSITES [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]
 
-private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_objType","_spawnPos","_time","_sidePlayer","_object","_dummyObject","_spawndir","_unitsArray","_group","_init","_range","_array","_building","_buildingPos","_isDownloadIntel","_sites","_taskType","_foundBuilding"];
+private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_objType","_spawnPos","_time","_sidePlayer","_object","_dummyObject","_spawndir","_unitsArray","_group","_init","_range","_selectedBuilding","_building","_buildingPos","_isDownloadIntel","_taskType","_foundBuilding"];
 
 _objPos = _this select 0;
 _isCQB = _this select 1;
@@ -38,24 +39,7 @@ if !(_isCQB) then {
 	};
 
 	_objPos = _spawnPos;
-	_sites = [
-				["Guerrilla","Camps","CampA"],
-				["Guerrilla","Camps","CampB"],
-				["Guerrilla","Camps","CampC"],
-				["Guerrilla","Camps","CampD"],
-				["Guerrilla","Camps","CampE"],
-				["Guerrilla","Camps","CampF"],
-				["Military","Outposts","OutpostA"],
-				["Military","Outposts","OutpostB"],
-				["Military","Outposts","OutpostC"],
-				["Military","Outposts","OutpostD"],
-				["Military","Outposts","OutpostE"],
-				["Military","Outposts","OutpostF"],
-				["MCC_comps","civilians","slums"],
-				["MCC_comps","Guerrilla","campSite"]
-			 ];
-
-	_dummyObject = [_spawnPos, random 360, (_sites call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
+	[_spawnPos, random 360, (MCC_MWSITES call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
 };
 
 //Lets spawn some body guards
@@ -63,9 +47,9 @@ _range = if (_isCQB) then {30} else {60};
 [_objPos,_range,0,4,_faction, _side] remoteExec ["MCC_fnc_garrison",2];
 
 //Lets find out if we have a building close by
-_array = [_objPos, 50] call MCC_fnc_MWFindbuildingPos;
-_building = _array select 0;
-_buildingPos = _array select 1;
+_selectedBuilding = ([_objPos, 100] call MCC_fnc_MWFindbuildingPos) call BIS_fnc_selectRandom;
+_building = _selectedBuilding select 0;
+_buildingPos = _selectedBuilding select 1;
 
 if (!(isnil "_buildingPos") &&
     (_isCQB || (! _isCQB && (_building distance2D _objPos) <= 20))

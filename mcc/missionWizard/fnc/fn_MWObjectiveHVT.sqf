@@ -7,9 +7,9 @@
 // Return - nothing
 //===============================================================================================================================================================
 #define	MCC_UNTIE_ICON "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa"
+#define MCC_MWSITES [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]
 
-
-private ["_objPos","_isCQB","_alive","_buildingPos","_spawnPos","_unitsArray","_faction","_type","_group","_side","_unit","_building","_unitPlaced","_time","_array","_sidePlayer","_factionPlayer","_walking","_preciseMarkers","_HVTClasses","_HVTCampsClasses"];
+private ["_objPos","_isCQB","_alive","_buildingPos","_spawnPos","_unitsArray","_faction","_type","_group","_side","_unit","_building","_unitPlaced","_time","_array","_sidePlayer","_factionPlayer","_walking","_preciseMarkers","_HVTClasses","_selectedBuilding"];
 
 _objPos = _this select 0;
 _isCQB = _this select 1;
@@ -21,7 +21,6 @@ _factionPlayer = _this select 6;
 _preciseMarkers = _this select 7;
 
 _HVTClasses = missionNamespace getVariable ["MCC_MWHVT",["B_officer_F","O_officer_F","I_officer_F","C_Nikos"]];
-_HVTCampsClasses = missionNamespace getVariable ["MCC_MWHVTCamps",["c_campSite","o_campSIte","b_campSIte","c_slums"]];
 
 MCC_MWcreateHostage =
 {
@@ -47,11 +46,11 @@ MCC_MWcreateHostage =
 
 
 if (_isCQB) then {
-	 _array = [_objPos, 100] call MCC_fnc_MWFindbuildingPos;
-	 _building = _array select 0;
-	 _buildingPos = _array select 1;
 
-	 if (isnil "_buildingPos") exitWith {debuglog "MCC MW - MWObjectiveHVT - No building pos foudn"};
+	_selectedBuilding = ([_objPos, 100] call MCC_fnc_MWFindbuildingPos) call BIS_fnc_selectRandom;
+	_building = _selectedBuilding select 0;
+	_buildingPos = _selectedBuilding select 1;
+ 	if (isnil "_buildingPos") exitWith {debuglog "MCC MW - MWObjectiveHVT - No building pos foudn"};
 
 	_unitPlaced = false;
 	_time = time;
@@ -102,7 +101,9 @@ if (_isCQB) then {
 	};
 } else {
 	//Open area
-	[_objPos, random 360, (_HVTCampsClasses call BIS_fnc_selectRandom)] call MCC_fnc_objectMapper;
+	[_objPos, random 360, (MCC_MWSITES call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
+	[_objPos,30,0,4,_faction, _side] remoteExec ["MCC_fnc_garrison",2];
+
 	_group = creategroup _side;
 
 	if (_alive) then {
@@ -144,6 +145,9 @@ if (_isCQB) then {
 			_unit = _group createUnit [_type ,_spawnPos,[],0.5,"NONE"];
 			waituntil {alive _unit};
 
+			//Add to zeus
+			{[[_x,_unit],{(_this select 0) addCuratorEditableObjects [[_this select 1],true];}] remoteExec ["BIS_fnc_spawn",_x]} forEach allCurators;
+
 			MCC_tempName = format ["MCC_objectUnits_%1", ["MCC_objectUnitsCounter",1] call bis_fnc_counter];
 			_init = FORMAT [";%1 = _this;",MCC_tempName];
 
@@ -157,7 +161,7 @@ if (_isCQB) then {
 	};
 
 	//Lets spawn some body guards
-	_unitsArray 	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
+	_unitsArray 	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;
 
 	for [{_i=0},{_i<3},{_i=_i+1}] do {
 
@@ -165,7 +169,9 @@ if (_isCQB) then {
 		_spawnPos = (getpos _unit) findEmptyPosition [0,100,(_type select 0)];
 		_unit = _group createUnit [_type select 0,_spawnPos,[],0.5,"NONE"];
 		waituntil {alive _unit};
-		{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
+
+		//Add to zeus
+		{[[_x,_unit],{(_this select 0) addCuratorEditableObjects [[_this select 1],true];}] remoteExec ["BIS_fnc_spawn",_x]} forEach allCurators;
 	};
 
 	_group setFormDir (round(random 360));
