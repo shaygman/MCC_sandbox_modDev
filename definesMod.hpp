@@ -64,6 +64,7 @@
 #include "\mcc_sandbox_mod\mcc\survive\cfg.hpp"
 #include "\mcc_sandbox_mod\mcc\interaction\cfg.hpp"
 #include "\mcc_sandbox_mod\mcc\LHD\cfg.hpp"
+#include "\mcc_sandbox_mod\mcc\vehicles\cfg.hpp"
 
 //--------------------------Cfg----------------------------------------------------
 class CfgFunctions
@@ -93,6 +94,7 @@ class CfgFunctions
 		#include "\mcc_sandbox_mod\mcc\ambient\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\LHD\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\compositions\cfgFunctions.hpp"
+		#include "\mcc_sandbox_mod\mcc\vehicles\cfgFunctions.hpp"
 	};
 };
 

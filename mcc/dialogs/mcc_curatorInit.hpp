@@ -105,6 +105,16 @@ class MCCCuratorInit_Dialog
 			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 
+		class ButtonCustom3: MCC_RscButtonMenu
+		{
+			moving = 1;
+			idc = 10008;
+			x = "13.2 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+			y = "16.1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+			w = "5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+		};
+
 		#include "mcc_boxGen.hpp"
 
 	};
@@ -134,6 +144,7 @@ class MCC_RscDisplayAttributesMan: MCCCuratorInit_Dialog
 		class ButtonOK: ButtonOK{};
 		class ButtonCustom: ButtonCustom{};
 		class ButtonCustom2: ButtonCustom2{};
+		class ButtonCustom3: ButtonCustom3{};
 		class ButtonCancel: ButtonCancel{};
 	};
 };
@@ -162,6 +173,7 @@ class MCC_RscDisplayAttributesVehicle: MCCCuratorInit_Dialog
 		class ButtonOK: ButtonOK{};
 		class ButtonCustom: ButtonCustom{};
 		class ButtonCustom2: ButtonCustom2{};
+		class ButtonCustom3: ButtonCustom3{};
 		class ButtonCancel: ButtonCancel{};
 		class cargo: MCC_3DCargoGenControls {};
 	};
@@ -190,6 +202,7 @@ class MCC_RscDisplayAttributesVehicleEmpty: MCCCuratorInit_Dialog
 		class ButtonOK: ButtonOK{};
 		class ButtonCustom: ButtonCustom{};
 		class ButtonCustom2: ButtonCustom2{};
+		class ButtonCustom3: ButtonCustom3{};
 		class ButtonCancel: ButtonCancel{};
 		class cargo: MCC_3DCargoGenControls {};
 	};
@@ -213,6 +226,7 @@ class MCC_RscDisplayAttributesObject: MCCCuratorInit_Dialog
 		class ButtonOK: ButtonOK{};
 		class ButtonCustom: ButtonCustom{};
 		class ButtonCustom2: ButtonCustom2{};
+		class ButtonCustom3: ButtonCustom3{};
 		class ButtonCancel: ButtonCancel{};
 		class cargo: MCC_3DCargoGenControls {};
 	};

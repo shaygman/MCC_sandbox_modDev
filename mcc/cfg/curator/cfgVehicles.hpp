@@ -31,3 +31,4 @@
 #include "MCC_Module_LHDSpawnMenuCurator.hpp"
 #include "MCC_Module_GAIARespawnsCurator.hpp"
 #include "MCC_Module_RTSBuildingsCurator.hpp"
+#include "MCC_Module_PylonsChange.hpp"

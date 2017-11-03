@@ -6,7 +6,7 @@ class MCC_Module_Base : Module_F
 	category = "MCC";
 	icon = "\mcc_sandbox_mod\data\mccModule.paa";
 	picture = "\mcc_sandbox_mod\data\mccModule.paa";
-	portrait = "\mcc_sandbox_mod\data\mccModule.paa";
+	portrait = "\mcc_sandbox_mod\data\zeusMCCLogo.paa";
 
 	scope = 1;
 	scopeCurator = 1;

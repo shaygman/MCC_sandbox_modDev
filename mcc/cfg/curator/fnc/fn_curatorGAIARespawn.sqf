@@ -25,7 +25,7 @@ if (!(local _module) || isnull curatorcamera) exitWith {};
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 //if no object selected or not a vehicle
-if (count _object <2) exitWith {systemchat "No vehicle selected"; deleteVehicle _module};
+if (count _object <2) exitWith {systemchat "No group selected"; deleteVehicle _module};
 _object = _object select 1;
 
 

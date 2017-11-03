@@ -227,7 +227,7 @@ private ["_group","_blackListVehicles","_refinedGroup","_tempArray","_groupArray
 			};
 		} foreach units _group;
 
-		//TempArray [class, pos, dir, rank, skill, damage, fuel, init,leader, locked,  fly];
+		//TempArray [class, pos, dir, rank, skill, damage, fuel, init,leader, locked,  fly, weaponCargo, itemCargo, magazineCargo];
 		_groupArrayUnits = [];
 		{
 			_object = _x;
@@ -240,45 +240,21 @@ private ["_group","_blackListVehicles","_refinedGroup","_tempArray","_groupArray
 
 			if (count crew _object > 0) then
 			{
-				if (leader _group in crew _object) then
-				{
-					_tempArray set [count _tempArray, true];
-				}
-				else
-				{
-					_tempArray set [count _tempArray, false];
-				};
+				_tempArray set [8,(leader _group in crew _object)];
 			}
 			else
 			{
-				if (_object == leader _group) then
-				{
-					_tempArray set [count _tempArray, true];
-				}
-				else
-				{
-					_tempArray set [count _tempArray, false];
-				};
+				_tempArray set [8,(_object == leader _group)];
 			};
 
-			if (locked _object == 2) then
-			{
-				_tempArray set [count _tempArray, true];
-			}
-			else
-			{
-				_tempArray set [count _tempArray, false];
-			};
+			_tempArray set [9,(locked _object == 2)];
 
+			_tempArray set [10,(_object isKindOf "air" && ((getpos _object select 2)>10))];
 
-			if (_object isKindOf "air" && ((getpos _object select 2)>10)) then
-			{
-				_tempArray set [count _tempArray, "FLY"];
-			}
-			else
-			{
-				_tempArray set [count _tempArray, "NONE"];
-			};
+			_tempArray set [11,(weaponCargo _object)];
+			_tempArray set [12,(itemCargo _object)];
+			_tempArray set [13,(magazineCargo _object)];
+
 
 			_groupArrayUnits set [count _groupArrayUnits, _tempArray];
 		} foreach _refinedGroup;
@@ -327,6 +303,11 @@ if ((count _arrayVehicles) > 0) then
 		{
 			_init = [_init, '"', "'"] call MCC_fnc_replaceString;
 			_tempArray = [_side, _type, _pos, getDir _object, _init];
+
+			_tempArray set [5,(weaponCargo _object)];
+			_tempArray set [6,(itemCargo _object)];
+			_tempArray set [7,(magazineCargo _object)];
+
 			MCC_output = MCC_output + format ["%1",_tempArray];
 		};
 

@@ -11,12 +11,15 @@ Change log r22:
 - Added: Kestrels and crows to ambient birds module.
 - Added: Resave missions to MCC after loading mission from MCC.
 - Added: Turn city lights on and off from MCC brushes or Zeus.
+- Added: MCC composition to Zeus
+- Changed: MCC Zeus modules divided into categories.
 - Changed: Shortened MCC campaign/Mission Wizard intro movies time.
 - Changed: Commander Console F1-F5 buttons are more visable.
 - Changed: Reduce needed units around the player to build a FOB or other battle emplacements to zero.
 - Changed: Restrict ambient unit module spawn radius has been doubled.
 - Changed: Remove spawn protection from HQ/Start Location.
 - Changed: MCC_fnc_amb_Art will automaticlly spawn gunner if called on empty vehicle - apply to the ambient artillery preset
+- Changed: Steamlined MCC cargo from Zeus to match with Zeus standards.
 - Fixed: Stuck enable/disable MCC tutorials ("You have picked the commander role... Do you want to show this message in the future?" exc) from MCC UI settings module
 - Fixed: Vehicle Kiosk Custom vehicles array expected [className,[displayName, pictureName],cost] instead of [className,displayName,cost]
 - Fixed: Un-cached and respawned GAIA unit will be controllable from Zeus.
@@ -44,12 +47,16 @@ Change log r22:
 - Compositions
 	- Added: New function MCC_fnc_compositionsPlace load an 3den or Zeus composition
 
+- Aircrafe Loadouts
+	- Added: From MCC Zeus can change supported aircraft loadouts.
+	- Added: Pilot can manually change pylons ammo using MCC or ACE interaction key while sitting in the pilot sit and next to rearm area
+
 - Mission Wizard:
 	- Added: New Missions: Hack and download data
 	- Added: Wikia Page - http://mccsandbox.wikia.com/wiki/Mission_Generator
 	- Added: New Tasks icons and tasks parents.
-	- Added: Non CQB mission area will be more diverse and will use Zeus and some custom compositions.
-		- Changed: In night ops garrisson AI won't have night vision and will be forced to use flashlights
+	- Added: Non CQB mission area will use Zeus and custom compositions and will add more diversity and repeatability value.
+	- Changed: In night ops garrisson AI won't have night vision and will be forced to use flashlights
 	- Fixed: Saving generated mission tasks didn't wokrk.
 	- Added: Define master data using arrays in your init.sqf file:
 		- MCC_MWHVT - HVT classes

@@ -16,7 +16,13 @@
 			condition = "(getNumber (configfile >> 'CfgVehicles' >> typeof (vehicle _player) >> 'artilleryScanner') == 1)";\
 			statement = "[(vehicle _player)] spawn MCC_fnc_openArtillery;";\
 			icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reammo_ca.paa";\
-	    };
+	    };\
+	    class MCC_changeLoadout {\
+					displayName = "Rearm";\
+					condition = "((_player == driver (vehicle _player)) && (speed (vehicle _player) <= 0) && ({_x getVariable ['MCC_fnc_pylonsChangeSource',false]} count (position _player nearObjects 50) > 0))";\
+					statement = "[false,vehicle _player] spawn MCC_fnc_pylonsChange;";\
+					icon = "\mcc_sandbox_mod\data\IconAmmo.paa";\
+		 };
 
 class LandVehicle;
 class Car: LandVehicle {
@@ -117,7 +123,7 @@ class ReammoBox_F: thingX {
                 distance = 7;
                	condition = "typeOf _target in (missionNamespace getVariable ['MCC_logisticsCrates_TypesWest',[]])";
                 statement =  "[_target,true] call MCC_fnc_dragObject;";
-                icon = "\mcc_sandbox_mod\mcc\data\iconDrag.paa";
+                icon = "\mcc_sandbox_mod\data\iconDrag.paa";
                 showDisabled = 0;
         };
 

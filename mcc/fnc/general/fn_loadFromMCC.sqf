@@ -60,7 +60,7 @@ if (count _arrayGroups > 0) then
 				};
 			};
 
-			//TempArray [class, pos, dir, rank, skill, damage, fuel, init,leader, locked,  fly];
+			//TempArray [class, pos, dir, rank, skill, damage, fuel, init,leader, locked,  fly, weaponCargo, itemCargo, magazineCargo];
 
 			_vehicle setposATL (_objectData select 1);
 			_vehicle setDir (_objectData select 2);
@@ -85,6 +85,10 @@ if (count _arrayGroups > 0) then
 			{
 				_vehicle lock 2;
 			};
+
+			{_vehicle addWeaponCargoGlobal[_x,1]} forEach (_objectData select 11);
+			{_vehicle addItemCargoGlobal [_x,1]} forEach (_objectData select 12);
+			{_vehicle addMagazineCargoGlobal [_x,1]} forEach (_objectData select 13);
 		} foreach (_indecator select 2);
 
 
@@ -151,6 +155,14 @@ if ((count _arrayVehicles) > 0) then
 			_vehicle setVariable ["vehicleinit",(_objectData select 4),true];
 			[[[netID _vehicle,_vehicle], (_objectData select 4)], "MCC_fnc_setVehicleInit", true, false] spawn BIS_fnc_MP;
 		};
+
+		clearWeaponCargoGlobal _vehicle;
+		clearItemCargoGlobal _vehicle;
+		clearMagazineCargoGlobal _vehicle;
+
+		{_vehicle addWeaponCargoGlobal[_x,1]} forEach (_objectData select 5);
+		{_vehicle addItemCargoGlobal [_x,1]} forEach (_objectData select 6);
+		{_vehicle addMagazineCargoGlobal [_x,1]} forEach (_objectData select 7);
 
 	} forEach _arrayVehicles;
 };
@@ -317,8 +329,3 @@ _name = _arrayTime select 5;
 missionnamespace setvariable ["bis_fnc_moduleMissionName_name",_name];
 publicvariable "bis_fnc_moduleMissionName_name";
 [true,"bis_fnc_moduleMissionName"] call bis_fnc_mp;
-
-
-
-
-

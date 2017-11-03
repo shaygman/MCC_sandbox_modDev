@@ -227,12 +227,14 @@ if (vehicle player == player) then {
 
 		{
 			_sides = _x getVariable ["MCC_runwaySide",-1];
-			_sides = if (_sides == -1) then {[east,west,resistance,civilian]} else {[_sides call bis_fnc_sideType]};
+			_sides = if (_sides isEqualTo -1) then {[east,west,resistance,civilian]} else {[_sides call bis_fnc_sideType]};
 
-			if (((_x getVariable ["MCC_runwayDis",0])>0) && (playerside in _sides)) then
-			{
-				_airports set [_counter,[_x,(_x getVariable ["MCC_runwayName","Runway"]),(_x getVariable ["MCC_runwayDis",0]),(_x getVariable ["MCC_runwayAG",objNull]),(_x getVariable ["MCC_runwayCircles",true])]];
-				_counter = _counter +1;
+			if (typeName (_x getVariable ["MCC_runwayDis",0]) isEqualTo typeName 0) then {
+				if (((_x getVariable ["MCC_runwayDis",0])>0) && (playerside in _sides)) then
+				{
+					_airports set [_counter,[_x,(_x getVariable ["MCC_runwayName","Runway"]),(_x getVariable ["MCC_runwayDis",0]),(_x getVariable ["MCC_runwayAG",objNull]),(_x getVariable ["MCC_runwayCircles",true])]];
+					_counter = _counter +1;
+				};
 			};
 		} foreach _searchArray;
 
@@ -248,6 +250,14 @@ if (vehicle player == player) then {
 		};
 
 		player setVariable ["interactWith",_airports];
+	};
+
+	//Pylon change
+	if ((player == Driver _vehiclePlayer) &&
+	    (speed _vehiclePlayer <= 0) &&
+	    ({_x getVariable ["MCC_fnc_pylonsChangeSource",false]} count (position player nearObjects 50) > 0)
+	   ) then {
+	   	_array pushBack ["[false,vehicle player] spawn MCC_fnc_pylonsChange","Rearm",format ["%1data\IconAmmo.paa",MCC_path]];
 	};
 
 	//Taru pods

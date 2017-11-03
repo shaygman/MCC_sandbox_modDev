@@ -11,10 +11,7 @@
 =======================================================================================================================================================================*/
 #include "..\..\script_component.hpp"
 
-private ["_time","_target","_avtiveControls","_curator","_idc","_control","_display","_controlPos","_posY","_ctrlBackground","_ctrlTitle","_ctrlContent",
-         "_ctrlButtonOK","_ctrlButtonCancel","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlContentPos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlTitleOffsetY",
-		 "_ctrlContentOffsetY","_name","_ctrlButtonCustom","_ctrlButtonCustomPos","_comboBox","_displayname","_ctrlButtonCustom2","_ctrlButtonCustom2Pos",
-		 "_cargEnabled","_presetType","_preset","_targetData","_targetCategory","_targetType","_class","_cfgControl","_keyUp","_keyDown"];
+private ["_time","_target","_avtiveControls","_curator","_idc","_control","_display","_controlPos","_posY","_ctrlBackground","_ctrlTitle","_ctrlContent","_ctrlButtonOK","_ctrlButtonCancel","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlContentPos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlTitleOffsetY","_ctrlContentOffsetY","_name","_ctrlButtonCustom","_ctrlButtonCustomPos","_comboBox","_displayname","_ctrlButtonCustom2","_ctrlButtonCustom2Pos","_ctrlButtonCustom3","_ctrlButtonCustom3Pos","_cargEnabled","_loadOutEnabled","_presetType","_preset","_targetData","_targetCategory","_targetType","_class","_cfgControl","_keyUp","_keyDown"];
 disableSerialization;
 
 #define MCCCuratorInit_IDD 10000
@@ -62,6 +59,8 @@ if !(_targetCategory in ["Soldier","Vehicle","VehicleAutonomous","Object"]) exit
 
 while {dialog} do {closeDialog 0};
 
+_loadOutEnabled = isClass (configFile >> "cfgVehicles" >> typeof _target >> "Components" >> "TransportPylonsComponent");
+
 switch (_targetCategory) do {
 	case ("Soldier"): {
 		_class = "MCC_RscDisplayAttributesMan";
@@ -75,7 +74,7 @@ switch (_targetCategory) do {
 		} else {
 			_class = "MCC_RscDisplayAttributesVehicle";
 		};
-		_cargEnabled	= true;
+		_cargEnabled = true;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","vehicle"];
 	};
 
@@ -107,6 +106,7 @@ _ctrlButtonOK = _display displayctrl IDC_OK;
 _ctrlButtonCancel = _display displayctrl IDC_CANCEL;
 _ctrlButtonCustom = _display displayctrl 10006;
 _ctrlButtonCustom2 = _display displayctrl 10007;
+_ctrlButtonCustom3 = _display displayctrl 10008;
 
 _ctrlBackgroundPos = ctrlposition _ctrlBackground;
 _ctrlTitlePos = ctrlposition _ctrlTitle;
@@ -115,7 +115,7 @@ _ctrlButtonOKPos = ctrlposition _ctrlButtonOK;
 _ctrlButtonCancelPos = ctrlposition _ctrlButtonCancel;
 _ctrlButtonCustomPos = ctrlposition _ctrlButtonCustom;
 _ctrlButtonCustom2Pos = ctrlposition _ctrlButtonCustom2;
-
+_ctrlButtonCustom3Pos = ctrlposition _ctrlButtonCustom3;
 
 _ctrlTitleOffsetY = (_ctrlBackgroundPos select 1) - (_ctrlTitlePos select 1) - (_ctrlTitlePos select 3);
 _ctrlContentOffsetY = (_ctrlContentPos select 1) - (_ctrlBackgroundPos select 1);
@@ -248,19 +248,38 @@ if (_cargEnabled) then
 {
 	_ctrlButtonCustom2Pos set [1,0.5 + _posH + _ctrlTitleOffsetY];
 	_ctrlButtonCustom2 ctrlsetposition _ctrlButtonCustom2Pos;
-	_ctrlButtonCustom2 ctrlsetText "Cargo -->";
+	_ctrlButtonCustom2 ctrlsetText "Cargo";
 	_ctrlButtonCustom2 ctrlcommit 0;
 
 	_ctrlButtonCustom2 ctrladdeventhandler [
 			"ButtonDown",
 			{
-				_this execVM format["%1mcc\general_scripts\boxGen\mcc_boxGen_init.sqf",MCC_path];
+				createdialog "RscDisplayAttributesInventory";
 			}
 		];
 }
 else
 {
 	_ctrlButtonCustom2 ctrlShow false
+};
+
+if (_loadOutEnabled) then
+{
+	_ctrlButtonCustom3Pos set [1,0.5 + _posH + _ctrlTitleOffsetY];
+	_ctrlButtonCustom3 ctrlsetposition _ctrlButtonCustom3Pos;
+	_ctrlButtonCustom3 ctrlsetText "Loadout";
+	_ctrlButtonCustom3 ctrlcommit 0;
+
+	_ctrlButtonCustom3 ctrladdeventhandler [
+			"ButtonDown",
+			{
+				[true,[]] spawn MCC_fnc_pylonsChange;
+			}
+		];
+}
+else
+{
+	_ctrlButtonCustom3 ctrlShow false
 };
 
 //--- Close the display when entity is altered

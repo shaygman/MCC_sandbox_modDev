@@ -61,6 +61,7 @@
 #include "mcc\survive\cfg.hpp"
 #include "mcc\interaction\cfg.hpp"
 #include "mcc\LHD\cfg.hpp"
+#include "mcc\vehicles\cfg.hpp"
 
 //--------------------------Cfg----------------------------------------------------
 class CfgFunctions
@@ -89,6 +90,7 @@ class CfgFunctions
 		#include "mcc\helicopters\cfgFunctions.hpp"
 		#include "mcc\ambient\cfgFunctions.hpp"
 		#include "mcc\LHD\cfgFunctions.hpp"
+		#include "mcc\vehicles\cfgFunctions.hpp"
 	};
 };
 
