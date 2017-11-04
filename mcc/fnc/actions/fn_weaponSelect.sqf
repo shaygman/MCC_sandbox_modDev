@@ -67,7 +67,7 @@ switch (true) do {
 		{ ((uiNamespace getVariable "mcc_3dObject") displayCtrl _X) ctrlShow false} foreach [1,2];
 
 		((uiNamespace getVariable "mcc_3dObject") displayCtrl 3) ctrlSetText format ["Press %1 to cycle between grenade throws", ["action"] call MCC_fnc_getKeyFromAction];
-		player setVariable ["MCC_utilityItem",_mag];
+		player setVariable ["MCC_utilityItem",[_mag,""]];
 		player setVariable ["MCC_falseGrenadePrecise",2];
 
 		//Disable fire
@@ -96,19 +96,16 @@ switch (true) do {
 
 	//Explosive - utility
 	case (_key == 5): {
-		private ["_mags","_allowedMags","_magsItems","_mag","_model","_speed","_index","_magVehicle","_cameraInternal","_ctrl"];
+		private ["_mags","_mag","_model","_speed","_index","_cameraInternal","_ctrl"];
 		//_cameraInternal = if (cameraView == "INTERNAL") then {true} else {false};
 		showHUD false;
 
 		_mags = [];
-		_allowedMags = ["MCC_ammoBoxMag","DemoCharge_Remote_Mag","SatchelCharge_Remote_Mag","IEDUrbanBig_Remote_Mag","IEDLandBig_Remote_Mag","ATMine_Range_Mag","APERSMine_Range_Mag","APERSBoundingMine_Range_Mag","SLAMDirectionalMine_Wire_Mag","APERSTripMine_Wire_Mag","ClaymoreDirectionalMine_Remote_Mag","IEDUrbanSmall_Remote_Mag","IEDLandSmall_Remote_Mag"];
-
-		_magsItems = ["MCC_ammoBox","DemoCharge_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","IEDUrbanBig_Remote_Ammo","IEDLandBig_Remote_Ammo","ATMine_Range_Ammo","APERSMine_Range_Ammo","APERSBoundingMine_Range_Ammo","SLAMDirectionalMine_Wire_Ammo","APERSTripMine_Wire_Ammo","ClaymoreDirectionalMine_Remote_Ammo_Scripted","IEDUrbanSmall_Remote_Ammo","IEDLandSmall_Remote_Ammo"];
 
 		enableSentences false;
 
 		{
-			if (_x in _allowedMags && !(_x in _mags)) then {_mags pushback _x};
+			if ((getnumber (configfile >> "CfgMagazines" >> _x >> "type")==512) && !(_x in _mags)) then {_mags pushback _x};
 		} foreach (magazines player)+(items player);
 
 
@@ -126,7 +123,6 @@ switch (true) do {
 
 		if (count _mags > 0) then {
 			_mag 	= _mags select _index;
-			_magVehicle = _magsItems select (_allowedMags find _mag);
 			_model = if (isclass(configfile >> "CfgMagazines" >> _mag)) then {
 							gettext (configfile >> "CfgMagazines" >> _mag >> "model")
 						} else {
@@ -139,7 +135,7 @@ switch (true) do {
 			_ctrl ctrlSetModelDirAndUp [[0,1,1],[0,0,1]];
 
 
-			player setVariable ["MCC_utilityItem",[_mag,_magVehicle]];
+			player setVariable ["MCC_utilityItem",[_mag,""]];
 		} else {
 			player setVariable ["MCC_utilityItem",["",""]];
 			((uiNamespace getVariable "mcc_3dObject") displayCtrl 1) ctrlShow false;

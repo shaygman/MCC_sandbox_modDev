@@ -68,7 +68,7 @@ if (!isnil "hcam_cam") then
 	{
 		while {!isNull hcam_cam} do {
 			// destroy camera and cancel the loop if player closes the liveFeed or takes off his tactical glasses.
-			_units = hcam_units;
+			_units = synchronizedObjects (player getVariable ["MCC_fnc_SFLogic",objNull]);
 
 			// Set Target
 			hcam_target = _units select hcam_id;

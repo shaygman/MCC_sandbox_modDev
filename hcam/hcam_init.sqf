@@ -3,11 +3,6 @@ hcam_configpath = "";
 hcamNVG = 0;	//Regular cam
 if (isDedicated) exitWith {};
 
-// Define vars (or see if they have already been assigned by the server)
-if (isNil "hcam_units") then {
-  hcam_units = "group";
-};
-
 hcam_active = false;
 hcam_id = 0;
 hcam_zoom = 1;

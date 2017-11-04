@@ -1,14 +1,15 @@
-//==================================================================MCC_fnc_utilityUse==========================================================================================
+/*============================================================MCC_fnc_utilityUse==========================================================================================
 //use utility
 // Example: [] call MCC_fnc_utilityUse;
-//===========================================================================================================================================================================
-private ["_utility","_vel","_dir","_handPos","_item","_mag","_itemClass","_charges","_cfg","_putCfg","_putCfgArray","_putCfgName","_magMuzzle","_satchels","_ins"];
-_primaryMod = _this select 0;
-_mag 		= (player getVariable ["MCC_utilityItem",["",""]]) select 0;
-_itemClass	= (player getVariable ["MCC_utilityItem",["",""]]) select 1;
+========================================================================================================================================================================*/
 
-_satchels = ["DemoCharge_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","IEDUrbanBig_Remote_Ammo","IEDLandBig_Remote_Ammo",
-			"ATMine_Range_Ammo","IEDUrbanSmall_Remote_Ammo","IEDLandSmall_Remote_Ammo"];
+private ["_utility","_vel","_dir","_handPos","_item","_mag","_itemClass","_charges","_cfg","_putCfg","_putCfgArray","_putCfgName","_magMuzzle","_ins","_interaction"];
+_primaryMod = _this select 0;
+_interaction = param [1,false,[false]];
+
+_mag 		= (player getVariable ["MCC_utilityItem",["",""]]) select 0;
+_itemClass	= getText (configfile >> "CfgMagazines" >> _mag >> "ammo");
+
 if (_mag == "" && _primaryMod) exitWith {};
 
 if (!_primaryMod) exitWith {
@@ -32,6 +33,7 @@ player playactionNow "putdown";
 sleep 0.3;
 _handPos = player selectionPosition "LeftHand";
 _utility = _itemClass createvehicle (player modelToWorld [(_handPos select 0),(_handPos select 1)+1.8,(_handPos select 2)]);
+0 = [_utility,(owner player)] remoteExec ["setOwner", 2];
 
 //Stick it to a vehicle
 private ["_vehicle","_relPos","_handPos","_upFront","_headPos","_objects","_closeObject","_relDir","_n"];
@@ -44,7 +46,7 @@ if (count _objects > 0) then {
 	if ((_closeObject isKindOf "LandVehicle") || (_closeObject isKindOf "Air") || (_closeObject isKindOf "Ship")) then {_vehicle = _closeObject};
 };
 
-if (_itemClass in _satchels) then {
+if (getnumber (configfile >> "CfgMagazines" >> _mag >> "type")==512) then {
 
 	//Attach it to vehicle
 	if !(isNil "_vehicle") then {
@@ -83,22 +85,19 @@ if (_itemClass in _satchels) then {
 		_utility setPosASL (_ins select 0 select 0);
  		_utility setVectorUp (_ins select 0 select 1);
 	};
+
+	_charges = player getVariable ["MCC_utilityActiveCharges",[]];
+	_charges pushback _utility;
+	player setVariable ["MCC_utilityActiveCharges",_charges];
+
 } else {
 	_utility setpos (player modelToWorld [(_handPos select 0),(_handPos select 1)+1,0]);
 	_utility setdir getdir player;
 };
 
-if (!(_mag in magazines player) && !(_mag in items player)) then {
+if (!(_mag in magazines player) && !(_mag in items player) && !_interaction) then {
 	player setVariable ["MCC_utilityItem",["",""]];
 	[5] call MCC_fnc_weaponSelect;
-};
-
-if (_itemClass in ["DemoCharge_Remote_Ammo_Scripted","SatchelCharge_Remote_Ammo_Scripted","IEDUrbanBig_Remote_Ammo","IEDLandBig_Remote_Ammo",
-			"ATMine_Range_Ammo","APERSMine_Range_Ammo","APERSBoundingMine_Range_Ammo","SLAMDirectionalMine_Wire_Ammo","APERSTripMine_Wire_Ammo",
-			"ClaymoreDirectionalMine_Remote_Ammo_Scripted","IEDUrbanSmall_Remote_Ammo","IEDLandSmall_Remote_Ammo"]) then {
-	_charges = player getVariable ["MCC_utilityActiveCharges",[]];
-	_charges pushback _utility;
-	player setVariable ["MCC_utilityActiveCharges",_charges];
 };
 
 if (_itemClass in ["MCC_ammoBox"]) then {

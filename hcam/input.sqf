@@ -13,7 +13,7 @@ _ctrl = _this select 2;
 _alt = _this select 3;
 _hcam_key = actionKeys (format ["User%1",hcam_Key]);
 
-_units = hcam_units;
+_units = synchronizedObjects (player getVariable ["MCC_fnc_SFLogic",objNull]);
 
 
 

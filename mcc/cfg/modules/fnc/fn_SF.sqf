@@ -1,7 +1,7 @@
 
 //******************************************************************************************
 //==========================================================================================
-//=		 						 Shay-Gman
+//=		 						 Shay-Gman MCC_fnc_SF
 //=					                            13.01.2012
 //==========================================================================================
 //******************************************************************************************
@@ -15,7 +15,7 @@ if (player in _synced)then {
 	//Action key
 	 hcam_Key = (_logic getvariable ["hcam_actionKey",1]);
 
-	hcam_units = synchronizedobjects _logic;			//Units watching the live feed
+	player setVariable ["MCC_fnc_SFLogic",_logic];
 
 	while { !alive player || isnil "MCC_path"} do {sleep 1};
 	_null = [] execVM MCC_path + "hcam\hcam_init.sqf";

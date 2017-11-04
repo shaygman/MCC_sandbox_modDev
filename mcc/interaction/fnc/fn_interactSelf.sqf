@@ -50,6 +50,21 @@ if (vehicle player == player) then {
 	if ("MCC_ammoBoxMag" in items player) then {
 		_array pushBack  ["['MCC_ammoBoxMag','MCC_ammoBox'] spawn MCC_fnc_ACEdropAmmobox;","Drop Ammobox","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"];
 	};
+
+	//Place Explosives
+	private _mags = [];
+	{
+			if ((getnumber (configfile >> "CfgMagazines" >> _x >> "type")==512) && !(_x in _mags)) then {_mags pushback _x};
+	} foreach ((magazines player)+(items player));
+
+	if (count _mags > 0) then {
+		_array pushBack  ["[(_this select 0),'ordnance'] spawn MCC_fnc_interactSelfClicked","Place Explosives","\A3\ui_f\data\igui\cfg\simpleTasks\types\mine_ca.paa"];
+	};
+
+	//Detonate Explosives
+	if (count (player getVariable ["MCC_utilityActiveCharges",[]])>0) then {
+		_array pushBack  ["[(_this select 0),'ordnanceExplode'] spawn MCC_fnc_interactSelfClicked","Detonate","\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa"];
+	};
 };
 
 //Commander Console

@@ -217,6 +217,47 @@ switch (true) do {
 		_layer = 2;
 	};
 
+	//Explosive place
+	case (_ctrlData isEqualTo "ordnance"): {
+		private _mags = [];
+		{
+			if ((getnumber (configfile >> "CfgMagazines" >> _x >> "type")==512) && !(_x in _mags)) then {_mags pushback _x};
+		} foreach ((magazines player)+(items player));
+
+		_array = [["[(missionNamespace getVariable ['MCC_interactionLayer_0',[]]),1] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
+		{
+			_array pushBack [format ["player setVariable ['MCC_utilityItem',['%1','']];[true,true] spawn MCC_fnc_utilityUse", _x], format ["%1",getText(configFile >> "CfgMagazines" >> _x >> "displayname")], getText(configFile >> "CfgMagazines" >> _x >> "picture")];
+		} forEach _mags;
+
+		_layer = 1;
+	};
+
+	//Explosive detonate
+	case (_ctrlData isEqualTo "ordnanceExplode"): {
+
+		//Detonate explosive function
+		MCC_fnc_ordnanceDetonatePlayer = {
+			private ["_charges","_utility"];
+			params ["_index"];
+			_charges = player getVariable ["MCC_utilityActiveCharges",[]];
+			if (count _charges > 0 ) then {
+				_utility = _charges select _index;
+				_charges set [_index,-1];
+				_charges = _charges - [-1];
+				_utility setdamage 1;
+				player setVariable ["MCC_utilityActiveCharges",_charges];
+			};
+		};
+
+		_array = [["[(missionNamespace getVariable ['MCC_interactionLayer_0',[]]),1] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
+		{
+			_mag = getText (configfile >> "CfgAmmo" >> typeof _x >> "defaultMagazine");
+			_array pushBack [format ["[%1] spawn MCC_fnc_ordnanceDetonatePlayer", _foreachIndex], format ["Exp%1 %2",_foreachIndex, getText(configFile >> "CfgMagazines" >> _mag >> "displayname")], getText(configFile >> "CfgMagazines" >> _mag >> "picture")];
+		} forEach (player getVariable ["MCC_utilityActiveCharges",[]]);
+
+		_layer = 1;
+	};
+
 	case (_ctrlData in ["CowsSlot","PointerSlot","MuzzleSlot","UnderBarrelSlot"]): {
 		private ["_items","_assignedItems"];
 		_assignedItems = [];

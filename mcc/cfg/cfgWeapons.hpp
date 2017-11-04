@@ -105,6 +105,7 @@ class MCC_headTorch : MCC_ItemCore
 class MCC_ammoBoxMag : MCC_ItemCore
 {
 	scope = 2;
+	ammo = "MCC_ammoBox";
 	displayName = "(MCC)Ammo Box";
 	descriptionShort = "Ressuply nearby players.";
 	picture = "\mcc_sandbox_mod\data\items\ammoBox.paa";
