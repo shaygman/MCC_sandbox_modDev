@@ -20,7 +20,7 @@ if (typeName (_module getVariable ["factionPlayer",true]) == typeName "") exitWi
 	_sidePlayer2 = [_module getVariable ["factionRivalPlayer",7]] call BIS_fnc_sideType;
 	_tickets = _module getVariable ["tickets",100];
 	_missionRotation = _module getVariable ["missionRotation",4];
-	_tileSize = _module getVariable ["tileSize",250];
+	_tileSize = (_module getVariable ["tileSize",250]) max 200;
 	_loadDb = _module getVariable ["loadDB",false];
 
 	//Start ambient civilians

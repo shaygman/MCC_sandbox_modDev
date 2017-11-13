@@ -58,7 +58,7 @@ _trigger setTriggerActivation [str _side, "PRESENT", true];
 sleep 5;
 
 //Wait untill player is nearby to work with cache and delayed spawn
-if (!isNull "GAIA_fnc_isNearPlayer") then {
+if (!isNil "GAIA_fnc_isNearPlayer") then {
 	while {!([getposAtl _trigger,((missionNamespace getVariable ["GAIA_CACHE_STAGE_1",1000])/2)] call GAIA_fnc_isNearPlayer)} do {sleep 10};
 };
 

@@ -3,7 +3,7 @@
 
 ================================================================================================================================================*/
 
-private ["_vehicle","_pylonsDialog","_pylonsAvailable","_mag","_resualt","_magType","_zeus","_exit"];
+private ["_vehicle","_pylonsDialog","_pylonsAvailable","_mag","_resualt","_magType","_zeus","_exit","_turrets"];
 _zeus = param [0,true,[true,objNull]];
 
 //If we initilize the loadouts are
@@ -40,9 +40,11 @@ if (isNull _vehicle) exitWith {};
 
 _pylonsDialog = [];
 _pylonsAvailable = (configFile >> "cfgVehicles" >> typeof _vehicle >> "Components" >> "TransportPylonsComponent" >> "pylons") call BIS_fnc_returnChildren;
+_turrets= [];
 
 {
 	_mag = ["None"];
+	_turrets pushBack (getArray(_x >> "turret"));
 
 	{
 		_mag pushBack ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
@@ -123,6 +125,6 @@ _exit = false;
 		missionNamespace setVariable ["MCC_fnc_interactProgress_running",false]
 	};
 
-	[_vehicle,  [configName _x, _magType,true]] remoteExecCall ["setPylonLoadOut", _vehicle];
+	[_vehicle,  [configName _x, _magType,false,(_turrets select _forEachIndex)]] remoteExecCall ["setPylonLoadOut", _vehicle];
 
 } forEach _pylonsAvailable;

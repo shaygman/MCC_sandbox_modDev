@@ -120,8 +120,8 @@ class MCC_Module_ambientCivilians : Module_F
 
 		class civRelations : Combo
 		{
-			displayName = "Civilians Reaction";
-			description = "Civilians Reaction to players";
+			displayName = "Civilians Relation";
+			description = "Civilians Relation to players";
 			typeName = "NUMBER";
 			property = "civRelations";
 
@@ -152,6 +152,29 @@ class MCC_Module_ambientCivilians : Module_F
 				{
 					name = "Very Good";
 					value = 0.9;
+				};
+			};
+		};
+
+		class civRelationsIgnore : Combo
+		{
+			displayName = "Civs Always Friendly";
+			description = "Civilians will always be friendly to players";
+			typeName = "NUMBER";
+			property = "isParkedCar";
+
+			class values
+			{
+				class Enabled
+				{
+					name = "Yes";
+					value = 1;
+				};
+				class Disabled
+				{
+					name = "No";
+					value = 0;
+					default = 1;
 				};
 			};
 		};

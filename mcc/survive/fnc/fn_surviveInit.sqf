@@ -7,7 +7,7 @@
 
 0 spawn {
 
-	if (missionNamespace getVariable ["MCC_surviveModinitialized",false]) exitWith {};
+	if ((missionNamespace getVariable ["MCC_surviveModinitialized",false]) || !hasInterface) exitWith {};
 	missionNamespace setVariable ["MCC_surviveModinitialized",true];
 
 	while {!(missionNamespace getVariable ["MCC_surviveMod",false])} do {sleep 1};

@@ -103,7 +103,7 @@ for "_i" from 1 to _counter do {
 
 	if (_spawn) then {
 		//Normal Civ
-		if !(_civRelations < 0.4 && random 1 < 0.1) then {
+		if (!(_civRelations < 0.4 && random 1 < 0.1) || (missionNamespace getVariable ["MCC_civRelationsIgnore",false])) then {
 
 			if (count _unitsArray > 6) then {_unitsArray resize 6};
 			_civClass = _unitsArray call bis_fnc_selectRandom;

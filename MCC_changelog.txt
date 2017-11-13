@@ -50,7 +50,7 @@ Change log r22:
 	- Added: New function MCC_fnc_compositionsPlace load an 3den or Zeus composition
 
 - Loadouts
-	- Added: Zeus and 3den modules that player can rearm vehicles while next to it and change pylon loadouts if the vehicle support it.
+	- Added: Zeus and 3den modules where players can rearm vehicles while next to it and change pylon loadouts if the vehicle support it.
 	- Added: Pilot can manually change pylons ammo using MCC or ACE interaction key while sitting in the pilot sit and next to rearm area other vehicles can only rearm when next to rearm area
 
 
@@ -61,7 +61,7 @@ Change log r22:
 	- Added: Non CQB mission area will use Zeus and custom compositions and will add more diversity and repeatability value.
 	- Changed: In night ops garrisson AI won't have night vision and will be forced to use flashlights
 	- Fixed: Saving generated mission tasks didn't wokrk.
-	- Added: Define master data using arrays in your init.sqf file:
+	- Added: Define master data using arrays in your init.sqf file so a mission maker can define what kind of object/vehicles the mission wizard will spawn:
 		- MCC_MWHVT - HVT classes
 		- MCC_MWHVTCamps - HVT composition type - must be a config with this name holding the compsition setup.
 		- MCC_MWFuelTanks - Fuel tanks classes
@@ -82,14 +82,14 @@ Change log r22:
 	- Added: New BI icons for tasks
 
 - Ambient Fire
-	- Reworked the fire look - now the fire looks much more realistic and posses a real threat.
+	- Reworked the fire look - now the fire looks much more realistic and will damage nearby units.
 
 - Zeus
 	- Fixed: Unable to edit groups and WP from MCC
 	- Fixed: Some errors while editing units/vehicles - there is still a bug regarding vehicle respawn which comes from the BI function so it disabled for now.
 
 - IED suicide bombers
-	- Added: MCC_fnc_addVelocity - add velocity sprading from a center position to simulate a shockwave include ragdolls on players.
+	- Added: MCC_fnc_addVelocity - add velocity sprading from a center position to simulate a shockwave include ragdoll animation on players.
 	- Added: Shockwaves to all types of IED and suicide bombers (real,fake or disabling).
 	- Added: Suicide bombers will have bombs straped around their pelvis when they attack.
 	- Added: Disable interaction progress by hitting Escape key.

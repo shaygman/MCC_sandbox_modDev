@@ -7,22 +7,19 @@
  	ARRAY
  	0: ARRAY - borders tiles
 ========================================================================================================================================================================================*/
-private ["_pos","_natural","_centerTile","_centerTileName","_centerTileSide","_allTiles","_yTiles","_markerColor","_notAcceptedColors","_yBorder","_xBorder","_bordersArray"];
+private ["_pos","_natural","_centerTile","_centerTileSide","_allTiles","_yTiles","_markerColor","_notAcceptedColors","_yBorder","_xBorder","_bordersArray"];
 _pos = param [0,objNull,[objNull,[],sideLogic]];
 _natural = param [1,false,[false]];
 
 switch (typeName _pos) do {
 	case (typeName sideLogic):
 	{
-		_centerTileName = "";
 		_centerTileSide = _pos;
 	};
 
 	default {
 		//Lets find all the markers around
 		_centerTile = [_pos,1000] call MCC_fnc_campaignGetNearestTile;
-
-		_centerTileName = _centerTile select 0;
 		_centerTileSide = _centerTile select 1;
 	};
 };
@@ -46,6 +43,7 @@ _bordersArray = [];
 //create boxes
 _yBorder = (count _allTiles)-1;
 
+private ["_markersSurronding"];
 for "_y" from 0 to _yBorder step 1 do {
 	_yTiles = _allTiles select _y;
 	_xBorder = (count _yTiles)-1;
@@ -56,20 +54,18 @@ for "_y" from 0 to _yBorder step 1 do {
 		//is the tile from the selected side?
 		if (getMarkerColor _selectedTile == _markerColor) then {
 
-			//do we have border
-			if (!((getMarkerColor ((_allTiles select (_y-1 max 0)) select (_x -1 max 0))) in _notAcceptedColors) ||
-			     !((getMarkerColor ((_allTiles select (_y-1 max 0)) select _x) in _notAcceptedColors)) ||
-			     !((getMarkerColor ((_allTiles select (_y-1 max 0)) select (_x+1 min _xBorder))) in _notAcceptedColors) ||
-			     //down
-			     !((getMarkerColor ((_allTiles select (_y+1 min _yBorder)) select (_x -1 max 0))) in _notAcceptedColors) ||
-			     !((getMarkerColor ((_allTiles select (_y+1 min _yBorder)) select _x) in _notAcceptedColors)) ||
-			     !((getMarkerColor ((_allTiles select (_y+1 min _yBorder)) select (_x+1 min _xBorder))) in _notAcceptedColors) ||
-			     //sides
-			     !((getMarkerColor (_yTiles select (_x-1 max 0))) in _notAcceptedColors) ||
-			     !((getMarkerColor (_yTiles select (_x+1 min _xBorder))) in _notAcceptedColors)
-			    ) then {
-					_bordersArray pushBack _selectedTile;
-			};
+			_markersSurronding = [
+				((_allTiles select (_y-1 max 0)) select (_x -1 max 0)),
+				((_allTiles select (_y-1 max 0)) select _x),
+				((_allTiles select (_y-1 max 0)) select (_x+1 min _xBorder)),
+				((_allTiles select (_y+1 min _yBorder)) select (_x -1 max 0)),
+				((_allTiles select (_y+1 min _yBorder)) select _x),
+				((_allTiles select (_y+1 min _yBorder)) select (_x+1 min _xBorder)),
+				(_yTiles select (_x-1 max 0)),
+				(_yTiles select (_x+1 min _xBorder))
+			];
+
+			if ({(getMarkerColor _x in _notAcceptedColors)} count _markersSurronding < 8) then {_bordersArray pushBack _selectedTile};
 		};
 	};
 };

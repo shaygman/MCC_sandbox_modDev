@@ -313,7 +313,7 @@ _sounds set [count _sounds, _missionName2 select 1];
 //Create the parent Task
 private ["_vehicle","_taskId","_missionName"];
 _missionName = (_missionName1 select 0) + " " + (_missionName2 select 0);
-_vehicle = (createGroup sideLogic) createunit ["MCC_ModuleObjective_F", _missionCenter,[],0.5,"NONE"];
+_vehicle = (createGroup sideLogic) createunit ["MCC_ModuleObjective_F", [-2000,-2000,0],[],0.5,"NONE"];
 _taskId = str _vehicle + str (["MCC_fnc_moduleObjective_id",1] call bis_fnc_counter);
 _vehicle setvariable ["RscAttributeOwners",[_sidePlayer,_enemySide],true];
 _vehicle setvariable ["RscAttributeTaskState","created", true];
@@ -322,7 +322,7 @@ _vehicle setvariable ["RscAttributeTaskDescription",[_missionName,_missionName,_
 _vehicle setvariable ["proiority",-1,true];
 _vehicle setvariable ["notification",false,true];
 _vehicle setvariable ["show3d",false,true];
-_vehicle setvariable ["showMarker",[-1000,-1000,0],true];
+_vehicle setvariable ["showMarker",[-2000,-2000,0],true];
 _vehicle setvariable ["taskType","parent",true];
 _vehicle setvariable ["updated",true,true];
 missionNamespace setVariable ["MCC_fnc_MWinitMission_missionName",_taskId];
@@ -563,7 +563,7 @@ if (_weatherChange != 0) then {
 
 //Force AI to use flashlights
 
-[position MWMissionArea, (triggerArea MWMissionArea) select 0,(triggerArea MWMissionArea) select 1] spawn {
+[position _missionCenterTrigger, (triggerArea _missionCenterTrigger) select 0,(triggerArea _missionCenterTrigger) select 1] spawn {
 	params [
 			["_pos", [0,0,0], [[]]],
 			["_sizeA", 50, [0]],
@@ -745,7 +745,7 @@ if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = n
 	missionNamespace setVariable ["MCC_MWMissionRuning",true];
 	publicvariable "MCC_MWMissionRuning";
 
-	while {	count (_missionCenter nearObjects ["MCC_ModuleObjective_F", (_maxObjectivesDistance*2.5)]) > 0} do {
+	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (_missionCenter nearObjects ["MCC_ModuleObjective_F", (_maxObjectivesDistance*2.5)]) > 0} do {
 		sleep 5;
 	};
 

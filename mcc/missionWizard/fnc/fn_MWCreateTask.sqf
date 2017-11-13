@@ -227,18 +227,6 @@ switch (_task) do {
       _taskType = "download";
    };
 
-   //clear_area
-   case "clear_area": {
-      _stringName   = "Clear Area";
-      _stringDescription =  FORMAT ["Capture Area.<br/><br/>%1 enemy forces established a foothold %2.<br/>We can not allow this to continue!<br/>Go there and kick them out!!"
-                             , _missionTime call BIS_fnc_selectRandom
-                             , _missionWherabouts call BIS_fnc_selectRandom
-                             , _stringName
-                             ];
-      _pic = "\a3\Missions_F_EPA\data\img\A_m02_overview_CA.paa";
-      _taskType = "attack";
-   };
-
    //disableIED
    case "disableIED": {
       _stringName   = "Disable IED";
@@ -250,6 +238,18 @@ switch (_task) do {
 
       _pic = "\a3\Missions_F_EPA\data\img\C_m02_overview_CA.paa";
       _taskType = "mine";
+   };
+
+   //clear_area
+   default {
+      _stringName   = "Clear Area";
+      _stringDescription =  FORMAT ["Capture Area.<br/><br/>%1 enemy forces established a foothold %2.<br/>We can not allow this to continue!<br/>Go there and kick them out!!"
+                             , _missionTime call BIS_fnc_selectRandom
+                             , _missionWherabouts call BIS_fnc_selectRandom
+                             , _stringName
+                             ];
+      _pic = "\a3\Missions_F_EPA\data\img\A_m02_overview_CA.paa";
+      _taskType = "attack";
    };
 };
 

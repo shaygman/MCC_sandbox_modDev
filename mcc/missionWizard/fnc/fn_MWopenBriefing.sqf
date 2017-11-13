@@ -91,6 +91,8 @@ if (_playMusic == 0) then {
 
 
 		//First scene
+		if (isNil "_units") then {_units = []};
+
 		_specialIntro = switch (true) do
 							{
 								case (overcast > 0.2 && random 1 < 0.3): {"sky"};

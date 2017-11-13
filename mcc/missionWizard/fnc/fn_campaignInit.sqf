@@ -41,6 +41,9 @@ if (!isServer) exitWith {diag_log "MCC_fnc_campaignInit : Error not running on s
 missionNamespace setVariable ["MCC_isCampaignRuning",true];
 publicVariable "MCC_isCampaignRuning";
 
+//Wait for mission start
+waitUntil {time > 3};
+
 missionNamespace setVariable ["MCC_campaignEnemyFaction",_factionEnemy];
 publicVariable "MCC_campaignEnemyFaction";
 
@@ -110,7 +113,7 @@ if (count _locations == 0) then {
 };
 
 //init map markers
-[_sideEnemy,_tileSize,0.2,_locations,400,0.4] call MCC_fnc_campaignInitMap;
+[_sideEnemy,_tileSize,0.2,_locations,400,0.4,_loadDb] call MCC_fnc_campaignInitMap;
 
 //Mark the starting bases
 {
@@ -210,7 +213,7 @@ while { count _locations > 0 &&
 	_isAS = random 1 > (missionNamespace getvariable [format ["MCC_civRelations_%1",_sidePlayer],0.5]);
 	_isSB = random 1 > (missionNamespace getvariable [format ["MCC_civRelations_%1",_sidePlayer],0.5]);
 	_reinforcement =if (random 100 < (_difficulty)*2 || _reconMission) then {[1,1,1,1,2] call BIS_fnc_selectRandom} else {0};
-	_obj1 = if (_reconMission) then {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel"] call BIS_fnc_selectRandom} else {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Clear Area","Clear Area","Clear Area","Clear Area"] call BIS_fnc_selectRandom};
+	_obj1 = if (_reconMission) then {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel"] call BIS_fnc_selectRandom} else {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area","Clear Area"] call BIS_fnc_selectRandom};
 
 	_obj2 = if (random 80 < _difficulty) then {"Destroy Radar/Radio"} else {"None"};
 	_obj3 = if (random 80 < _difficulty) then {["Destroy Vehicle","Destroy AA","Destroy Artillery","Destroy Weapon Cahce","Destroy Fuel Depot","Secure HVT","Kill HVT","Acquire Intel","Disarm IED"] call BIS_fnc_selectRandom} else {"None"};
@@ -347,6 +350,23 @@ while { count _locations > 0 &&
 		} foreach ([_sideEnemy] call MCC_fnc_campaignGetBorders);
 	};
 	*/
+
+	if !(_reconMission) then {
+		//Expend borders
+		private _markerColor = switch (_sidePlayer) do
+								{
+									case west: {"ColorWEST"};
+									case resistance: {"ColorGUER"};
+									case east: {"ColorEAST"};
+									default	{""};
+								};
+		{
+			_x setMarkerColor _markerColor;
+			_x setMarkerAlpha 0.2;
+		} foreach ([_sideEnemy,false] call MCC_fnc_campaignGetBorders);
+	};
+
+
 	_missionDone = _missionDone + 1;
 	_difficulty = (_difficulty * 1.1) min 60;
 

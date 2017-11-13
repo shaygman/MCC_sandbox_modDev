@@ -5,7 +5,7 @@
 private ["_center","_left","_right","_up","_cover","_centerFront","_leftFront","_rightFront","_upFront","_cover","_headPos","_currentAnim","_string","_centerFrontFarLeft","_centerFrontFarRight","_stance","_isWall","_pos","_leftFrontClose","_rightFrontClose","_rightClose","_leftClose","_pelvis","_pelvisFront","_pelvisFrontFarLeft","_pelvisFrontFarRight","_centerpelvis","_upFrontLeft","_upFrontRight","_obstacleLow","_obstacleMed","_obstacleHigh","_openingHigh","_openingMed","_openingLow","_centerpelvisDown","_pelvisDownFront","_pelvisDownFrontFarLeft","_pelvisDownFrontFarRight"];
 #define	 MCC_fnc_coverPELVISDOWN	-0.5
 
-if(alive player && vehicle player == player) then {
+if(alive player && vehicle player == player && (missionNamespace getVariable ["MCC_cover",false])) then {
 
 	//get relative positions
 	_headPos 		= player selectionPosition "head";

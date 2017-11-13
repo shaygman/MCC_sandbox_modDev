@@ -24,7 +24,7 @@ _maxObjectivesDistance = param [ 7, 400, [0]];
 
 if (_isCQB) then {
 	_range = if (_campaignMission) then {100} else {50};
-	_objPos = getpos (([_objPos, 100] call MCC_fnc_MWFindbuildingPos) select 0);
+	_objPos = getpos ((([_objPos, 100] call MCC_fnc_MWFindbuildingPos) call BIS_fnc_selectRandom) select 0);
 
 } else {
 	_range = if (_campaignMission) then {200} else {100};

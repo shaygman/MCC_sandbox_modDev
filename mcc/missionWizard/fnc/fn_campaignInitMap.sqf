@@ -1,4 +1,4 @@
-//======================================================MCC_fnc_campaignInitMap=========================================================================================================
+/*========================================MCC_fnc_campaignInitMap=========================================================================================================
 // init the campaign map and create hostile markers
 // Example:[_side,_size._alpha] call MCC_fnc_campaignInitMap;
 // _side: SIDE the default side holding the island
@@ -6,20 +6,22 @@
 // _alpha: INTEGER, defual box alpha marker
 // _locations : ARRAY of locations to mark the area around them as hot ex [[_pos1,"name1"],[_pos2,"name2"]]
 // _hotAlpha : INTGER Alpha intensity of the hot area marker
-//========================================================================================================================================================================================
-private ["_mapSize","_markersArray","_size","_marker","_tempArray","_fnc_isWater","_markerName","_side","_markerColor","_alpha","_xCounter","_yCounter","_locations","_markerPos","_hotAlpha","_hotDistance","_markerSelected","_markerCenter"];
+//====================================================================================================================================================================*/
+private ["_mapSize","_markersArray","_size","_marker","_tempArray","_fnc_isWater","_markerName","_side","_markerColor","_alpha","_xCounter","_yCounter","_locations","_markerPos","_hotAlpha","_hotDistance","_markerSelected","_markerCenter","_loadDb"];
 _side = param [0,sideLogic,[west]];
 _size = param [1,250,[0]];;
 _alpha = param [2,0.3,[0]];
 _locations = param [3,[],[[]]];
 _hotDistance = param [4,500,[0]];;
 _hotAlpha = param [5,0.5,[0]];
+_loadDb = param [6,false,[false]];
 
 _tempArray = [];
 _markersArray = [];
 
 //Check if we have stored info first
-_allTiles = [format ["MCC_campaign_%1_%2",worldname,missionName], "CAMPAIGN_MARKERS", "row_0", "read",[],true] call MCC_fnc_handleDB;
+_allTiles = if (_loadDb) then {[format ["MCC_campaign_%1_%2",worldname,missionName], "CAMPAIGN_MARKERS", "row_0", "read",[],true] call MCC_fnc_handleDB} else {[]};
+
 if (count _allTiles > 0) then {
 
 	//create markers
@@ -106,6 +108,7 @@ if (count _allTiles > 0) then {
 		};
 
 		_yCounter = _yCounter + 1;
+		sleep 0.001;
 	};
 };
 

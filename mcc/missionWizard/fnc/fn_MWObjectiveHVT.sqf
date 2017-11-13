@@ -182,17 +182,3 @@ if (_isCQB) then {
 		[_group, _spawnPos] call bis_fnc_taskDefend;
 	};
 };
-
-
-
-uiNamespace setVariable ["bis_fnc_garage_defaultClass",typeOf _this];
-missionNamespace setVariable ["BIS_fnc_garage_data",[[],[],[],[],[],[]]];
-missionNamespace setVariable ["BIS_fnc_garage_center",_this];
-_this call bis_fnc_garage3DEN;
-0 spawn {
-	waitUntil {(isnull (uinamespace getvariable ["BIS_fnc_arsenal_cam",objnull]))};
-	systemChat "ok";
-	sleep 1;
-	_vehicle = missionNamespace getVariable ["BIS_fnc_garage_center",_this];
-	{[[_x,_vehicle],{(_this select 0) addCuratorEditableObjects [[_this select 1],true];}] remoteExec ["BIS_fnc_spawn",_x]} forEach allCurators;
-};

@@ -80,29 +80,11 @@ if (isnil"MCC_t2tIndex") then {MCC_t2tIndex	= 1}; 			//0 - Disabled. 1- JIP, 2- 
 if (isnil"MCC_nonLeathalAmmo") then {MCC_nonLeathalAmmo = ["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug","CUP_8Rnd_B_Beneli_74Slug"]};
 if (isnil"MCC_breacingAmmo") then {MCC_breacingAmmo = ["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug","CUP_8Rnd_B_Beneli_74Slug"]};
 
-//MCC Survive mod
-// Set to true to activate survival mode - scavange for loot to survive
-0 spawn MCC_fnc_surviveInit;
-if (isnil "MCC_surviveMod") then {missionNamespace setVariable ["MCC_surviveMod",false]};
-
 //How long in days(24H-game time) will it take for spawn position to refresh
 if (isnil "MCC_surviveModRefresh") then {MCC_surviveModRefresh = 1};
 
 //RTS
 if (isnil "MCC_allowRTS") then {MCC_allowRTS = true};
-
-//============== Medic System ====================================
-if (!MCC_isMode && !MCC_isACE)  then {
-	MCC_interaction = true;
-	if (!MCC_isACE) then {
-		MCC_medicSystemEnabled = true;
-		//MCC_medicComplex = true;
-		MCC_medicBleedingEnabled = true;
-		MCC_medicDamageCoef = 0.9;
-
-		[] spawn MCC_fnc_initMedic;
-	};
-};
 
 //----------------------IED settings---------------------------------------------
 // IED types the first one is display name the second is the classname [displayName, ClassName]
@@ -664,10 +646,6 @@ if ( isServer ) then {
 	missionNamespace setVariable ["MCC_radioChannel_1",radioChannelCreate [[0, 0.96, 0.96, 0.8], localize "str_channel_side", "%UNIT_GRP_NAME", [], false]];
 	publicVariable "MCC_radioChannel_1";
 
-	/*
-	missionNamespace setVariable ["MCC_radioChannel_2",radioChannelCreate [[0.96, 0.96,0, 0.8], localize "str_channel_command", "%UNIT_GRP_NAME", [player], false]];
-	publicVariable "MCC_radioChannel_2";
-	*/
 
 	//Make sure about who is at war with who or it will be a very peacefull game
 	_SideHQ_East   = createCenter east;
@@ -924,13 +902,6 @@ if ( !( isDedicated) && !(MCC_isLocalHC) ) then {
 		{
 			[_dummy, _x,["%ALL"]] call BIS_fnc_setCuratorAttributes;
 		} forEach ["player"];
-
-		//Default curator options
-		/*
-		_dummy addeventhandler ["curatorGroupDoubleClicked",{(_this select 1) call bis_fnc_showCuratorAttributes;}];
-		_dummy addeventhandler ["curatorWaypointDoubleClicked",{(_this select 1) call bis_fnc_showCuratorAttributes;}];
-		_dummy addeventhandler ["curatorMarkerDoubleClicked",{(_this select 1) call bis_fnc_showCuratorAttributes;}];
-		*/
 	} forEach allCurators;
 
 	//If player is using CBA add CBA keybinds
@@ -1105,4 +1076,3 @@ if(CP_activated && !isDedicated && !MCC_isLocalHC) then {
 
 //============= Init MCC done===========================
 MCC_initDone = true;
-finishMissionInit;

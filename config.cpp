@@ -23,13 +23,6 @@ class CfgPatches
 		versionDesc = "MCC Sandbox 4 curator expension";
 		version = "1";
 	};
-
-	class SUP_flash
-	{
-		units[] = {};
-		weapons[] = {"SUPER_arifle_MX_GL_F"};
-		requiredAddons[] = {"A3_characters_F","A3_Data_F"};
-	};
 };
 
 class CfgMods

@@ -32,9 +32,10 @@ switch (true) do {
 
 		if (alive _attachedUnit && side leader _attachedUnit in _owners) then {
 			_desc 	= format ["Get %1 back to base alive",name _attachedUnit];
+			/*
 			_logic setvariable ["RscAttributeTaskState","Succeeded", true];
 			_logic setvariable ["updated",true];
-
+			*/
 			sleep 1;
 			_logic setvariable ["RscAttributeTaskDescription",[_desc, _desc, _desc],true];
 			sleep 1;
