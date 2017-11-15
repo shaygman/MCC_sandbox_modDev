@@ -22,7 +22,38 @@ _trnsprtgrp						= _this select 1;
 
 _PosCloseRoadStart = [];
 _PosCloseRoadEnd	 = [];
+_found             = false;
+_attempts          = 0;
+_pos               = [];
+_ToCloseCA         = [];
 
+while {!_found and _attempts<30} do
+{
+    sleep 0.1;
+
+    //With a -30 to + 30 degree difference do move 100 to TargetPos
+    _pos = [_wpPos, (random 400) min 300 , random 360 ] call BIS_fnc_relPos;
+    //And please, please, please, try some cover ok.Within 50, so another wild flanking thingy
+    _CoverPos   = [];
+    _CoverPos =selectBestPlaces [_pos, 30, "meadow + 2*hills", 1, 1];
+
+
+    //We found some good stuf, go use it
+    if ((count (_CoverPos))>0) then
+        {
+            _CoverPos=(_CoverPos select 0 select 0);
+            _pos = _CoverPos;
+        };
+        _ToCloseCA = [_ca, {(_x distance _pos)<300}] call BIS_fnc_conditionalSelect;
+    if (!(surfaceiswater _pos ) and count(_ToCloseCA)==0) then
+        {
+            _found = true;
+        };
+
+};
+
+if _found then
+{
 //where is this dude going?
 _wpPos = (waypointPosition [_group ,(count(waypoints _group)-1)]);
 _wptype = waypointType [_group ,(count(waypoints _group)-1)];
@@ -79,7 +110,7 @@ _PosCloseRoadEnd	= 	_wpPos;
 	_x 		 setVariable ["GAIA_CombinedOrder"			, (_group), false];
 	_group setVariable ["GAIA_CombinedOrder"			, (_trnsprtgrp), false];
 
-
+};
 
 
 

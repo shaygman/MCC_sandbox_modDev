@@ -237,20 +237,24 @@ switch(true)do
 				_portfolio = _portfolio					+ _DoWait;
 
 
-				//No guns but do hold space? We are a transporter
+				//Are we a transporter - S.Crowe fix from Spirit
 
-				if (!_VehicleHasGuns and _EnoughCargo ) then
-				{
+				//For now set on 5. I think just a few seats wont make it a transporter.
+                if (_CargoCount>5) then
+                {
+                    _portfolio = _portfolio                 + _DoTransport;
+                    _portfolio = _portfolio +_DoPatrol;
 
-				_portfolio = _portfolio					+_DoPatrol;
-				};
+                }
+                else
+                {
+					//Please, for the love of god check if we have guns before we charge in.
+					if (_VehicleHasGuns) then
+					{
+					_portfolio = _portfolio					+ _DoAttack;
 
-				//Please, for the love of god check if we have guns before we charge in.
-				if (_VehicleHasGuns) then
-				{
-				_portfolio = _portfolio					+ _DoAttack;
 
-
+					};
 				};
 			};
 
