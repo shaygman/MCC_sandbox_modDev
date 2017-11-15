@@ -50,6 +50,8 @@ while {!_found and _attempts<30} do
             _found = true;
         };
 
+    _attempts = _attempts + 1;
+
 };
 
 if _found then
