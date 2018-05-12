@@ -154,23 +154,24 @@ switch (true) do {
 					createDialog "CP_GEARPANEL";
 				};
 
-				//Tires
-				case (_ctrlData == "tires"): {
-					private ["_availableWheels","_array"];
+				//Load object to vehicle
+				case (_ctrlData == "logisticsLoad"): {
+					private ["_objectMass","_availableVehicles","_array","_vehicleName","_vehiclePic"];
 
-					(getAllHitPointsDamage _object) params ["_hp","_hpNames","_hpDamage"];
+					MCC_fnc_logisticsCargoLoad = {
+
+					};
+
+					_objectMass = (getMass _object) max 5;
+					_availableVehicles = (player nearObjects ["AllVehicles",10]) select {_x getVariable ["MCC_logisticsObjectMass",_x call MCC_fnc_logisticsCargoGetMass] >= _objectMass};
 
 					_array = [["[(missionNamespace getVariable ['MCC_interactionLayer_0',[]]),1] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
 
 					{
-						if ((_x find "wheel" != -1) || (_x find "Wheel" != -1)) then {
-							if ((_hpDamage select _foreachindex) >=1) then {
-								_array pushBack [format ["[%1] spawn MCC_fnc_vehicleTireChange",str (_hp select _foreachindex)],format ["Replace %1", _x],format ["%1data\TireRepair.paa",MCC_path],[1,0,0,1]];
-							} else {
-								_array pushBack [format ["[%1] spawn MCC_fnc_vehicleTireChange",str (_hp select _foreachindex)],format ["Remove %1", _x],format ["%1data\tireRemove.paa",MCC_path]];
-							};
-						};
-					} forEach _hpNames;
+						_vehicleName = (getText (configfile >> "CfgVehicles" >> typeof _x >> "displayName"));
+						_vehiclePic = (getText (configfile >> "CfgVehicles" >> typeof _x >> "picture"));
+						_array pushBack [format ["[%1] spawn MCC_fnc_logisticsCargoLoad", str (_x call BIS_fnc_netId)],format ["Load into %1",_vehicleName],_vehiclePic];
+					} forEach _availableVehicles;
 
 					[_array,1] call MCC_fnc_interactionsBuildInteractionUI;
 				};
@@ -197,9 +198,19 @@ switch (true) do {
 				_array pushBack ["['unload'] spawn MCC_fnc_vehicleMenuClicked","Unload Wounded",format ["%1data\iconDrag.paa",MCC_path]];
 			};
 
-			//Static-drag but no inventory
-			if ((_object != (player getVariable ["mcc_draggedObject", objNull])) && (count attachedObjects _object == 0) && (getmass _object < 501) && (isNull attachedTo _object)) then {
-				_array pushBack ["['drag'] spawn MCC_fnc_vehicleMenuClicked",format ["Drag %1",_displayName],format ["%1data\iconDrag.paa",MCC_path]];
+			//Object
+			if ((_object != (player getVariable ["mcc_draggedObject", objNull])) && (count attachedObjects _object == 0) && (isNull attachedTo _object)) then {
+
+				//Drag
+				if (getmass _object < 501) then {
+					_array pushBack ["['drag'] spawn MCC_fnc_vehicleMenuClicked",format ["Drag %1",_displayName],format ["%1data\iconDrag.paa",MCC_path]];
+				};
+
+				//Load into a vehicle
+				private _objectMass = (getMass _object) max 5;
+				 if ({_x  getVariable ["MCC_logisticsObjectMass",_x call MCC_fnc_logisticsCargoGetMass] >= _objectMass && !(_x isEqualTo _object)} count (player nearObjects ["AllVehicles",10]) >0) then {
+				 		_array pushBack ["['logisticsLoad'] spawn MCC_fnc_vehicleMenuClicked",format ["Load %1",_displayName],format ["%1mcc\logistics\data\unloadIcon.paa",MCC_path]];
+				};
 			};
 
 
@@ -315,7 +326,7 @@ switch (true) do {
 			};
 
 			//Inventory menu
-			if (!(_object isKindof "StaticWeapon" || _object isKindof "Box_FIA_Support_F" ) && !CP_activated) then {
+			if ((_object call MCC_fnc_logisticsCargoGetMass > 0) && !CP_activated) then {
 				_array pushBack ["['gear'] spawn MCC_fnc_vehicleMenuClicked","Open inventory",format ["%1data\IconAmmo.paa",MCC_path]];
 			};
 

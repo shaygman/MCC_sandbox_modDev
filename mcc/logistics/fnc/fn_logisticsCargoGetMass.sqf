@@ -8,7 +8,4 @@ Calculate vehicle cargo mass
 	INTEGER - total mass
 =======================================================================================================================================================================
 */
-
-_this params ["_object"];
-
-(getNumber (configfile >> "CfgVehicles" >> typeOf _object >> "transportMaxBackpacks"))*50;
+(getNumber (configfile >> "CfgVehicles" >> typeOf _this >> "transportMaxMagazines"))*50;
