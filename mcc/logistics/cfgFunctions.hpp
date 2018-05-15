@@ -12,4 +12,5 @@ class logistics
 	class logisticsCargoGetMass {description = "Calculate vehicle cargo mass";};
 	class logisticsCargoUnload  {description = "Unload an item from the virtual cargo space of a vehicle";};
 	class logisticsCargoInit {description = "Init the virtual logistics cargo dialog - internal use only";};
+	class logisticsCargoLoad {description = "Load an object to vehicle";};
 };

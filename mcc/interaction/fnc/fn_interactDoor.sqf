@@ -158,19 +158,17 @@ switch (true) do {
 				case (_ctrlData == "logisticsLoad"): {
 					private ["_objectMass","_availableVehicles","_array","_vehicleName","_vehiclePic"];
 
-					MCC_fnc_logisticsCargoLoad = {
-
-					};
-
 					_objectMass = (getMass _object) max 5;
 					_availableVehicles = (player nearObjects ["AllVehicles",10]) select {_x getVariable ["MCC_logisticsObjectMass",_x call MCC_fnc_logisticsCargoGetMass] >= _objectMass};
 
 					_array = [["[(missionNamespace getVariable ['MCC_interactionLayer_0',[]]),1] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
 
 					{
-						_vehicleName = (getText (configfile >> "CfgVehicles" >> typeof _x >> "displayName"));
-						_vehiclePic = (getText (configfile >> "CfgVehicles" >> typeof _x >> "picture"));
-						_array pushBack [format ["[%1] spawn MCC_fnc_logisticsCargoLoad", str (_x call BIS_fnc_netId)],format ["Load into %1",_vehicleName],_vehiclePic];
+						if !(_x isEqualTo _object) then {
+							_vehicleName = (getText (configfile >> "CfgVehicles" >> typeof _x >> "displayName"));
+							_vehiclePic = (getText (configfile >> "CfgVehicles" >> typeof _x >> "picture"));
+							_array pushBack [format ["[%1, %2] spawn MCC_fnc_logisticsCargoLoad", str (_object call BIS_fnc_netId), str (_x call BIS_fnc_netId)],format ["Load into %1",_vehicleName],_vehiclePic];
+						};
 					} forEach _availableVehicles;
 
 					[_array,1] call MCC_fnc_interactionsBuildInteractionUI;

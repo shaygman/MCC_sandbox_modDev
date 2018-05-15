@@ -18,6 +18,7 @@ Survivel Vault:
 Fixed - Save MCC to profile was bugged
 Fixed - can't build FOB even if it is more then 500 meters away
 Fixed = Upgrade to advance workshop requires generator
+Removed - Alarms from Stealth Mission Wizard mission
 
 - RTS - replenishing group's unit will be paradrop and not just spawn out of thin air
 

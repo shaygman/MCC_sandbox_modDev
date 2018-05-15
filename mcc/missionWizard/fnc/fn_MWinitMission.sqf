@@ -398,6 +398,7 @@ for [{_x = 1},{_x <=3},{_x = _x+1}] do {
 		};
 
 		//Stealth mission
+		/*
 		if (_stealth) then {
 			private ["_activate","_cond","_alarm"];
 			switch (_sidePlayer) do {
@@ -415,6 +416,7 @@ for [{_x = 1},{_x <=3},{_x = _x+1}] do {
 
 			[["", getpos _alarm, 100, 100, _activate, _cond,"AlarmSfx",false],"MCC_fnc_MusicTrigger",true,false] spawn BIS_fnc_MP;
 		};
+		*/
 
 		sleep 1;
 
