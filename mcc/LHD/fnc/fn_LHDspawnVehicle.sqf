@@ -96,10 +96,10 @@ switch (tolower _fnc) do
 		if (_isCUPLHD) then {
 			_dummy attachTo [_lhd,[0,0,0],_selection]
 		} else {
-			_dummy attachTo [_lhd,(call compile _selection)]
+			_dummy attachTo [_lhd,(call compile _selection)];
 		};
 
-		if (count (nearestObjects [getPosASL _dummy, ["Land","Air"], 1]) > 0 || (_selection isEqualTo "")) then {
+		if (count (nearestObjects [getPosASL _dummy, ["Land","Air"], 5]) > 0 || (_selection isEqualTo "")) then {
 			_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Spawn point is occupied" + "</t>";
 			_null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
 
@@ -134,11 +134,13 @@ switch (tolower _fnc) do
 				_cargo setVariable ["CUP_WaterVehicles_LHD_respawnPosition", _selection, true];
 			} else {
 				_cargo attachTo [_lhd,(call compile _selection)];
+				_cargo setDir _direction;
+
+				detach _cargo;
 			};
 
-
-			detach _cargo;
 			_cargo setDir _direction;
+			sleep 0.5;
 			_cargo allowDamage true;
 
 			if (_isCUPLHD) then {

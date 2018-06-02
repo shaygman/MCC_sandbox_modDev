@@ -11,23 +11,31 @@ Weapons/Items/Gear Shops: *NEW*
 Survivel Vault:
 	Changed: totally reworked the UI.
 
-- Vehicles that supports animations source aka camo nets exc will spawn with random animations by default.
-- Added - Vehicle commander can deploy animations (camo nets exc) using MCC or ACE interaction.
-- Added - remover/install vehicle tire or track
+Vehicles Camonets
+	- Added - Vehicles that supports animations source aka camo nets exc will spawn with random animations by default.
+	- Added - Vehicle commander can deploy animations (camo nets exc) using MCC or ACE interaction.
 
+Advanced Logistics system
+	- Added - Any object can be loaded into a vehicle if the vehicle sapce can handle the object mass. Can used to transport objects using vehicles
+	- Added - Any vehicle will come by defualt with spare tire or spare track
+	- Added - remove/install vehicle tire or track
+
+Radio System
+- Changed - changed to ingame sounds to make it more smooth
+
+Added - 20 meters evac helicopter flight hight
 Fixed - Save MCC to profile was bugged
 Fixed - can't build FOB even if it is more then 500 meters away
 Fixed = Upgrade to advance workshop requires generator
+Fixed - Cruise missile CAS didn't work on dedicated servers
+Fixed - Sling loading air drops wasn't working properly
+Fixed - Helicopters spawns on the aircraft carrier explodes
+Fixed - Personal ammoboxes glithc through the ground
 Removed - Alarms from Stealth Mission Wizard mission
 
 - RTS - replenishing group's unit will be paradrop and not just spawn out of thin air
 
 TODO -
-check cruse missile on dedi
-check why sling isn't working
-reduce fast rope to 20 meters - maybe support ACE
-Campaign helicopter isn't locked - campaign helicopter spawn every day
-stop the alarms on campign
 Check droppods
 add AA to mission wizard
 add paremters to supression effects

@@ -445,7 +445,7 @@ if (isnil "MCC_ConsoleAirdropArrayGUER") then {MCC_ConsoleAirdropArrayGUER	= []}
 MCC_CASConsoleFirstTime = true;
 
 
-MCC_evacFlyInHight_array = [["50m",50],["100m",100],["150m",150],["200m",200],["300m",300],["400m",400],["500m",500]];
+MCC_evacFlyInHight_array = [["20m",20],["50m",50],["100m",100],["150m",150],["200m",200],["300m",300],["400m",400],["500m",500]];
 MCC_evacFlyInHight_index = 1;
 
 MCC_UMunitsNames = [];
@@ -884,7 +884,7 @@ if (isPlayer player && !isServer && !(MCC_isLocalHC) && (missionNameSpace getVar
 };
 
 //Client init
-if (!( isDedicated) && !(MCC_isLocalHC) ) then {
+if (hasInterface) then {
 
 	0 spawn {
 		waituntil {!(IsNull (findDisplay 46))};
@@ -1089,10 +1089,3 @@ if(CP_activated && !isDedicated && !MCC_isLocalHC) then {
 
 //============= Init MCC done===========================
 MCC_initDone = true;
-
-/*
-addMissionEventHandler [ "EntityRespawned", {
-    params [ "_new", "_old" ];
-     systemChat str [_new,_old];
-}];
-*/

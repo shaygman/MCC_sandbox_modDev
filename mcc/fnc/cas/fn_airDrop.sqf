@@ -73,21 +73,26 @@ if (tolower _planeType in ["west","east","guer","civ","logic"]) then  {
 
 		sleep 2;
 		_wp = (group _plane1) addWaypoint [[_pos select 0, _pos select 1, 0], 0];	//Add WP
-		_wp setWaypointType "UNHOOK";
+		_wp setWaypointType "MOVE";
 		_wp setWaypointStatements ["true", ""];
 		_wp setWaypointSpeed "FULL";
 		_wp setWaypointCombatMode "BLUE";
-		_wp setWaypointCompletionRadius 200;
+		_wp setWaypointCompletionRadius 50;
 		_plane1 flyInHeight 100;
 
-		waitUntil {((((count (waypoints _pilotGroup1)) - currentWaypoint _pilotGroup1)==0)) || (!alive _plane1)};
+		waitUntil {_plane1 distance2d _pos < 150 || (!alive _plane1)};
+
 		if (!alive _plane1) exitWith {};
 
 		//workaround for some reason after vhicle is slingloaded it can't be driven
 		_object spawn {
 			private ["_pos","_dir","_class","_object"];
-			waituntil {(isNull attachedTo _this) && ((getpos _this) select 2) < 2};
+			_this allowDamage false;
 
+			waituntil {((isNull attachedTo _this) && ((getpos _this) select 2) < 2) || isTouchingGround _this};
+
+			_this allowDamage true;
+			/*
 			_pos = getpos _this;
 			_dir = getdir _this;
 			_class = typeof _this;
@@ -96,18 +101,14 @@ if (tolower _planeType in ["west","east","guer","civ","logic"]) then  {
 			_object = _class createvehicle _pos;
 			_object setDir _dir;
 			{_x addCuratorEditableObjects [[_object],false]} forEach allCurators;
+			*/
 		};
 
-		sleep 5;
-		//If the AI didn't make the drop
-		if !(isnull (getSlingLoad _plane1)) then {
-			_plane1 flyInHeight 15;
-			sleep 30;
-			{
-				ropeCut [ _x, 5];
-			} forEach (ropes _plane1);
-			_plane1 flyInHeight 100;
-		};
+		//Start precise landing
+		_pos = (AGLToASL _pos) vectorAdd [0,0,15];
+		[_plane1, _pos] call MCC_fnc_heliPreciseLanding;
+
+		_plane1 setSlingLoad objNull;
 
 		//Delete the plane when finished
 		[_pilotGroup1, _pilot1, _plane1, _away] spawn MCC_fnc_deletePlane;

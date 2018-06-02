@@ -20,5 +20,21 @@ player playactionNow "putdown";
 sleep 0.3;
 _handPos = player selectionPosition "LeftHand";
 _utility = _itemClass createvehicle (player modelToWorld [(_handPos select 0),(_handPos select 1)+1.8,(_handPos select 2)]);
-_utility setpos (player modelToWorld [(_handPos select 0),(_handPos select 1)+1,0]);
+_utility setpos (player modelToWorld [(_handPos select 0),(_handPos select 1)+1,(_handPos select 2)]);
 _utility setdir getdir player;
+0 = [_utility,(owner player)] remoteExec ["setOwner", 2];
+
+if (_itemClass in ["MCC_ammoBox"]) then {
+	if (missionNamespace getVariable ["MCC_isACE",false]) then {
+		[_utility, "Use ACE keys to resupply"] remoteExec ["MCC_fnc_createHelper",2];
+	} else {
+		[_utility, "Hold %1 to resupply"] remoteExec ["MCC_fnc_createHelper",2];
+	};
+
+	_utility spawn	{
+		private ["_t"];
+		_t = time + 600;
+		while {alive _this && time < _t} do {sleep 5};
+		if (alive _this) exitWith {deleteVehicle _this};
+	};
+};

@@ -40,5 +40,17 @@ class MCC_logisticsCargo
 			w = 0.0721875 * safezoneW;
 			h = 0.033 * safezoneH;
 		};
+
+		class CancelButton: MCC_RscButton
+		{
+			idc = -1;
+			action = "closeDialog 0";
+
+			text = "X"; //--- ToDo: Localize;
+			x = 0.56 * safezoneW + safezoneX;
+			y = 0.302 * safezoneH + safezoneY;
+			w = 0.033 * safezoneW;
+			h = 0.033 * safezoneH;
+		};
 	};
 };

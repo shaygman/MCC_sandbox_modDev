@@ -70,8 +70,8 @@ if (MCC_CASrequestMarker && _pressed==0) exitWith {
 	// set plane spawn and away position
 	_markerPos 	= getmarkerpos _marker;
 	_markerDir 	= markerDir _marker;
-	_spawn 		= [_markerPos,4500,(_markerDir -180)] call BIS_fnc_relpos;
-	_away 		= [_markerPos,4500,_markerDir] call BIS_fnc_relpos;
+	_spawn 		= [_markerPos,2000,(_markerDir -180)] call BIS_fnc_relpos;
+	_away 		= [_markerPos,2000,_markerDir] call BIS_fnc_relpos;
 	_ammount	=  floor (((getMarkerSize _marker) select 1)/50) + 1; 		//Ammount of drop min 0 max 6
 
 	//Check if not on trigger
@@ -86,9 +86,6 @@ if (MCC_CASrequestMarker && _pressed==0) exitWith {
 	if !(_ok) exitWith {hint "Can't call support to this location try again"};
 
 	hint "Air support incomming.";
-	/*
-	[[_ammount, MCC_spawnkind , getmarkerpos _marker, MCC_planeType, _spawn,_away,(missionNamespace getVariable ["MCC_airdropIsParachute",0])],"MCC_fnc_airDrop",false,false] spawn BIS_fnc_MP;
-	*/
 
 	[_ammount, MCC_spawnkind , getmarkerpos _marker, MCC_planeType, _spawn,_away,(missionNamespace getVariable ["MCC_airdropIsParachute",0])] spawn MCC_fnc_airDrop;
 

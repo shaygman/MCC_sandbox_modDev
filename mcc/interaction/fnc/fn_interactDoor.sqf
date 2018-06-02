@@ -146,8 +146,12 @@ switch (true) do {
 					_null = [playerSide] call MCC_fnc_mainBoxInit;
 				};
 
-				case (_ctrlData == "resupply"): {
+				case (_ctrlData == "resupply_inf"): {
 					[_object,true] spawn MCC_fnc_resupply;
+				};
+
+				case (_ctrlData == "resupply_limited"): {
+					[_object,false] spawn MCC_fnc_resupply;
 				};
 
 				case (_ctrlData == "kitSelect"): {
@@ -226,11 +230,16 @@ switch (true) do {
 					_array pushBack["['kitSelect'] spawn MCC_fnc_vehicleMenuClicked","Change Kit",format ["%1data\IconPhysical.paa",MCC_path]];
 				};
 
-				//Resupply
+				//Resupply main box
 				if (!(missionNamespace getVariable ["MCC_surviveMod",false])) then {
-					_array pushBack["['resupply'] spawn MCC_fnc_vehicleMenuClicked","Resupply",format ["%1data\IconAmmo.paa",MCC_path]];
+					_array pushBack["['resupply_inf'] spawn MCC_fnc_vehicleMenuClicked","Resupply","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"];
 				};
 			};
+
+			//Resupply regular boxes
+			if (typeof _object in ["MCC_ammoBox","MCC_crateAmmo","MCC_crateAmmoBigWest","MCC_crateAmmoBigEast","Box_NATO_AmmoVeh_F","B_Slingload_01_Ammo_F","Land_Pod_Heli_Transport_04_ammo_F"]) then {
+					_array pushBack["['resupply_limited'] spawn MCC_fnc_vehicleMenuClicked","Resupply","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"];
+				};
 
 			//Repair/remove tires
 			if (_object isKindOf "Car") then {

@@ -322,8 +322,8 @@ if (mcc_missionmaker == (name player)) then {
 		// set plane spawn and away position
 		_markerPos 	= getmarkerpos _marker;
 		_markerDir 	= markerDir _marker;
-		_spawn 		= [_markerPos,3000,(_markerDir -180)] call BIS_fnc_relpos;
-		_away 		= [_markerPos,3500,_markerDir] call BIS_fnc_relpos;
+		_spawn 		= [_markerPos,2000,(_markerDir -180)] call BIS_fnc_relpos;
+		_away 		= [_markerPos,2000,_markerDir] call BIS_fnc_relpos;
 		_ammount	=  floor (((getMarkerSize _marker) select 1)/50) + 1; 		//Ammount of drop min 0 max 6
 
 		if (MCC_capture_state) then {
@@ -339,12 +339,7 @@ if (mcc_missionmaker == (name player)) then {
 				,_away];
 		} else {
 			hint "Air support incomming.";
-
-			[[_ammount, MCC_spawnkind , getmarkerpos _marker, MCC_planeType, _spawn,_away,(missionNamespace getVariable ["MCC_airdropIsParachute",0])],"MCC_fnc_airDrop",false,false] spawn BIS_fnc_MP;
-
-			/*
-			[_ammount, MCC_spawnkind , getmarkerpos _marker, MCC_planeType, _spawn,_away,(missionNamespace getVariable ["MCC_airdropIsParachute",0])] execvm "mcc\fnc\cas\fn_airdrop.sqf";
-			*/
+			[_ammount, MCC_spawnkind , getmarkerpos _marker, MCC_planeType, _spawn,_away,(missionNamespace getVariable ["MCC_airdropIsParachute",0])] spawn MCC_fnc_airDrop;
 		};
 
 		MCC_CASrequestMarker = false;			//Wait and delete the marker

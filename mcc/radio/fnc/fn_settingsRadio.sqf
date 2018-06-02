@@ -1,4 +1,4 @@
-//==================================================================MCC_fnc_settingsRadio===============================================================================================
+//==================================================================MCC_fnc_settingsRadio==================================================================================
 // module
 // Example: [] call MCC_fnc_settingsRadio;
 //===========================================================================================================================================================================
@@ -17,4 +17,4 @@ MCC_vonRadioDistanceGroup = _logic getvariable ["radioGroup",500];
 //Kick idle
 _var 	= _logic getvariable ["kickIdle",1];
 MCC_vonRadioKickIdle = if (_var == 0) then {false} else {true};
-MCC_vonRadioKickIdleTime = _logic getvariable ["kickIdleTime",10];
+MCC_vonRadioKickIdleTime = _logic getvariable ["kickIdleTime",20];

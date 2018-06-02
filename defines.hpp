@@ -119,6 +119,7 @@ class CfgSounds
 {
 	#include "mcc\cfg\CfgSounds.hpp"
 	#include "mcc\ambient\CfgSounds.hpp"
+	#include "mcc\radio\CfgSounds.hpp"
 };
 
 class CfgNotifications
