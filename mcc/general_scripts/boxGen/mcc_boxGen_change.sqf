@@ -3,7 +3,7 @@ private ["_mccdialog","_comboBox","_displayname","_pic", "_index", "_array", "_c
 #define ALLGEAR_IDD 8500
 #define BOXGEAR_IDD 8501
 #define GEARCLASS_IDD 8502
-#define MCC_INITBOX 8004 
+#define MCC_INITBOX 8004
 
 disableSerialization;
 
@@ -19,7 +19,7 @@ if (_mccdialog == findDisplay MCCCuratorInit_IDD) then
 }
 else
 {
-	_target = tempBox;
+	_target = missionnamespace getvariable ["tempBox",objNull];
 	_isMCC3D = true;
 };
 
@@ -28,79 +28,79 @@ MCC_gearDialogClassIndex = lbCurSel GEARCLASS_IDD;
 if (_type == 0) exitWith 	//Change class
 {
 	if (isnil "MCC_boxChange") then {MCC_boxChange = false};
-	
-	if (MCC_boxChange) exitWith {}; 
+
+	if (MCC_boxChange) exitWith {};
 	MCC_boxChange = !MCC_boxChange;
-	
-	switch (MCC_gearDialogClassIndex) do 
+
+	switch (MCC_gearDialogClassIndex) do
 		{
 		case 0: //Binos
 			{
 			_array = W_BINOS;
-			}; 
-			
+			};
+
 		case 1: //Items
 			{
 			_array = W_ITEMS;
 			};
-			
+
 		case 2: //Uniforms
 			{
 			_array = U_UNIFORM;
 			};
-			
+
 		case 3: //Launchers
 			{
 			_array = W_LAUNCHERS;
 			};
-		
+
 		case 4: //MG
 			{
 			_array = W_MG;
 			};
-		
-		case 5: //Pistols			
+
+		case 5: //Pistols
 			{
 			_array = W_PISTOLS;
 			};
-			
-		case 6: //Rifles			
+
+		case 6: //Rifles
 			{
 			_array = W_RIFLES;
 			};
-		
-		case 7: //Sniper Rifles			
+
+		case 7: //Sniper Rifles
 			{
 			_array = W_SNIPER;
 			};
-			
-		case 8: //Rucks			
+
+		case 8: //Rucks
 			{
 			_array = W_RUCKS;
 			};
-		case 9: //Glasses			
+		case 9: //Glasses
 			{
 			_array = U_GLASSES;
 			};
-		case 10: //Magazines			
+		case 10: //Magazines
 			{
 			_array = U_MAGAZINES;
 			};
-		case 11: //Under Barrel			
+		case 11: //Under Barrel
 			{
 			_array = U_UNDERBARREL;
 			};
-		case 12: //Grenades		
+		case 12: //Grenades
 			{
 			_array = U_GRENADE;
 			};
-		case 13: //Explosive			
+		case 13: //Explosive
 			{
 			_array = U_EXPLOSIVE;
 			};
 		};
 
-	_comboBox = _mccdialog displayCtrl ALLGEAR_IDD; 
+	_comboBox = _mccdialog displayCtrl ALLGEAR_IDD;
 		lbClear _comboBox;
 		{
 			_class = _x select 0;
@@ -112,7 +112,7 @@ if (_type == 0) exitWith 	//Change class
 		} foreach _array;
 	_comboBox lbSetCurSel 0;
 	sleep 0.5;
-	MCC_boxChange = false; 
+	MCC_boxChange = false;
 };
 
 if (_type == 1) then //Add weapon + mags
@@ -133,10 +133,10 @@ if (_type == 1) then //Add weapon + mags
 			} else
 			{
 				{
-				if (_x == "this") then 
+				if (_x == "this") then
 					{
 					_magazines = _magazines + getArray(_cfg >> "magazines");
-					} else 
+					} else
 					{
 					_magazines = _magazines + getArray(_cfg >> _x >> "magazines");
 					};
@@ -161,15 +161,15 @@ if (_type == 3) then //Clear
 	clearWeaponCargo _target;
 	clearItemCargo _target;
 	clearBackpackCargo _target;
-};	
-	
+};
+
 _targetWeapons 	= getWeaponCargo _target;	//Update box
 _targetMagazine = getMagazineCargo _target;
 _targetItems	= getItemCargo _target;
 _targetRucks	= getBackpackCargo _target;
 
 _count = 0;
-_comboBox = _mccdialog displayCtrl BOXGEAR_IDD; 
+_comboBox = _mccdialog displayCtrl BOXGEAR_IDD;
 lbClear _comboBox;
 {
 	_cfg = configFile >> "CfgWeapons" >> _x;
@@ -212,17 +212,17 @@ _count = 0;
 	_count = _count+ 1;
 } foreach (_targetRucks select 0);
 _comboBox lbSetCurSel 0;
-	
+
 
 if (_type == 4) then //Generate
 {
 	_string = ctrlText MCC_INITBOX;
 	_string = _string + format [';if (isServer) then {clearMagazineCargoGlobal _this; clearWeaponCargoGlobal _this;	clearItemCargoGlobal _this; clearBackpackCargoGlobal _this;[[_this, %1, %2, %3, %4],"MCC_fnc_boxGenerator",_this,false] spawn BIS_fnc_MP};',_targetWeapons, _targetMagazine, _targetItems, _targetRucks];
 	ctrlSetText [MCC_INITBOX,_string];
-	
+
 	if (_isMCC3D) then
 	{
 		_null = [1] execVM format["%1mcc\pop_menu\spawn_group3d.sqf",MCC_path];
 	};
 };
-	
+

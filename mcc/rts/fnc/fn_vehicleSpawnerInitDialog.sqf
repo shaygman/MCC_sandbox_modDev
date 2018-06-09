@@ -26,11 +26,26 @@ if ((attachedTo _spawnPad) isKindOf _rtsAnchor && !((missionNamespace getVariabl
 createDialog "MCC_VEHICLESPAWNER";
 waitUntil {!isnull (uiNamespace getVariable ["MCC_VEHICLESPAWNER_IDD", displayNull])};
 
+//If it is from commander view use resources if it isn't use valor
 if (_commadner) then {
     ctrlshow [1003,false];
     ctrlshow [1103,false];
     ctrlshow [84,false];
     ctrlshow [94,false];
+} else {
+    for "_i" from 1100 to 1102 step 1 do {ctrlshow [_i,false]};
+    for "_i" from 1000 to 1002 step 1 do {ctrlshow [_i,false]};
+    for "_i" from 81 to 83 step 1 do {ctrlshow [_i,false]};
+    for "_i" from 91 to 93 step 1 do {ctrlshow [_i,false]};
+
+    private _display = uiNamespace getVariable ["MCC_VEHICLESPAWNER_IDD",displayNull];
+    private _ctrl = (_display displayCtrl 1103);
+    _ctrl ctrlSetPosition [(0.38 * safezoneW + safezoneX),(0.32 * safezoneH + safezoneY)];
+    _ctrl ctrlCommit 0;
+
+    _ctrl = (_display displayCtrl 1003);
+    _ctrl ctrlSetPosition [(0.41 * safezoneW + safezoneX),(0.32 * safezoneH + safezoneY)];
+    _ctrl ctrlCommit 0;
 };
 
 _simTypesUnits = switch (tolower _vehicleType) do {

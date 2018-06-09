@@ -61,7 +61,7 @@ if (typeName _mode == typeName objNull) then {
 	missionNamespace setVariable ["MCC_suppressionOn",_module getvariable ["suppression",false]];
 
 	//Hit Radar
-	missionNamespace setVariable ["MCC_hitRadar",_module getvariable ["hitRadar",false]];
+	missionNamespace setVariable ["MCC_hitRadar",_module getvariable ["hitRadar",0]];
 
 	//Tickets
 	missionNamespace setVariable ["MCC_UIModuleTickets",_module getvariable ["tickets",false]];
@@ -91,7 +91,7 @@ if (typeName _mode == typeName objNull) then {
 	missionNamespace setVariable ["MCC_suppressionOn",param [7,true,[false]]];
 
 	//Hit Radar
-	missionNamespace setVariable ["MCC_hitRadar",param [8,true,[false]]];
+	missionNamespace setVariable ["MCC_hitRadar",param [8,0,[0]]];
 
 	//Tickets
 	missionNamespace setVariable ["MCC_UIModuleTickets",param [9,true,[false]]];

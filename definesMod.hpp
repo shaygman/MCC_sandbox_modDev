@@ -50,7 +50,6 @@
 
 //--------------------------Others----------------------------------------------------
 #include "\mcc_sandbox_mod\bon_artillery\dialog\Artillery.hpp"
-#include "\mcc_sandbox_mod\VAS\menu.hpp"
 #include "\mcc_sandbox_mod\hcam\hcam.hpp"
 #include "\mcc_sandbox_mod\spectator\spectating.hpp"
 
@@ -68,7 +67,6 @@
 class CfgFunctions
 {
 	#include "\mcc_sandbox_mod\gaia\cfgFunctions.hpp"
-	#include "\mcc_sandbox_mod\VAS\cfgFunctions.hpp"
 
 	class MCC
 	{

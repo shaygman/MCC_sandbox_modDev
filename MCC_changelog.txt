@@ -37,7 +37,6 @@ Removed - Alarms from Stealth Mission Wizard mission
 
 TODO -
 Check droppods
-add AA to mission wizard
 add paremters to supression effects
 under water objectives?
 Fix MCC and BI not loading when BI revive

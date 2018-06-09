@@ -4,14 +4,30 @@
 //     	_ctrl: CONTROL
 //		_res: resources Needed
 //===================================================================================================================================================================*/
-private ["_ctrl","_res","_side","_groupArray","_group","_obj","_startPos","_units","_emptyPos","_pos","_ehID","_cfgName","_vehicles"];
+private ["_res","_side","_groupArray","_group","_obj","_startPos","_units","_emptyPos","_pos","_ehID","_vehicles","_cfg"];
 disableSerialization;
-_ctrl = _this select 0;
-_res = param [1, [], [[]]];
-_groupArray = param [2, [], [[]]];
-_cfgName = param [3, "",[""]];
 
-_side = playerSide;
+params [
+	["_ctrl",controlNull,[controlNull]],
+	["_cfgName","",[""]],
+	["_playerside","",[""]],
+	["_vars",[],[[]]]
+];
+
+_side = switch (tolower _playerside) do
+				{
+					case "west":{west};
+					case "east":{east};
+					case "guer":{resistance};
+					default	{civilian};
+				};
+
+
+_cfg =  if (isClass (missionconfigFile >> "cfgMCCRtsGroups")) then {missionConfigFile >> "cfgMCCRtsGroups" >> _cfgName} else {configFile >> "cfgMCCRtsGroups" >> _cfgName};
+_res = getArray (_cfg >> "resources");
+
+_groupArray =getArray (_cfg >> format ["units%1",_side]);
+
 
 if (count MCC_ConsoleGroupSelected <=0) exitWith {};
 _obj = MCC_ConsoleGroupSelected select 0;
@@ -21,7 +37,7 @@ _startPos = call compile format ["MCC_START_%1",_side];
 
 
 //Get the ammount of units
-([["units"],playerSide,true] call MCC_fnc_rtsCalculateResourceTreshold) params [
+([["units"],_side,true] call MCC_fnc_rtsCalculateResourceTreshold) params [
 									["_unitsSpace",0,[0]],
 									["_buildings",[],[[]]]
 								   ];

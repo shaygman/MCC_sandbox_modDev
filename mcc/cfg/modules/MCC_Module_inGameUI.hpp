@@ -139,22 +139,28 @@ class MCC_Module_inGameUI : Module_F
 
 		class hitRadar
 		{
-			displayName = "Hit Radar";
+			displayName = "Fire Direction indicator";
 			description = "Indicate the general direction of enemies firing on the player";
 			typeName = "BOOL";
 			class values
 			{
-				class disable
+				class realistic
 				{
-					name = "Disable";
-					value = false;
+					name = "Realistic";
+					value = 0;
 					default = 1;
 				};
 
-				class enable
+				class Arcade
 				{
-					name = "Enable";
-					value = true;
+					name = "Arcade";
+					value = 1;
+				};
+
+				class off
+				{
+					name = "Off";
+					value = 2;
 				};
 			};
 		};

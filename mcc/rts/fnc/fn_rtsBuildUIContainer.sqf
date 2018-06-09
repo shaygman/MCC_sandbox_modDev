@@ -1,15 +1,24 @@
-//=================================================================MCC_fnc_rtsBuildUIContainer==============================================================================
+//===============================================================MCC_fnc_rtsBuildUIContainer==============================================================================
 //	Upgrad building
 //  Parameter(s):
 //     	_ctrl: CONTROL
 //		_res: resources Needed
-//==============================================================================================================================================================================
-private ["_ctrl","_obj","_consType","_constLevel","_availableActions","_disp","_action","_pic","_res","_req","_elec","_cnd","_online","_elecOn","_constType","_cfgtext","_fnc"];
+//========================================================================================================================================================================
+private ["_ctrl","_obj","_consType","_constLevel","_availableActions","_disp","_action","_pic","_res","_req","_elec","_cnd","_online","_elecOn","_constType","_fnc","_cfg","_vars"];
 disableSerialization;
 _ctrl = _this select 0;
 _disp = ctrlParent _ctrl;
 
 if (count MCC_ConsoleGroupSelected <=0) exitWith {};
+
+//Get vars
+(_this select 1) params [
+	["_var1","",[""]],
+	["_var2","",[""]],
+	["_var3","",[""]]
+];
+
+
 _obj = MCC_ConsoleGroupSelected select 0;
 _consType = _obj getVariable ["mcc_constructionItemType","hq"];
 _constLevel = _obj getVariable ["mcc_constructionItemTypeLevel",1];
@@ -20,15 +29,9 @@ _elecOn = missionNamespace getVariable [format ["MCC_rtsElecOn_%1", playerSide],
 
 _constType 	= format ["MCC_rts_%1%2",_consType,_constLevel];
 
-if (isClass(missionconfigFile >> "cfgRtsBuildings")) then {
-	_cfgtext = [getText (missionconfigFile >> "cfgRtsBuildings" >> _constType >> "displayName"),getText (missionconfigFile >> "cfgRtsBuildings" >> _constType >> "descriptionShort")];
-	_availableActions = getArray (missionconfigFile >> "cfgRtsBuildings" >> _constType >> "buildings");
-	_elec = getNumber (missionconfigFile >> "cfgRtsBuildings" >> _constType >> "needelectricity");
-} else {
-	_cfgtext = [getText (configFile >> "cfgRtsBuildings" >> _constType >> "displayName"),getText (configFile >> "cfgRtsBuildings" >> _constType >> "descriptionShort")];
-	_availableActions = getArray (configFile >> "cfgRtsBuildings" >> _constType >> "buildings");
-	_elec = getNumber (configFile >> "cfgRtsBuildings" >> _constType >> "needelectricity");
-};
+_cfg = if (isClass(missionconfigFile >> _var1)) then {(missionconfigFile >> _var1)} else {(configFile >> _var1)};
+_availableActions = getArray (_cfg >> _constType >> _var2);
+_elec = getNumber (_cfg >> _constType >> "needelectricity");
 
 //Add back button
 for "_i" from 0 to 11 do {
@@ -37,6 +40,8 @@ for "_i" from 0 to 11 do {
 _availableActions set [11,"MCC_rts_rtsBuildUIContainerBack"];
 
 //Populate actions
+_cfg = if (isClass(missionconfigFile >> _var3)) then {(missionconfigFile >> _var3)} else {(configFile >> _var3)};
+
 for "_i" from 9101 to 9112 do
 {
 	_ctrl = (_disp displayCtrl _i);
@@ -48,22 +53,12 @@ for "_i" from 9101 to 9112 do
 		_availableActions = _availableActions - [-1];
 
 		//Get CFG
-		if (MCC_isMode) then
-		{
-			_pic = getText (configFile >> "cfgRtsBuildings" >> _action >> "picture");
-			_res = getArray (configFile >> "cfgRtsBuildings" >> _action >> "resources");
-			_req = getArray (configFile >> "cfgRtsBuildings" >> _action >> "requiredBuildings");
-			_fnc = getText (configFile >> "cfgRtsBuildings" >> _action >> "actionFNC");
-			_cnd = getText (configFile >> "cfgRtsBuildings" >> _action >> "condition");
-		}
-		else
-		{
-			_pic = getText (missionconfigFile >> "cfgRtsBuildings" >> _action >> "picture");
-			_res = getArray (missionconfigFile >> "cfgRtsBuildings" >> _action >> "resources");
-			_req = getArray (missionconfigFile >> "cfgRtsBuildings" >> _action >> "requiredBuildings");
-			_fnc = getText (missionconfigFile >> "cfgRtsBuildings" >> _action >> "actionFNC");
-			_cnd = getText (missionconfigFile >> "cfgRtsBuildings" >> _action >> "condition");
-		};
+		_pic = getText (_cfg >> _action >> "picture");
+		_res = getArray (_cfg >> _action >> "resources");
+		_req = getArray (_cfg >> _action >> "requiredBuildings");
+		_fnc = getText (_cfg >> _action >> "actionFNC");
+		_cnd = getText (_cfg >> _action >> "condition");
+		_vars = getArray (_cfg >> _action >> "variables");
 
 		_ctrl ctrlShow true;
 		_ctrl ctrlSetText _pic;
@@ -108,8 +103,8 @@ for "_i" from 9101 to 9112 do
 		_ctrl ctrlRemoveAllEventHandlers "MouseExit";
 
 		//add EH
-		if (_available && _online) then {_ctrl ctrlAddEventHandler ["MouseButtonClick",format ["[_this select 0, '%2'] spawn %1",_fnc,_action]]};
-		_ctrl ctrlAddEventHandler ["MouseHolding","[_this,'cfgRtsBuildings'] call MCC_fnc_baseActionEntered"];
+		if (_available && _online) then {_ctrl ctrlAddEventHandler ["MouseButtonClick",format ["[_this select 0, '%1', '%2', %3] spawn %4",_action , str playerside,_vars, _fnc]]};
+		_ctrl ctrlAddEventHandler ["MouseHolding",format ["[_this,'%1'] call MCC_fnc_baseActionEntered",_var3]];
 		_ctrl ctrlAddEventHandler ["MouseExit",format ["[_this,'%1'] call MCC_fnc_baseActionExit",_action]];
 	}
 	else

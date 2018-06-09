@@ -198,7 +198,8 @@ class MCC_rts_rtsFortUIContainer
 	condition = "";
 	requiredBuildings[] = {};
 	needelectricity = 0;
-	actionFNC = "MCC_fnc_rtsFortUIContainer";
+	actionFNC = "MCC_fnc_rtsBuildUIContainer";
+	variables[] = {"cfgRtsBuildings","fortifications","cfgRtsActions"};
 	resources[] = {};
 };
 
@@ -215,7 +216,8 @@ class MCC_rts_rtsUnitsUIContainer
 	condition = "";
 	requiredBuildings[] = {};
 	needelectricity = 0;
-	actionFNC = "MCC_fnc_rtsUnitsUIContainer";
+	actionFNC = "MCC_fnc_rtsBuildUIContainer";
+	variables[] = {"cfgRtsBuildings","groups","cfgMCCRtsGroups"};
 	resources[] = {};
 };
 
@@ -233,6 +235,7 @@ class MCC_rts_rtsBuildUIContainer
 	requiredBuildings[] = {};
 	needelectricity = 0;
 	actionFNC = "MCC_fnc_rtsBuildUIContainer";
+	variables[] = {"cfgRtsBuildings","buildings","cfgRtsBuildings"};
 	resources[] = {};
 };
 

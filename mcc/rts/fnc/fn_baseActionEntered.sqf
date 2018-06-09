@@ -1,10 +1,10 @@
-//=================================================================MCC_fnc_baseActionEntered==============================================================================
+/*=================================================================MCC_fnc_baseActionEntered==============================================================================
 //	hovering over a base icon
 //  Parameter(s):
 //     _ctrl: CONTROL
 //     _ctrlText: STRING
-//==============================================================================================================================================================================
-private ["_ctrl","_ctrlPic","_ctrlText","_disp","_text","_res","_action","_cfgtext","_cfgName","_reqText","_req","_cfgFile","_radius"];
+//=======================================================================================================================================================================*/
+private ["_ctrl","_ctrlPic","_ctrlText","_disp","_text","_res","_action","_cfgtext","_cfgName","_reqText","_req","_cfgFile","_radius","_cfg"];
 disableSerialization;
 
 _ctrl = (_this select 0) select 0;
@@ -14,18 +14,12 @@ _disp = uiNamespace getVariable "MCC_LOGISTICS_BASE_BUILD";
 _radius = 200;
 
 _cfgName = missionNamespace getVariable [format ["MCC_ctrlData_%1", ctrlIDC _ctrl],""];
-
+_cfg = if (isClass (missionconfigFile >> _cfgFile >> _cfgName)) then {(missionconfigFile >> _cfgFile >> _cfgName)} else {(configFile >> _cfgFile >> _cfgName)};
 
 //Action or building?
-if (isClass (missionconfigFile >> _cfgFile)) then {
-	_cfgtext = [getText (missionconfigFile >> _cfgFile >> _cfgName >> "displayName"),getText (missionconfigFile >> _cfgFile >> _cfgName >> "descriptionShort")];
-	_res = getArray (missionconfigFile >> _cfgFile >> _cfgName >> "resources");
-	_req = getArray (missionconfigFile >> _cfgFile >> _cfgName >> "requiredBuildings");
-} else {
-	_cfgtext = [getText (configFile >> _cfgFile >> _cfgName >> "displayName"),getText (configFile >> _cfgFile >> _cfgName >> "descriptionShort")];
-	_res = getArray (configFile >> _cfgFile >> _cfgName >> "resources");
-	_req = getArray (configFile >> _cfgFile >> _cfgName >> "requiredBuildings");
-};
+_cfgtext = [getText (_cfg >> "displayName"),getText (_cfg >> "descriptionShort")];
+_res = getArray (_cfg >> "resources");
+_req = getArray (_cfg >> "requiredBuildings");
 
 //Required buildings
 _reqText = "";

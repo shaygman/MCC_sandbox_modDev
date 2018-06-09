@@ -48,7 +48,6 @@
 
 //--------------------------Others----------------------------------------------------
 #include "bon_artillery\dialog\Artillery.hpp"
-#include "VAS\menu.hpp"
 #include "spectator\spectating.hpp"
 
 //--------------------------features----------------------------------------------------
@@ -65,7 +64,6 @@
 class CfgFunctions
 {
 	#include "gaia\cfgFunctions.hpp"
-	#include "VAS\cfgFunctions.hpp"
 
 	class MCC
 	{

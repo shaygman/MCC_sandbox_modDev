@@ -27,7 +27,7 @@ missionNamespace setVariable ["MCC_initSupression",true];
         _pDistance = player distance _projectile;
         _dir = [player,_unit] call BIS_fnc_relativeDirTo;
         if (_pDistance <= _distance) then {
-           [(1 -(_pDistance/_distance)) max 0.3,_dir] spawn MCC_fnc_supressionEffects;
+           [(1 -(_pDistance/_distance)) max 0.5,_dir] spawn MCC_fnc_supressionEffects;
             _array set [_foreachindex,-1];
         } else {
             if (isNull _projectile) then {

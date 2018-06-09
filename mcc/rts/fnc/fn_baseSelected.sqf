@@ -3,7 +3,7 @@
 //  Parameter(s):
 //     _obj: OBJECTS base selected
 //==============================================================================================================================================================================
-private ["_obj","_constType","_cfgtext","_text","_disp","_availableActions","_availableUpgrades","_availableBuildings","_elec","_fnc","_cnd","_elecOn","_online","_showDisabled","_cfgName","_cfgActionsName","_ctrl","_grpType","_infCount","_selected","_hoverOn"];
+private ["_obj","_constType","_cfgtext","_text","_disp","_availableActions","_availableUpgrades","_availableBuildings","_elec","_fnc","_cnd","_elecOn","_online","_showDisabled","_cfgName","_cfgActionsName","_ctrl","_grpType","_infCount","_selected","_hoverOn","_vars"];
 
 #define	MCC_RTS_BUILDING_DUMMY_ANCHOR "UserTexture10m_F"
 
@@ -96,6 +96,11 @@ _hoverOn = param [1,false, [false]];
 		_availableBuildings = getArray (configFile >> _cfgName >> _constType >> "buildings");
 		_availableActions = getArray (configFile >> _cfgName >> _constType >> "actions");
 		_elec = getNumber (configFile >> _cfgName >> _constType >> "needelectricity");
+	};
+
+	//No text found try to find text in cfgVehicles
+	if ((_cfgtext select 0) isEqualTo "") then {
+		_cfgtext = [getText (configFile >> "cfgVehicles" >> typeof _obj >> "displayName"),getText (configFile >> _cfgName >> _constType >> "descriptionShort")];
 	};
 
 	//Are we dealing with a group? get group info
@@ -260,6 +265,7 @@ _hoverOn = param [1,false, [false]];
 					_fnc = getText (missionconfigFile >> _cfgActionsName >> _action >> "actionFNC");
 					_cnd = getText (missionconfigFile >> _cfgActionsName >> _action >> "condition");
 					_showDisabled = (getnumber (missionconfigFile >> _cfgActionsName >> _action >> "dontShowDisabled"))==1;
+					_vars = getArray (missionconfigFile >> _cfgActionsName >> _action >> "variables");
 				} else {
 					_pic = getText (configFile >> _cfgActionsName >> _action >> "picture");
 					_res = getArray (configFile >> _cfgActionsName >> _action >> "resources");
@@ -268,6 +274,7 @@ _hoverOn = param [1,false, [false]];
 					_fnc = getText (configFile >> _cfgActionsName >> _action >> "actionFNC");
 					_cnd = getText (configFile >> _cfgActionsName >> _action >> "condition");
 					_showDisabled = (getnumber (configFile >> _cfgActionsName >> _action >> "dontShowDisabled"))==1;
+					_vars = getArray (configFile >> _cfgActionsName >> _action >> "variables");
 				};
 
 				//Now let see if we enable the contorl
@@ -311,7 +318,7 @@ _hoverOn = param [1,false, [false]];
 					(_disp displayCtrl _i) ctrlSetText _pic;
 					missionNamespace setVariable [format ["MCC_ctrlData_%1", ctrlIDC (_disp displayCtrl _i)],_action];
 
-					if (_available && _online) then {(_disp displayCtrl _i) ctrlAddEventHandler ["MouseButtonClick",format ['[_this select 0, %2] spawn %1',_fnc,_res]]};
+					if (_available && _online) then {(_disp displayCtrl _i) ctrlAddEventHandler ["MouseButtonClick",format ['[_this select 0, %1, %2] spawn %3',_vars, _res, _fnc]]};
 					(_disp displayCtrl _i) ctrlAddEventHandler ["MouseHolding",format ['[_this,"%1"] call MCC_fnc_baseActionEntered',_cfgActionsName]];
 					(_disp displayCtrl _i) ctrlAddEventHandler ["MouseExit",format ["[_this,'%1'] call MCC_fnc_baseActionExit",_action]];
 				};

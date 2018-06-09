@@ -45,9 +45,7 @@ class rts
 	class rtsPopulateVehicle {description = "Populate vehicle";};
 	class vehicleSpawnerInitDialog {description = "Open vehicle spawner Dialog";};
 	class rtsBuildUIContainer {description = "create a UI container";};
-	class rtsFortUIContainer {description = "create a UI container";};
 	class rtsBuildUIContainerBack {description = "back from UI container";};
-	class rtsUnitsUIContainer {description = "create a UI container";};
 	class rtsbuyVehicle {description = "open vehicle spawner dialog for the commander";};
 	class rtsOrderStop {description = "Stop WP";};
 	class rtsOrderGetout {description = "Disembark units from vehicle";};
@@ -81,11 +79,4 @@ class forts
 	#endif
 
 	class buildFort {};
-	class fortAA {};
-	class fortAT {};
-	class fortGmg {};
-	class fortGMGHigh {};
-	class fortMG {};
-	class fortMGHigh {};
-	class fortMortar {};
 };

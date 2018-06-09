@@ -1005,12 +1005,14 @@ MCC_CONST_CAM_Handler =
 
 			if (count _list > 0 && !_isFort) then {
 				_obj = _list select 0;
+
 				if (side _obj in [playerSide,sideLogic,civilian,sideFriendly,sideUnknown]
 				    &&
 				    !(_obj in MCC_ConsoleGroupSelected)
 				    &&
-				    ((count crew _obj == 0) || _obj isKindOf MCC_RTS_BUILDING_DUMMY_ANCHOR)
+				    ((count crew _obj == 0 && !(_obj isKindOf MCC_RTS_BUILDING_DUMMY_ANCHOR)) || (_obj isKindOf MCC_RTS_BUILDING_DUMMY_ANCHOR && !((_obj getVariable ["mcc_constructionItemType",""]) == "") && ((_obj getVariable ["mcc_side",sideLogic]) isEqualTo playerSide)))
 				    ) then {
+
 						MCC_ConsoleGroupSelected = [_list select 0];
 						[MCC_ConsoleGroupSelected] spawn MCC_fnc_baseSelected;
 

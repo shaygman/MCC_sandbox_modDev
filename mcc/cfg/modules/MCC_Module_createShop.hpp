@@ -27,12 +27,12 @@ class MCC_Module_createShop : Module_F
 			{
 				class veryCheap
 				{
-					name = "Very Cheap";
+					name = "Very Low";
 					value = 0.1;
 				};
 				class Cheap
 				{
-					name = "Cheap";
+					name = "Low";
 					value = 0.3;
 				};
 				class fair

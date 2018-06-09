@@ -11,6 +11,6 @@ for "_i" from 0 to ((count _cfg) - 1) do
 if (count _newAddons > 0) then
 {
 		//activateAddons _newAddons;
-		_newAddons call BIS_fnc_activateAddons;
+		_newAddons spawn BIS_fnc_activateAddons;
 };
 

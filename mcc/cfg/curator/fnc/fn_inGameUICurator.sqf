@@ -19,7 +19,7 @@ _pos = getpos _module;
  						["Name Tags",true],
  						["Name Tags Only When Pointing",true],
  						["Suppression Effects",true],
- 						["Hit Radar",true],
+ 						["Fire Direction indicator",["Realistics","Arcade","Off"]],
  						["Tickets",true],
  						["Tutorials",true]
  					  ]] call MCC_fnc_initDynamicDialog;
