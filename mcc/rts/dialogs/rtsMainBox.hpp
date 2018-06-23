@@ -88,6 +88,8 @@ class MCC_rtsMainBox
 
 					text =  __EVAL(MCCPATH +"mcc\rts\data\IconAmmo.paa");
 					tooltip = "Ammo";
+					colorText[] = { 0.9, 0, 0, 1 };
+
 					x = 0.00515625 * safezoneW;
 					y = 0.011 * safezoneH;
 					w = 0.0154688 * safezoneW;
@@ -99,6 +101,8 @@ class MCC_rtsMainBox
 
 					text = __EVAL(MCCPATH +"mcc\rts\data\IconRepair.paa");
 					tooltip = "Supplies";
+					colorText[] = { 0, 0.5, 0.9, 1 };
+
 					x = 0.00515625 * safezoneW;
 					y = 0.055 * safezoneH;
 					w = 0.0154688 * safezoneW;
@@ -110,6 +114,8 @@ class MCC_rtsMainBox
 
 					text = __EVAL(MCCPATH +"mcc\rts\data\IconFuel.paa");
 					tooltip = "Fuel";
+					colorText[] = { 0, 0.9, 0.5, 1 };
+
 					x = 0.00515625 * safezoneW;
 					y = 0.099 * safezoneH;
 					w = 0.0154688 * safezoneW;
@@ -121,6 +127,8 @@ class MCC_rtsMainBox
 
 					text = __EVAL(MCCPATH +"mcc\rts\data\IconFood.paa");
 					tooltip = "Food";
+					colorText[] = { 0.9, 0.5, 0, 1 };
+
 					x = 0.00515625 * safezoneW;
 					y = 0.143 * safezoneH;
 					w = 0.0154688 * safezoneW;
@@ -132,6 +140,8 @@ class MCC_rtsMainBox
 
 					text = __EVAL(MCCPATH +"mcc\rts\data\IconMed.paa");
 					tooltip = "Meds";
+					colorText[] = { 0, 0.9, 0.9, 1 };
+
 					x = 0.00515625 * safezoneW;
 					y = 0.187 * safezoneH;
 					w = 0.0154688 * safezoneW;
@@ -409,6 +419,7 @@ class MCC_rtsMainBox
 				{
 					idc = -1;
 					text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
+					colorText[] = { 0.9, 0.9, 0, 1 };
 					x = 0.16 * safezoneW;
 					y = 0.022 * safezoneH;
 					w = 0.03 * safezoneW;
