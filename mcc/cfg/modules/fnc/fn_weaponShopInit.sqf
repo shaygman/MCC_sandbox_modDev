@@ -3,7 +3,6 @@
 //==============================================================================================================================================================
 private ["_module","_text","_objects","_object","_box","_prices","_persistent","_persistentName","_pos","_resualt"];
 #define MCC_SHOP_ICON	"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa"
-#define	TEMPBOX	"B_CargoNet_01_ammo_F"
 
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {};
@@ -11,7 +10,7 @@ if (isNull _module) exitWith {};
 _pos = getpos _module;
 
 //did we get here from the 2d editor?
-if (typeName (_module getVariable ["prices",true]) == typeName 0) then {
+if (_module isKindOf "MCC_Module_createShop") then {
 
 	if (!isServer) exitWith {};
 
@@ -64,118 +63,49 @@ if (typeName (_module getVariable ["prices",true]) == typeName 0) then {
 			 false
 		] remoteExec ["BIS_fnc_holdActionAdd", 0, _object];
 	} forEach _objects;
-
 } else {
 
+	//Not curator exit
+	if (!(local _module) || isnull curatorcamera) exitWith {};
+
+	_object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
+
+	//if no object selected or not a vehicle
+	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No ammo box selected" + "</t>";
+	if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
+	_object = _object select 1;
+
+	if !(_object isKindOf "ReammoBox_F" || _object isKindOf "ReammoBox") exitWith {systemchat "No ammo box selected"; deleteVehicle _module};
+
+	//If curator
 	_resualt = ["Weapons Shop",[
- 						["Binos",true],
- 						["Items",true],
- 						["Uniforms",true],
- 						["Rocket Launchers",true],
- 						["Automatic Rifles",true],
- 						["Pistols",true],
- 						["Rifles",true],
- 						["Sniper Rifles",true],
- 						["Backpacks",true],
- 						["Prices",10]
- 					  ]] call MCC_fnc_initDynamicDialog;
+				["Prices",10]
+			  ]] call MCC_fnc_initDynamicDialog;
 
-if (count _resualt == 0) exitWith {deleteVehicle _module};
+	if (count _resualt == 0) exitWith {deleteVehicle _module};
 
-	_box = TEMPBOX createVehicle _pos;
-	_box enableSimulation false;
-	_box allowDamage false;
-	_box hideObjectGlobal true;
 
-	_object =  TEMPBOX createVehicle _pos;
-	_box allowDamage false;
+	_object enableSimulation false;
+	_object allowDamage false;
+	_object hideObjectGlobal true;
 
+	_box = (typeOf _object) createVehicle _pos;
+	_box setPos _pos;
+	_box setDir (getDir _object);
 	clearItemCargoGlobal _box;
 	clearMagazineCargoGlobal _box;
 	clearWeaponCargoGlobal _box;
 	clearBackpackCargoGlobal _box;
+	_box enableSimulation false;
+	_box allowDamage false;
 
-	//Binos
-	if (_resualt select 0) then {
-		{
-			_box addWeaponCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_BINOS",[]]);
-	};
-
-	//Items
-	if (_resualt select 1) then {
-		{
-			_box addItemCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_ITEMS",[]]);
-	};
-
-	//Uniforms
-	if (_resualt select 2) then {
-		{
-			_box addItemCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["U_UNIFORM",[]]);
-	};
-
-	//Launchers
-	if (_resualt select 3) then {
-		{
-			_box addWeaponCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_LAUNCHERS",[]]);
-	};
-
-	//Automatic Rifles
-	if (_resualt select 4) then {
-		{
-			_box addWeaponCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_MG",[]]);
-	};
-
-	//Pistols
-	if (_resualt select 5) then {
-		{
-			_box addWeaponCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_PISTOLS",[]]);
-	};
-
-	//Rifles
-	if (_resualt select 6) then {
-		{
-			_box addWeaponCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_RIFLES",[]]);
-	};
-
-	//Snipers
-	if (_resualt select 7) then {
-		{
-			_box addWeaponCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_SNIPER",[]]);
-	};
-
-	//Backpacks
-	if (_resualt select 8) then {
-		{
-			_box addBackpackCargoGlobal [(_x select 0),10];
-		} forEach (missionNamespace getvariable ["W_RUCKS",[]]);
-	};
-
-	//Magazines
-	{
-		{
-				_box addMagazineCargoGlobal [(_x select 0),50];
-		} forEach _x;
-	} foreach [
-			(missionNamespace getvariable ["U_MAGAZINES",[]]),
-			(missionNamespace getvariable ["U_UNDERBARREL",[]]),
-			(missionNamespace getvariable ["U_GRENADE",[]]),
-			(missionNamespace getvariable ["U_EXPLOSIVE",[]])
-		];
 
 	//get prices
-	_prices = ((_resualt select 9)/10) max 0.1;
+	_prices = ((_resualt select 0)/10) max 0.1;
 
 	//Spawn action
 	[
-		 _object,
+		 _box,
 		 "Open Shop",
 		 MCC_SHOP_ICON,
 		 MCC_SHOP_ICON,
@@ -185,13 +115,12 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
 		 {},
 		 {_arguments spawn MCC_fnc_mainBoxInit},
 		 {},
-		 [_box,_prices],
+		 [_object,_prices],
 		 1,
 		 100,
 		 false,
 		 false
-	] remoteExec ["BIS_fnc_holdActionAdd", 0, _object];
-
-	deleteVehicle _module
+	] remoteExec ["BIS_fnc_holdActionAdd", 0, _box];
 };
 
+deleteVehicle _module;

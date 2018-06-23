@@ -29,4 +29,5 @@ class curator
 	class curatorLHDSpawn {description = "Spawn LHD";};
 	class curatorGAIARespawn {description = "Sets a group or unit to respawns certain number of times";};
 	class curatorRTSBuilding {description = "Instantly construct RTS Building";};
+	class curatorAddValor {description = "Add Valor/Credit to the selected units";};
 };

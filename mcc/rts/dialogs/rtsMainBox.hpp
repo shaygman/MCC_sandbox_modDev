@@ -181,19 +181,20 @@ class MCC_rtsMainBox
 					w = 0.18 * safezoneW;
 					h = 0.528 * safezoneH;
 				};
-
+				/*
 				class all: MCC_RscActivePicture
 				{
 					idc = 1600;
-					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_0_ca.paa";
-					tooltip = "All";
-					action = __EVAL("[0,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_1_ca.paa";
+					tooltip = "Primary";
+					action = __EVAL("[1,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
 					y = 0.077 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
+				*/
 
 				class Rifles: MCC_RscActivePicture
 				{
@@ -203,7 +204,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[1,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.121 * safezoneH;
+					y = 0.077 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -216,7 +217,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[2,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.165 * safezoneH;
+					y = 0.121 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -229,7 +230,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[3,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.209 * safezoneH;
+					y = 0.165 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -242,7 +243,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[4,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.253 * safezoneH;
+					y = 0.209 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -255,7 +256,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[6,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.297 * safezoneH;
+					y = 0.253 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -268,7 +269,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[7,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.341 * safezoneH;
+					y = 0.297 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -281,7 +282,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[8,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.385 * safezoneH;
+					y = 0.341 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -294,7 +295,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[9,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.429 * safezoneH;
+					y = 0.385 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -307,7 +308,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[10,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.473 * safezoneH;
+					y = 0.429 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -320,7 +321,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[11,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.517 * safezoneH;
+					y = 0.473 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};
@@ -333,7 +334,7 @@ class MCC_rtsMainBox
 					action = __EVAL("[12,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
 
 					x = 0.015469 * safezoneW;
-					y = 0.561 * safezoneH;
+					y = 0.517 * safezoneH;
 					w = 0.0309375 * safezoneW;
 					h = 0.044 * safezoneH;
 				};

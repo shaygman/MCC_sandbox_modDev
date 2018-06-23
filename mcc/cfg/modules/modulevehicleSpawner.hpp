@@ -2,7 +2,7 @@ class mcc_sandbox_modulevehicleSpawner : Module_F
 {
 	category = "MCC";
 	author = "shay_gman";
-	displayName = "Vehicle Kiosk";
+	displayName = "Vehicle Shop";
 	icon = "\mcc_sandbox_mod\data\mccModule.paa";
 	picture = "\mcc_sandbox_mod\data\mccModule.paa";
 	vehicleClass = "Modules";

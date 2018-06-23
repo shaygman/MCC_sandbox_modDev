@@ -272,6 +272,11 @@ switch (_index) do {
     };
 };
 
+//Update arrays
+if (_index in [20,21]) then {
+	[_tempBox, (_tempBox getVariable ["MCC_prices",0.5])] call MCC_fnc_mainBoxInitRefreshBox;
+};
+
 if (_index <20) then {
 	missionNamespace setVariable ["MCC_rtsMainBoxIndex",_index];
 } else {
@@ -282,16 +287,23 @@ private ["_isShop"];
 {
 	_displayArray = [];
 
+	_isShop = !(isplayer _x);
 
 	//If show only magazines for the selected weapon
 	if (_index == 5) then {
 		_array = [_index, _x,(lbData [1, (lbCurSel 1)])] call MCC_fnc_boxMakeWeaponsArray;
 		_index = 0;
 	} else {
-		_array = [_index, _x] call MCC_fnc_boxMakeWeaponsArray;
+		//save time and get the preloaded array
+		if (_isShop) then {
+			_array = missionNamespace getVariable [format ["MCC_fnc_mainBoxInit_tempBox_%1",_index],[]];
+		} else {
+			_array = [_index, player] call MCC_fnc_boxMakeWeaponsArray;
+			_array sort true;
+		};
 	};
 
-	_isShop = !(isplayer _x);
+
 	_array sort true;
 	_comboBox = _mccdialog displayCtrl (if (_isShop) then {0} else {1});
 	lbClear _comboBox;
@@ -307,9 +319,9 @@ private ["_isShop"];
 		{
 			_i = _comboBox lbAdd _displayname;
 			_comboBox lbSetPicture [_i, _pic];
-			_comboBox lbSetTextRight [_i,str ({_displayname== (_x select 0)} count _array)];
+			_comboBox lbSetTextRight [_i,format ["%1 $", _valor]];
 			_comboBox lbSetData [_i, _class];
-			_comboBox lbSetTooltip [_i,format ["%1 $", _valor]];
+			_comboBox lbSetTooltip [_i,str ({_displayname== (_x select 0)} count _array)];
 			_displayArray pushback _displayname;
 		};
 

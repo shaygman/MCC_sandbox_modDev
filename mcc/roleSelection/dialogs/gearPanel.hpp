@@ -321,7 +321,7 @@ class CP_GEARPANEL {
 						class MCC_ValorPic: MCC_RscPicture
 						{
 							idc = 96;
-							tooltip = "Valor";
+							tooltip = "Credits";
 							text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
 							colorText[] = { 0.9, 0.9, 0, 1 };
 

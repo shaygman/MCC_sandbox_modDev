@@ -11,6 +11,7 @@ private ["_weaponType","_type","_object","_returnArray","_Cfg","_isPlayer","_cla
 _weaponType = param [0,0,[0]];
 _object = param [1,objNull,[objNull]];
 _class = param [2,"",[""]];
+_prices = param [3,0.5,[0]];
 
 _returnArray = [];
 
@@ -34,7 +35,7 @@ _fnc_getItems = {
     {
         if (isClass(_Cfg >> _x)) then {
             if ((([_x] call BIS_fnc_itemType) select 1) in _filter || "all" in _filter) then {
-                _returnArray pushback [getText(_Cfg >> _x >> "displayname"), _x, getText(_Cfg >> _x >> "picture")];
+                _returnArray pushback [getText(_Cfg >> _x >> "displayname"), _x, getText(_Cfg >> _x >> "picture"),[_x,_prices] call MCC_fnc_getWeaponCost];
             };
         };
     } forEach _itemsBox;
@@ -74,30 +75,30 @@ if (_object isKindOf "man") then {
 switch (_weaponType) do {
      case 0:          //all
     {
-        _returnArray = [_object,"CfgWeapons",["all"],_itemsBox] call _fnc_getItems;
-        _returnArray = _returnArray + ([_object,"cfgMagazines",["all"],_itemsBox] call _fnc_getItems);
-        _returnArray = _returnArray + ([_object,"cfgVehicles",["all"],_itemsBox] call _fnc_getItems);
-        _returnArray = _returnArray + ([_object,"CfgGlasses",["all"],_itemsBox] call _fnc_getItems);
+        _returnArray = [_object,"CfgWeapons",["all"],_itemsBox, _prices] call _fnc_getItems;
+        _returnArray = _returnArray + ([_object,"cfgMagazines",["all"],_itemsBox, _prices] call _fnc_getItems);
+        _returnArray = _returnArray + ([_object,"cfgVehicles",["all"],_itemsBox, _prices] call _fnc_getItems);
+        _returnArray = _returnArray + ([_object,"CfgGlasses",["all"],_itemsBox, _prices] call _fnc_getItems);
     };
 
     case 1:         //Rifles
     {
-        _returnArray = [_object,"CfgWeapons",["AssaultRifle","MachineGun","Shotgun","Rifle","SubmachineGun","SniperRifle"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["AssaultRifle","MachineGun","Shotgun","Rifle","SubmachineGun","SniperRifle"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 2:         //Launchers
     {
-        _returnArray = [_object,"CfgWeapons",["Launcher","GrenadeLauncher","MissileLauncher","RocketLauncher","Mortar"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["Launcher","GrenadeLauncher","MissileLauncher","RocketLauncher","Mortar"],_itemsBox, _prices] call _fnc_getItems;
     };
 
      case 3:            //Pistols
     {
-        _returnArray = [_object,"CfgWeapons",["Handgun"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["Handgun"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 4:         //Magazines
     {
-        _returnArray = [_object,"CfgMagazines",["Artillery","Bullet","CounterMeasures","Laser","Missile","Rocket","Shell","ShotgunShell","UnknownMagazine"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgMagazines",["Artillery","Bullet","CounterMeasures","Laser","Missile","Rocket","Shell","ShotgunShell","UnknownMagazine"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 5:         //Magazines by weapon
@@ -129,38 +130,38 @@ switch (_weaponType) do {
 
     case 6:            //Grenade + Explosives
     {
-        _returnArray = [_object,"cfgMagazines",["Flare","Grenade","SmokeShell","Mine","MineBounding","MineDirectional"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"cfgMagazines",["Flare","Grenade","SmokeShell","Mine","MineBounding","MineDirectional"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 7:            //Accessories
     {
-        _returnArray = [_object,"CfgWeapons",["AccessoryMuzzle","AccessoryPointer","AccessorySights","AccessoryBipod"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["AccessoryMuzzle","AccessoryPointer","AccessorySights","AccessoryBipod"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 8:           //Uniforms
     {
-        _returnArray = [_object,"CfgWeapons",["Uniform"],_itemsBox] call _fnc_getItems;
-         _returnArray = _returnArray + ([_object,"CfgGlasses",["Glasses"],_itemsBox] call _fnc_getItems);
+        _returnArray = [_object,"CfgWeapons",["Uniform"],_itemsBox, _prices] call _fnc_getItems;
+         _returnArray = _returnArray + ([_object,"CfgGlasses",["Glasses"],_itemsBox, _prices] call _fnc_getItems);
     };
 
     case 9:         //Vest
     {
-        _returnArray = [_object,"CfgWeapons",["Vest"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["Vest"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 10:         //BackPack
     {
-        _returnArray = [_object,"cfgVehicles",["Backpack"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"cfgVehicles",["Backpack"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 11:         //Headgear
     {
-        _returnArray = [_object,"CfgWeapons",["Headgear"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["Headgear"],_itemsBox, _prices] call _fnc_getItems;
     };
 
     case 12:         //Items
     {
-        _returnArray = [_object,"CfgWeapons",["Binocular","LaserDesignator","UAVTerminal","Compass","FirstAidKit","GPS","Map","Medikit","MineDetector","Radio","Toolkit","UnknownEquipment","NVGoggles"],_itemsBox] call _fnc_getItems;
+        _returnArray = [_object,"CfgWeapons",["Binocular","LaserDesignator","UAVTerminal","Compass","FirstAidKit","GPS","Map","Medikit","MineDetector","Radio","Toolkit","UnknownEquipment","NVGoggles"],_itemsBox, _prices] call _fnc_getItems;
 
         _Cfg = configFile >> "cfgWeapons";
         {

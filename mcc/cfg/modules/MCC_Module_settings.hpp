@@ -461,6 +461,13 @@ class MCC_Module_settings : Module_F
 			typeName = "BOOL";
 			property = "defaultCASEnabled";
 		};
+
+		class CuratorEditDisabled : Checkbox
+		{
+			displayName = "Disable Zeus Edit";
+			typeName = "BOOL";
+			property = "CuratorEditDisabled";
+		};
 	};
 
 	class ModuleDescription: ModuleDescription

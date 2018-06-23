@@ -23,7 +23,8 @@ if (!(local _module) || isnull curatorcamera) exitWith {};
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 //if no object selected or not a vehicle
-if (count _object <2) exitWith {systemchat "No unit selected"; deleteVehicle _module};
+_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No unit selected" + "</t>";
+if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
 _object = _object select 1;
 
 //if nis player

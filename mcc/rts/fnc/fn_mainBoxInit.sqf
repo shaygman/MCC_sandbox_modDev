@@ -8,6 +8,26 @@ _prices = param [1,0.5,[0]];
 
 disableSerialization;
 
+
+MCC_fnc_mainBoxInitRefreshBox = {
+	//startLoadingScreen [""];
+
+	//Refresh box arrays
+	params ["_tempBox","_prices"];
+	private ["_array","_i"];
+	for "_i" from 1 to 12 step 1 do
+	{
+		_array = [_i, _tempBox,"",_prices] call MCC_fnc_boxMakeWeaponsArray;
+		_array sort true;
+
+		missionNamespace setVariable [format ["MCC_fnc_mainBoxInit_tempBox_%1",_i],_array];
+	};
+
+	//endLoadingScreen;
+};
+
+_tempBox setVariable ["MCC_prices",_prices,true];
+
 //if it is a side box
 if (typeName _tempBox isEqualTo typeName sideUnknown) then {
 	//Do we have a box for our side?
@@ -24,6 +44,8 @@ if (typeName _tempBox isEqualTo typeName sideUnknown) then {
 
 	_tempBox = missionNamespace getVariable [_boxName, objNull];
 };
+
+
 
 createDialog "MCC_rtsMainBox";
 waituntil {dialog};
@@ -64,11 +86,20 @@ lbClear _comboBox;
 
 _comboBox lbSetCurSel 0;
 
+//Pre build all the arrays to save time
+[_tempBox,_prices] call MCC_fnc_mainBoxInitRefreshBox;
 
 {
 	_displayArray = [];
-	_array = [0, _x] call MCC_fnc_boxMakeWeaponsArray;
-	_array sort true;
+
+	//save time and get the preloaded array
+	if (_x isEqualTo _tempBox) then {
+		_array = missionNamespace getVariable ["MCC_fnc_mainBoxInit_tempBox_1",[]];
+	} else {
+		_array = [1, player,"",_prices] call MCC_fnc_boxMakeWeaponsArray;
+		_array sort true;
+	};
+
 	_comboBox = _mccdialog displayCtrl (if (isplayer _x) then {1} else {0});
 	lbClear _comboBox;
 
@@ -76,16 +107,16 @@ _comboBox lbSetCurSel 0;
 		_displayname 	= _x select 0;
 		_class 			= _x select 1;
 		_pic 			= _x select 2;
-		//_valor			= _x select 3;
-		_valor = [_class,_prices] call MCC_fnc_getWeaponCost;
+		_valor			= _x select 3;
+		//_valor = [_class,_prices] call MCC_fnc_getWeaponCost;
 
 		if !(_displayname in _displayArray) then
 		{
 			_i = _comboBox lbAdd _displayname;
 			_comboBox lbSetPicture [_i, _pic];
-			_comboBox lbSetTextRight [_i,str ({_displayname== (_x select 0)} count _array)];
+			_comboBox lbSetTextRight [_i,format ["%1 $", _valor]];
 			_comboBox lbSetData [_i, _class];
-			_comboBox lbSetTooltip [_i,format ["%1 $", _valor]];
+			_comboBox lbSetTooltip [_i,str ({_displayname== (_x select 0)} count _array)];
 			_displayArray pushback _displayname;
 		};
 

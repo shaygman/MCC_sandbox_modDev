@@ -94,6 +94,9 @@ if (typeName (_module getVariable ["t2t",true]) == typeName 0) exitWith {
 
 	//Purchable CAS
 	MCC_defaultCASEnabled = _module getvariable ["defaultCASEnabled",false];
+
+	//Disable Curator Edit
+	MCC_CuratorEditDisabled = _module getvariable ["CuratorEditDisabled",false];
 };
 
 //Not curator exit
@@ -103,7 +106,7 @@ _resualt = ["Settings MCC",[
  						["Teleport 2 Team",["Disabled","JIP Only","After Respawn","Always"]],
  						["Save Gear",(missionNamespace getVariable ["MCC_saveGear",true])],
  						["MCC Messages",(missionNamespace getVariable ["MCC_Chat",true])],
- 						["Delete Players' Bodies",(missionNamespace getVariable ["MCC_deletePlayersBody",true])],
+ 						["Delete Players' Bodies",(missionNamespace getVariable ["MCC_deletePlayersBody",false])],
  						["Respawn Dialog",(missionNamespace getVariable ["MCC_openRespawnMenu",true])],
  						["Respawn On Leader",(missionNamespace getVariable ["MCC_respawnOnGroupLeader",true])],
  						["Respawn Cinematic",(missionNamespace getVariable ["MCC_respawnCinematic",true])],
@@ -117,6 +120,7 @@ _resualt = ["Settings MCC",[
  						["Real Time Strategy",(missionNamespace getVariable ["MCC_allowRTS",true])],
  						["Purchasable Supply Drops",(missionNamespace getVariable ["MCC_defaultSupplyDropsEnabled",true])],
  						["Purchasable CAS",(missionNamespace getVariable ["MCC_defaultCASEnabled",true])],
+ 						["Disable Zeus Edit",(missionNamespace getVariable ["MCC_CuratorEditDisabled",false])],
  						["Artilery Computer",true],
  						["Time Acceleration",20],
  						["Resistance Hostile To",["All","East","West"]]
@@ -143,14 +147,15 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
            "MCC_allowlogistics",
            "MCC_allowRTS",
            "MCC_defaultSupplyDropsEnabled",
-           "MCC_defaultCASEnabled"
+           "MCC_defaultCASEnabled",
+           "MCC_CuratorEditDisabled"
            ];
 
-(_resualt select 17) remoteExec ["enableEngineArtillery",0];
-(_resualt select 18) remoteExec ["setTimeMultiplier",2];
+(_resualt select 18) remoteExec ["enableEngineArtillery",0];
+(_resualt select 19) remoteExec ["setTimeMultiplier",2];
 
 //Resistance Hostility
-switch (_resualt select 19) do {
+switch (_resualt select 20) do {
 
 	//East
 	case 1:

@@ -165,7 +165,7 @@ class mcc_test
 		{
 			idc = -1;
 			text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
-			tooltip = "Fame";
+			tooltip = "Credits";
 			x = 0.335156 * safezoneW;
 			y = 0.011 * safezoneH;
 			w = 0.020625 * safezoneW;

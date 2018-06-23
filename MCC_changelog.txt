@@ -23,6 +23,8 @@ Advanced Logistics system
 Radio System
 - Changed - changed to ingame sounds to make it more smooth
 
+Added - Disable MCC edit in Zeus from MCC settings
+Added - Add Valor/Credit module to Zeus and Ed3n
 Added - 20 meters evac helicopter flight hight
 Fixed - Save MCC to profile was bugged
 Fixed - can't build FOB even if it is more then 500 meters away
@@ -36,6 +38,8 @@ Removed - Alarms from Stealth Mission Wizard mission
 - RTS - replenishing group's unit will be paradrop and not just spawn out of thin air
 
 TODO -
+give funds to player
+diable MCC edit
 Check droppods
 add paremters to supression effects
 under water objectives?

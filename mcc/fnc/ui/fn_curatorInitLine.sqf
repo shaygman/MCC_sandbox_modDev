@@ -35,7 +35,7 @@ MCC_unitName 	= "";
 _keyUp = (findDisplay 312) displayAddEventHandler  ["KeyUp", "if (_this select 4) then {missionNamespace setvariable ['MCC_ctrlPressed',false]}"];
 _keyDown = (findDisplay 312) displayAddEventHandler  ["KeyDown", "if ((_this select 4) && !(missionNamespace getvariable ['MCC_ctrlPressed',false])) then {missionNamespace setvariable ['MCC_ctrlPressed',true]}"];
 
-if (!alive _target || isNull _target || (_target isKindof "Module_F") || missionNamespace getVariable ["MCC_ctrlPressed",false]) exitWith {};
+if (!alive _target || isNull _target || (_target isKindof "Module_F") || (missionNamespace getVariable ["MCC_ctrlPressed",false]) || (missionNamespace getVariable ["MCC_CuratorEditDisabled",false])) exitWith {};
 
 //_target call bis_fnc_showCuratorAttributes;
 

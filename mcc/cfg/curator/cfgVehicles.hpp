@@ -33,3 +33,5 @@
 #include "MCC_Module_RTSBuildingsCurator.hpp"
 #include "MCC_Module_PylonsChange.hpp"
 #include "MCC_Module_medicSetStateCurator.hpp"
+#include "MCC_Module_createShopCurator.hpp"
+#include "MCC_Module_addValorCurator.hpp"

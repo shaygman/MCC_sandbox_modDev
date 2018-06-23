@@ -116,7 +116,7 @@ class MCC_VEHICLESPAWNER
 			idc = 1103;
 
 			text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
-			tooltip = "Valor";
+			tooltip = "Credits";
 			x = 0.515469 * safezoneW + safezoneX;
 			y = 0.324 * safezoneH + safezoneY;
 			w = 0.0257812 * safezoneW;
@@ -268,7 +268,7 @@ class MCC_VEHICLESPAWNER
 				class MCC_ValorPic: MCC_RscPicture
 				{
 					idc = 94;
-					tooltip = "Valor";
+					tooltip = "Credits";
 					text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
 					colorText[] = { 0.9, 0.9, 0, 1 };
 
