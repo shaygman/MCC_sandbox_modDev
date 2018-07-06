@@ -23,7 +23,7 @@ if (missionNamespace getVariable ["MCC_debug",false]) then {systemChat ("Player 
 if (missionNamespace getvariable ["MCC_isLevelingUp",false]) exitWith {};
 
 if (MCC_debug) then {systemchat format ["rating add: %1", _rating]};
-_valor = if (vehicle player == player) then {floor (_rating/2)} else {floor (_rating/4)};
+_valor = if (vehicle player == player) then {floor (_rating/1)} else {floor (_rating/2)};
 player setVariable ["MCC_valorPoints",(player getVariable ["MCC_valorPoints",50]) + _valor,true];
 
 _role = player getvariable ["CP_role",""];

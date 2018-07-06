@@ -141,7 +141,7 @@ _handler = (_disp displayCtrl 9120) ctrladdeventhandler ["draw","_this call MCC_
 		{
 			_value = floor (_array select _forEachIndex);
 			_ctrl = _disp displayCtrl _x;
-			_ctrl ctrlSetText format ["%1/%2",_value,_cargoSpace];
+			_ctrl ctrlSetText format ["%1 / %2",[_value] call MCC_fnc_formatNumber, [_cargoSpace] call MCC_fnc_formatNumber];
 			if (_value >= _cargoSpace) then 	{
 				_ctrl ctrlSetTextColor [1,0,0,0.8];
 			} else {
@@ -154,7 +154,7 @@ _handler = (_disp displayCtrl 9120) ctrladdeventhandler ["draw","_this call MCC_
 
 		_units = {side _x == playerSide && (isPlayer _x || group _x getVariable ["MCC_canbecontrolled",false])} count allUnits;
 		_ctrl = (_disp displayCtrl 86);
-		_ctrl ctrlSetText format ["%1/%2",_units,_unitsSpace];
+		_ctrl ctrlSetText format ["%1 / %2",_units,_unitsSpace];
 		if (_units >= _unitsSpace) then {
 			_ctrl ctrlSetTextColor [1,0,0,0.8];
 		} else {

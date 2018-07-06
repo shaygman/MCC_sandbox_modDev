@@ -750,7 +750,7 @@ if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = n
 	publicvariable "MCC_MWMissionRuning";
 
 	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (_missionCenter nearObjects ["MCC_ModuleObjective_F", (_maxObjectivesDistance*2.5)]) > 0} do {
-		sleep 5;
+		sleep 1;
 	};
 
 	missionNamespace setVariable ["MCC_MWMissionRuning",false];

@@ -66,6 +66,48 @@ class MCC_rts_scanResourcesAdvanced
 	resources[] = {{"time",60}};
 };
 
+/*
+
+//Maybe when i'll have time i'll expend it more then it is today
+
+class MCC_rts_scanResourcesBasic
+{
+	#ifdef MCCMODE
+	picture = "\mcc_sandbox_mod\mcc\rts\data\hq.paa";
+	#else
+	picture = "mcc\rts\data\hq.paa";
+	#endif
+
+	displayName = "Basic Mission Scan";
+	descriptionShort = "Order HQ to look for a basic missions";
+	condition = "!(missionNamespace getVariable [format ['MCC_rtsMissionOn_%1', playerSide],false]);";
+	requiredBuildings[] = {{"hq",1}};
+	needelectricity = 1;
+	actionFNC = "MCC_fnc_rtsBuildUIContainer";
+	variables[] = {"cfgRtsBuildings","missionsBasic","cfgRtsMissions"};
+	resources[] = {};
+};
+
+class MCC_rts_scanResourcesAdvanced
+{
+	#ifdef MCCMODE
+	picture = "\mcc_sandbox_mod\mcc\rts\data\satcom.paa";
+	#else
+	picture = "mcc\rts\data\satcom.paa";
+	#endif
+
+	displayName = "Advanced Mission Scan";
+	descriptionShort = "Order HQ to look for advanced resources missions";
+	condition = "!(missionNamespace getVariable [format ['MCC_rtsMissionOn_%1', playerSide],false]);";
+	requiredBuildings[] = {{"hq",1}};
+	needelectricity = 1;
+	actionFNC = "MCC_fnc_rtsBuildUIContainer";
+	variables[] = {"cfgRtsBuildings","missionsAdvanced","cfgRtsMissions"};
+	resources[] = {};
+};
+*/
+
+
 class MCC_rts_scanResourcesCancel
 {
 	#ifdef MCCMODE

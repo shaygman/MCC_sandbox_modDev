@@ -34,18 +34,9 @@ if (_respawn >=0)  then
 						_un setskill  		(_x select 3);
 						_un setrank   		(_x select 4);
 
-						//_un setdir			  (_x select 6);
+						// Move to vehicle position
 						_role = (_x select 5);
-						if ((_role select 0) == "Driver") then
-							{_un moveInDriver _cv ; };
-						if ((_role select 0) == "Turret") then
-							{_un moveInTurret [_cv, (_role select 1)]; };
-						if ((_role select 0) == "Cargo") then
-							{
-								_un assignAsCargo  _cv;
-								_un moveInCargo  _cv;
-
-							};
+						[_cv, _un, _role] call BIS_fnc_moveIn;
 
 					}	foreach (_veh select 4);
 

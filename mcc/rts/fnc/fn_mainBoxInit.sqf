@@ -74,7 +74,7 @@ if (isNull _tempBox) exitWith {};
 player setVariable ["MCC_interactedBox", _tempBox];
 
 //Get valor points
-(_mccdialog displayCtrl 4) ctrlSetText str (player getVariable ["MCC_valorPoints",50]);
+(_mccdialog displayCtrl 4) ctrlSetText ([(player getVariable ["MCC_valorPoints",50])] call MCC_fnc_formatNumber);
 
 
 _comboBox = _mccdialog displayCtrl 2;
@@ -133,7 +133,7 @@ _blur spawn {
 
 		//Load available resources
 		_array = call compile format ["MCC_res%1",playerside];
-		{_mccdialog displayCtrl _x ctrlSetText str floor (_array select _forEachIndex)} foreach [81,82,83,84,85];
+		{_mccdialog displayCtrl _x ctrlSetText ([(_array select _forEachIndex)] call MCC_fnc_formatNumber)} foreach [81,82,83,84,85];
 	};
 
 	_this ppEffectAdjust [0];

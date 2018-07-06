@@ -287,10 +287,10 @@ if (missionNamespace getvariable ["CP_activated",false]) then {
 
 		//Load available resources
 		_array = call compile format ["MCC_res%1",playerside];
-		{_disp displayCtrl _x ctrlSetText str floor (_array select _forEachIndex)} foreach [81,82,83,84,85];
+		{_disp displayCtrl _x ctrlSetText ([(_array select _forEachIndex)] call MCC_fnc_formatNumber)} foreach [81,82,83,84,85];
 
 		//Load available valor
-		_disp displayCtrl 86 ctrlSetText str floor (player getVariable ["MCC_valorPoints",50]);
+		_disp displayCtrl 86 ctrlSetText ([(player getVariable ["MCC_valorPoints",50])] call MCC_fnc_formatNumber);
 
 		//Clear unavailable spawn points
 		/*

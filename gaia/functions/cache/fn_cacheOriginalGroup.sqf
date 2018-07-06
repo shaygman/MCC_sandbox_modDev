@@ -1,5 +1,5 @@
 if(!isServer) exitWith {};
-private ["_group","_units","_vehicles"];
+private ["_group","_units","_vehicles","_role"];
 
 _group 			= _this select 0;
 //We arrive here with an empty group
@@ -29,7 +29,13 @@ if (({alive _x} count units _group) > 0) then
 			  then
 				{
 					//player globalchat format ["%1, %2",_veh,_x];
-					_crew = _crew + [[(typeof _x),(_group getVariable ["MCC_GAIA_RESPAWN_POSITON",(getpos _x)]),damage _x,skill _x,rank _x,(assignedVehicleRole _x),getdir _x]];
+					_role = switch (true) do
+							{
+								case (_x isEqualTo commander _x):	{["commander"]};
+								case (_x isEqualTo gunner _x):	{["gunner"]};
+								default	{(assignedVehicleRole _x)};
+							};
+					_crew = _crew + [[(typeof _x),(_group getVariable ["MCC_GAIA_RESPAWN_POSITON",(getpos _x)]),damage _x,skill _x,rank _x,_role,getdir _x]];
 					_units = _units  - [_x];
 
 				}

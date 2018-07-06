@@ -11,7 +11,7 @@ if (missionNamespace getVariable ["MCC_interactionKey_down",false]) exitWith {MC
 MCC_interactionKey_down = true;
 if (dialog ||  missionNamespace getvariable ["MCC_interactionKey_holding",false]) exitWith {};
 
-_array = [["closeDialog 0",format ["<t size='0.8' align='center' color='#ffffff'>%1</t>",if (name _suspect == "Error: No unit") then {"John Doe"} else {name _suspect}],""]];
+_array = [["closeDialog 0",format ["<t size='0.8' align='center' color='#ffffff'>%1</t>",if (name _suspect == "No unit") then {"John Doe"} else {name _suspect}],""]];
 
 //if not inside a vehicle
 if (vehicle player == player) then {

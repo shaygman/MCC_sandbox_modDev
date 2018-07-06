@@ -329,4 +329,4 @@ private ["_isShop"];
 } foreach [_tempBox,player];
 
 //Get valor points
-ctrlSetText [4,str (player getVariable ["MCC_valorPoints",50])];
+ctrlSetText [4, [(player getVariable ["MCC_valorPoints",50])] call MCC_fnc_formatNumber];

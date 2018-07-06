@@ -33,8 +33,6 @@ class rts
 	class rtsMountGuns {description = "Mount turrets on civilian vehicles";};
 	class initWorkshop {description = "Init workshop class building";};
 	class rtsStartElectricity {description = "Start electricity production";};
-	class rtsScanResourcesBasic {description = "Start basic resources mission";};
-	class rtsScanResourcesAdvanced {description = "Start advanced resources mission";};
 	class rtsScanResourcesCancel {description = "Cancel resources mission";};
 	class rtsScanResources {description = "Generate resources mission";};
 	class rtsBuyTickets {description = "Adds Tickets";};
@@ -68,6 +66,7 @@ class rts
 	class rtsCalculateResourceTreshold {description = "calculate resources tresholds";};
 	class getWeaponCost {description = "Gets a weapon cost by it's effective DPS, range and ammo";};
 	class rtsEvacHelicopterBuy {description = "Spawn evac helicopter of not available";};
+	class getVehicleCost {description = "Return vehicle costs - part of the vehicle kiosk";};
 };
 
 class forts
@@ -79,4 +78,17 @@ class forts
 	#endif
 
 	class buildFort {};
+};
+
+class missions
+{
+	#ifdef MCCMODE
+	file = "\mcc_sandbox_mod\mcc\rts\fnc\missions";
+	#else
+	file = "mcc\rts\fnc\missions";
+	#endif
+
+	class rtsScanResourcesBasic {description = "Start basic resources mission";};
+	class rtsScanResourcesAdvanced {description = "Start advanced resources mission";};
+	class rtsInitmission {description = "Gather intel mission";};
 };

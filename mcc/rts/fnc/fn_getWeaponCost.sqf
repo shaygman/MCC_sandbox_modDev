@@ -8,6 +8,7 @@ Gets a weapon cost by it's effective DPS, range and ammo
 
 ==================================================================================================================================*/
 private ["_class","_baseCost","_prices"];
+#define	MCC_PRICE_FACTOR	0.5
 
 _class = param [0,"",[""]];
 _prices = param [1,0.5,[0]];
@@ -82,6 +83,8 @@ _baseCost = (switch (_type) do
 				case "MineDirectional": {60};
 				default {20};
 			});
+
+_baseCost = _baseCost * MCC_PRICE_FACTOR;
 
 if (_category in ["Weapon","VehicleWeapon"]) then {
 

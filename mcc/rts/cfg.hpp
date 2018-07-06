@@ -30,3 +30,8 @@ class CfgMCCRtsAirdrops
 {
 	#include "CfgMCCRtsAirdrops.hpp"
 };
+
+class cfgRtsMissions
+{
+	#include "cfgRtsMissions.hpp"
+}

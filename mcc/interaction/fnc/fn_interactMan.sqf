@@ -23,7 +23,7 @@ if (!(missionNamespace getVariable ["MCC_interactionKey_holding",false]) && ((_s
 };
 
 if ((missionNamespace getVariable ["MCC_interactionKey_holding",false]) && (player distance  _suspect < 2) && !dialog) exitWith {
-	_suspectName = if (name _suspect == "Error: No unit") then {"John Doe"} else {name _suspect};
+	_suspectName = if (name _suspect == "No unit") then {"John Doe"} else {name _suspect};
 	_array = [["closeDialog 0","<t size='1' align='center' color='#ffffff'>"+_suspectName+"</t>",""],
 			  ["['zip'] spawn MCC_fnc_interactManClicked","Restrain",format ["%1data\iconHandcuffs.paa",MCC_path]],
 			  ["['follow'] spawn MCC_fnc_interactManClicked","Command",format ["%1data\iconOrder.paa",MCC_path]],

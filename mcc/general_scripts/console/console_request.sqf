@@ -72,7 +72,7 @@ switch (_type) do {
 						_displayname = format ["%1 %2, ",_displayname, getText(configFile >> "CfgVehicles" >> _x >> "displayname")];
 					} foreach ((_x select 0) select 0);
 					_displayname = _displayname;
-					_pic = if (_x select 2 != 1) then {"\a3\ui_f\data\gui\cfg\CommunicationMenu\supplydrop_ca.paa"} else {"\A3\ui_f\data\map\markers\handdrawn\pickup_CA.paa"};
+					_pic = if (!(_x select 2 isEqualTo 1) || (_x isEqualTo true)) then {"\a3\ui_f\data\gui\cfg\CommunicationMenu\supplydrop_ca.paa"} else {"\A3\ui_f\data\map\markers\handdrawn\pickup_CA.paa"};
 					_index = _comboBox lbAdd _displayname;
 					_comboBox lbSetPictureRight [_index, _pic];
 
