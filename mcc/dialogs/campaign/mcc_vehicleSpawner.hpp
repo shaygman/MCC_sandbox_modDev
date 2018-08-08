@@ -158,7 +158,7 @@ class MCC_VEHICLESPAWNER
 		class tittle: MCC_RscText
 		{
 			idc = -1;
-			text = "Available Assets";
+			text = "Buy Vehicle";
 			x = 0.355625 * safezoneW + safezoneX;
 			y = 0.258 * safezoneH + safezoneY;
 			w = 0.170156 * safezoneW;
@@ -170,21 +170,31 @@ class MCC_VEHICLESPAWNER
 		{
 			idc = -1;
 
-			text = "Available Resources";
+			text = "Resources";
 			x = 0.592812 * safezoneW + safezoneX;
-			y = 0.258 * safezoneH + safezoneY;
+			y = 0.401 * safezoneH + safezoneY;
 			w = 0.103125 * safezoneW;
 			h = 0.055 * safezoneH;
 			colorText[] = {1,1,1,1};
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 		};
+
+		class infoText: MCC_RscPicture
+		{
+			idc = 111100;
+			x = 0.592812 * safezoneW + safezoneX;
+			y = 0.269 * safezoneH + safezoneY;
+			w = 0.103125 * safezoneW;
+			h = 0.132 * safezoneH;
+		};
+
 		class MCC_ResourcesControlsGroup: MCC_RscControlsGroupNoScrollbars
 		{
 			idc = 80;
 			x = 0.592812 * safezoneW + safezoneX;
-			y = 0.324 * safezoneH + safezoneY;
+			y = 0.456 * safezoneH + safezoneY;
 			w = 0.103125 * safezoneW;
-			h = 0.275 * safezoneH;
+			h = 0.143 * safezoneH;
 			class controls
 			{
 				class MCC_AmmoText: MCC_RscText
@@ -192,7 +202,7 @@ class MCC_VEHICLESPAWNER
 					idc = 81;
 
 					x = 0.0257812 * safezoneW;
-					y = 0.055 * safezoneH;
+					y = 0.01 * safezoneH;
 					w = 0.04125 * safezoneW;
 					h = 0.033 * safezoneH;
 				};
@@ -202,7 +212,7 @@ class MCC_VEHICLESPAWNER
 					idc = 82;
 
 					x = 0.0257812 * safezoneW;
-					y = 0.099 * safezoneH;
+					y = 0.046 * safezoneH;
 					w = 0.04125 * safezoneW;
 					h = 0.033 * safezoneH;
 				};
@@ -212,7 +222,7 @@ class MCC_VEHICLESPAWNER
 					idc = 83;
 
 					x = 0.0257812 * safezoneW;
-					y = 0.143 * safezoneH;
+					y = 0.091 * safezoneH;
 					w = 0.04125 * safezoneW;
 					h = 0.033 * safezoneH;
 				};
@@ -236,7 +246,7 @@ class MCC_VEHICLESPAWNER
 					colorText[] = { 0.9, 0, 0, 1 };
 
 					x = 0.00515625 * safezoneW;
-					y = 0.055 * safezoneH;
+					y = 0.01 * safezoneH;
 					w = 0.0154688 * safezoneW;
 					h = 0.033 * safezoneH;
 				};
@@ -247,7 +257,7 @@ class MCC_VEHICLESPAWNER
 					text = __EVAL(MCCPATH +"data\IconRepair.paa");
 					tooltip = "Supplies";
 					x = 0.00515625 * safezoneW;
-					y = 0.099 * safezoneH;
+					y = 0.046 * safezoneH;
 					w = 0.0154688 * safezoneW;
 					h = 0.033 * safezoneH;
 				};
@@ -260,7 +270,7 @@ class MCC_VEHICLESPAWNER
 					colorText[] = { 0, 0.9, 0.5, 1 };
 
 					x = 0.00515625 * safezoneW;
-					y = 0.143 * safezoneH;
+					y = 0.091 * safezoneH;
 					w = 0.0154688 * safezoneW;
 					h = 0.033 * safezoneH;
 				};

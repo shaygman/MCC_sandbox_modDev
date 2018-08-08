@@ -10,6 +10,9 @@
 // construct: Boolean
 //======================================================================================================================================================================
 private ["_side","_size","_destructable","_building","_dummy","_sphere","_dir","_animate","_flag","_flagTex","_name","_logic","_pos","_construct","_teleport","_enableHud","_mode"];
+
+#define	MCC_ANCHOR	"Box_FIA_Support_F"
+
 if ((typeName (_this select 0)) == "OBJECT") then {
 	_logic			= _this select 0;
 	_pos			= getpos _logic;
@@ -202,9 +205,10 @@ switch (_mode) do
 		if (_size == "FOB") then {
 			//Attach flag
 			_flag attachto [_dummy,[2.5,0,2]];
-			_box = "Box_FIA_Support_F" createvehicle _pos;
+			_box = MCC_ANCHOR createvehicle _pos;
 			_box setdir _dir;
 			_box setVariable ["mcc_delete",false,true];
+			_box setVariable ["MCC_kitSelect",["all"],true];
 			_box attachto [_dummy,[-3.5,0,-0.8]];
 			[_side, _box] call MCC_fnc_makeObjectVirtualBox;
 

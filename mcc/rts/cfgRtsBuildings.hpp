@@ -21,7 +21,7 @@ class MCC_rts_hq1
 	level = 1;
 	resources[] = {};
 	actionFNC = "MCC_fnc_baseActionClicked";
-	objectsArray[] = {{"Land_PowerGenerator_F", {-2.6,0,-1},{{0,1,0},{0,0,1}}},{"Land_cargo_addon01_V1_F", {3.36,0.5,-1.5},{{-1,0,0},{0,0,1}}},{"CamoNet_INDP_open_Curator_F", {0,0,0},{{0,1,0},{0,0,1}}},{"Land_TableDesk_F", {2.2,0.5,-1.5},{{1,0,0},{0,0,1}}},{"Land_Camping_Light_F", {2.2,1,-1},{{1,0,0},{0,0,1}}},{"Land_ChairWood_F", {2.8,0.5,-1.8},{{1,0,0},{0,0,1}}},{"Land_Map_altis_F", {2.2,0.5,-1.08},{{1,0,0},{0,0,1}}},{"Box_FIA_Support_F",{0,-3,-0.4},{{0,1,0},{0,0,1}}}};
+	objectsArray[] = {{"Land_PowerGenerator_F", {-2.6,0,-1},{{0,1,0},{0,0,1}}},{"Land_cargo_addon01_V1_F", {3.36,0.5,-1.5},{{-1,0,0},{0,0,1}}},{"CamoNet_INDP_open_Curator_F", {0,0,0},{{0,1,0},{0,0,1}}},{"Land_TableDesk_F", {2.2,0.5,-1.5},{{1,0,0},{0,0,1}}},{"Land_Camping_Light_F", {2.2,1,-1},{{1,0,0},{0,0,1}}},{"Land_ChairWood_F", {2.8,0.5,-1.8},{{1,0,0},{0,0,1}}},{"Land_Map_altis_F", {2.2,0.5,-1.08},{{1,0,0},{0,0,1}}},{"Box_FIA_Support_F",{0,-3,-0.4},{{0,1,0},{0,0,1}},{"MCC_kitSelect",{"all"}}}};
 };
 
 class MCC_rts_hq2 : MCC_rts_hq1
@@ -36,7 +36,7 @@ class MCC_rts_hq2 : MCC_rts_hq1
 	level = 2;
 	resources[] = {{"ammo",300},{"repair",750},{"food",450},{"time",3}};
 	actionFNC = "MCC_fnc_baseActionClicked";
-	objectsArray[] = {{"Land_PowerGenerator_F", {5,0,-0.3},{{0,1,0},{0,0,1}}},{"Land_TTowerSmall_1_F", {5,2,6},{{0,1,0},{0,0,1}}},{"Land_TableDesk_F", {4,2,-0.8},{{-1,0,0},{0,0,1}}},{"Land_Camping_Light_F", {4,2.5,-0.3},{{1,0,0},{0,0,1}}},{"Land_Metal_rack_F", {1,2.8,-0.2},{{0,1,0},{0,0,1}}},{"Land_ChairWood_F", {3.5,2,-1.15}, {{-1,0,0},{0,0,1}}},{"Land_Laptop_unfolded_F", {4,2,-0.23},{{-1,0,0},{0,0,1}}},{"Land_Map_altis_F", {4.3,0,1},{{0,-1,0},{-1,0,0}}},{"Land_WaterCooler_01_old_F", {4,0.8,-0.4},{{1,0,0},{0,0,1}}},{"Land_Sleeping_bag_brown_F", {0,2,-1.05},{{-1,0,0},{0,0,1}}},{"Land_LuggageHeap_01_F", {-2.2,2.6,-0.65},{{1,0,0},{0,0,1}}},{"Land_WaterCooler_01_old_F", {4,0.8,-0.4},{{1,0,0},{0,0,1}}},{"CamoNet_BLUFOR_open_Curator_F", {0,0,1},{{0,1,0},{0,0,1}}},{"Box_FIA_Support_F",{0,-3,0},{{0,1,0},{0,0,1}}}};
+	objectsArray[] = {{"Land_PowerGenerator_F", {5,0,-0.3},{{0,1,0},{0,0,1}}},{"Land_TTowerSmall_1_F", {5,2,6},{{0,1,0},{0,0,1}}},{"Land_TableDesk_F", {4,2,-0.8},{{-1,0,0},{0,0,1}}},{"Land_Camping_Light_F", {4,2.5,-0.3},{{1,0,0},{0,0,1}}},{"Land_Metal_rack_F", {1,2.8,-0.2},{{0,1,0},{0,0,1}}},{"Land_ChairWood_F", {3.5,2,-1.15}, {{-1,0,0},{0,0,1}}},{"Land_Laptop_unfolded_F", {4,2,-0.23},{{-1,0,0},{0,0,1}}},{"Land_Map_altis_F", {4.3,0,1},{{0,-1,0},{-1,0,0}}},{"Land_WaterCooler_01_old_F", {4,0.8,-0.4},{{1,0,0},{0,0,1}}},{"Land_Sleeping_bag_brown_F", {0,2,-1.05},{{-1,0,0},{0,0,1}}},{"Land_LuggageHeap_01_F", {-2.2,2.6,-0.65},{{1,0,0},{0,0,1}}},{"Land_WaterCooler_01_old_F", {4,0.8,-0.4},{{1,0,0},{0,0,1}}},{"CamoNet_BLUFOR_open_Curator_F", {0,0,1},{{0,1,0},{0,0,1}}},{"Box_FIA_Support_F",{0,-3,0},{{0,1,0},{0,0,1}},{"MCC_kitSelect",{"all"}}}};
 };
 
 class MCC_rts_hq3 : MCC_rts_hq2
@@ -55,7 +55,7 @@ class MCC_rts_hq3 : MCC_rts_hq2
 	upgradeTo[] = {};
 	level = 3;
 	resources[] = {{"ammo",600},{"repair",1050},{"food",750},{"time",3}};
-	objectsArray[] = {{"Land_TableDesk_F", {-1,-6,-2.8},{{0,1,0},{0,0,1}}},{"Land_Camping_Light_F", {-0.5,-6,-2.27},{{1,0,0},{0,0,1}}},{"Land_Rack_F", {-3,-6,-2.35},{{-1,0,0},{0,0,1}}},{"Land_WaterCooler_01_new_F", {0.5,-6,-2.4},{{0,-1,0},{0,0,1}}},{"Land_Laptop_unfolded_F", {-1,-6,-2.23},{{0,1,0},{0,0,1}}},{"Land_Map_altis_F", {-1,-6.5,-1.5},{{-1,0,0},{0,1,0}}},{"Land_PaperBox_open_full_F", {6,2,-2.8},{{0,1,0},{0,0,1}}},{"Land_Pallet_MilBoxes_F", {3,0,-2.8},{{0,1,0},{0,0,1}}},{"Land_CampingChair_V2_F", {-1,-5.6,-2.8},{{0,1,0},{0,0,1}}},{"Land_Sleeping_bag_blue_folded_F", {0,3,-3.2},{{0,1,0},{0,0,1}}},{"Land_Sleeping_bag_brown_F", {-1,2,-3.25},{{0,1,0},{0,0,1}}},{"Land_Sleeping_bag_blue_F", {-3,2,-3.25},{{0,1,0},{0,0,1}}},{"Land_Communication_F", {3,-6,12.5},{{1,1,0},{0,0,1}}},{"Box_FIA_Support_F",{-7,0,-3},{{0,1,0},{0,0,1}}}};
+	objectsArray[] = {{"Land_TableDesk_F", {-1,-6,-2.8},{{0,1,0},{0,0,1}}},{"Land_Camping_Light_F", {-0.5,-6,-2.27},{{1,0,0},{0,0,1}}},{"Land_Rack_F", {-3,-6,-2.35},{{-1,0,0},{0,0,1}}},{"Land_WaterCooler_01_new_F", {0.5,-6,-2.4},{{0,-1,0},{0,0,1}}},{"Land_Laptop_unfolded_F", {-1,-6,-2.23},{{0,1,0},{0,0,1}}},{"Land_Map_altis_F", {-1,-6.5,-1.5},{{-1,0,0},{0,1,0}}},{"Land_PaperBox_open_full_F", {6,2,-2.8},{{0,1,0},{0,0,1}}},{"Land_Pallet_MilBoxes_F", {3,0,-2.8},{{0,1,0},{0,0,1}}},{"Land_CampingChair_V2_F", {-1,-5.6,-2.8},{{0,1,0},{0,0,1}}},{"Land_Sleeping_bag_blue_folded_F", {0,3,-3.2},{{0,1,0},{0,0,1}}},{"Land_Sleeping_bag_brown_F", {-1,2,-3.25},{{0,1,0},{0,0,1}}},{"Land_Sleeping_bag_blue_F", {-3,2,-3.25},{{0,1,0},{0,0,1}}},{"Land_Communication_F", {3,-6,12.5},{{1,1,0},{0,0,1}}},{"Box_FIA_Support_F",{-7,0,-3},{{0,1,0},{0,0,1}},{"MCC_kitSelect",{"all"}}}};
 };
 
 //storage

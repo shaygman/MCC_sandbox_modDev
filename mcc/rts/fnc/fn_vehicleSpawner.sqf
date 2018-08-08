@@ -62,6 +62,11 @@ if (_action == 0) exitWith {
         };
     };
 
+    //Add picture
+    _ctrl = _mccdialog displayCtrl 111100;
+    _ctrl ctrlSetText (getText (configfile >> "CfgVehicles" >> _cfgclass >> "editorPreview"));
+    _ctrl ctrlCommit 0;
+
     ctrlEnable [102,_disableCtrl];
 };
 

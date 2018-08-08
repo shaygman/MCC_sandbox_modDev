@@ -81,19 +81,19 @@ if (typeName (_module getVariable ["cover",true]) == typeName 0) exitWith {
 if !(local _module) exitWith {};
 
 _resualt = ["Settings MCC Mechanics",[
- 						["Action Menu",true],
- 						["Cover System",true],
- 						["Cover System UI",true],
- 						["Vault/Climb",true],
- 						["Weapons Binds",true],
- 						["Interaction",true],
- 						["Interaction UI",true],
- 						["One Man Tanks",true],
- 						["Disable Fatigue",true],
+ 						["Action Menu",(missionNamespace getVariable ["MCC_showActionKey",true])],
+ 						["Cover System",(missionNamespace getVariable ["MCC_cover",true])],
+ 						["Cover System UI",(missionNamespace getVariable ["MCC_coverUI",true])],
+ 						["Vault/Climb",(missionNamespace getVariable ["MCC_coverVault",true])],
+ 						["Weapons Binds",(missionNamespace getVariable ["MCC_quickWeaponChange",true])],
+ 						["Interaction",(missionNamespace getVariable ["MCC_interaction",true])],
+ 						["Interaction UI",(missionNamespace getVariable ["MCC_ingameUI",true])],
+ 						["One Man Tanks",(missionNamespace getVariable ["MCC_arcadeTanks",true])],
+ 						["Disable Fatigue",(missionNamespace getVariable ["MCC_disableFatigue",true])],
  						["Survival Mod",["No","Yes - Enable searching loot","Yes - Disable searching loot"]],
- 						["(Survival) Load Player Position",false],
- 						["(Survival) Load Player Gear",false],
- 						["(Survival) Load Player Stats",false]
+ 						["(Survival) Load Player Position",(missionNamespace getVariable ["MCC_surviveModPlayerPos",false])],
+ 						["(Survival) Load Player Gear",(missionNamespace getVariable ["MCC_surviveModPlayerGear",false])],
+ 						["(Survival) Load Player Stats",(missionNamespace getVariable ["MCC_surviveModPlayerStats",false])]
  					  ]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
@@ -113,16 +113,20 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
           ];
 
 //Survival
-MCC_surviveModPlayerPos = (_resualt select 10);
-MCC_surviveModPlayerGear = (_resualt select 11);
-MCC_surviveModPlayerStats = (_resualt select 12);
-
 _var = (_resualt select 9);
-MCC_surviveMod = _var > 0;
+MCC_surviveMod = (_resualt select 9) > 0;
 publicvariable "MCC_surviveMod";
 
 MCC_surviveModAllowSearch = _var ==1;
 publicvariable "MCC_surviveModAllowSearch";
+
+{
+	missionNamespace setVariable [_x,_resualt select (_foreachindex + 10)];
+	publicvariable _x;
+} forEach ["MCC_surviveModPlayerPos",
+           "MCC_surviveModPlayerGear",
+           "MCC_surviveModPlayerStats"
+          ];
 
 //Fatigue
 {player enableFatigue !(missionNamespace getVariable ["MCC_disableFatigue",false])} remoteExec ["bis_fnc_call", 0];

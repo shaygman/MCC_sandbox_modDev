@@ -53,9 +53,9 @@ switch (true) do {
 		player setVariable ["MCC_mirrorCamOff",false];
 
 		//tablet
-		_tablet = "Land_Tablet_01_F" createVehicle [0,0,0];
+		_tablet = "Land_Tablet_02_F" createVehicle [0,0,0];
 		_tablet attachto [player,[-0.1,0.4,-0.2],"neck"];
-		_tablet setVectorDirAndUp [[0,1,1],[0,-1,0]];
+		_tablet setVectorDirAndUp [[0,-1,-1],[0,-1,0]];
 		_tablet setObjectTexture [0, "#(argb,512,512,1)r2t(uavrtt,1)"];
 
 		//animate - disable input

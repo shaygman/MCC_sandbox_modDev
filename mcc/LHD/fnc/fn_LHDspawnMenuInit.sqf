@@ -138,12 +138,25 @@ MCC_fnc_LHDspawnMenuClicked = {
 			if (_index != 6) then {_ctrl lbsetpicture [_index, (_x select 3) select 1]};
 		} foreach _vehiclesArray;
 		if (count _vehiclesArray > 0) then {_ctrl lbSetCurSel 0};
+
+
+
 	};
 
 	switch (_update) do
 	{
 		case "updateClass":
 		{
+
+			//Upadate faction
+			_index = lbCurSel (_display displayCtrl 8008);
+			if ((missionNamespace getVariable ["MCC_faction_index",-1]) != _index) then	{
+				mcc_sidename = (U_FACTIONS select _index) select 1;
+				mcc_faction = (U_FACTIONS select _index) select 2;
+				MCC_faction_index = _index;
+				0 = [false] call mcc_fnc_faction_choice;
+			};
+
 			//class
 			_index = lbCurSel (_display displayCtrl 1501);
 			_vehiclesArray = switch (_index) do
@@ -172,10 +185,17 @@ MCC_fnc_LHDspawnMenuClicked = {
 			/* STATEMENT */
 		};
 	};
+
+
 	//spawn Button
 	_ctrl = _display displayCtrl 2400;
 	_ctrl ctrlRemoveAllEventHandlers "MouseButtonUp";
 	_ctrl ctrlAddEventHandler ["MouseButtonUp",format ["['spawn',%1,'%2','%3'] spawn MCC_fnc_LHDspawnVehicle;",_deck,_selection,_lhdType]];
+
+	//Close
+	_ctrl = _display displayCtrl 2401;
+	_ctrl ctrlRemoveAllEventHandlers "MouseButtonUp";
+	_ctrl ctrlAddEventHandler ["MouseButtonUp","['close'] spawn MCC_fnc_LHDspawnVehicle"];
 };
 
 //Close all dialogs
@@ -215,7 +235,7 @@ switch (_deck) do
 		if (_isCUPLHD) then {
 			_spawnPos = ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_15","fd_cargo_pos_16","fd_cargo_pos_17","fd_cargo_pos_18","fd_cargo_pos_19"];
 		} else {
-			_spawnPos = [[20,50,28],[37,70,28],[-22,-55,28],[5,-55,28],[-30,70,28],[-30,50,28],[-30,30,28],[-30,10,28],[-30,-10,28]];
+			_spawnPos = [[20,50,24],[37,70,24],[-22,-55,24],[5,-55,24],[-30,70,24],[-30,50,24],[-30,30,24],[-30,10,24],[-30,-10,24]];
 		};
 	};
 

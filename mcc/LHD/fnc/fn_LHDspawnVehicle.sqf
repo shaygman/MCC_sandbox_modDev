@@ -22,36 +22,11 @@ params [
 	["_lhdType", "", ["",objNull]]
 ];
 
-if (_selection isEqualTo "" || _selection isEqualTo []) exitWith {};
-
 _display = uiNamespace getVariable ["MCC_LHD_MENU", displayNull];
 _ctrl = _display displayCtrl 2300;
 
 switch (tolower _fnc) do
 {
-	case "faction":
-	{
-		_factionIndex = missionNamespace getVariable ["MCC_faction_index",0];
-		_factions = missionNamespace getVariable ["U_FACTIONS",[]];
-		_index = lbCurSel MCC_FACTION;
-		if (_factionIndex != _index && _factionIndex < (count _factions)) then	{
-			mcc_sidename = (U_FACTIONS select _index) select 1;
-			mcc_faction = (U_FACTIONS select _index) select 2;
-			MCC_faction_index = _index;
-			U_GEN_SHIP 			= [];
-			U_GEN_AIRPLANE		= [];
-			U_GEN_HELICOPTER 	= [];
-			U_GEN_TANK 			= [];
-			U_GEN_MOTORCYCLE	= [];
-			U_GEN_CAR			= [];
-			U_GEN_SOLDIER    	= [];
-
-			0 = [] call mcc_make_array_units;
-
-			[] spawn MCC_fnc_LHDspawnMenuClicked;
-		};
-	};
-
 	case "close":
 	{
 		_ctrlPos = ctrlPosition _ctrl;
@@ -64,6 +39,9 @@ switch (tolower _fnc) do
 	case "spawn":
 	{
 		private ["_lhd","_vehicleClass","_direction","_cargo","_dummy","_str","_null","_isCUPLHD"];
+
+		if (_selection isEqualTo "" || _selection isEqualTo []) exitWith {};
+
 		_lhd = (missionNamespace getVariable [_lhdType,objNull]);
 		_vehicleClass = (_display displayCtrl 1502) lbData (lbCurSel 1502);
 		_isCUPLHD = _lhd isKindOf "CUP_LHD_BASE";
@@ -71,12 +49,12 @@ switch (tolower _fnc) do
 
 		_direction = switch (true) do
 					{
-						case (_selection in ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_16","fd_cargo_pos_18","[-30,70,28]","[-30,50,28]","[-30,30,28]","[-30,10,28]","[-30,-10,28]"]):
+						case (_selection in ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_16","fd_cargo_pos_18","[-30,70,24]","[-30,50,24]","[-30,30,24]","[-30,10,24]","[-30,-10,24]"]):
 						{
 							(direction _lhd)+90
 						};
 
-						case (_selection in ["fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_15","fd_cargo_pos_17","fd_cargo_pos_19","[20,50,28]","[37,70,28]","[-22,-55,28]","[5,-55,28]"]):
+						case (_selection in ["fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_15","fd_cargo_pos_17","fd_cargo_pos_19","[20,50,24]","[37,70,24]","[-22,-55,24]","[5,-55,24]"]):
 						{
 							(direction _lhd)+180
 						};
@@ -87,7 +65,7 @@ switch (tolower _fnc) do
 		_cargo = nil;
 
 		// If valid class, spawn the vehicle, then move it into position
-		if !(isClass (configFile >> "CfgVehicles" >> _vehicleClass)) exitWith {diag_log format["CUP: fnc_createVehicleCargo: ERROR %1 Vehicle Not in config", _vehicleClass]};
+		if !(isClass (configFile >> "CfgVehicles" >> _vehicleClass)) exitWith {diag_log format["MCC: MCC_fnc_LHDspawnVehicle: ERROR %1 Vehicle Not in config", _vehicleClass]};
 
 		//Check if available
 		_dummy = "HeliH" createVehicle [0,0,0];
@@ -116,8 +94,8 @@ switch (tolower _fnc) do
 			_cargo = createVehicle [_vehicleClass, [0,0,0], [], 0, "NONE"];
 
 			// Ensure it doesn't get damaged while we move it around
-			_cargo allowDamage false;
 			_cargo setDamage 0;
+			_cargo allowDamage false;
 
 			// Check to see if vehicle should be folded/packed
 			{
@@ -133,10 +111,13 @@ switch (tolower _fnc) do
 				_cargo attachTo [_lhd, [0,0,1], _selection];
 				_cargo setVariable ["CUP_WaterVehicles_LHD_respawnPosition", _selection, true];
 			} else {
-				_cargo attachTo [_lhd,(call compile _selection)];
-				_cargo setDir _direction;
+				_selection = call compile _selection;
+				_selection set [2,(_selection select 2) + ((_cargo call BIS_fnc_boundingBoxDimensions) select 2)/2];
+				_cargo attachTo [_lhd, _selection];
 
 				detach _cargo;
+				waitUntil {isNull attachedTo _cargo};
+				_cargo setDir _direction;
 			};
 
 			_cargo setDir _direction;

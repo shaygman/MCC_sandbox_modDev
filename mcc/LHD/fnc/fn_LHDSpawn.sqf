@@ -262,6 +262,19 @@ if (_isCUP) then {
 	[_ship] call BIS_fnc_Carrier01PosUpdate;
 	sleep 5;
 	_ship remoteExec ["BIS_fnc_Carrier01Init",0];
+
+	{
+		_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
+		_dummy attachTo [_ship,(_x select 1)];
+		{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+		detach _dummy;
+	} forEach [
+				["B_SAM_System_02_F",[30,175,23]],
+				["B_SAM_System_02_F",[-40,179,23]],
+				["B_SAM_System_02_F",[-30,-100,23]],
+				["B_AAA_System_01_F",[-30,-105,20]],
+				["B_AAA_System_01_F",[25,-115,19]]
+	];
 };
 
 /*

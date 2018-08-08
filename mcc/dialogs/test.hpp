@@ -15,183 +15,92 @@ class mcc_test
 	};	//(0.478009 * safezoneH + safezoneY) / safezoneH - Y
 
 	class Controls
-	{
-		class  frame : MCC_RscText
-		{
-			idc = -1;
-			colorBackground[] = {0,0,0,0.6};
-			moving = 1;
-			w = 0.401042 * safezoneW;
-			h = 0.505803 * safezoneH;
-			text = "";
-		};
+			{
+				class bckground: MCC_RscText
+				{
+					idc = -1;
+					x = 0 * safezoneW;
+					y = 0 * safezoneH;
+					w = 0.273281 * safezoneW;
+					h = 0.154 * safezoneH;
+					colorBackground[] = {0,0,0,0.7};
+				};
 
-		class allGearBackground : MCC_RscText
-		{
-			idc = -1;
-			colorBackground[] = { 0, 0, 0, 0.9 };
-			colorText[] = { 1, 1, 1, 0 };
-			text = "";
-			moving = 1;
-			x = 0.00572965 * safezoneW;
-			y = 0.0769698 * safezoneH;
-			w = 0.171875 * safezoneW;
-			h = 0.38485 * safezoneH;
-		};
+				class bckframe: MCC_RscFrame
+				{
+					idc = -1;
+					x = 0 * safezoneW;
+					y = 0 * safezoneH;
+					w = 0.273281 * safezoneW;
+					h = 0.154 * safezoneH;
+				};
 
-		class boxGearBackground : MCC_RscText
-		{
-			idc = -1;
-			colorBackground[] = { 0, 0, 0, 0.9 };
-			colorText[] = { 1, 1, 1, 0 };
-			x = 0.217709 * safezoneW;
-			y = 0.0769698 * safezoneH;
-			w = 0.177604 * safezoneW;
-			h = 0.38485 * safezoneH;
-			text = "";
-		};
+				class factionText: MCC_RscText
+				{
+					idc = -1;
+					text = "Faction:"; //--- ToDo: Localize;
+					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+					x = 0.00515648 * safezoneW;
+					y = 0.011 * safezoneH;
+					w = 0.04125 * safezoneW;
+					h = 0.022 * safezoneH;
+				};
+				class factionListbox: MCC_RscCombo
+				{
+					idc = 8008;
+					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+					onLBSelChanged = "['faction'] spawn MCC_fnc_LHDspawnVehicle;";
 
-	 //========================================= Controls========================================
-		class allGearList: MCC_RscListBox
-		{
-			idc = 0;
-			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
+					x = 0.046406 * safezoneW;
+					y = 0.011 * safezoneH;
+					w = 0.12375 * safezoneW;
+					h = 0.022 * safezoneH;
+				};
+				class typeListBox: MCC_RscCombo
+				{
+					idc = 1501;
+					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 
-			x = 0.00572965 * safezoneW;
-			y = 0.0769698 * safezoneH;
-			w = 0.171875 * safezoneW;
-			h = 0.38485 * safezoneH;
-		};
-
-		class boxGearList: MCC_RscListBox
-		{
-			idc = 1;
-			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-
-			x = 0.217709 * safezoneW;
-			y = 0.0769698 * safezoneH;
-			w = 0.177604 * safezoneW;
-			h = 0.38485 * safezoneH;
-		};
-
-		class playerGearClasCombo: MCC_RscCombo
-		{
-			idc = 2;
-			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			style = MCCST_LEFT;
-			colorText[] = { 1, 1, 1, 1 };
-			colorSelect[] = { 1.0, 0.35, 0.3, 1 };
-			colorBackground[]={0,0,0,1};
-			colorSelectBackground[] = { 0, 0, 0, 1 };
-			onLBSelChanged = __EVAL("[0,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
-
-			x = 0.0458336 * safezoneW;
-			y = 0.0439828 * safezoneH;
-			w = 0.0973958 * safezoneW;
-			h = 0.0219914 * safezoneH;
-		};
-
-		//Tittles
-		class Tittle: MCC_RscText
-		{
-			idc = -1;
-			text = "Cargo:";
-			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			colorText[] = {0,1,1,1};
-			colorBackground[] = {1,1,1,0};
-
-			x = 0.00572965 * safezoneW;
-			y = 0.0109958 * safezoneH;
-			w = 0.1375 * safezoneW;
-			h = 0.0226897 * safezoneH;
-		};
-
-		class playerClassTitle: MCC_RscText
-		{
-			idc = -1;
-			text = "Yours:";
-			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			colorText[] = {1,1,1,1};
-			colorBackground[] = {1,1,1,0};
-
-			x = 0.00572965 * safezoneW;
-			y = 0.0439828 * safezoneH;
-			w = 0.0362846 * safezoneW;
-			h = 0.0226897 * safezoneH;
-		};
-
-		class MainClassTitle: MCC_RscText
-		{
-			idc = -1;
-			text = "Cargo:";
-			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			colorText[] = {1,1,1,1};
-			colorBackground[] = {1,1,1,0};
-
-			x = 0.217709 * safezoneW;
-			y = 0.0439828 * safezoneH;
-			w = 0.0362846 * safezoneW;
-			h = 0.0226897 * safezoneH;
-		};
-
-		//Buttons
-		class putButton: MCC_RscButton
-		{
-			idc = -1;
-			text = ">";
-			onButtonClick = __EVAL("[2,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
-			tooltip = "Give current weapon";
-
-			x = 0.183334 * safezoneW;
-			y = 0.186927 * safezoneH;
-			w = 0.0286458 * safezoneW;
-			h = 0.0274893 * safezoneH;
-		};
-
-		class addOneButton: MCC_RscButton
-		{
-			idc = -1;
-			text = "<";
-			onButtonClick = __EVAL("[3,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
-			tooltip = "Take current weapon";
-
-			x = 0.183334 * safezoneW;
-			y = 0.23091 * safezoneH;
-			w = 0.0286458 * safezoneW;
-			h = 0.0274893 * safezoneH;
-		};
-
-		class ValorIcon: MCC_RscPicture
-		{
-			idc = -1;
-			text = __EVAL(MCCPATH +"mcc\rts\data\valorIcon.paa");
-			tooltip = "Credits";
-			x = 0.335156 * safezoneW;
-			y = 0.011 * safezoneH;
-			w = 0.020625 * safezoneW;
-			h = 0.033 * safezoneH;
-		};
-
-		class ValorValue: MCC_RscText
-		{
-			idc = 4;
-			text = "0";
-			x = 0.360938 * safezoneW;
-			y = 0.011 * safezoneH;
-			w = 0.0309375 * safezoneW;
-			h = 0.033 * safezoneH;
-		};
-
-		class generateBoxButton: MCC_RscButton
-		{
-			idc = -1;
-			text = "Close";
-			onButtonClick = "closedialog 0";
-
-			x = 0.332292 * safezoneW;
-			y = 0.472816 * safezoneH;
-			w = 0.0572917 * safezoneW;
-			h = 0.0274893 * safezoneH;
-		};
-	};
+					x = 0.005156 * safezoneW;
+					y = 0.044 * safezoneH;
+					w = 0.04125 * safezoneW;
+					h = 0.022 * safezoneH;
+				};
+				class classListBox: MCC_RscCombo
+				{
+					idc = 1502;
+					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
+					x = 0.046406 * safezoneW;
+					y = 0.044 * safezoneH;
+					w = 0.12375 * safezoneW;
+					h = 0.022 * safezoneH;
+				};
+				class infoText: MCC_RscPicture
+				{
+					idc = 1100;
+					x = 0.175313 * safezoneW;
+					y = 0.011 * safezoneH;
+					w = 0.0928125 * safezoneW;
+					h = 0.132 * safezoneH;
+				};
+				class spawnButton: MCC_RscButton
+				{
+					idc = 2400;
+					text = "Spawn"; //--- ToDo: Localize;
+					x = 0.051563 * safezoneW;
+					y = 0.077 * safezoneH;
+					w = 0.0773437 * safezoneW;
+					h = 0.055 * safezoneH;
+				};
+				class closeButton: MCC_RscButtonMenu
+				{
+					idc = 2401;
+					text = "X"; //--- ToDo: Localize;
+					action = "['close'] spawn MCC_fnc_LHDspawnVehicle;";
+					x = 0.252656 * safezoneW;
+					y = 0.011 * safezoneH;
+					w = 0.0154688 * safezoneW;
+					h = 0.033 * safezoneH;
+				};
+			};
 };

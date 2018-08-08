@@ -6,7 +6,7 @@
 //		_rad = integer, how far the armed civilian will look for threats
 // <out>	<nothing>
 //====================================================================================================================================================================
-private ["_suspect","_side","_rad","_targ","_count","_pos","_tim","_weapon","_mag","_weaponList","_randWeapon","_dummy","_grp"];
+private ["_suspect","_side","_rad","_targ","_count","_pos","_tim","_weapon","_mag","_weaponList","_dummy","_grp","_availableMagazines"];
 _suspect 		= param [0,objNull];
 _side 			= param [1,sideEnemy];
 _rad  			= param [2,25];
@@ -24,20 +24,13 @@ if (typeName _side == "STRING") then {
 
 if (typeName _side == typeName sideLogic) then {_side = [_side]};
 
-_weaponList = [
-                ["hgun_P07_F", "16Rnd_9x21_Mag"],
-				["hgun_Rook40_F", "16Rnd_9x21_Mag"],
-				["hgun_ACPC2_F", "9Rnd_45ACP_Mag"],
-				["hgun_Pistol_heavy_01_F", "11Rnd_45ACP_Mag"],
-				["hgun_Pistol_heavy_02_F", "6Rnd_45ACP_Cylinder"],
-				["SMG_01_F", "30Rnd_45ACP_Mag_SMG_01"],
-				["SMG_02_F", "30Rnd_9x21_Mag"],
-				["hgun_PDW2000_F", "30Rnd_9x21_Mag"]
-			  ];
+_weaponList = missionNamespace getVariable ["MCC_armedCivilansWeapons",["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"]];
 
-_randWeapon = floor random (count _weaponList);
-_weapon = (_weaponList select _randWeapon) select 0;
-_mag = (_weaponList select _randWeapon) select 1;
+
+_weapon = _weaponList call BIS_fnc_selectRandom;
+_availableMagazines = getArray (configFile >> "cfgWeapons" >> _weapon >> "magazines");
+if (count _availableMagazines <= 0) exitWith {diag_log format ["Error MCC_fnc_manageAC: %1 does not have magazines", _weapon]};
+_mag = _availableMagazines select 0;
 
 removeallweapons _suspect;
 _suspect setbehaviour "CARELESS";

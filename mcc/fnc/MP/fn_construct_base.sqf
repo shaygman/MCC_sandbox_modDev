@@ -1,7 +1,7 @@
 //==================================================================MCC_fnc_construct_base=============================================================================
 // Example:[_pos, _anchorDir , _anchorType, _BuildTime, _side]  call  MCC_fnc_construct_base;
 //======================================================================================================================================================================
-private ["_cfgClass","_anchorType","_anchorDir","_pos","_objs","_constType","_anchor","_object","_BuildTime","_buildingObjs","_builtArray","_side","_level","_instant","_endTime","_boxName","_boxArray","_box","_text","_res","_displayName","_markerName","_root"];
+private ["_cfgClass","_anchorType","_anchorDir","_pos","_objs","_constType","_anchor","_object","_BuildTime","_buildingObjs","_builtArray","_side","_level","_instant","_endTime","_boxName","_boxArray","_box","_text","_res","_displayName","_markerName","_root","_data"];
 #define BASE_ANCHOR "UserTexture10m_F"
 #define ANCHOR_ITEM "Land_TreeBin_F"
 
@@ -133,16 +133,22 @@ if (_constType != "hq") then {
 };
 
 for "_i" from 0 to ((count _objs) - 1) do {
+	_data = _objs select _i;
 	_object = nil;
-	_object = ((_objs select _i) select  0) createVehicle [0,0,0];
+	_object = (_data select  0) createVehicle [0,0,0];
 	waituntil {!isnil "_object"};
 	for "_x" from 1 to 2 do
 	{
-		_object attachTo [_anchor,((_objs select _i) select  1)];
-		_object setVectorDirAndUp  ((_objs select _i) select  2);
+		_object attachTo [_anchor,(_data select  1)];
+		_object setVectorDirAndUp  (_data select  2);
 	};
 	_object setVariable ["mcc_delete",false,true];
 	_object AddEventHandler ["HandleDamage", {}];
+
+	//Set Variable
+	if (count _data > 3) then {
+		_object setVariable [((_data select 3) select 0),((_data select 3) select 1),true];
+	};
 };
 
 //find the main box and add helper

@@ -48,7 +48,6 @@ class MCC_LHDSpawn
 				{
 					idc = 8008;
 					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-					onLBSelChanged = "['faction'] spawn MCC_fnc_LHDspawnVehicle;";
 
 					x = 0.046406 * safezoneW;
 					y = 0.011 * safezoneH;
@@ -95,7 +94,6 @@ class MCC_LHDSpawn
 				{
 					idc = 2401;
 					text = "X"; //--- ToDo: Localize;
-					action = "['close'] spawn MCC_fnc_LHDspawnVehicle;";
 					x = 0.252656 * safezoneW;
 					y = 0.011 * safezoneH;
 					w = 0.0154688 * safezoneW;

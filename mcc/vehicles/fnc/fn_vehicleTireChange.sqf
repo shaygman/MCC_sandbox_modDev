@@ -19,7 +19,7 @@ private ["_availableWheels","_vehicle","_success","_dummy","_sparePart","_str","
 _vehicle = player getVariable ["interactWith",objNull];
 _sparePart = if (_isTire) then {"Tire_Van_02_Cargo_F"} else {"Land_TankTracks_01_long_F"};
 _sparePartName = if (_isTire) then {"Tire"} else {"Track"};
-_workTime = if (_isTire) then {30} else {60};
+_workTime = 3;
 
 if (isNull _vehicle || _hp == "") exitWith {diag_log "MCC_fnc_vehicleTireChange: Error can't replace null vehicle or null tire"};
 

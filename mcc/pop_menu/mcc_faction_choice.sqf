@@ -1,4 +1,8 @@
 private ["_Cfgside","_i","_j","_Cfgfaction","_k","_Cfgtype","_cfgname","_factionDisplayName","_CfgfactionName","_groupName","_groupDisplayname","_CfgGroup","_cfgentry"];
+params [
+	["_refresh",true,[true]]
+];
+
 MCC_groupTypes = [];
 if (isNil "mcc_faction") exitWith {};
 //Create the groups type array
@@ -74,8 +78,11 @@ call mcc_make_array_units;
 GEN_DOC1 = [];
 GEN_DOC1 = [mcc_faction,0]  call mcc_make_array_comp;
 
+//if not refresh exit now
+if (!_refresh) exitWith {};
+
  //If it's not first time refresh the menu
-if !(missionNamespace getVariable ["mcc_firstTime",true]) then {
+if (!(missionNamespace getVariable ["mcc_firstTime",true])) then {
 	while {dialog} do {closeDialog 0};
 	nul=[nil,nil,nil,nil,0] execVM MCC_path + "mcc\Dialogs\mcc_PopupMenu.sqf";
 } else {

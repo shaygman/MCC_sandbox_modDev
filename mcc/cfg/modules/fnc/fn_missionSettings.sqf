@@ -97,6 +97,9 @@ if (typeName (_module getVariable ["t2t",true]) == typeName 0) exitWith {
 
 	//Disable Curator Edit
 	MCC_CuratorEditDisabled = _module getvariable ["CuratorEditDisabled",false];
+
+	//Armed Civilians Weapons
+	MCC_armedCivilansWeapons = _module getvariable ["armedCiviliansWeapons",["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"]];
 };
 
 //Not curator exit

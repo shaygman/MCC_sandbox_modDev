@@ -451,6 +451,7 @@ class MCC_Module_settings : Module_F
 		class defaultSupplyDropsEnabled : Checkbox
 		{
 			displayName = "Purchasable Supply Drops";
+			description = "The commander can buy supply drops from the commanding menu using resources as defined in CfgMCCRtsAirdrops";
 			typeName = "BOOL";
 			property = "defaultSupplyDropsEnabled";
 		};
@@ -458,6 +459,7 @@ class MCC_Module_settings : Module_F
 		class defaultCASEnabled : Checkbox
 		{
 			displayName = "Purchasable CAS";
+			description = "The commander can buy default close air support from the commanding menu using resources as defined in CfgMCCRtsAirdrops";
 			typeName = "BOOL";
 			property = "defaultCASEnabled";
 		};
@@ -465,8 +467,18 @@ class MCC_Module_settings : Module_F
 		class CuratorEditDisabled : Checkbox
 		{
 			displayName = "Disable Zeus Edit";
+			description = "Disable MCC default edit screen in Zeus";
 			typeName = "BOOL";
 			property = "CuratorEditDisabled";
+		};
+
+		class armedCiviliansWeapons : Edit
+		{
+			displayName = "Armed Civilians Weapons";
+			description = "Define the default armed civilians weapons - must be an array of strings";
+			typeName = "STRING";
+			defaultValue = "[""hgun_P07_F"",""hgun_Rook40_F"",""hgun_ACPC2_F"",""hgun_Pistol_heavy_01_F"",""hgun_Pistol_heavy_02_F"",""SMG_01_F"",""SMG_02_F"",""hgun_PDW2000_F""]";
+			property = "armedCiviliansWeapons";
 		};
 	};
 

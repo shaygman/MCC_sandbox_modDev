@@ -47,13 +47,13 @@ if !(local _module) exitWith {};
 _pos = getpos _module;
 
 _resualt = ["Medical System",[
- 						["Complex System",true],
- 						["Bleeding",true],
+ 						["Complex System",(missionNamespace getVariable ["MCC_medicComplex",true])],
+ 						["Bleeding",(missionNamespace getVariable ["MCC_medicBleedingEnabled",true])],
  						["Bleeding Time (Sec)",300],
- 						["Kill Messages",true],
- 						["Punish Team Kill",false],
- 						["Medic HUD",true],
- 						["Only Medic Can Heal",true]
+ 						["Kill Messages",(missionNamespace getVariable ["MCC_medicXPmesseges",true])],
+ 						["Punish Team Kill",(missionNamespace getVariable ["MCC_medicPunishTK",false])],
+ 						["Medic HUD",(missionNamespace getVariable ["MCC_medicShowWounded",true])],
+ 						["Only Medic Can Heal",(missionNamespace getVariable ["MCC_medicOnlyMedicHeals",true])]
  					  ]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
@@ -64,7 +64,14 @@ publicvariable "MCC_medicSystemEnabled";
 {
 	missionNamespace setVariable [_x,_resualt select _foreachindex];
 	publicvariable _x;
-} forEach ["MCC_medicComplex","MCC_medicBleedingEnabled","MCC_medicBleedingTime","MCC_medicXPmesseges","MCC_medicPunishTK","MCC_medicShowWounded","MCC_medicOnlyMedicHeals"];
+} forEach ["MCC_medicComplex",
+		   "MCC_medicBleedingEnabled",
+		   "MCC_medicBleedingTime",
+		   "MCC_medicXPmesseges",
+		   "MCC_medicPunishTK",
+		   "MCC_medicShowWounded",
+		   "MCC_medicOnlyMedicHeals"
+		  ];
 
 //Start Medic system on clients
 [] remoteExec ["MCC_fnc_initMedic", 0, true];

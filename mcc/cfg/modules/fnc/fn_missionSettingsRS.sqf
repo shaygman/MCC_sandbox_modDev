@@ -35,12 +35,12 @@ if (typeName (_module getVariable ["rsAllWeapons",true]) == typeName 0) exitWith
 if !(local _module) exitWith {};
 
 _resualt = ["Settings Role Selection",[
- 						["(RS)Role Selection",true],
- 						["(RS)All Weapons",true],
- 						["(RS)Kit Change",true],
- 						["(RS)XP Gain",true],
- 						["(RS)Limit Weapons",true],
- 						["(RS)Restrict Drivers/Pilots",true]
+ 						["(RS)Role Selection",(missionNamespace getVariable ["CP_activated",true])],
+ 						["(RS)All Weapons",(missionNamespace getVariable ["MCC_rsAllWeapons",true])],
+ 						["(RS)Kit Change",(missionNamespace getVariable ["MCC_allowChangingKits",true])],
+ 						["(RS)XP Gain",(missionNamespace getVariable ["CP_gainXP",true])],
+ 						["(RS)Limit Weapons",(missionNamespace getVariable ["MCC_rsEnableRoleWeapons",true])],
+ 						["(RS)Restrict Drivers/Pilots",(missionNamespace getVariable ["MCC_rsEnableDriversPilots",true])]
  					  ]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};

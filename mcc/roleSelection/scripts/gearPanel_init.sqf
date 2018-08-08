@@ -72,33 +72,54 @@ CP_flag ctrlSetText (missionNamespace getVariable [format ["CP_flag%1", _sidePla
 //Mission Name
 CP_missionName ctrlSetText missionName;
 
-if (missionNamespace getvariable ["CP_activated",false]) then {
-	//Sets sides Tickets
-	_activeSides = [] call MCC_fnc_getActiveSides;
 
-	_idc = 21;
-	{
-		ctrlSetText [_idc, str _x];
-		_idc = _idc + 2;
-	} foreach _activeSides;
+//Sets sides Tickets
+_activeSides = [] call MCC_fnc_getActiveSides;
 
-	//Set XP
-	_role = player getvariable "CP_role";
-	if (isnil "_role") exitWith {};
+_idc = 21;
+{
+	ctrlSetText [_idc, str _x];
+	_idc = _idc + 2;
+} foreach _activeSides;
 
-	_exp 	 = call compile format  ["%1Level select 1",_role];
-	if (isnil "_exp") exitWith {};
+//Set XP
+_role = player getvariable ["CP_role","rifleman"];
+private _roleLevel = missionNamespace getVariable [format  ["%1Level",_role],[]];
 
-	if (_exp < 0) then {_exp = 0};
-	_oldLevel = call compile format  ["%1Level select 0",_role];
-	_html = "<t color='#818960' size='0.8' shadow='1' align='center' underline='false'>"+ _role+ " Level " + str _oldLevel + "</t>";
-	messeges ctrlSetStructuredText parseText _html;
+//No level found read DB
+if (count _roleLevel <= 0) then {
+	private ["_cfgName","_cfg"];
 
-	_needXP 			= (CP_XPperLevel * _oldLevel);
-	_needXPPrevLevel 	= (CP_XPperLevel * (_oldLevel-1));
-	XPValue progressSetPosition (1-((_needXP-_exp)/(_needXP - _needXPPrevLevel)));
-	XPValue ctrlSetTooltip format ["%1/%2", _exp,_needXP];
-} else {
+	//Get rank from the server
+	["MCCplayerRank", player, "N/A", "STRING"] remoteExec ["MCC_fnc_getVariable",2];
+	waituntil {! isnil "MCCplayerRank"};
+	if (MCC_debug) then {systemchat format ["player Rank : %1",MCCplayerRank]};
+
+	_cfg = if (isClass (missionconfigFile >> "MCC_loadouts" )) then {(missionconfigFile >> "MCC_loadouts")} else {(configFile >> "MCC_loadouts")};
+
+	//Let's build the control buttons
+	for "_i" from 0 to (count _cfg -1) do {
+		_cfgName = format ["%1Level", configName (_cfg select _i)];
+		[_cfgName, player, (missionNamespace getVariable ["CP_defaultLevel",1]), "ARRAY"] remoteExec ["MCC_fnc_getVariable",2];
+		waituntil {! isnil _cfgName};
+		if (MCC_debug) then {systemchat format ["%2 : %1",missionNamespace getVariable [_cfgName,-1],_cfgName]};
+	};
+};
+
+_exp  = call compile format  ["%1Level select 1",_role];
+if (isnil "_exp") exitWith {};
+
+if (_exp < 0) then {_exp = 0};
+_oldLevel = call compile format  ["%1Level select 0",_role];
+_html = "<t color='#818960' size='0.8' shadow='1' align='center' underline='false'>"+ _role+ " Level " + str _oldLevel + "</t>";
+messeges ctrlSetStructuredText parseText _html;
+
+_needXP 			= (CP_XPperLevel * _oldLevel);
+_needXPPrevLevel 	= (CP_XPperLevel * (_oldLevel-1));
+XPValue progressSetPosition (1-((_needXP-_exp)/(_needXP - _needXPPrevLevel)));
+XPValue ctrlSetTooltip format ["%1/%2", _exp,_needXP];
+
+if !(missionNamespace getvariable ["CP_activated",false]) then {
 	{
 		(_disp displayCtrl _x) ctrlShow false
 	} forEach [102,103,104];

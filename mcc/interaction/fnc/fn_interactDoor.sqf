@@ -143,7 +143,7 @@ switch (true) do {
 				};
 
 				case (_ctrlData == "mainBox"): {
-					_null = [playerSide] call MCC_fnc_mainBoxInit;
+					_null = [_object] call MCC_fnc_mainBoxInit;
 				};
 
 				case (_ctrlData == "resupply_inf"): {
@@ -155,6 +155,7 @@ switch (true) do {
 				};
 
 				case (_ctrlData == "kitSelect"): {
+					player setVariable ["MCC_kitSelect",(_object getVariable ["MCC_kitSelect",["all"]])];
 					createDialog "CP_GEARPANEL";
 				};
 
@@ -218,15 +219,15 @@ switch (true) do {
 
 			//MOVED TO SELF INTERACTION
 			//FOB BOX
-			if (_object isKindof "Box_FIA_Support_F" && !(isNull attachedTo _object)) then {
+			if (count (_object getVariable ["MCC_kitSelect",[]]) > 0) then {
 
 				//rts main box
-				if ( count (_object getVariable ["MCC_virtual_cargo",[]]) > 0 && (missionNamespace getVariable ["MCC_surviveMod",false])) then {
+				if ((count (_object getVariable ["MCC_virtual_cargo",[]]) > 0) && (missionNamespace getVariable ["MCC_surviveMod",false])) then {
 						_array pushBack["['mainBox'] spawn MCC_fnc_vehicleMenuClicked","Open Vault",format ["%1mcc\interaction\data\safe.paa",MCC_path]];
 				};
 
 				//Change Kits
-				if (CP_activated && (missionNamespace getVariable ["MCC_allowChangingKits",true]) && !(missionNamespace getVariable ["MCC_surviveMod",false])) then {
+				if (missionNamespace getVariable ["MCC_allowChangingKits",true]) then {
 					_array pushBack["['kitSelect'] spawn MCC_fnc_vehicleMenuClicked","Change Kit",format ["%1data\IconPhysical.paa",MCC_path]];
 				};
 

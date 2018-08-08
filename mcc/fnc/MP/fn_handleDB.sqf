@@ -1,4 +1,4 @@
-/*==================================================================MCC_fnc_handleDB=============================================================================================
+/*============================================================MCC_fnc_handleDB=============================================================================================
 	read/write/initate new DB
 <In>
 	_this select 0:		STRING DB name
@@ -7,7 +7,7 @@
 	_this select 3:		STRING "read"/"write"
 	_this select 4:		ANY	 default return value or new value
 	_this select 5:		optional if true will create a new DB default false - exit. If STRING will fallback to this DB as default if DB defined in (_this select 0) is not exist
-============================================================================================================================================================================*/
+============================================================================================================================================================*/
 private ["_dbName","_section","_var","_value","_newDB","_testVar","_dbExist","_inidbi","_read"];
 _dbName = param [0,"",[""]];
 _section = param [1,"",[""]];
@@ -58,7 +58,7 @@ if (!_dbExist) then {
 };
 
 //Still no DB exit
-if (!_dbExist) exitWith {systemChat "error"; false};
+if (!_dbExist) exitWith {systemChat "error writing DB"; false};
 
 //Read/write
 [_read, [_section, _var, _value]] call (missionNamespace getVariable [_dbName,{}]);

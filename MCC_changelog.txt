@@ -1,5 +1,9 @@
 Change log r26:
 
+-=== Static Ships   =-----
+
+	Added - static weapons to ships
+	Fixed - unable to change faction in the ship spawn menu
 Medic system:
 	Added - Fully integrated AI with MCC medic system. AI will heal, bandage and revive wounded AI or players.
 
@@ -8,17 +12,17 @@ Weapons/Items/Gear Shops: *NEW*
 	Added - Persistent parameter - the shop will save persistent data so any items in the shop will be available after mission restart - player based market.
 	Added - Prices parameter - prices will be defined automatically by MCC depends on the item stats the mission maker can define how expensive one shop will be compared to other shops.
 
-Survival Vault:
-	Changed: totally reworked the UI.
-
-Vehicles Camonets
+Vehicles Camonets *NEW*
 	- Added - Vehicles that supports animations source aka camo nets exc will spawn with random animations by default.
 	- Added - Vehicle commander can deploy animations (camo nets exc) using MCC or ACE interaction.
 
-Advanced Logistics system
+Advanced Logistics system *NEW*
 	- Added - Any object can be loaded into a vehicle if the vehicle space can handle the object mass. Can used to transport objects using vehicles
 	- Added - Any vehicle will come by default with spare tire or spare track
 	- Added - remove/install vehicle tire or track
+
+Survival Vault:
+- Changed: totally reworked the UI.
 
 Radio System
 - Changed - changed to in game sounds to make it more smooth
@@ -36,6 +40,7 @@ General
 	Added - Disable MCC edit in Zeus from MCC settings
 	Added - Add Valor/Credit module to Zeus and Ed3n
 	Added - 20 meters evac helicopter flight height
+	Added - Armed civilians weapons can be defined in MCC settings module or by altering "MCC_armedCivilansWeapons" variable
 	Fixed - Save MCC to profile was bugged
 	Fixed - Cruise missile CAS didn't work on dedicated servers
 	Fixed - Sling loading air drops wasn't working properly

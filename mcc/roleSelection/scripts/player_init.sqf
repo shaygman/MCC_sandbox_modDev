@@ -9,6 +9,7 @@ waituntil {alive player};
 cutText ["","BLACK IN",5];
 player setVariable ["cpReady",false,true];
 
+/*
 //Disable weapon disassemble
 player removeEventHandler ["WeaponDisassembled",(player getVariable ["MCC_disableStatic",999])];
 
@@ -36,42 +37,27 @@ _eh = player addEventHandler ["WeaponDisassembled",
 }];
 
 player setVariable ["MCC_disableStatic",_eh];
+*/
 
 //Mark it zero again
 player addRating (-1 * (rating player));
 
 //Get rank from the server
-[["MCCplayerRank", player, "N/A", "STRING"], "MCC_fnc_getVariable", false, false] spawn BIS_fnc_MP;
+["MCCplayerRank", player, "N/A", "STRING"] remoteExec ["MCC_fnc_getVariable",2];
 waituntil {! isnil "MCCplayerRank"};
 if (MCC_debug) then {systemchat format ["player Rank : %1",MCCplayerRank]};
 
-_availableRoles = [];
 _cfg = if (isClass (missionconfigFile >> "MCC_loadouts" )) then {(missionconfigFile >> "MCC_loadouts")} else {(configFile >> "MCC_loadouts")};
 
 //Let's build the control buttons
 for "_i" from 0 to (count _cfg -1) do {
 	_cfgName = format ["%1Level", configName (_cfg select _i)];
-	[[_cfgName, player, CP_defaultLevel, "ARRAY"], "MCC_fnc_getVariable", false, false] spawn BIS_fnc_MP;
+	[_cfgName, player, CP_defaultLevel, "ARRAY"] remoteExec ["MCC_fnc_getVariable",2];
 	waituntil {! isnil _cfgName};
 	if (MCC_debug) then {systemchat format ["%2 : %1",missionNamespace getVariable [_cfgName,-1],_cfgName]};
 };
 
-/*
-{
-	[[_x, player, CP_defaultLevel, "ARRAY"], "MCC_fnc_getVariable", false, false] spawn BIS_fnc_MP;
-	waituntil {! isnil _x};
-	if (MCC_debug) then {systemchat format ["%2 : %1",missionNamespace getVariable [_x,-1],_x]};
-} forEach ["officerLevel",
-           "arLevel",
-           "atLevel",
-           "riflemanLevel",
-           "corpsmanLevel",
-           "marksmanLevel",
-           "specialistLevel",
-           "crewLevel",
-           "pilotLevel"
-          ];
-*/
+
 //******************************************************************************************************************************
 //											Start camera
 //******************************************************************************************************************************

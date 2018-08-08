@@ -99,7 +99,7 @@ class ReammoBox_F: thingX {
 	    class ACE_MCC_mainBox {
                 displayName = "Open<br/>Vault";
                 distance = 5;
-                condition = "(_target isKindof 'Box_FIA_Support_F') && !(isNull attachedTo _target) && (missionNamespace getVariable ['MCC_surviveMod',false])";
+                condition = "(count (_target getVariable ['MCC_virtual_cargo',[]]) > 0)";
                 statement =  "[_target] spawn MCC_fnc_mainBoxOpen";
                 icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa";
                 showDisabled = 0;
@@ -109,8 +109,8 @@ class ReammoBox_F: thingX {
         class ACE_MCC_changeKit {
                 displayName = "Change<br/>Kit";
                 distance = 5;
-                condition = "(_target isKindof 'Box_FIA_Support_F') && !(isNull attachedTo _target) && (missionNamespace getVariable ['CP_activated',false]) && !(missionNamespace getVariable ['MCC_surviveMod',false])";
-                statement =  "createDialog 'CP_GEARPANEL'";
+                condition = "((count (_target getVariable ['MCC_kitSelect',[]]) > 0) && (missionNamespace getVariable ['MCC_allowChangingKits',false]))";
+                statement =  "_player setVariable ['MCC_kitSelect',(_target getVariable ['MCC_kitSelect',['all']])]; createDialog 'CP_GEARPANEL'";
                 icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa";
                 showDisabled = 0;
                 priority = 1.2;
@@ -119,7 +119,7 @@ class ReammoBox_F: thingX {
         class ACE_MCC_supplyBoxFOB {
                 displayName = "Resupply";
                 distance = 5;
-               condition = "(_target isKindof 'Box_FIA_Support_F') && !(isNull attachedTo _target)";
+               condition = "((count (_target getVariable ['MCC_kitSelect',[]]) > 0) && (!(missionNamespace getVariable ['MCC_surviveMod',false])))";
                 statement =  "[_target,true] call MCC_fnc_resupply;";
                 icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa";
                 showDisabled = 0;

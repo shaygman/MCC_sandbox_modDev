@@ -94,7 +94,9 @@
            } forEach _units;
 
 
-           if (player != vehicle player) then {
+
+           //Show vehicle crew
+           if (player != vehicle player && (missionNamespace getvariable ["MCC_nameTags",false])) then {
                 private ["_nameVehicle","_driver","_gunner","_commander","_emptyPos","_string"];
                 _nameVehicle    = getText (configFile >> "CfgVehicles" >> (typeOf vehicle player) >> "displayName");
                 _pic            = getText (configFile >> "cfgVehicles" >> (typeOf vehicle player) >> "picture");
