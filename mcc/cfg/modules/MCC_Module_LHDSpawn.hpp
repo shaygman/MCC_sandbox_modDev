@@ -1,7 +1,7 @@
 class MCC_Module_LHDSpawn : Module_F
 {
 	category = "MCC";
-	displayName = "Carrier-Spawn";
+	displayName = "Ship static-Spawn";
 	function = "MCC_fnc_curatorLHDSpawn";
 	scope = 2;
 	isGlobal = 0;
@@ -33,11 +33,6 @@ class MCC_Module_LHDSpawn : Module_F
 					name = "$STR_GUERRILA";
 					value = 2;
 				};
-				class Civilian
-				{
-					name = "$STR_CIVILIAN";
-					value = 3;
-				};
 			};
 		};
 
@@ -49,12 +44,48 @@ class MCC_Module_LHDSpawn : Module_F
 			property = "hq";
 		};
 
-		class isCUP : Checkbox
+		class store : Checkbox
 		{
-			displayName = "Spawn CUP LHD";
-			description = "Requires CUP addon";
+			displayName = "Vehicles Purchasing";
+			description = "Enable player's purchasing vehicles from main deck";
 			typeName = "BOOL";
-			property = "isCUP";
+			property = "store";
+		};
+
+		class lhdType : Combo
+		{
+			displayName = "Ship type";
+			description = "LHD Requires CUP addon";
+			typeName = "NUMBER";
+			property = "lhdType";
+
+			class values
+			{
+				class lhd
+				{
+					name = "CUP LHD";
+					value = 2;
+				};
+				class carrier
+				{
+					name = "Aircraft Carrier";
+					value = 1;
+				};
+				class Independent
+				{
+					name = "Destroyer";
+					value = 0;
+					default = 1;
+				};
+			};
+		};
+
+		class displayName : Edit
+		{
+			displayName = "Ship Name";
+			description = "Display Name";
+			typeName = "STRING";
+			property = "displayName";
 		};
 
 		class ModuleDescription: ModuleDescription{};
@@ -62,7 +93,7 @@ class MCC_Module_LHDSpawn : Module_F
 
 	class ModuleDescription: ModuleDescription
 	{
-		description = "Spawn CUP LHD that can be managed by the mission maker will act a mobile base";
+		description = "Spawn static ship that will act as a base";
 		sync[] = {"AnyVehicle"};
 
 		class AnyVehicle

@@ -67,7 +67,7 @@ class CfgFactionClasses
 
 	class MCC_Carrier
 	{
-		displayName = "Aircraft Carrier";
+		displayName = "Ships Static";
 		priority = 8;
 		side = 7;
 	};

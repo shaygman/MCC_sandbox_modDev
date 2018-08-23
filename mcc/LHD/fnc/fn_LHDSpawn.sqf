@@ -13,14 +13,18 @@
 		<OUT>
 		Name of the LHD
 ==================================================================================================================================================================*/
-private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoPos","_ship","_pos","_markers","_isCUP","_LHDType"];
+private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoPos","_ship","_pos","_markers","_typeName","_LHDType","_ships","_defualtName"];
+
+#define    MCC_billboard    "Land_Noticeboard_F"
 
 params [
 	["_pos", objNull, [objNull,[]]],
 	["_dir", 0, [0]],
 	["_side", west, [west]],
 	["_hq", true, [true]],
-	["_isCUP",false,[false]]
+	["_LHDType",0,[false,0]],
+	["_displayName","",[""]],
+	["_store",true,[true]]
 ];
 
 //If pos is an object
@@ -34,7 +38,6 @@ if (!isServer) exitWith {};
 //CLose Curator
 if ( !isNull(findDisplay 312) ) then {(findDisplay 312) closeDisplay 1};
 
-
 _markers = [];
 
 /*
@@ -43,46 +46,31 @@ shipParts[] = {"CUP_LHD_1","CUP_LHD_2","CUP_LHD_3","CUP_LHD_4","CUP_LHD_5","CUP_
 model = "\CUP\WaterVehicles\CUP_WaterVehicles_LHD\LHD_select_B.p3d";
 */
 
-if (!(isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) && _isCUP) exitWith {
+systemChat str _LHDType;
+if (!(isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) && (_LHDType == 2)) exitWith {
 	private ["_str","_null"];
 	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "CUP Addon is required" + "</t>";
 	_null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
 };
 
-_LHDType = if (_isCUP) then {"MCC_lhd"} else {"MCC_carrier"};
 
-//Delete old LHD first
-if !(isNull (missionNamespace getVariable [_LHDType,objNull])) then {
-	_ship = missionNamespace getVariable [_LHDType,objNull];
 
-	if (_ship isKindOf "CUP_LHD_BASE") then {
-		{
-			deleteVehicle _x;
-		} forEach (_ship getVariable ["CUP_WaterVehicles_shipParts",[]]);
-
-		{
-			deleteMarker _x;
-		} forEach (_ship getVariable ["MCC_LHDMarkers",[]]);
-	} else {
-		{
-			deleteVehicle (_x select 0);
-		} forEach (_ship getVariable ["bis_carrierParts",[]]);
-	};
-};
-
-if (_isCUP) then {
-	_ship = createSimpleObject ["CUP_LHD_BASE", _pos];
-} else {
-
-	_ship = "Land_Carrier_01_base_F" createVehicle _pos;
-	/*
-	sleep 2;
-
-	//delete the ship parts and spawn them again
+switch (_LHDType) do
+{
+	case 2: //CUP
 	{
-		deleteVehicle (_x select 0);
-	} forEach (_ship getVariable ["bis_carrierParts",[]]);
-	*/
+		_ship = createSimpleObject ["CUP_LHD_BASE", _pos];
+	};
+
+	case 1: //Carrier
+	{
+		_ship = "Land_Carrier_01_base_F" createVehicle _pos;
+	};
+
+	default //Destroyer
+	{
+		_ship = "Land_Destroyer_01_base_F" createVehicle _pos;
+	};
 };
 
 //Spawn Ship
@@ -90,199 +78,292 @@ _ship setPosasl _pos;
 _ship setDir _dir;
 _shipPos = getPosASL _ship;
 
-{_x addCuratorEditableObjects [[_ship],false]} forEach allCurators;
+//{_x addCuratorEditableObjects [[_ship],false]} forEach allCurators;
 
-_ship setVariable ["MCC_isLHD",true,true];
 
-	// Build Ship Parts
-_shipParts = if (_isCUP) then {getArray (configFile >> "CfgVehicles" >> "CUP_B_LHD_WASP_USMC_Empty" >> "shipParts")} else {getArray (configFile >> "CfgVehicles" >> "Land_Carrier_01_base_F" >> "multiStructureParts")};
+// Build Ship Parts
+_shipParts = switch (_LHDType) do
+			{
+				case 2: //CUP
+				{
+					getArray (configFile >> "CfgVehicles" >> "CUP_B_LHD_WASP_USMC_Empty" >> "shipParts")
+				};
+
+				case 1: //Carrier
+				{
+					getArray (configFile >> "CfgVehicles" >> "Land_Carrier_01_base_F" >> "multiStructureParts")
+				};
+
+				default //Destroyer
+				{
+					getArray (configFile >> "CfgVehicles" >> "Land_Destroyer_01_base_F" >> "multiStructureParts")
+				};
+			};
 
 if (count _shipParts == 0) exitWith {};
 
-if (_isCUP) then {
-
-	_ship setVariable ["CUP_WaterVehicles_BuildFinished",false];
-
-	_ship setDir ((getDir _ship) - 180);
-
-	_dir = getDir _ship;
-	_shipPos = getPosASL _ship;
-
-	_ship setVariable ["CUP_WaterVehicles_Dir",_dir];
-
-	// diag_log str(_dir);
-
-	//freeze all objects that arent the ship to prevent them from falling to the ground
-	_objects = nearestObjects [_ship,[],(sizeOf (typeOf _ship))];
-
-	{_x enableSimulationGlobal false;} forEach _objects;
-
-	//spawn the ship
-	_parts = [];
+//build ship
+switch (_LHDType) do
+{
+	case 2: //CUP
 	{
-		private ["_section"];
-		_section = _x createVehicle _shipPos;
-		_section setDir _dir;
-		_section setPos _shipPos;
 
-		_parts pushBack _section;
-	} forEach _shipParts;
+		_ship setVariable ["CUP_WaterVehicles_BuildFinished",false];
 
-	//Store parts
-	_ship setVariable ["CUP_WaterVehicles_shipParts",_parts];
+		_ship setDir ((getDir _ship) - 180);
 
-	//hide but dont delete the helper so it can be accessed later if needed
-	_ship hideObjectGlobal true;
+		_dir = getDir _ship;
+		_shipPos = getPosASL _ship;
 
-	//give the surrounding objects their simulation back
-	{_x enableSimulationGlobal true;} forEach _objects;
+		_ship setVariable ["CUP_WaterVehicles_Dir",_dir];
 
-	_ship setVariable ["CUP_WaterVehicles_BuildFinished",true];
+		// diag_log str(_dir);
 
+		//freeze all objects that arent the ship to prevent them from falling to the ground
+		_objects = nearestObjects [_ship,[],(sizeOf (typeOf _ship))];
 
-	// Spawn weapons and lights
-	//[_ship] call CUP_fnc_spawnShipWeapons;
-	//[_ship] call CUP_fnc_spawnShipLights;
+		{_x enableSimulationGlobal false;} forEach _objects;
 
-	if (is3DEN) then {
-		[_ship] call CUP_fnc_EdenShip;
-	} else {
-		// Create heli pads
-		_heliPads = [];
+		//spawn the ship
+		_parts = [];
 		{
-			private ["_pad"];
-			_pad = "HeliH" createVehicle [0,0,0];
-			_pad attachTo [_ship,[0,0,0],_x];
+			private ["_section"];
+			_section = _x createVehicle _shipPos;
+			_section setDir _dir;
+			_section setPos _shipPos;
 
-			_heliPads pushBack _pad;
-		} forEach (getArray (configFile >> "CfgVehicles" >> typeOf _ship >> "heliPads"));
-		_ship setVariable ["CUP_WaterVehicles_heliPads",_heliPads];
+			_parts pushBack _section;
+		} forEach _shipParts;
 
-		// Init CUP virtual vehicle cargo
-		[_ship,"init"] call CUP_fnc_virtualVehicleCargo;
+		//Store parts
+		_ship setVariable ["CUP_WaterVehicles_shipParts",_parts];
 
-		// Move in cargo position
-		_cargoPos = AGLToASL (_ship modelToWorld (_ship selectionPosition "player_cargo_pos"));
-		_ship setVariable ["CUP_WaterVehicles_cargoPos",_cargoPos,true];
+		//hide but dont delete the helper so it can be accessed later if needed
+		_ship hideObjectGlobal true;
+
+		//give the surrounding objects their simulation back
+		{_x enableSimulationGlobal true;} forEach _objects;
+
+		_ship setVariable ["CUP_WaterVehicles_BuildFinished",true];
+
+
+		// Spawn weapons and lights
+		//[_ship] call CUP_fnc_spawnShipWeapons;
+		//[_ship] call CUP_fnc_spawnShipLights;
+
+		if (is3DEN) then {
+			[_ship] call CUP_fnc_EdenShip;
+		} else {
+			// Create heli pads
+			_heliPads = [];
+			{
+				private ["_pad"];
+				_pad = "HeliH" createVehicle [0,0,0];
+				_pad attachTo [_ship,[0,0,0],_x];
+
+				_heliPads pushBack _pad;
+			} forEach (getArray (configFile >> "CfgVehicles" >> typeOf _ship >> "heliPads"));
+			_ship setVariable ["CUP_WaterVehicles_heliPads",_heliPads];
+
+			// Init CUP virtual vehicle cargo
+			[_ship,"init"] call CUP_fnc_virtualVehicleCargo;
+
+			// Move in cargo position
+			_cargoPos = AGLToASL (_ship modelToWorld (_ship selectionPosition "player_cargo_pos"));
+			_ship setVariable ["CUP_WaterVehicles_cargoPos",_cargoPos,true];
+		};
+
+
+		//Aresting gear
+		private ["_temp_pos","_dummy","_logcClass"];
+
+		//H (Invisable) Startfly
+		_temp_pos = _ship modeltoworld [10,100,-4.5];
+		_dummy = "HeliH" createVehicle _temp_pos;
+		_dummy setDir ((getDir _ship));
+		_dummy setPos _temp_pos;
+		missionNamespace setVariable ["MCC_startfly",_dummy];
+		publicVariable "MCC_startfly";
+
+		//H (Invisable) Cables
+		_temp_pos = _ship modeltoworld [10,-60,-4.5];
+		_dummy = "HeliH" createVehicle _temp_pos;
+		_dummy setDir ((getDir _ship));
+		_dummy setPos _temp_pos;
+		missionNamespace setVariable ["MCC_cables",_dummy];
+		publicVariable "MCC_cables";
+
+		//Arresting Gear trigger
+		private ["_trg"];
+		_trg = createTrigger ["EmptyDetector", _temp_pos];
+		_trg setDir ((getDir _ship));
+		_trg setPos _temp_pos;
+		_trg setTriggerArea [15, 10, 0, false];
+		_trg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
+		_trg setTriggerStatements ["this", "{[thisTrigger, _x] remoteExec ['MCC_fnc_arrestingGear',_x]} forEach thisList;", ""];
+
+		//Arresting Gear marker
+		_dummy = createmarker ["gear",_temp_pos];
+		_dummy setMarkerShape "RECTANGLE";
+		_dummy setMarkerSize [15, 10];
+		_dummy setMarkerBrush "Solid";
+		_dummy setMarkerColor "ColorRed";
+
+		_markers pushBack _dummy;
+
+		private ["_vehicle"];
+
+		//Spawn two tractors
+		{
+			_vehicle = createVehicle ["CUP_B_TowingTractor_USMC", [0,0,0], [], 0, "NONE"];
+			_vehicle allowDamage false;
+			_vehicle setDamage 0;
+			_vehicle attachTo [_ship, [0,0,1], _x];
+			_vehicle setVariable ["CUP_WaterVehicles_LHD_respawnPosition", _x, true];
+
+			detach _vehicle;
+			_vehicle setDir (direction _ship);
+			_vehicle allowDamage true;
+
+			// For each vehicle add an action to detach from the ship - MP compliant
+			[
+				[_vehicle,[format ["%1 %2",localize "STR_CUP_CFG_RELEASEVEHICLE", (getText (configFile >> "CfgVehicles" >> "CUP_B_TowingTractor_USMC" >> "displayName"))], {[_this, "CUP_fnc_detachFromShip", _this select 0, false, true] call BIS_fnc_MP},nil, 1.5, false, true]],
+				"addAction", true, true
+			] call BIS_fnc_MP;
+
+
+			{_x addCuratorEditableObjects [[_vehicle],false]} forEach allCurators;
+		} forEach ["fd_cargo_pos_20","fd_cargo_pos_21"];
+
+		//Create ILS
+		_temp_pos = _ship modeltoworld [10,100,-4.5];
+		_logcClass = if (missionNamespace getVariable ["MCC_isMode",false]) then {"mcc_sandbox_moduleILS"} else {"logic"};
+		_dummy = (createGroup sideLogic) createunit [_logcClass, _temp_pos ,[],0.5,"NONE"];
+		_dummy setPos _temp_pos;
+		_dummy setVariable ["MCC_runwayName","LHD",true];
+		_dummy setVariable ["MCC_runwayDis",100,true];
+		_dummy setVariable ["MCC_runwaySide",-1,true];
+		_dummy setVariable ["MCC_runwayCircles",true,true];
+		_dummy setVariable ["MCC_runwayAG",(missionNamespace getVariable ["MCC_cables",objNull]),true];
+
+		//Create Markers
+		_dummy = createmarker ["MCC_LHD",_shipPos];
+		_dummy setMarkerShape "RECTANGLE";
+		_dummy setMarkerSize [20, 130];
+		_dummy setMarkerBrush "Solid";
+		_dummy setMarkerColor "ColorBlue";
+		_markers pushBack _dummy;
+
+		_dummy = createmarker ["MCC_LHD_NAME",(_ship modeltoworld [0,100,0])];
+		_dummy setMarkerText "LHD";
+		_dummy setMarkerColor "ColorBlack";
+		_dummy setMarkerShape "ICON";
+		_dummy setMarkerType "mil_dot";
+		_markers pushBack _dummy;
+
+		_ship setVariable ["MCC_LHDMarkers",_markers,true];
 	};
 
-
-	//Aresting gear
-	private ["_temp_pos","_dummy","_logcClass"];
-
-	//H (Invisable) Startfly
-	_temp_pos = _ship modeltoworld [10,100,-4.5];
-	_dummy = "HeliH" createVehicle _temp_pos;
-	_dummy setDir ((getDir _ship));
-	_dummy setPos _temp_pos;
-	missionNamespace setVariable ["MCC_startfly",_dummy];
-	publicVariable "MCC_startfly";
-
-	//H (Invisable) Cables
-	_temp_pos = _ship modeltoworld [10,-60,-4.5];
-	_dummy = "HeliH" createVehicle _temp_pos;
-	_dummy setDir ((getDir _ship));
-	_dummy setPos _temp_pos;
-	missionNamespace setVariable ["MCC_cables",_dummy];
-	publicVariable "MCC_cables";
-
-	//Arresting Gear trigger
-	private ["_trg"];
-	_trg = createTrigger ["EmptyDetector", _temp_pos];
-	_trg setDir ((getDir _ship));
-	_trg setPos _temp_pos;
-	_trg setTriggerArea [15, 10, 0, false];
-	_trg setTriggerActivation ["ANYPLAYER", "PRESENT", true];
-	_trg setTriggerStatements ["this", "{[thisTrigger, _x] remoteExec ['MCC_fnc_arrestingGear',_x]} forEach thisList;", ""];
-
-	//Arresting Gear marker
-	_dummy = createmarker ["gear",_temp_pos];
-	_dummy setMarkerShape "RECTANGLE";
-	_dummy setMarkerSize [15, 10];
-	_dummy setMarkerBrush "Solid";
-	_dummy setMarkerColor "ColorRed";
-
-	_markers pushBack _dummy;
-
-	private ["_vehicle","_displayName"];
-
-	//Spawn two tractors
+	case 1: //Carrier
 	{
-		_vehicle = createVehicle ["CUP_B_TowingTractor_USMC", [0,0,0], [], 0, "NONE"];
-		_vehicle allowDamage false;
-		_vehicle setDamage 0;
-		_vehicle attachTo [_ship, [0,0,1], _x];
-		_vehicle setVariable ["CUP_WaterVehicles_LHD_respawnPosition", _x, true];
+		[_ship] call BIS_fnc_Carrier01PosUpdate;
+		sleep 5;
+		_ship remoteExec ["BIS_fnc_Carrier01Init",0];
 
-		detach _vehicle;
-		_vehicle setDir (direction _ship);
-		_vehicle allowDamage true;
+		//spawn mobile defense
+		{
+			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
+			_dummy attachTo [_ship,(_x select 1)];
+			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+			detach _dummy;
+		} forEach [
+					["B_SAM_System_02_F",[30,175,23]],
+					["B_SAM_System_02_F",[-40,179,23]],
+					["B_SAM_System_02_F",[-30,-100,23]],
+					["B_AAA_System_01_F",[-30,-105,20]],
+					["B_AAA_System_01_F",[25,-115,19]]
+				  ];
 
-		// Get display name
-		_displayName = getText (configFile >> "CfgVehicles" >> "CUP_B_TowingTractor_USMC" >> "displayName");
+		//spawn store
+		if (_store) then {
+			_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
+			_dummy attachTo [_ship,[-20,80,24]];
+			_dummy allowDamage false;
+			_dummy enableSimulationGlobal false;
+			_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
+			_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+    		_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+			[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
+			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+		};
+	};
 
-		// For each vehicle add an action to detach from the ship - MP compliant
-		[
-			[_vehicle,[format ["%1 %2",localize "STR_CUP_CFG_RELEASEVEHICLE", _displayName], {[_this, "CUP_fnc_detachFromShip", _this select 0, false, true] call BIS_fnc_MP},nil, 1.5, false, true]],
-			"addAction", true, true
-		] call BIS_fnc_MP;
-
-
-		{_x addCuratorEditableObjects [[_vehicle],false]} forEach allCurators;
-	} forEach ["fd_cargo_pos_20","fd_cargo_pos_21"];
-
-	//Create ILS
-	_temp_pos = _ship modeltoworld [10,100,-4.5];
-	_logcClass = if (missionNamespace getVariable ["MCC_isMode",false]) then {"mcc_sandbox_moduleILS"} else {"logic"};
-	_dummy = (createGroup sideLogic) createunit [_logcClass, _temp_pos ,[],0.5,"NONE"];
-	_dummy setPos _temp_pos;
-	_dummy setVariable ["MCC_runwayName","LHD",true];
-	_dummy setVariable ["MCC_runwayDis",100,true];
-	_dummy setVariable ["MCC_runwaySide",-1,true];
-	_dummy setVariable ["MCC_runwayCircles",true,true];
-	_dummy setVariable ["MCC_runwayAG",(missionNamespace getVariable ["MCC_cables",objNull]),true];
-
-	//Create Markers
-	_dummy = createmarker ["MCC_LHD",_shipPos];
-	_dummy setMarkerShape "RECTANGLE";
-	_dummy setMarkerSize [20, 130];
-	_dummy setMarkerBrush "Solid";
-	_dummy setMarkerColor "ColorBlue";
-	_markers pushBack _dummy;
-
-	_dummy = createmarker ["MCC_LHD_NAME",(_ship modeltoworld [0,100,0])];
-	_dummy setMarkerText "LHD";
-	_dummy setMarkerColor "ColorBlack";
-	_dummy setMarkerShape "ICON";
-	_dummy setMarkerType "mil_dot";
-	_markers pushBack _dummy;
-
-	_ship setVariable ["MCC_LHDMarkers",_markers,true];
-} else {
-	[_ship] call BIS_fnc_Carrier01PosUpdate;
-	sleep 5;
-	_ship remoteExec ["BIS_fnc_Carrier01Init",0];
-
+	default //Destroyer
 	{
-		_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
-		_dummy attachTo [_ship,(_x select 1)];
-		{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
-		detach _dummy;
-	} forEach [
-				["B_SAM_System_02_F",[30,175,23]],
-				["B_SAM_System_02_F",[-40,179,23]],
-				["B_SAM_System_02_F",[-30,-100,23]],
-				["B_AAA_System_01_F",[-30,-105,20]],
-				["B_AAA_System_01_F",[25,-115,19]]
-	];
+		[_ship] call BIS_fnc_Destroyer01PosUpdate;
+		sleep 5;
+		_ship remoteExec ["BIS_fnc_Destroyer01Init",0];
+
+		/*
+		//spawn mobile defense
+		{
+			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
+			_dummy attachTo [_ship,(_x select 1)];
+			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+			detach _dummy;
+		} forEach [
+					["B_SAM_System_02_F",[30,175,23]],
+					["B_SAM_System_02_F",[-40,179,23]],
+					["B_SAM_System_02_F",[-30,-100,23]],
+					["B_AAA_System_01_F",[-30,-105,20]],
+					["B_AAA_System_01_F",[25,-115,19]]
+				  ];
+
+		//spawn store
+		if (_store) then {
+			_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
+			_dummy attachTo [_ship,[20,70,24]];
+			_dummy allowDamage false;
+			_dummy enableSimulationGlobal false;
+			_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
+			_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+    		_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+			[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
+			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+		};
+		*/
+	};
 };
 
-/*
-//Create a FOB
-[_pos,(_dir)-90,_side,"FOB",false,false,false] spawn MCC_fnc_buildSpawnPoint;
-*/
+//Set vars
+switch (_LHDType) do
+{
+	//CUP
+	case 2:
+	{
+		_ship setVariable ["MCC_LHDType","CUP_lhd",true];
+		_defualtName = "LHD";
+	};
 
+	//Carrier
+	case 1:
+	{
+		_ship setVariable ["MCC_LHDType","BI_carrier",true];
+		_defualtName = "Carrier";
+	};
+
+	//Destroyer
+	default
+	{
+		_ship setVariable ["MCC_LHDType","BI_destroyer",true];
+		_defualtName = "Destroyer";
+	};
+};
+
+_ship setVariable ["MCC_isLHD",true,true];
 _ship setVariable ["teleport",1,true];
+_ship setVariable ["MCC_side",_side,true];
+_ship setVariable ["MCC_LHDDisplayName",if (_displayName isEqualTo "") then {_defualtName} else {_displayName}];
 
 //Create start location
 [_side,_ship] call BIS_fnc_addRespawnPosition;
@@ -296,6 +377,10 @@ if (_hq) then {
 	publicVariable _startLocationName;
 };
 
-missionNamespace setVariable [_LHDType,_ship,true];
+_ships = missionNamespace getVariable ["MCC_staticShips",[]];
+_ships pushBack _ship;
+missionNamespace setVariable ["MCC_staticShips",_ships];
+publicVariable "MCC_staticShips";
+
 _ship
 

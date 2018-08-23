@@ -1,7 +1,7 @@
 //=================================================================MCC_fnc_vehicleSpawnerInitDialog====================================================================
 //  Open vehicle spawner Dialog
 //=======================================================================================================================================================================
- private ["_simTypesUnits","_side","_CfgVehicles","_CfgVehicle","_vehicleDisplayName","_cfgclass","_cfgSide","_simulation","_vehicleArray","_comboBox","_mccdialog","_displayname","_index","_array","_rtsAnchor","_caller","_vehicleType","_spawnPad","_arguments","_commadner","_pic","_faction","_cfgFaction","_baseCost","_cost"];
+ private ["_side","_comboBox","_mccdialog","_displayname","_index","_array","_rtsAnchor","_caller","_vehicleType","_spawnPad","_arguments","_commadner","_faction","_cost","_sideBuy"];
 
 
 //We got here from the addaction
@@ -38,95 +38,12 @@ if (_commadner) then {
     for "_i" from 1000 to 1002 step 1 do {ctrlshow [_i,false]};
     for "_i" from 81 to 83 step 1 do {ctrlshow [_i,false]};
     for "_i" from 91 to 93 step 1 do {ctrlshow [_i,false]};
-
-    private _display = uiNamespace getVariable ["MCC_VEHICLESPAWNER_IDD",displayNull];
-    private _ctrl = (_display displayCtrl 1103);
-    _ctrl ctrlSetPosition [(0.38 * safezoneW + safezoneX),(0.32 * safezoneH + safezoneY)];
-    _ctrl ctrlCommit 0;
-
-    _ctrl = (_display displayCtrl 1003);
-    _ctrl ctrlSetPosition [(0.41 * safezoneW + safezoneX),(0.32 * safezoneH + safezoneY)];
-    _ctrl ctrlCommit 0;
-};
-
-_baseCost = 500;
-switch (tolower _vehicleType) do {
-    case "vehicle": {
-        _simTypesUnits = ["car","carx", "motorcycle"];
-        _baseCost = 2000;
-    };
-    case "tank":  {
-         _simTypesUnits = ["tank","tankX"];
-         _baseCost = 4000;
-    };
-    case "heli":  {
-        _simTypesUnits = ["helicopter","helicopterX", "helicopterrtd"];
-         _baseCost = 8000;
-    };
-    case "jet":  {
-        _simTypesUnits = ["airplane","airplanex"];
-        _baseCost = 12000;
-    };
-    case "ship":  {
-        _simTypesUnits = ["ship","shipx", "shipX","submarinex"];
-         _baseCost = 3000;
-    };
-    case "units":  {
-        _simTypesUnits =  ["men","menx","soldier"];
-        _baseCost = 50;
-    };
-    default  {["car","carx", "motorcycle"]};
 };
 
 _side = side _caller;
 _faction = faction _caller;
-
-if (isNil "_side") exitWith {};
-
-//Is there a user designed vehicle costs?
-_vehicleArray = missionNamespace getVariable ([format["MCC_RTS_%1_%2",tolower _vehicleType,side _caller],[]]);
-
-if (count _vehicleArray == 0) then {
-    _CfgVehicles        = configFile >> "CfgVehicles" ;
-
-    for "_i" from 1 to (count _CfgVehicles - 1) do {
-        _CfgVehicle = _CfgVehicles select _i;
-
-        //Keep going when it is a public entry
-        if ((getNumber(_CfgVehicle >> "scope") == 2)) then {
-
-            _vehicleDisplayName = getText(_CfgVehicle >> "displayname");
-            _cfgclass           = (configName (_CfgVehicle));
-            _cfgSide            = (getNumber(_CfgVehicle >> "side")) call BIS_fnc_sideType;
-            _simulation         = getText(_CfgVehicle >> "simulation");
-            _cfgFaction         = getText(_CfgVehicle >> "faction");
-            _pic                =  if ((gettext(_CfgVehicle >> "editorPreview")) == "") then {gettext(_CfgVehicle >> "picture")} else {gettext(_CfgVehicle >> "editorPreview")};
-
-            if (!(["paa", _pic] call BIS_fnc_inString) && !(["jpg", _pic] call BIS_fnc_inString)) then {_pic = ""};
-            _vehicleDisplayName = [_vehicleDisplayName, _pic];
-
-            if (_simulation in _simTypesUnits) then  {
-                if ((((_cfgSide == _side) && (missionNamespace getVariable ["MCC_vehicleKioskBySide",false])) ||
-                      (_cfgFaction == _faction)) &&
-                      !(tolower(getText(_CfgVehicle >> "vehicleClass")) in ["static","support","autonomous"])) then {
-
-                    //Get the cost
-                    if (tolower _vehicleType == "units") then {
-                        _cost  = floor (getNumber(_CfgVehicle >> "cost")/100);
-                        {
-                            _cost = _cost + ([_x,0.5] call MCC_fnc_getWeaponCost);
-                        } forEach (getArray(_CfgVehicle >> "weapons"));
-                    } else {
-                        _cost = [_cfgclass, _baseCost] call MCC_fnc_getVehicleCost;
-                    };
-                    _vehicleArray pushback [_cfgclass,_vehicleDisplayName,_cost];
-                };
-            };
-        };
-    };
-
-    missionNamespace setVariable [format["MCC_RTS_%1_%2",tolower _vehicleType,_side],_vehicleArray];
-};
+_sideBuy = missionNamespace getVariable ["MCC_vehicleKioskBySide",false];
+_vehicleArray = [_vehicleType, _side, _faction, _sideBuy] call MCC_fnc_vehicleSpawnerBuildCostTable;
 
 missionNamespace setVariable ["MCC_private_vehicleArray",_vehicleArray];
 missionNamespace setVariable ["MCC_private_spawnPad",_spawnPad];

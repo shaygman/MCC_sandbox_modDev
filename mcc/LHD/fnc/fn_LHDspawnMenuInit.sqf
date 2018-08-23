@@ -6,10 +6,10 @@
 		<OUT>
 		None
 ==================================================================================================================================================================*/
-//[0] execvm "mcc\lhd\fnc\fn_LHDspawnMenuInit.sqf";
 params [
 	["_deck", 0, [0,objNull,[]]],
-	["_lhdType", "", ["",objNull,[]]]
+	["_lhdIndex", 0, [0,"",objNull,[]]],
+	["_operator", 0, [0,objNull,[]]]
 ];
 
 //We came here from curator
@@ -18,185 +18,39 @@ if (typeName _deck == typeName objNull) exitWith {
 		deleteVehicle _deck;
 		while {dialog} do {closeDialog 0};
 
-		[0] spawn MCC_fnc_LHDspawnMenuInit;
+		[0,"",0] spawn MCC_fnc_LHDspawnMenuInit;
 	};
 };
 
-private ["_lhd","_camera","_display","_spawnPos","_pos","_dummy","_objects","_displayname","_index","_decks","_isCUPLHD","_availableLHD"];
+private ["_ship","_camera","_display","_spawnPos","_pos","_dummy","_objects","_displayname","_index","_decks","_shipClass","_availableLHD","_vehicleType","_side"];
 
 _availableLHD = [];
 {
-	if !(isNull(missionNamespace getVariable [_x,objNull])) then {
+	if (!isNull _x &&
+	    ((_x getVariable ["MCC_side",sideLogic]) isEqualTo playerSide)
+	    ) then {
+
 		_availableLHD pushBack _x;
 	};
-} forEach ["MCC_lhd","MCC_carrier"];
+} forEach (missionNamespace getVariable ["MCC_staticShips",[]]);
 
 if (count _availableLHD == 0) exitWith {
 	private ["_str","_null"];
-	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Spawn CUP LHD or Carrier first" + "</t>";
+	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Spawn Static Ship First" + "</t>";
 	_null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
 };
 
-if (_lhdType isEqualTo "") then {
-	_lhdType = (_availableLHD select 0);
-};
+if !(_lhdIndex isEqualType 0) then {_lhdIndex = 0};
 
-_lhd = (missionNamespace getVariable [_lhdType,objNull]);
+_ship = (_availableLHD select _lhdIndex);
+_lhdType = _ship getVariable ["MCC_LHDType",""];
 
-if (isNull _lhd) exitWith {};
+if (isNull _ship || _lhdType isEqualTo "") exitWith {};
 
-_isCUPLHD = _lhd isKindOf "CUP_LHD_BASE";
+_side = _ship getVariable ["MCC_side",sideLogic];
+_shipClass = typeof _ship;
 
-
-MCC_fnc_LHDspawnMenuClicked = {
-	disableSerialization;
-	params [
-		["_update","updateClass",[""]],
-		["_deck", 0, [0]],
-		["_selection", "", [""]],
-		["_lhdType", "", [""]]
-	];
-
-	private ["_ctrl","_display","_ctrlPos","_vehiclesArray","_index"];
-	_display = uiNamespace getVariable ["MCC_LHD_MENU", displayNull];
-	_ctrl = _display displayCtrl 2300;
-
-	_ctrlPos = ctrlPosition _ctrl;
-
-	//If close open it
-	if ((_ctrlPos select 2)<=0) then {
-		_ctrlPos set [0,0.7 * safezoneW + safezoneX];
-		_ctrlPos set [1,0.1 * safezoneH + safezoneY];
-		_ctrlPos set [2,0.273281 * safezoneW];
-		_ctrlPos set [3,0.154 * safezoneH];
-		_ctrl ctrlSetPosition _ctrlPos;
-		_ctrl ctrlCommit 0.1;
-		sleep 0.1;
-
-
-		//Faction
-		_ctrl = _display displayCtrl 8008;
-		lbClear _ctrl;
-		{
-			_displayname = format ["%1(%2)",_x select 0,_x select 1];
-			_ctrl lbAdd _displayname;
-		} foreach U_FACTIONS;
-		_ctrl lbSetCurSel (missionNamespace getVariable ["MCC_faction_index",0]);
-
-		//Type
-		_ctrl = _display displayCtrl 1501;
-		lbClear _ctrl;
-		{
-			_ctrl lbAdd _x;
-		} foreach ["Vehicles", "Tracked/Static", "Motorcycle", "Helicopter", "Fixed-wing", "Ship","Ammo"];
-		_ctrl lbSetCurSel 0;
-
-		//Change faction or vehicle type
-		{
-			_ctrl = _display displayCtrl _x;
-			_ctrl ctrlAddEventHandler ["LBSelChanged",format ["['updateClass',%1,'%2','%3'] spawn MCC_fnc_LHDspawnMenuClicked;",_deck,_selection,_lhdType]];
-			_ctrl ctrlCommit 0;
-		} forEach [8008,1501];
-
-		//Change class
-		_ctrl = _display displayCtrl 1502;
-		_ctrl ctrlAddEventHandler ["LBSelChanged",{
-														_display = ctrlParent (_this select 0);
-														_vehicleClass = (switch (lbCurSel (_display displayCtrl 1501)) do
-																		{
-																			case 1:	{U_GEN_TANK};
-																			case 2:	{U_GEN_MOTORCYCLE};
-																			case 3:	{U_GEN_HELICOPTER};
-																			case 4:	{U_GEN_AIRPLANE};
-																			case 5:	{U_GEN_SHIP};
-																			case 6:	{U_AMMO};
-																			default	{U_GEN_CAR};
-																		}) select (lbCurSel (_display displayCtrl 1502)) select 1;
-														_ctrl = _display displayCtrl 1100;
-														_ctrl ctrlSetText (getText (configfile >> "CfgVehicles" >> _vehicleClass >> "editorPreview"));
-													}];
-		_ctrl ctrlCommit 0;
-
-		//class
-		_index = lbCurSel (_display displayCtrl 1501);
-		_vehiclesArray = switch (_index) do
-							{
-								case 1:	{U_GEN_TANK};
-								case 2:	{U_GEN_MOTORCYCLE};
-								case 3:	{U_GEN_HELICOPTER};
-								case 4:	{U_GEN_AIRPLANE};
-								case 5:	{U_GEN_SHIP};
-								case 6:	{U_AMMO};
-								default	{U_GEN_CAR};
-							};
-		_ctrl = _display displayCtrl 1502;
-		lbClear _ctrl;
-		{
-			_displayname = format ["%1",(_x select 3) select 0];
-			_index = _ctrl lbAdd _displayname;
-			_ctrl lbsetData [_index, (_x select 1)];
-			if (_index != 6) then {_ctrl lbsetpicture [_index, (_x select 3) select 1]};
-		} foreach _vehiclesArray;
-		if (count _vehiclesArray > 0) then {_ctrl lbSetCurSel 0};
-
-
-
-	};
-
-	switch (_update) do
-	{
-		case "updateClass":
-		{
-
-			//Upadate faction
-			_index = lbCurSel (_display displayCtrl 8008);
-			if ((missionNamespace getVariable ["MCC_faction_index",-1]) != _index) then	{
-				mcc_sidename = (U_FACTIONS select _index) select 1;
-				mcc_faction = (U_FACTIONS select _index) select 2;
-				MCC_faction_index = _index;
-				0 = [false] call mcc_fnc_faction_choice;
-			};
-
-			//class
-			_index = lbCurSel (_display displayCtrl 1501);
-			_vehiclesArray = switch (_index) do
-								{
-									case 1:	{U_GEN_TANK};
-									case 2:	{U_GEN_MOTORCYCLE};
-									case 3:	{U_GEN_HELICOPTER};
-									case 4:	{U_GEN_AIRPLANE};
-									case 5:	{U_GEN_SHIP};
-									case 6:	{U_AMMO};
-									default	{U_GEN_CAR};
-								};
-			_ctrl = _display displayCtrl 1502;
-			lbClear _ctrl;
-			{
-				_displayname = format ["%1",(_x select 3) select 0];
-				_index = _ctrl lbAdd _displayname;
-				_ctrl lbsetData [_index, (_x select 1)];
-				if (_index != 6) then {_ctrl lbsetpicture [_index, (_x select 3) select 1]};
-			} foreach _vehiclesArray;
-			if (count _vehiclesArray > 0) then {_ctrl lbSetCurSel 0};
-		};
-
-		case "updateSpawn":
-		{
-			/* STATEMENT */
-		};
-	};
-
-
-	//spawn Button
-	_ctrl = _display displayCtrl 2400;
-	_ctrl ctrlRemoveAllEventHandlers "MouseButtonUp";
-	_ctrl ctrlAddEventHandler ["MouseButtonUp",format ["['spawn',%1,'%2','%3'] spawn MCC_fnc_LHDspawnVehicle;",_deck,_selection,_lhdType]];
-
-	//Close
-	_ctrl = _display displayCtrl 2401;
-	_ctrl ctrlRemoveAllEventHandlers "MouseButtonUp";
-	_ctrl ctrlAddEventHandler ["MouseButtonUp","['close'] spawn MCC_fnc_LHDspawnVehicle"];
-};
+missionNamespace setVariable ["MCC_interatedLHD",_ship];
 
 //Close all dialogs
 while {dialog} do {
@@ -211,18 +65,47 @@ if ( !isNull(findDisplay 312) ) then {
 };
 
 if (isnil "MCC_LHD_CAM") then {
-	_camera = "camera" camcreate [0,0,0];
+	private ["_ppgrain"];
+
+	_pos = getposasl _ship;
+	_camera = "camera" camcreate _pos;
 	_camera cameraeffect ["internal","back"];
-	_camera camPrepareFOV 0.900;
+	_camera camPrepareFOV 1;
 	_camera campreparefocus [-1,-1];
-	_camera camSetTarget _lhd;
+	_camera camSetTarget _ship;
+
 	cameraEffectEnableHUD false;
 	showCinemaBorder false;
 	_camera camCommitPrepared 0;
 
 
 	MCC_LHD_CAM = _camera;
+
+	//Do a little cinematic when log in
+	if (_deck == 0) then {
+		_camera camSetRelPos [100,0,1000];
+		_camera camcommit 0;
+
+		_ppgrain = ppEffectCreate ["radialBlur", 100];
+		_ppgrain ppEffectAdjust [0.5, 0.5, 0.3, 0.3];
+		_ppgrain ppEffectCommit 0;
+		_ppgrain ppEffectEnable true;
+
+		sleep 0.1;
+		playsound "MCC_woosh";
+		for "_i" from floor 1000 to 100 step -10 do
+		{
+			_camera camSetRelPos [100,0,_i];
+			_camera camcommit 0.01;
+			sleep 0.01;
+		};
+
+		ppEffectDestroy _ppgrain;
+	};
 };
+
+
+
 createDialog "MCC_LHDSpawn";
 _camera = missionNamespace getVariable ["MCC_LHD_CAM",objNull];
 
@@ -232,11 +115,18 @@ switch (_deck) do
 	{
 		_camera camSetRelPos [100,0,100];
 
-		if (_isCUPLHD) then {
-			_spawnPos = ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_15","fd_cargo_pos_16","fd_cargo_pos_17","fd_cargo_pos_18","fd_cargo_pos_19"];
-		} else {
-			_spawnPos = [[20,50,24],[37,70,24],[-22,-55,24],[5,-55,24],[-30,70,24],[-30,50,24],[-30,30,24],[-30,10,24],[-30,-10,24]];
-		};
+		_spawnPos = switch (_shipClass) do
+					{
+						case "CUP_LHD_BASE":
+						{
+							 ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_15","fd_cargo_pos_16","fd_cargo_pos_17","fd_cargo_pos_18","fd_cargo_pos_19"];
+						};
+
+						default
+						{
+							[[20,50,24],[37,70,24],[-22,-55,24],[5,-55,24],[-30,70,24],[-30,50,24],[-30,30,24],[-30,10,24],[-30,-10,24]];
+						};
+					};
 	};
 
 	case 1:
@@ -270,7 +160,18 @@ disableSerialization;
 
 _display = uiNamespace getVariable ["MCC_LHD_MENU", displayNull];
 
-_decks = if (_isCUPLHD) then {["Flight Deck","Upper Deck Front","Upper Deck Back","Lower Deck","Well Deck"]} else {["Flight Deck"]};
+_decks = switch (_shipClass) do
+			{
+				case "CUP_LHD_BASE":
+				{
+					["Flight Deck","Upper Deck Front","Upper Deck Back","Lower Deck","Well Deck"]
+				};
+
+				default
+				{
+					["Flight Deck"];
+				};
+			};
 
 //Add decks control
 {
@@ -282,8 +183,8 @@ _decks = if (_isCUPLHD) then {["Flight Deck","Upper Deck Front","Upper Deck Back
 	_ctrl ctrlAddEventHandler ["MouseButtonUp",format [
 	    "
 	   closeDialog 0;
-	   [%1,'%2'] spawn MCC_fnc_LHDspawnMenuInit;
-	",_foreachindex,_lhdType]];
+	   [%1,%2] spawn MCC_fnc_LHDspawnMenuInit;
+	",_foreachindex, (_availableLHD find _ship)]];
 
 	_ctrl ctrlCommit 0;
 } forEach _decks;
@@ -292,14 +193,14 @@ _decks = if (_isCUPLHD) then {["Flight Deck","Upper Deck Front","Upper Deck Back
 {
 	_ctrl = _display ctrlCreate ["RscButtonMenu", -1];
 	_ctrl ctrlSetPosition [0.21*safezoneW+safezoneX + (_foreachindex*0.11*safezoneW), 0.05*safezoneH+safezoneY ,0.1*safezoneW,0.05*safezoneH];
-	_ctrl ctrlsetText (if (_x == "MCC_lhd") then {"LHD"} else {"Carrier"});
+	_ctrl ctrlsetText (_x getVariable ["MCC_LHDDisplayName","Ship"]);
 
 
 	_ctrl ctrlAddEventHandler ["MouseButtonUp",format [
 	    "
 	   closeDialog 0;
-	   [%1,'%2'] spawn MCC_fnc_LHDspawnMenuInit;
-	",0,_x]];
+	   [%1,%2] spawn MCC_fnc_LHDspawnMenuInit;
+	",0,(_availableLHD find _x)]];
 
 	_ctrl ctrlCommit 0;
 } forEach _availableLHD;
@@ -317,11 +218,14 @@ _objects = [];
 {
 	_dummy = "HeliH" createVehicle [0,0,0];
 	waitUntil {alive _dummy};
-	if (_isCUPLHD) then {
-		_dummy attachTo [_lhd,[0,0,0],_x];
-	} else {
-		_dummy attachTo [_lhd,_x];
+
+	switch (_shipClass) do
+	{
+		case "CUP_LHD_BASE": {_dummy attachTo [_ship,[0,0,0],_x]};
+
+		default {_dummy attachTo [_ship,_x]};
 	};
+
 	_pos = worldToScreen (getPosASL _dummy);
 	_pos set [2,0.02*safezoneW];
 	_pos set [3,0.03*safezoneH];
@@ -331,7 +235,7 @@ _objects = [];
 		_ctrl ctrlSetPosition _pos;
 		_ctrl ctrlsetText (str _foreachindex);
 		_ctrl ctrlSetBackgroundColor [0, 0, 0, 0.5];
-		_ctrl ctrlAddEventHandler ["MouseButtonUp",format ["['updateSpawn',%1,'%2','%3'] spawn MCC_fnc_LHDspawnMenuClicked",_deck,_x,_lhdType]];
+		_ctrl ctrlAddEventHandler ["MouseButtonUp",format ["['updateSpawn',%1,'%2', %3] spawn MCC_fnc_LHDspawnVehicle",_deck, _x, _operator]];
 		_ctrl ctrlCommit 0;
 		_objects pushBack _dummy;
 	};

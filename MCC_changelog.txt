@@ -54,6 +54,10 @@ General
 
 
 TODO -
+MCC console act as uav
+finish ship spawn with costs, allow MM to spawn vehicles?
+add destroyer ship
+add valor module
 Check droppods
 under water objectives?
 ADD surrender to AI in campaign

@@ -67,6 +67,7 @@ class rts
 	class getWeaponCost {description = "Gets a weapon cost by it's effective DPS, range and ammo";};
 	class rtsEvacHelicopterBuy {description = "Spawn evac helicopter of not available";};
 	class getVehicleCost {description = "Return vehicle costs - part of the vehicle kiosk";};
+	class vehicleSpawnerBuildCostTable {description = "build cost table for a vehicle kiosk";};
 };
 
 class forts

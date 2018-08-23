@@ -1,11 +1,14 @@
-//=================================================================MCC_fnc_vehicleSpawnerInit==================================================================================
+/*=============================================================MCC_fnc_vehicleSpawnerInit==================================================================================
 //  [_this,"vehicle"] spawn MCC_fnc_vehicleSpawnerInit
 //  Init an object as a vehicle spawner and add an add action to it
 //  Parameter(s):
 //     0: OBJECT - objct to which items will be added
 //     1: ARRAY of STRINGS - first argument type "tank","vehicle","heli","jet","ship"
 //                           secon argument - helipad spawn name - string
-//==============================================================================================================================================================================
+//===============================================================================================================================================================*/
+#define    MCC_billboard    "Land_Noticeboard_F"
+#define    MCC_helipad    "Land_HelipadEmpty_F"
+
 private ["_object","_arguments","_null","_syncItems","_syncedObjects","_billboard","_helipad","_type"];
 
 _object = param [0, objNull, [objNull]];
@@ -16,8 +19,8 @@ if (_object isKindOf "mcc_sandbox_modulevehicleSpawner" || _object isKindOf "MCC
 
     //No synced Objects?
     if (count _syncedObjects <2) then {
-        _billboard = "Land_Noticeboard_F" createVehicle (_object modelToWorld [0,5,0]);
-        _helipad = "Land_HelipadEmpty_F" createVehicle (_object modelToWorld [0,15,0]);
+        _billboard = MCC_billboard createVehicle (_object modelToWorld [0,5,0]);
+        _helipad = MCC_helipad createVehicle (_object modelToWorld [0,15,0]);
     } else {
         _billboard = _syncedObjects select 0;
         _helipad = _syncedObjects select 1;
@@ -34,7 +37,7 @@ if (_object isKindOf "mcc_sandbox_modulevehicleSpawner" || _object isKindOf "MCC
         _type = _this select 2;
 
         //[_billboard,[_type,_helipad]] call MCC_fnc_vehicleSpawnerInit;
-       [[_billboard,[_type,_helipad]], "MCC_fnc_vehicleSpawnerInit", true, false] spawn BIS_fnc_MP;
+       [[_billboard,[_type,_helipad]], "MCC_fnc_vehicleSpawnerInit", true, true] spawn BIS_fnc_MP;
 
         waitUntil {!isNil "MCC_curator"};
         {
