@@ -220,7 +220,7 @@ switch (_function) do
 
 	case "spawn":
 	{
-		private ["_vehicleClass","_direction","_cargo","_dummy","_str","_null","_isCUPLHD","_array"];
+		private ["_vehicleClass","_direction","_cargo","_dummy","_str","_null","_isCUPLHD","_array","_boundingBox","_boundingBoxIndecator"];
 
 		if (_selection isEqualTo "" || _selection isEqualTo []) exitWith {};
 
@@ -228,20 +228,25 @@ switch (_function) do
 		_isCUPLHD = _ship isKindOf "CUP_LHD_BASE";
 
 
-		_direction = switch (true) do
-					{
-						case (_selection in ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_16","fd_cargo_pos_18","[-30,70,24]","[-30,50,24]","[-30,30,24]","[-30,10,24]","[-30,-10,24]"]):
-						{
-							(direction _ship)+90
-						};
+		switch (true) do
+		{
+			case (_selection in ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_16","fd_cargo_pos_18","[-30,70,24]","[-30,50,24]","[-30,30,24]","[-30,10,24]","[-30,-10,24]"]):
+			{
+				_direction = (direction _ship)+90;
+				_boundingBoxIndecator = 0;
+			};
 
-						case (_selection in ["fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_15","fd_cargo_pos_17","fd_cargo_pos_19","[20,50,24]","[37,70,24]","[-22,-55,24]","[5,-55,24]"]):
-						{
-							(direction _ship)+180
-						};
+			case (_selection in ["fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_15","fd_cargo_pos_17","fd_cargo_pos_19","[20,50,24]","[37,70,24]","[-22,-55,24]","[5,-55,24]"]):
+			{
+				_direction = (direction _ship)+180;
+				_boundingBoxIndecator = 1;
+			};
 
-						default{direction _ship};
-					};
+			default {
+				_direction =direction _ship;
+				_boundingBoxIndecator = 0;
+			};
+		};
 
 		_cargo = nil;
 
@@ -258,10 +263,19 @@ switch (_function) do
 			_dummy attachTo [_ship,(call compile _selection)];
 		};
 
-		if (count (nearestObjects [getPosASL _dummy, ["Land","Air"], 5]) > 0 || (_selection isEqualTo "")) then {
-			_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Spawn point is occupied" + "</t>";
+		// Create the vehicle
+		_cargo = createVehicle [_vehicleClass, [0,0,0], [], 0, "NONE"];
+		_cargo setDamage 0;
+		_cargo allowDamage false;
+		_cargo setDir _direction;
+		_boundingBox = (_cargo call BIS_fnc_boundingBoxDimensions) ;
+		_maxDistance = _boundingBox select _boundingBoxIndecator;
+
+		if (count (nearestObjects [getPosASL _dummy, ["Land","Air","Ship"], _maxDistance]) > 0 || (_selection isEqualTo "")) then {
+			_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Not enough space" + "</t>";
 			_null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
 
+			deleteVehicle _cargo;
 			detach _dummy;
 			deleteVehicle _dummy;
 			_dummy = nil;
@@ -285,12 +299,6 @@ switch (_function) do
 			deleteVehicle _dummy;
 			_dummy = nil;
 
-			// Create the vehicle
-			_cargo = createVehicle [_vehicleClass, [0,0,0], [], 0, "NONE"];
-
-			// Ensure it doesn't get damaged while we move it around
-			_cargo setDamage 0;
-			_cargo allowDamage false;
 
 			// Check to see if vehicle should be folded/packed
 			{
@@ -303,25 +311,10 @@ switch (_function) do
 			} foreach CUP_WATERVEHICLES_FOLDABLE;
 
 			if (_isCUPLHD) then {
-				_cargo attachTo [_ship, [0,0,1], _selection];
+				_cargo attachTo [_ship, [0,0,(_boundingBox select 2)/2], _selection];
 				_cargo setVariable ["CUP_WaterVehicles_LHD_respawnPosition", _selection, true];
-			} else {
-				_selection = call compile _selection;
-				_selection set [2,(_selection select 2) + ((_cargo call BIS_fnc_boundingBoxDimensions) select 2)/2];
-				_cargo attachTo [_ship, _selection];
 
-				detach _cargo;
-				waitUntil {isNull attachedTo _cargo};
-				_cargo setDir _direction;
-			};
-
-			_cargo setDir _direction;
-			sleep 0.5;
-			_cargo allowDamage true;
-
-			if (_isCUPLHD) then {
-				_cargo setFuel 0;
-
+				//Add catapult
 				if (_cargo isKindOf "air") then {
 
 					[_cargo,["<t color=""#ff1111"">Steam Catapult</t>",{
@@ -335,6 +328,21 @@ switch (_function) do
 						},[],1,true,true,"action","(driver _target == _this) && (isEngineOn _target) &&(_target distance2D (missionNamespace getVariable ['MCC_startfly',[0,0,0]])<15)"]] remoteExec ["addAction",0];
 				};
 
+			} else {
+				_selection = call compile _selection;
+				_selection set [2,(_selection select 2) + (_boundingBox select 2)/2];
+				_cargo attachTo [_ship, _selection];
+			};
+
+
+			while {!(isnull attachedTo _cargo)} do {detach _cargo; sleep .1};
+			_cargo setDir _direction;
+			_cargo allowDamage true;
+
+			/*
+			if (_isCUPLHD) then {
+				_cargo setFuel 0;
+
 				// Get display name
 				_displayName = getText (configFile >> "CfgVehicles" >> _vehicleClass >> "displayName");
 
@@ -344,7 +352,7 @@ switch (_function) do
 					"addAction", true, true
 				] call BIS_fnc_MP;
 			};
-
+			*/
 			[netId _cargo,{{_x addCuratorEditableObjects [[objectFromNetId (_this)],true]} forEach allCurators}] remoteExec ["BIS_fnc_spawn",2];
 		};
 	};

@@ -2,13 +2,14 @@ class MCC_LHDSpawn
 {
 	idd = 1545784115;
 	onLoad = "uiNamespace setVariable [""MCC_LHD_MENU"", _this select 0]";
-	movingEnable = true;
+	movingEnable = 1;
 
 	class controls
 	{
 		class spawnVehicle: MCC_RscControlsGroup
 		{
 			idc = 2300;
+			movingEnable = 1;
 			x = 0.7 * safezoneW + safezoneX;
 			y = 0.1 * safezoneH + safezoneY;
 			w = 0 * safezoneW;	//w = 0.273281 * safezoneW;

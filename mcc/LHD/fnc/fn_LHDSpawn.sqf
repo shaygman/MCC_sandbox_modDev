@@ -13,9 +13,15 @@
 		<OUT>
 		Name of the LHD
 ==================================================================================================================================================================*/
-private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoPos","_ship","_pos","_markers","_typeName","_LHDType","_ships","_defualtName"];
+private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoPos","_ship","_pos","_markers","_typeName","_LHDType","_ships","_defualtName","_storePos"];
 
-#define    MCC_billboard    "Land_Noticeboard_F"
+#define MCC_billboard   "Land_Noticeboard_F"
+#define	MCC_AA_SAM	 	"B_SAM_System_02_F"
+#define	MCC_AA_AAA	 	"B_AAA_System_01_F"
+#define	MCC_AA_PATRO 	"B_SAM_System_01_F"
+#define	MCC_AA_MRLS 	"B_Ship_MRLS_01_F"
+#define	MCC_AA_CANON 	"B_Ship_MRLS_01_F"
+#define	MCC_BOAT_RACK 	"Land_Destroyer_01_Boat_Rack_01_F"
 
 params [
 	["_pos", objNull, [objNull,[]]],
@@ -27,12 +33,6 @@ params [
 	["_store",true,[true]]
 ];
 
-//If pos is an object
-if (typeName _pos isEqualTo typeName objNull) then {
-	_dir = getDir _pos;
-	_pos = getPosASL _pos;
-};
-
 if (!isServer) exitWith {};
 
 //CLose Curator
@@ -40,13 +40,15 @@ if ( !isNull(findDisplay 312) ) then {(findDisplay 312) closeDisplay 1};
 
 _markers = [];
 
-/*
-shipParts[] = {"CUP_LHD_1","CUP_LHD_2","CUP_LHD_3","CUP_LHD_4","CUP_LHD_5","CUP_LHD_6","CUP_LHD_7","CUP_LHD_house_1","CUP_LHD_house_2","CUP_LHD_elev_1","CUP_LHD_elev_2","CUP_LHD_Light2","CUP_LHD_Int_1","CUP_LHD_Int_2","CUP_LHD_Int_3"};
+//If pos is an object
+if (typeName _pos isEqualTo typeName objNull) then {
+	_dummy = _pos;
+	_dir = getDir _pos;
+	_pos = getPos _pos;
+	deleteVehicle _dummy;
+};
 
-model = "\CUP\WaterVehicles\CUP_WaterVehicles_LHD\LHD_select_B.p3d";
-*/
 
-systemChat str _LHDType;
 if (!(isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) && (_LHDType == 2)) exitWith {
 	private ["_str","_null"];
 	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "CUP Addon is required" + "</t>";
@@ -60,16 +62,19 @@ switch (_LHDType) do
 	case 2: //CUP
 	{
 		_ship = createSimpleObject ["CUP_LHD_BASE", _pos];
+		_storePos = [-0.5,40,-3];
 	};
 
 	case 1: //Carrier
 	{
 		_ship = "Land_Carrier_01_base_F" createVehicle _pos;
+		_storePos = [-20,90,24];
 	};
 
 	default //Destroyer
 	{
 		_ship = "Land_Destroyer_01_base_F" createVehicle _pos;
+		_storePos = [-10,63,9];
 	};
 };
 
@@ -149,7 +154,7 @@ switch (_LHDType) do
 
 		// Spawn weapons and lights
 		//[_ship] call CUP_fnc_spawnShipWeapons;
-		//[_ship] call CUP_fnc_spawnShipLights;
+		[_ship] call CUP_fnc_spawnShipLights;
 
 		if (is3DEN) then {
 			[_ship] call CUP_fnc_EdenShip;
@@ -221,19 +226,36 @@ switch (_LHDType) do
 			_vehicle attachTo [_ship, [0,0,1], _x];
 			_vehicle setVariable ["CUP_WaterVehicles_LHD_respawnPosition", _x, true];
 
-			detach _vehicle;
+			while {!(isNull attachedTo _vehicle)} do  {detach _vehicle; sleep 0.1};
 			_vehicle setDir (direction _ship);
 			_vehicle allowDamage true;
 
+			/*
 			// For each vehicle add an action to detach from the ship - MP compliant
 			[
 				[_vehicle,[format ["%1 %2",localize "STR_CUP_CFG_RELEASEVEHICLE", (getText (configFile >> "CfgVehicles" >> "CUP_B_TowingTractor_USMC" >> "displayName"))], {[_this, "CUP_fnc_detachFromShip", _this select 0, false, true] call BIS_fnc_MP},nil, 1.5, false, true]],
 				"addAction", true, true
 			] call BIS_fnc_MP;
-
+			*/
 
 			{_x addCuratorEditableObjects [[_vehicle],false]} forEach allCurators;
 		} forEach ["fd_cargo_pos_20","fd_cargo_pos_21"];
+
+
+		//spawn mobile defense
+		{
+			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
+			_dummy attachTo [_ship,(_x select 1)];
+			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+			detach _dummy;
+		} forEach [
+					[MCC_AA_AAA,[-8.4,-21.3,5]],
+					[MCC_AA_AAA,[13.6,123.8,-7.8]],
+					[MCC_AA_SAM,[-12.1,-33.6,1.5]],
+					[MCC_AA_SAM,[0,123,-5]],
+					[MCC_AA_PATRO,[-12.1,-41.1,2]],
+					[MCC_AA_PATRO,[-13.6,124.2,-7.8]]
+				  ];
 
 		//Create ILS
 		_temp_pos = _ship modeltoworld [10,100,-4.5];
@@ -277,25 +299,12 @@ switch (_LHDType) do
 			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
 			detach _dummy;
 		} forEach [
-					["B_SAM_System_02_F",[30,175,23]],
-					["B_SAM_System_02_F",[-40,179,23]],
-					["B_SAM_System_02_F",[-30,-100,23]],
-					["B_AAA_System_01_F",[-30,-105,20]],
-					["B_AAA_System_01_F",[25,-115,19]]
+					[MCC_AA_SAM,[30,175,23]],
+					[MCC_AA_SAM,[-40,179,23]],
+					[MCC_AA_SAM,[-30,-100,23]],
+					[MCC_AA_AAA,[-30,-105,20]],
+					[MCC_AA_AAA,[25,-115,19]]
 				  ];
-
-		//spawn store
-		if (_store) then {
-			_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
-			_dummy attachTo [_ship,[-20,80,24]];
-			_dummy allowDamage false;
-			_dummy enableSimulationGlobal false;
-			_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
-			_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-    		_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-			[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
-			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
-		};
 	};
 
 	default //Destroyer
@@ -304,7 +313,7 @@ switch (_LHDType) do
 		sleep 5;
 		_ship remoteExec ["BIS_fnc_Destroyer01Init",0];
 
-		/*
+
 		//spawn mobile defense
 		{
 			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
@@ -312,12 +321,15 @@ switch (_LHDType) do
 			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
 			detach _dummy;
 		} forEach [
-					["B_SAM_System_02_F",[30,175,23]],
-					["B_SAM_System_02_F",[-40,179,23]],
-					["B_SAM_System_02_F",[-30,-100,23]],
-					["B_AAA_System_01_F",[-30,-105,20]],
-					["B_AAA_System_01_F",[25,-115,19]]
+					[MCC_AA_MRLS,[0.0853271,-62.5142,11]],
+					[MCC_AA_CANON,[0.392456,-78.3921,12.5]],
+					[MCC_AA_SAM,[0.355652,50.5234,16]],
+					[MCC_AA_AAA,[-1.78772,-63.0225,12]],
+					[MCC_AA_AAA,[-0.309387,35.7666,20]],
+					[MCC_BOAT_RACK,[11.7208,12.7422,8]],
+					[MCC_BOAT_RACK,[-11.4057,12.835,8]]
 				  ];
+
 
 		//spawn store
 		if (_store) then {
@@ -331,8 +343,20 @@ switch (_LHDType) do
 			[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
 			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
 		};
-		*/
 	};
+};
+
+//spawn store
+if (_store) then {
+	_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
+	_dummy attachTo [_ship,_storePos];
+	_dummy allowDamage false;
+	_dummy enableSimulationGlobal false;
+	_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
+	_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+	_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+	[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
+	{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
 };
 
 //Set vars

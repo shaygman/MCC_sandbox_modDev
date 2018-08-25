@@ -124,7 +124,7 @@ MCC_fnc_CPMapOpen_draw =
 			_title = 	if (_x == leader player) then {
 							format ["%1- %2",(_foreachIndex +1), "Leader"];
 						} else {
-							format ["%1- %2",(_foreachIndex +1), if (_x getVariable ["MCC_isLHD",false]) then {"LHD"} else {_x getvariable ["type","FOB"]}];
+							format ["%1- %2",(_foreachIndex +1), if (_x getVariable ["MCC_isLHD",false]) then {_x getVariable ["MCC_LHDDisplayName","Ship"]} else {_x getvariable ["type","FOB"]}];
 						};
 
 			//Mobile respawn

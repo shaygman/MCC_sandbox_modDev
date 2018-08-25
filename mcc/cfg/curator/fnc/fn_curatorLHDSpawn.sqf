@@ -5,7 +5,7 @@ private ["_pos","_module","_resualt","_dir","_side","_hq","_lhdType","_displayNa
 _module = param [0,objNull,[objNull]];
 if (isNull _module) exitWith {};
 
-_pos = getpos _module;
+_pos = getPosASLW _module;
 _dir = getDir _module;
 
 //did we get here from the 2d editor?
@@ -17,10 +17,14 @@ if (typeName (_module getVariable ["side",""]) == typeName 0) exitWith {
 	_displayName = _module getVariable ["displayName",""];
 	_store = _module getVariable ["store",true];
 
+	if (_lhdType == 2) then {_pos set [2,(_pos select 2)-23]};
+
 	//Start LHD
 	if (isServer) then {
 		[_pos,_dir,_side,_hq,_lhdType,_displayName, _store] spawn MCC_fnc_LHDspawn;
 	};
+
+	deleteVehicle _module;
 };
 
 //Not curator exit
