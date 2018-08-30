@@ -8,11 +8,11 @@ private ["_module","_var","_pos"];
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {deleteVehicle _module};
 
-if (typeName (_module getVariable ["t2t",true]) == typeName 0) exitWith {
+if (_module isKindOf "MCC_Module_settings") exitWith {
 	//T2T
 	_var 	= _module getvariable ["t2t",0];
 	missionNamespace setVariable ["MCC_t2tIndex",_var];
-	if (MCC_t2tIndex == 0) then {MCC_teleportToTeam = false};
+	if (MCC_t2tIndex isEqualTo 0) then {MCC_teleportToTeam = false};
 
 	//Save gear
 	_var 	= _module getvariable ["saveGear",1];

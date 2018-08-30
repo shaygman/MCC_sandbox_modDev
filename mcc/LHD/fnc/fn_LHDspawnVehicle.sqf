@@ -164,7 +164,7 @@ switch (_function) do
 		_costAmmo = floor (_cost * 0.3 * MCC_PRICESFACTOR);
 		_costRepair = floor (_cost * 0.5 * MCC_PRICESFACTOR);
 		_costFuel = floor (_cost * 0.2 * MCC_PRICESFACTOR);
-		_costValor = floor (_cost * 0.5);
+		_costValor = floor (_cost * 0.3);
 
 		_ctrl = 1000;
 	    _purchaseEnable = true;
@@ -220,9 +220,23 @@ switch (_function) do
 
 	case "spawn":
 	{
-		private ["_vehicleClass","_direction","_cargo","_dummy","_str","_null","_isCUPLHD","_array","_boundingBox","_boundingBoxIndecator"];
+		private ["_vehicleClass","_direction","_cargo","_dummy","_str","_null","_isCUPLHD","_boundingBox","_boundingBoxIndecator","_costAmmo","_costRepair","_costFuel","_costValor","_array","_cost","_vehiclesArray","_selectedVehicle","_cfgclass"];
 
 		if (_selection isEqualTo "" || _selection isEqualTo []) exitWith {};
+
+		//Get costs
+
+		_vehiclesArray = missionNamespace getVariable ["MCC_fnc_LHDspawnMenuInitArray", []];
+		if (count _vehiclesArray <= 0) exitWith {};
+
+		_array = call compile format ["MCC_res%1",playerside];
+		_selectedVehicle = _vehiclesArray select (lbCurSel (_display displayCtrl 1502));
+		_cfgclass = _selectedVehicle select 0;
+		_cost = _selectedVehicle select 2;
+		_costAmmo = floor (_cost * 0.3 * MCC_PRICESFACTOR);
+		_costRepair = floor (_cost * 0.5 * MCC_PRICESFACTOR);
+		_costFuel = floor (_cost * 0.2 * MCC_PRICESFACTOR);
+		_costValor = floor (_cost * 0.3);
 
 		_vehicleClass = (_display displayCtrl 1502) lbData (lbCurSel 1502);
 		_isCUPLHD = _ship isKindOf "CUP_LHD_BASE";
@@ -282,18 +296,25 @@ switch (_function) do
 		} else {
 
 
-			/*
-			_array = call compile format ["MCC_res%1",playerside];
-			//Reduce resources
-	        if (_commander) then {
-	            _array = [(_array select 0) -_costAmmo,(_array select 1) -_costRepair,(_array select 2) -_costFuel,(_array select 3),(_array select 4)];
-	            missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
-	            publicVariable format ["MCC_res%1",playerside];
-	        } else {
-	             //Reduce valor
-	            player setVariable ["MCC_valorPoints",(player getVariable ["MCC_valorPoints",50])-_costValor,true];
-	        };
-			*/
+			//Lets see if we need to pay for this spawn
+			if (_operator > 0) then {
+				_array = call compile format ["MCC_res%1",playerside];
+
+				//Reduce resources
+				if (_operator == 1) then {
+
+				    _array = [(_array select 0) -_costAmmo,(_array select 1) -_costRepair,(_array select 2) -_costFuel,(_array select 3),(_array select 4)];
+				    missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
+				    publicVariable format ["MCC_res%1",playerside];
+				} else {
+
+				     //Reduce valor
+				    player setVariable ["MCC_valorPoints",(player getVariable ["MCC_valorPoints",50])-_costValor,true];
+				};
+
+				0 = ["updateVehicleClass",_deck,_selection, _operator] spawn MCC_fnc_LHDspawnVehicle;
+			};
+
 
 			detach _dummy;
 			deleteVehicle _dummy;
@@ -337,6 +358,8 @@ switch (_function) do
 
 			while {!(isnull attachedTo _cargo)} do {detach _cargo; sleep .1};
 			_cargo setDir _direction;
+
+			waitUntil {isTouchingGround _cargo};
 			_cargo allowDamage true;
 
 			/*

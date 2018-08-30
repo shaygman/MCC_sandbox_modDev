@@ -17,8 +17,8 @@ if (isnil "HW_arti_types") then {HW_arti_types = []};
 // max. nr. shells each cannon can fire in one fire mission
 HW_arti_maxnrshells = 10;
 
-// element: [displayname,splashdown dispersion in meters]; LASER must have dispersion < 0 to work
-HW_arti_spreads = [["PRECISE",5],["TIGHT",50],["SCATTERED",100],["WIDE",150],["LASER",0]];
+// element: [displayname,splashdown dispersion in meters]; LASER must have dispersion < 0 to work ,["LASER",0]
+HW_arti_spreads = [["PRECISE",5],["TIGHT",50],["SCATTERED",100],["WIDE",150]];
 
 // if true each player can see his/her position when opening the map
 HW_arti_show_pos_on_map = false;

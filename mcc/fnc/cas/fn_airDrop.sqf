@@ -318,9 +318,9 @@ if (tolower _planeType in ["west","east","guer","civ","logic"]) then  {
 
 			if (_planeType isKindOf "Plane") then
 			{
-				_distStart = 3000;
-				_distEngage = 2500;
-				_planeAltitude = 500;
+				_distStart = 2500;
+				_distEngage = 1000;
+				_planeAltitude = 800;
 				_typeOfAircraft = 1; //plane
 			}
 			else
@@ -475,6 +475,7 @@ if (tolower _planeType in ["west","east","guer","civ","logic"]) then  {
 				(_plane1 turretUnit [0]) doTarget _target;
 				(_plane1 turretUnit [1]) doTarget _target;
 
+				_plane1 doSuppressiveFire _target;
 				// trigger script to cancel attack and collect garbage after x time
 				[_cas_name, _target, _spawnkind, _plane1, _planeType, _fakeTarget] execVM MCC_path + "mcc\general_scripts\cas\clear_gunrun_target.sqf";
 

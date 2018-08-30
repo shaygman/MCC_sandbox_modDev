@@ -16,8 +16,7 @@ if (typeName (_module getVariable ["side",""]) == typeName 0) exitWith {
 	_lhdType = _module getVariable ["lhdType",2];
 	_displayName = _module getVariable ["displayName",""];
 	_store = _module getVariable ["store",true];
-
-	if (_lhdType == 2) then {_pos set [2,(_pos select 2)-23]};
+	_pos set [2,0];
 
 	//Start LHD
 	if (isServer) then {
@@ -30,7 +29,7 @@ if (typeName (_module getVariable ["side",""]) == typeName 0) exitWith {
 //Not curator exit
 if (!(local _module) || isnull curatorcamera) exitWith {};
 
-_shipsTypes = ["Destroyer","Aircraft Carrier"];
+_shipsTypes = ["Destroyer","Aircraft Carrier","Submarine"];
 if (isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) then {_shipsTypes pushBack "LHD"};
 
 _resualt = ["Spawn Static Ship",[

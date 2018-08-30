@@ -61,21 +61,29 @@ class MCC_Module_LHDSpawn : Module_F
 
 			class values
 			{
-				class lhd
-				{
-					name = "CUP LHD";
-					value = 2;
-				};
-				class carrier
-				{
-					name = "Aircraft Carrier";
-					value = 1;
-				};
 				class Independent
 				{
 					name = "Destroyer";
 					value = 0;
 					default = 1;
+				};
+
+				class carrier
+				{
+					name = "Aircraft Carrier";
+					value = 1;
+				};
+
+				class submarine
+				{
+					name = "Submarine";
+					value = 2;
+				};
+
+				class lhd
+				{
+					name = "CUP LHD";
+					value = 3;
 				};
 			};
 		};

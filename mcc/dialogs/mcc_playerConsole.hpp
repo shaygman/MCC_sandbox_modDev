@@ -150,7 +150,7 @@ class mcc_consoleF4: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F4";
-	tooltip = "Forward observer artillery's interface";
+	tooltip = "Forward Observer Artillery";
 	onButtonClick = __EVAL("[0,0,0,[1]] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleOpenMenu.sqf'");
 };
 class mcc_consoleF5: MCC_RscButton
@@ -161,7 +161,7 @@ class mcc_consoleF5: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F5";
-	tooltip = "Open RTS interface";
+	tooltip = "RTS interface";
 	onButtonClick ="while {dialog} do {closeDialog 0}; createDialog 'MCC_LOGISTICS_BASE_BUILD'";
 };
 class mcc_consoleF6: MCC_RscButton
@@ -171,13 +171,9 @@ class mcc_consoleF6: MCC_RscButton
 	y = 0.829871 * safezoneH + safezoneY;
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
-	colorBackground[] = {0,0,0,0};
-	colorFocused[] = {1,1,1,0.2};
-	colorShadow[] = { 0, 0, 0, 0};
-	colorBorder[] = { 0, 0, 0, 0 };
-	colorBackgroundActive[] = {0,0,0,0};
-	colorDisabled[] = {0,0,0,0};
-	colorBackgroundDisabled[] = {0,0,0,0};
+	text = "F6";
+	tooltip = "Fleet Management";
+	onButtonClick ="while {dialog} do {closeDialog 0}; [0,0,0] spawn MCC_fnc_LHDspawnMenuInit";
 };
  //===========================================Map==============================================
 	class MCC_mapBackground : MCC_RscPicture {

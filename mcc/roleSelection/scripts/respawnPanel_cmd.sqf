@@ -138,14 +138,34 @@ waitUntil {isNull attachedTo player};
 //Spawn mechanic
 switch (true) do
 {
-	//LHD
+	//Spawn on LHD or Static ship
 	case (_activeSpawn getVariable ["MCC_isLHD",false]):	{
 
-		//If CUP
-		if (_activeSpawn isKindOf "CUP_LHD_BASE") then {
-			[_activeSpawn, player] call CUP_fnc_moveInCargo;
-		} else {
-			player setPosASL  [getPosASL _activeSpawn select 0, getPosASL _activeSpawn select 1, 24];
+		switch (_activeSpawn getVariable ["MCC_ShipType",0]) do
+		{
+			//Carrier
+			case 1:
+			{
+				player setPosASLW  (_activeSpawn modelToWorld [0,0,24]);
+			};
+
+			//Submarine
+			case 2:
+			{
+				player setPosASLW  (_activeSpawn modelToWorld [15,0,1]);
+			};
+
+			//CUP
+			case 3:
+			{
+				[_activeSpawn, player] call CUP_fnc_moveInCargo;
+			};
+
+			//Destroyer
+			default
+			{
+				player setPosASLW  (_activeSpawn modelToWorld [0,45,10]);
+			};
 		};
 	};
 

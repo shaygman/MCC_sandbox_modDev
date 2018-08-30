@@ -13,15 +13,17 @@
 		<OUT>
 		Name of the LHD
 ==================================================================================================================================================================*/
-private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoPos","_ship","_pos","_markers","_typeName","_LHDType","_ships","_defualtName","_storePos"];
+private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoPos","_ship","_pos","_markers","_typeName","_LHDType","_ships","_defualtName","_storePos","_fnc_spawnWeapons"];
 
 #define MCC_billboard   "Land_Noticeboard_F"
 #define	MCC_AA_SAM	 	"B_SAM_System_02_F"
 #define	MCC_AA_AAA	 	"B_AAA_System_01_F"
 #define	MCC_AA_PATRO 	"B_SAM_System_01_F"
 #define	MCC_AA_MRLS 	"B_Ship_MRLS_01_F"
-#define	MCC_AA_CANON 	"B_Ship_MRLS_01_F"
+#define	MCC_AA_CANON 	"B_Ship_Gun_01_F"
 #define	MCC_BOAT_RACK 	"Land_Destroyer_01_Boat_Rack_01_F"
+#define	MCC_HELIPAD		"Land_HelipadSquare_F"
+
 
 params [
 	["_pos", objNull, [objNull,[]]],
@@ -59,10 +61,10 @@ if (!(isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) && (_LHDType == 2
 
 switch (_LHDType) do
 {
-	case 2: //CUP
+	case 0: //Destroyer
 	{
-		_ship = createSimpleObject ["CUP_LHD_BASE", _pos];
-		_storePos = [-0.5,40,-3];
+		_ship = "Land_Destroyer_01_base_F" createVehicle _pos;
+		_storePos = [-10,63,9];
 	};
 
 	case 1: //Carrier
@@ -71,15 +73,22 @@ switch (_LHDType) do
 		_storePos = [-20,90,24];
 	};
 
-	default //Destroyer
+	case 2: //Submarine
 	{
-		_ship = "Land_Destroyer_01_base_F" createVehicle _pos;
-		_storePos = [-10,63,9];
+		_ship = "Submarine_01_F" createVehicle _pos;
+		_storePos = [10,0,1];
+	};
+
+	case 3: //CUP
+	{
+		_ship = createSimpleObject ["CUP_LHD_BASE", _pos];
+		_storePos = [-0.5,40,-4.5];
 	};
 };
 
+
 //Spawn Ship
-_ship setPosasl _pos;
+_ship setPosaslw _pos;
 _ship setDir _dir;
 _shipPos = getPosASL _ship;
 
@@ -89,9 +98,9 @@ _shipPos = getPosASL _ship;
 // Build Ship Parts
 _shipParts = switch (_LHDType) do
 			{
-				case 2: //CUP
+				case 0: //Destroyer
 				{
-					getArray (configFile >> "CfgVehicles" >> "CUP_B_LHD_WASP_USMC_Empty" >> "shipParts")
+					getArray (configFile >> "CfgVehicles" >> "Land_Destroyer_01_base_F" >> "multiStructureParts")
 				};
 
 				case 1: //Carrier
@@ -99,18 +108,92 @@ _shipParts = switch (_LHDType) do
 					getArray (configFile >> "CfgVehicles" >> "Land_Carrier_01_base_F" >> "multiStructureParts")
 				};
 
-				default //Destroyer
+				case 2: //Submarine
 				{
-					getArray (configFile >> "CfgVehicles" >> "Land_Destroyer_01_base_F" >> "multiStructureParts")
+					[]
+				};
+				case 3: //CUP
+				{
+					getArray (configFile >> "CfgVehicles" >> "CUP_B_LHD_WASP_USMC_Empty" >> "shipParts")
 				};
 			};
 
-if (count _shipParts == 0) exitWith {};
+
+
+_fnc_spawnWeapons = {
+	params [
+		["_ship",objNull,[objNull]],
+		["_side",sideLogic,[sideLogic]],
+		["_weapons",[],[[]]]
+	];
+
+	private ["_dummy"];
+
+	{
+		_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
+		_dummy allowDamage false;
+		_dummy setDir (_x select 2);
+		_dummy attachTo [_ship,(_x select 1)];
+		//{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+		detach _dummy;
+		_dummy setDir (_x select 2);
+		_dummy spawn {waitUntil {isTouchingGround _this}; _this allowDamage true};
+
+		//If there is a script
+		if (count _x > 3) then {
+			_dummy spawn compile (_x select 3);
+		};
+
+	} forEach _weapons;
+};
 
 //build ship
 switch (_LHDType) do
 {
-	case 2: //CUP
+	case 0: //Destroyer
+	{
+		[_ship] call BIS_fnc_Destroyer01PosUpdate;
+		//_ship remoteExec ["BIS_fnc_Destroyer01Init",0];
+		sleep 2;
+
+
+		//spawn mobile defense
+		[_ship, _side,[
+					[MCC_AA_MRLS,[0.0853271,-62.5142,14],180],
+					[MCC_AA_CANON,[0.392456,-78.3921,15],180,'(group _this) setvariable ["MCC_canbecontrolled",true,true];'],
+					[MCC_AA_SAM,[0.355652,50.5234,20],180],
+					[MCC_AA_AAA,[0.0202637,-47.999,18],180],
+					[MCC_AA_AAA,[0.394226,36.05,22],0],
+					[MCC_BOAT_RACK,[11.7208,12.7422,8],0,'_this remoteExec ["BIS_fnc_BoatRack01Init",0,true];'],
+					[MCC_BOAT_RACK,[-11.4057,12.835,8],0,'_this remoteExec ["BIS_fnc_BoatRack01Init",0,true];'],
+					[MCC_HELIPAD,[0.876953,75.5786,9],0]
+				  ]] spawn _fnc_spawnWeapons;
+
+	};
+
+	case 1: //Carrier
+	{
+		[_ship] call BIS_fnc_Carrier01PosUpdate;
+		sleep 5;
+		_ship remoteExec ["BIS_fnc_Carrier01Init",0];
+
+		//spawn mobile defense
+		[_ship, _side,[
+					[MCC_AA_SAM,[30,175,24],0],
+					[MCC_AA_SAM,[-40,179,24],0],
+					[MCC_AA_SAM,[-30,-100,24],0],
+					[MCC_AA_AAA,[-30,-105,21],0],
+					[MCC_AA_AAA,[25,-115,20],0],
+					[MCC_HELIPAD,[20,50,24],0],
+					[MCC_HELIPAD,[37,70,24],0],
+					[MCC_HELIPAD,[-22,-55,24],0],
+					[MCC_HELIPAD,[5,-55,24],0],
+					[MCC_HELIPAD,[-30,70,24],0],
+					[MCC_HELIPAD,[-30,50,24],0]
+				  ]] spawn _fnc_spawnWeapons;
+	};
+
+	case 3: //CUP
 	{
 
 		_ship setVariable ["CUP_WaterVehicles_BuildFinished",false];
@@ -243,19 +326,14 @@ switch (_LHDType) do
 
 
 		//spawn mobile defense
-		{
-			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
-			_dummy attachTo [_ship,(_x select 1)];
-			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
-			detach _dummy;
-		} forEach [
-					[MCC_AA_AAA,[-8.4,-21.3,5]],
-					[MCC_AA_AAA,[13.6,123.8,-7.8]],
-					[MCC_AA_SAM,[-12.1,-33.6,1.5]],
-					[MCC_AA_SAM,[0,123,-5]],
-					[MCC_AA_PATRO,[-12.1,-41.1,2]],
-					[MCC_AA_PATRO,[-13.6,124.2,-7.8]]
-				  ];
+		[_ship, _side,[
+					[MCC_AA_AAA,[-8.4,-21.3,6],0],
+					[MCC_AA_AAA,[13.6,123.8,-6.8],180],
+					[MCC_AA_SAM,[-12.1,-33.6,2.5],0],
+					[MCC_AA_SAM,[0,123,-5],1],
+					[MCC_AA_PATRO,[-12.1,-41.1,3],0],
+					[MCC_AA_PATRO,[-13.6,124.2,-6.8],0]
+				  ]] spawn _fnc_spawnWeapons;
 
 		//Create ILS
 		_temp_pos = _ship modeltoworld [10,100,-4.5];
@@ -285,88 +363,16 @@ switch (_LHDType) do
 
 		_ship setVariable ["MCC_LHDMarkers",_markers,true];
 	};
-
-	case 1: //Carrier
-	{
-		[_ship] call BIS_fnc_Carrier01PosUpdate;
-		sleep 5;
-		_ship remoteExec ["BIS_fnc_Carrier01Init",0];
-
-		//spawn mobile defense
-		{
-			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
-			_dummy attachTo [_ship,(_x select 1)];
-			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
-			detach _dummy;
-		} forEach [
-					[MCC_AA_SAM,[30,175,23]],
-					[MCC_AA_SAM,[-40,179,23]],
-					[MCC_AA_SAM,[-30,-100,23]],
-					[MCC_AA_AAA,[-30,-105,20]],
-					[MCC_AA_AAA,[25,-115,19]]
-				  ];
-	};
-
-	default //Destroyer
-	{
-		[_ship] call BIS_fnc_Destroyer01PosUpdate;
-		sleep 5;
-		_ship remoteExec ["BIS_fnc_Destroyer01Init",0];
-
-
-		//spawn mobile defense
-		{
-			_dummy =([[0,0,0], 0, (_x select 0), _side] call bis_fnc_spawnvehicle) select 0;
-			_dummy attachTo [_ship,(_x select 1)];
-			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
-			detach _dummy;
-		} forEach [
-					[MCC_AA_MRLS,[0.0853271,-62.5142,11]],
-					[MCC_AA_CANON,[0.392456,-78.3921,12.5]],
-					[MCC_AA_SAM,[0.355652,50.5234,16]],
-					[MCC_AA_AAA,[-1.78772,-63.0225,12]],
-					[MCC_AA_AAA,[-0.309387,35.7666,20]],
-					[MCC_BOAT_RACK,[11.7208,12.7422,8]],
-					[MCC_BOAT_RACK,[-11.4057,12.835,8]]
-				  ];
-
-
-		//spawn store
-		if (_store) then {
-			_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
-			_dummy attachTo [_ship,[20,70,24]];
-			_dummy allowDamage false;
-			_dummy enableSimulationGlobal false;
-			_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
-			_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-    		_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-			[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
-			{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
-		};
-	};
-};
-
-//spawn store
-if (_store) then {
-	_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
-	_dummy attachTo [_ship,_storePos];
-	_dummy allowDamage false;
-	_dummy enableSimulationGlobal false;
-	_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
-	_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-	_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-	[_dummy, ["<t color=""#ff1111"">Ship Control</t>", {[0,"",2] spawn MCC_fnc_LHDspawnMenuInit}]] remoteExec ["addAction",0,true];
-	{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
 };
 
 //Set vars
 switch (_LHDType) do
 {
-	//CUP
-	case 2:
+	//Destroyer
+	case 0:
 	{
-		_ship setVariable ["MCC_LHDType","CUP_lhd",true];
-		_defualtName = "LHD";
+		_ship setVariable ["MCC_LHDType","BI_destroyer",true];
+		_defualtName = "Destroyer";
 	};
 
 	//Carrier
@@ -376,15 +382,23 @@ switch (_LHDType) do
 		_defualtName = "Carrier";
 	};
 
-	//Destroyer
-	default
+	//Submarine
+	case 2:
 	{
-		_ship setVariable ["MCC_LHDType","BI_destroyer",true];
-		_defualtName = "Destroyer";
+		_ship setVariable ["MCC_LHDType","BI_Submarine",true];
+		_defualtName = "Submarine";
+	};
+
+	//CUP
+	case 3:
+	{
+		_ship setVariable ["MCC_LHDType","CUP_lhd",true];
+		_defualtName = "LHD";
 	};
 };
 
 _ship setVariable ["MCC_isLHD",true,true];
+_ship setVariable ["MCC_ShipType",_LHDType,true];	// 0- destroyer 1 - carrier 2- cup LHD
 _ship setVariable ["teleport",1,true];
 _ship setVariable ["MCC_side",_side,true];
 _ship setVariable ["MCC_LHDDisplayName",if (_displayName isEqualTo "") then {_defualtName} else {_displayName}];
@@ -405,6 +419,19 @@ _ships = missionNamespace getVariable ["MCC_staticShips",[]];
 _ships pushBack _ship;
 missionNamespace setVariable ["MCC_staticShips",_ships];
 publicVariable "MCC_staticShips";
+
+//spawn store
+if (_store) then {
+	_dummy = MCC_billboard createVehicle (_ship modelToWorld [0,0,100]);
+	_dummy attachTo [_ship,_storePos];
+	_dummy allowDamage false;
+	_dummy enableSimulationGlobal false;
+	_dummy setObjectTexture [0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"];
+	_dummy setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+	_dummy setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+	[_dummy, ["<t color=""#ff1111"">Ship Control</t>", format ["[0,%1,2] spawn MCC_fnc_LHDspawnMenuInit", _ships find _ship]]] remoteExec ["addAction",0,true];
+	//{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
+};
 
 _ship
 

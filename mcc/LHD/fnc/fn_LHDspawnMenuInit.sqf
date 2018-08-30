@@ -9,7 +9,8 @@
 params [
 	["_deck", 0, [0,objNull,[]]],
 	["_lhdIndex", 0, [0,"",objNull,[]]],
-	["_operator", 0, [0,objNull,[]]]
+	["_operator", 0, [0,objNull,[]]],
+	["_changeShip", true, [true]]
 ];
 
 //We came here from curator
@@ -42,13 +43,19 @@ if (count _availableLHD == 0) exitWith {
 
 if !(_lhdIndex isEqualType 0) then {_lhdIndex = 0};
 
-_ship = (_availableLHD select _lhdIndex);
+//If we came here from a store then choose the ship and don't put any more ships
+if (_lhdIndex > 0) then {
+	_ship = (missionNamespace getVariable ["MCC_staticShips",[]]) select _lhdIndex;
+} else{
+	_ship = (_availableLHD select 0);
+};
+
 _lhdType = _ship getVariable ["MCC_LHDType",""];
 
 if (isNull _ship || _lhdType isEqualTo "") exitWith {};
 
 _side = _ship getVariable ["MCC_side",sideLogic];
-_shipClass = typeof _ship;
+_shipClass = _ship getVariable ["MCC_ShipType",0];
 
 missionNamespace setVariable ["MCC_interatedLHD",_ship];
 
@@ -82,7 +89,7 @@ if (isnil "MCC_LHD_CAM") then {
 	MCC_LHD_CAM = _camera;
 
 	//Do a little cinematic when log in
-	if (_deck == 0) then {
+	if (_changeShip) then {
 		_camera camSetRelPos [100,0,1000];
 		_camera camcommit 0;
 
@@ -113,26 +120,60 @@ switch (_deck) do
 {
 	case 0:
 	{
-		_camera camSetRelPos [100,0,100];
+		switch (_shipClass) do
+		{
+			case 0:	//Destroyer
+			{
+				_camera camSetRelPos [100,0,55];
+				_spawnPos = [[30,12.7422,0],[0.876953,80,9]];
+			};
 
-		_spawnPos = switch (_shipClass) do
-					{
-						case "CUP_LHD_BASE":
-						{
-							 ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_15","fd_cargo_pos_16","fd_cargo_pos_17","fd_cargo_pos_18","fd_cargo_pos_19"];
-						};
+			case 1:	//Carrier
+			{
+				_camera camSetRelPos [100,0,100];
+				_spawnPos = [[20,50,24],[37,70,24],[-22,-55,24],[5,-55,24],[-30,70,24],[-30,50,24],[-30,30,24],[-30,10,24],[-30,-10,24]];
+			};
 
-						default
-						{
-							[[20,50,24],[37,70,24],[-22,-55,24],[5,-55,24],[-30,70,24],[-30,50,24],[-30,30,24],[-30,10,24],[-30,-10,24]];
-						};
-					};
+			case 2:	//Submarine
+			{
+				_camera camSetRelPos [60,0,60];
+				_spawnPos = [[20,30,0],[20,15,0],[20,0,0],[20,-15,0],[20,-30,0]];
+			};
+
+			case 3:	//CUP LHD
+			{
+				_camera camSetRelPos [100,0,100];
+				 _spawnPos = ["fd_cargo_pos_2","fd_cargo_pos_3","fd_cargo_pos_4","fd_cargo_pos_5","fd_cargo_pos_6","fd_cargo_pos_7","fd_cargo_pos_8","fd_cargo_pos_9","fd_cargo_pos_10","fd_cargo_pos_11","fd_cargo_pos_12","fd_cargo_pos_13","fd_cargo_pos_14","fd_cargo_pos_15","fd_cargo_pos_16","fd_cargo_pos_17","fd_cargo_pos_18","fd_cargo_pos_19"];
+			};
+		};
 	};
 
 	case 1:
 	{
-		_camera camSetRelPos [-4,50,-8];
-		_spawnPos = ["veh_cargo_pos_8","veh_cargo_pos_9","veh_cargo_pos_13","veh_cargo_pos_14","veh_cargo_pos_18","veh_cargo_pos_19","veh_cargo_pos_10","veh_cargo_pos_11","veh_cargo_pos_12","veh_cargo_pos_15"];
+		switch (_shipClass) do
+		{
+			case 0:	//Destroyer
+			{
+				_camera camSetRelPos [-100,0,55];
+				_spawnPos = [[-30,12.835,0],[0.876953,80,9]];
+			};
+
+			case 1:	//Carrier
+			{
+				_spawnPos = [];
+			};
+
+			case 2:	//Submarine
+			{
+				_spawnPos = [];
+			};
+
+			case 3:	//CUP LHD
+			{
+				_camera camSetRelPos [-4,50,-8];
+				_spawnPos = ["veh_cargo_pos_8","veh_cargo_pos_9","veh_cargo_pos_13","veh_cargo_pos_14","veh_cargo_pos_18","veh_cargo_pos_19","veh_cargo_pos_10","veh_cargo_pos_11","veh_cargo_pos_12","veh_cargo_pos_15"];
+			};
+		};
 	};
 
 	case 2:
@@ -162,9 +203,24 @@ _display = uiNamespace getVariable ["MCC_LHD_MENU", displayNull];
 
 _decks = switch (_shipClass) do
 			{
-				case "CUP_LHD_BASE":
+				case 0:
 				{
-					["Flight Deck","Upper Deck Front","Upper Deck Back","Lower Deck","Well Deck"]
+					["Portside","Starboard"];
+				};
+
+				case 1:
+				{
+					["Flight Deck"];
+				};
+
+				case 2:
+				{
+					["Deck"];
+				};
+
+				case 3:
+				{
+					["Flight Deck","Upper Deck Front","Upper Deck Back","Lower Deck","Well Deck"];
 				};
 
 				default
@@ -183,27 +239,29 @@ _decks = switch (_shipClass) do
 	_ctrl ctrlAddEventHandler ["MouseButtonUp",format [
 	    "
 	   closeDialog 0;
-	   [%1,%2] spawn MCC_fnc_LHDspawnMenuInit;
-	",_foreachindex, (_availableLHD find _ship)]];
+	   [%1,%2,%3,false] spawn MCC_fnc_LHDspawnMenuInit;
+	",_foreachindex, (_availableLHD find _ship),_operator]];
 
 	_ctrl ctrlCommit 0;
 } forEach _decks;
 
-//If more then one carrier
-{
-	_ctrl = _display ctrlCreate ["RscButtonMenu", -1];
-	_ctrl ctrlSetPosition [0.21*safezoneW+safezoneX + (_foreachindex*0.11*safezoneW), 0.05*safezoneH+safezoneY ,0.1*safezoneW,0.05*safezoneH];
-	_ctrl ctrlsetText (_x getVariable ["MCC_LHDDisplayName","Ship"]);
+//If more then one carrier and a commander or a mission maker
+if (_operator <=1) then {
+	{
+		_ctrl = _display ctrlCreate ["RscButtonMenu", -1];
+		_ctrl ctrlSetPosition [0.21*safezoneW+safezoneX + (_foreachindex*0.11*safezoneW), 0.05*safezoneH+safezoneY ,0.1*safezoneW,0.05*safezoneH];
+		_ctrl ctrlsetText (_x getVariable ["MCC_LHDDisplayName","Ship"]);
 
 
-	_ctrl ctrlAddEventHandler ["MouseButtonUp",format [
-	    "
-	   closeDialog 0;
-	   [%1,%2] spawn MCC_fnc_LHDspawnMenuInit;
-	",0,(_availableLHD find _x)]];
+		_ctrl ctrlAddEventHandler ["MouseButtonUp",format [
+		    "
+		   closeDialog 0;
+		   [%1, %2, %3] spawn MCC_fnc_LHDspawnMenuInit;
+		",0,(_availableLHD find _x),_operator]];
 
-	_ctrl ctrlCommit 0;
-} forEach _availableLHD;
+		_ctrl ctrlCommit 0;
+	} forEach _availableLHD;
+};
 
 //Add exit ctrl
 _ctrl = _display ctrlCreate ["RscButtonMenu", -1];
@@ -221,7 +279,7 @@ _objects = [];
 
 	switch (_shipClass) do
 	{
-		case "CUP_LHD_BASE": {_dummy attachTo [_ship,[0,0,0],_x]};
+		case 3: {_dummy attachTo [_ship,[0,0,0],_x]};
 
 		default {_dummy attachTo [_ship,_x]};
 	};

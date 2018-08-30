@@ -1,9 +1,12 @@
 Change log r26:
 
--=== Static Ships   =-----
-
+Static Ships
+	Added - Spawn BI Carrier, BI destroyer, BI submarine or CUP LHD from Zeus or 3den. Each ship will serve as respawn point and HQ and Mission maker can spawn vehicels on ships
+	Added - Ship stores, players can trade credit to purchase vehicles from ships
+	Added - Side commander can access the ships' fleet interface and spawn vehicles using resources
 	Added - static weapons to ships
 	Fixed - unable to change faction in the ship spawn menu
+
 Medic system:
 	Added - Fully integrated AI with MCC medic system. AI will heal, bandage and revive wounded AI or players.
 
@@ -54,10 +57,7 @@ General
 
 
 TODO -
-MCC console act as uav
-finish ship spawn with costs, allow MM to spawn vehicles?
-add destroyer ship
-add valor module
+Check respawn
 Check droppods
 under water objectives?
 ADD surrender to AI in campaign

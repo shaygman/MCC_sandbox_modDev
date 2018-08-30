@@ -18,7 +18,7 @@ _cost = _selectedVehicle select 2;
 _costAmmo = floor (_cost * 0.3 * MCC_PRICESFACTOR);
 _costRepair = floor (_cost * 0.5 * MCC_PRICESFACTOR);
 _costFuel = floor (_cost * 0.2 * MCC_PRICESFACTOR);
-_costValor = floor (_cost * 0.5);
+_costValor = floor (_cost * 0.5 * MCC_PRICESFACTOR);
 
 _array = call compile format ["MCC_res%1",playerside];
 

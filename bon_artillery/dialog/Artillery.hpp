@@ -132,13 +132,9 @@ class ArtilleryDialog
 			y = 0.829871 * safezoneH + safezoneY;
 			w = 0.0229167 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			colorBackground[] = {0,0,0,0};
-			colorFocused[] = {1,1,1,0.2};
-			colorShadow[] = { 0, 0, 0, 0};
-			colorBorder[] = { 0, 0, 0, 0 };
-			colorBackgroundActive[] = {0,0,0,0};
-			colorDisabled[] = {0,0,0,0};
-			colorBackgroundDisabled[] = {0,0,0,0};
+			text = "F6";
+			tooltip = "Fleet Management";
+			onButtonClick ="while {dialog} do {closeDialog 0}; [0,0,0] spawn MCC_fnc_LHDspawnMenuInit";
 		};
 		class MCC_ConsoleExitButton: MCC_RscButton {
 		idc = -1;
@@ -177,7 +173,7 @@ class ArtilleryDialog
 			y = 0.214 * safezoneH + safezoneY;
 			w = 0.131771 * safezoneW;
 			h = 0.21395 * safezoneH;
-			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.6)";
+			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			text = "Always use 'Cancel' to unregister without actually executing a fire mission.\n\n\n\n\n\n\n\n\n\n\n\n\n\nWritten by Bon_Inf*.";
 		};
 		class HW_ArtiShellsLeft : HW_ArtiTextField

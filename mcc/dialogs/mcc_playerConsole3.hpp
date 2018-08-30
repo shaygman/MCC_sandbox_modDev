@@ -154,13 +154,9 @@ class mcc_consoleF6: MCC_RscButton
 	y = 0.829871 * safezoneH + safezoneY;
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
-	colorBackground[] = {0,0,0,0};
-	colorFocused[] = {1,1,1,0.2};
-	colorShadow[] = { 0, 0, 0, 0};
-	colorBorder[] = { 0, 0, 0, 0 };
-	colorBackgroundActive[] = {0,0,0,0};
-	colorDisabled[] = {0,0,0,0};
-	colorBackgroundDisabled[] = {0,0,0,0};
+	text = "F6";
+	tooltip = "Fleet Management";
+	onButtonClick ="while {dialog} do {closeDialog 0}; [0,0,0] spawn MCC_fnc_LHDspawnMenuInit";
 };
 class MCC_ConsoleExitButton: MCC_RscButton
 {
