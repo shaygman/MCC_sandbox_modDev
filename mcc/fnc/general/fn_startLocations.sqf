@@ -110,13 +110,3 @@ createMarkerLocal [_respawnName, _pos];
 _respawnName setMarkerShapeLocal "ICON";
 _respawnName setMarkerTypeLocal  "mil_objective";
 _respawnName setMarkerColorLocal "ColorRed";
-
-//BTC - Revive
-if (!isnil "BTC_respawn_marker") then {
-	BTC_respawn_marker = format ["respawn_%1",playerSide];
-	if (BTC_respawn_marker == "respawn_guer") then {BTC_respawn_marker = "respawn_guerrila"};
-
-	if (!isNil "BTC_r_base_spawn") then {deletevehicle BTC_r_base_spawn};
-
-	BTC_r_base_spawn = "Land_HelipadEmpty_F" createVehicleLocal getMarkerPos BTC_respawn_marker;
-};

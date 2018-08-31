@@ -365,6 +365,9 @@ switch (_LHDType) do
 	};
 };
 
+//Set Ships as a service centers
+_ship setVariable ["MCC_fnc_pylonsChangeSource",true,true];
+
 //Set vars
 switch (_LHDType) do
 {

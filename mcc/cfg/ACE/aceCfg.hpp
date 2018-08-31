@@ -19,7 +19,7 @@
 	    };\
 	    class MCC_changeLoadout {\
 					displayName = "Rearm";\
-					condition = "((_player == driver (vehicle _player)) && (speed (vehicle _player) <= 0) && ({_x getVariable ['MCC_fnc_pylonsChangeSource',false]} count (position _player nearObjects 50) > 0))";\
+					condition = "((_player == driver (vehicle _player)) && (speed (vehicle _player) <= 0) && ({_x getVariable ['MCC_fnc_pylonsChangeSource',false]} count (position _player nearObjects 100) > 0))";\
 					statement = "[false,vehicle _player] spawn MCC_fnc_pylonsChange;";\
 					icon = "\mcc_sandbox_mod\data\IconAmmo.paa";\
 		 };\

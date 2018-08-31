@@ -268,7 +268,7 @@ if (vehicle player == player) then {
 	//Pylon change
 	if ((player == leader _vehiclePlayer) &&
 	    (speed _vehiclePlayer <= 0) &&
-	    ({_x getVariable ["MCC_fnc_pylonsChangeSource",false]} count (position player nearObjects 50) > 0)
+	    ({_x getVariable ["MCC_fnc_pylonsChangeSource",false]} count (position player nearObjects 100) > 0)
 	   ) then {
 	   	_array pushBack ["[false,vehicle player] spawn MCC_fnc_pylonsChange","Rearm",format ["%1data\IconAmmo.paa",MCC_path]];
 	};

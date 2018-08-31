@@ -57,6 +57,8 @@ General
 
 
 TODO -
+check why when dead in a vehicle don't respawn
+Add refuel/rearm to pylons and add pylons to carriers - make it optional
 Check respawn
 Check droppods
 under water objectives?
