@@ -207,7 +207,7 @@ while {dialog} do {closedialog 0; sleep 0.2};
 [] spawn
 	{
 		private ["_string","_footer"];
-		while {MCC_MWisGenerating} do
+		while {missionNamespace getVariable ["MCC_MWisGenerating",false]} do
 		{
 			for [{_x=1},{_x<=10},{_x=_x+1}]  do //Create progress bar
 			{

@@ -7,7 +7,6 @@
 // Return - nothing
 //===============================================================================================================================================================
 #define	MCC_UNTIE_ICON "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa"
-#define MCC_MWSITES [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]
 
 private ["_objPos","_isCQB","_alive","_buildingPos","_spawnPos","_unitsArray","_faction","_type","_group","_side","_unit","_building","_unitPlaced","_time","_array","_sidePlayer","_factionPlayer","_walking","_preciseMarkers","_HVTClasses","_selectedBuilding"];
 
@@ -101,7 +100,7 @@ if (_isCQB) then {
 	};
 } else {
 	//Open area
-	[_objPos, random 360, (MCC_MWSITES call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
+	_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
 	[_objPos,30,0,4,_faction, _side] remoteExec ["MCC_fnc_garrison",2];
 
 	_group = creategroup _side;

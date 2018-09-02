@@ -13,7 +13,6 @@ _mccTasks = missionNamespace getVariable ["MCC_tasks",[]];
 //Make sure the player created a task
 if (!(_actionID in [0,5,6]) && count _mccTasks <=0) exitWith {hint "Create a task first"};
 
-systemChat str _actionID;
 switch (true) do {
 
 	//create

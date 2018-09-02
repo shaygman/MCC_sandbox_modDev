@@ -6,8 +6,6 @@
 //_faction = enemy Faction
 // Return - nothing
 //===============================================================================================================================================================*/
-#define MCC_MWSITES [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]
-
 private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_objType","_spawnPos","_time","_sidePlayer","_object","_dummyObject","_spawndir","_unitsArray","_group","_init","_range","_selectedBuilding","_building","_buildingPos","_isDownloadIntel","_taskType","_foundBuilding"];
 
 _objPos = _this select 0;
@@ -27,19 +25,7 @@ _objType = if (_isDownloadIntel) then {"Land_DataTerminal_01_F"} else {
 
 //If not CQB spawn some POI
 if !(_isCQB) then {
-	//Find an empry spot
-	_range = 50;
-	_spawnPos = [_objPos,1,_range,10,0,100,0,[],[[-500,-500,0],[-500,-500,0]]] call BIS_fnc_findSafePos;
-
-	//If we haven't find it in first time increase by 50;
-	while {str _spawnPos == "[-500,-500,0]"} do {
-		_range = _range + 50;
-		_spawnPos = [_objPos,1,_range,10,0,100,0,[],[[-500,-500,0],[-500,-500,0]]] call BIS_fnc_findSafePos;
-		sleep 0.1;
-	};
-
-	_objPos = _spawnPos;
-	[_spawnPos, random 360, (MCC_MWSITES call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
+	_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
 };
 
 //Lets spawn some body guards

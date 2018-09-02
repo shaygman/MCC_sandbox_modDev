@@ -61,21 +61,24 @@ if (count _arrayUnits > 0) then {
 			(_vehicle select 2) setVariable ["GAIA_ZONE_INTEND",[str _zone,"NOFOLLOW"], true];
 		};
 
-		//If artillery add a marker
-		if (_artillery != 999 && count units _group > 0) then {
-			systemChat str units _group;
-			if (markerPos "MCC_MWArtillery" isEqualTo [0,0,0]) then {
-				_marker = createMarker ["MCC_MWArtillery",(_pos getPos [50 + (random 200),random 360])];
-				_marker setMarkerShape "ICON";
-				_marker setMarkerType "mil_warning";
-				_marker setMarkerColor "ColorRed";
-				_marker setMarkerText "Artillery";
-			} else {
-				"MCC_MWArtillery" setMarkerPos (_pos getPos [50 + (random 200),random 360]);
+		//Add a markers to artiilery
+		if (getNumber (configfile >> "CfgVehicles" >> _vehicleClass >> "artilleryScanner") > 0) then {
+
+			_marker = createMarker [format ["MCC_MWArtillery_%1",(["MCC_MWArtillery",1] call BIS_fnc_counter)],(_pos getPos [50 + (random 200),random 360])];
+			_marker setMarkerShape "ICON";
+			_marker setMarkerType "mil_warning";
+			_marker setMarkerColor "ColorRed";
+			_marker setMarkerText "Artillery";
+
+			[_group,_marker] spawn {
+				params ["_group","_marker"];
+
+				while {(alive leader _group) && (vehicle leader _group != leader _group)} do {sleep 60};
+
+				deleteMarker _marker;
 			};
 		};
 
-		_group setVariable ["mcc_gaia_cache",true];
 		_unitPlaced = _unitPlaced + (_priceUnit*_perSpawn);
 	};
 } else {

@@ -85,7 +85,6 @@ switch (true) do {
 			//_object animateSource [_animation, 0];
 		};
 
-		//systemChat format ["%1 - %2", _object,_animation];
 		//_object animateSource [_animation, _phase];
 		_object animate [_animation, _phase];
 		sleep _waitTime;

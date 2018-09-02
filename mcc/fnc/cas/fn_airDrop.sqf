@@ -637,7 +637,7 @@ if (tolower _planeType in ["west","east","guer","civ","logic"]) then  {
 
 		//Set WP behaviour for flat bombing
 		if (_spawnkind == "S&D") then	{
-			systemChat "ok";
+
 			_wp = _pilotGroup1 addWaypoint [[_pos select 0, _pos select 1, 0], 0];	//Add WP
 			_wp setWaypointStatements ["true", ""];
 			_wp setWaypointSpeed "FULL";

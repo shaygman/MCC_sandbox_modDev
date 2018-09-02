@@ -42,8 +42,6 @@ if (_UMUnit==0) then {
 	} foreach _units;
 };
 
-systemChat str _isHalo;
-
 _heliClass = if (_isHalo == 1) then  {"O_Heli_Transport_04_F"} else {
 				switch (true) do
 				{

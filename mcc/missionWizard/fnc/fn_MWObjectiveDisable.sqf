@@ -11,9 +11,6 @@
 #define	MCC_SMALL_IEDDEVICE	"Land_PressureWasher_01_F"
 #define	MCC_SMALL_IEDDEVICE_TABLE	"Land_WoodenTable_small_F"
 
-#define MCC_MWSITES [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]
-
-
 private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_range","_roads","_object","_objectType","_name","_sidePlayer","_time","_selectedBuilding","_unitPlaced","_buildingPos","_spawnPos","_spawndir"];
 
 _objPos = _this select 0;
@@ -72,8 +69,6 @@ if (_isCQB) then {
 	_spawnPos = getpos _dummyObject;
 	_spawndir = getdir _dummyObject;
 
-
-	systemChat str _spawnPos;
 
 	//Create the object
 	_object = [_spawnPos,_objectType,"large",0,8,false,4,15,_sidePlayer,_name,_spawndir,true,_side] call MCC_fnc_trapSingle;

@@ -34,21 +34,8 @@ _mccdialog = _this select 0;
 
 MCC_mcc_screen = 3;
 
-_missionTypeIcons = ["",
-					 "",
-					"\A3\ui_f\data\igui\cfg\simpleTasks\types\help_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\kill_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\destroy_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\search_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\download_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa",
-					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\mine_ca.paa"
-					];
+
+_missionTypeIcons = missionNamespace getVariable ["MCC_MWMissionTypeIcons",[]];
 
 _comboBox = _mccdialog displayCtrl FACTIONCOMBO;		//fill combobox CFG factions
 	lbClear _comboBox;

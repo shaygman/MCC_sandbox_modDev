@@ -11,8 +11,6 @@ params [
 	["_vars",[],[[]]]
 ];
 
-systemChat str _cfgName;
-
 _cfg =  if (isClass (missionconfigFile >> "cfgRtsActions" >> _cfgName)) then {
 			missionConfigFile >> "cfgRtsActions" >> _cfgName;
 		} else {

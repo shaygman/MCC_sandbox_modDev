@@ -1,13 +1,17 @@
-//======================================================MCC_fnc_MWFindMissionCenter=========================================================================================================
-// Find the mission Wizard's center
-// Example: [_pos,_minRadius,_maxRadius,_isCQB] call MCC_fnc_MWFindMissionCenter;
-// _pos				= position, from where to start looking.
-//_minRadius 			= integer, minimum distance from _pos
-//_maxRadius			= integer, Maximum distance from _pos
-//_isCQB 			= Boolean, true - for CQB areay false if it doesn't matters.
-//_isBasedLocations 	= Boolean, true if the map support locations
-// Return - pos
-//========================================================================================================================================================================================
+/*============================================MCC_fnc_MWFindMissionCenter=========================================================================================================
+	Find the mission Wizard's center
+	Example: [_pos,_minRadius,_maxRadius,_isCQB] call MCC_fnc_MWFindMissionCenter;
+
+	<IN>
+		_pos				= position, from where to start looking.
+		_minRadius 			= integer, minimum distance from _pos
+		_maxRadius			= integer, Maximum distance from _pos
+		_isCQB 			= Boolean, true - for CQB areay false if it doesn't matters.
+		_isBasedLocations 	= Boolean, true if the map support locations
+
+	<OUT>
+ 		Return - pos
+//===========================================================================================================================================================================*/
 private ["_pos","_minRadius","_centerFound","_buildingsArray","_newPos","_name","_type","_isBasedLocations","_locations","_location","_time"];
 
 _pos 				= _this select 0;

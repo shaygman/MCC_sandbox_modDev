@@ -7,36 +7,41 @@
 // Return - pos
 //================================================================================================================================================================*/
 
-private ["_missionCenter","_isCQB","_minObjectivesDistance","_buildingsArray","_farEnough","_range","_flatPos","_availablePos","_time","_radius","_markerName","_objectivesMarkers"];
+private ["_missionCenter","_isCQB","_minObjectivesDistance","_buildingsArray","_farEnough","_range","_flatPos","_availablePos","_time","_radius","_markerName","_objectivesMarkers","_ambient"];
 
 _missionCenter 			= _this select 0;
 _isCQB 					= _this select 1;
 _minObjectivesDistance 	= _this select 2;
+_maxObjectivesDistance 	= param [3,500,[500]];
 
 _farEnough = false;
 _range = 100;
 _availablePos = [];
 
 //Lets find a pice of land
-_time = time + 60;
+_time = time + 20;
 
 _objectivesMarkers = missionNamespace getVariable ["MCC_MWObjectiveMarkers",[]];
 
+_ambient = if (_isCQB) then {"2*houses + meadow "} else {"3*meadow + houses + hills "};
+
 //if it is the first time then find objective close to the center
-while {(count _availablePos) == 0 && time < _time} do {
-	_range = _range + 100;
-	_availablePos = selectBestPlaces [_missionCenter, _range, "2*meadow + hills", 5, 5];
+while {(count _availablePos) == 0 && (_range < (_maxObjectivesDistance*3))} do {
+
+	_availablePos = selectBestPlaces [_missionCenter, _range, _ambient, 10, 5];
 
 	if (count _availablePos > 0) then {
 		_availablePos = (_availablePos select 0) select 0;
 		_availablePos set [2,0];
 
 		//are we far enough from all other objectives
-		_farEnough = {(getMarkerPos _x) distance2d _availablePos <= (_minObjectivesDistance*0.8)} count _objectivesMarkers == 0;
+		_farEnough = {(getMarkerPos _x) distance2d _availablePos <= (_minObjectivesDistance*0.5)} count _objectivesMarkers == 0;
 
-		if !(_farEnough) then {_availablePos = []};
+		//Ig we are not far enough and also too far from mission center
+		if (!_farEnough) then {_availablePos = []};
 	};
 
+	_range = _range + 100;
 	sleep 0.01;
 };
 
@@ -48,6 +53,7 @@ if (missionNamespace getVariable ["MCC_debug",false]) then {
 if (count _availablePos == 0) exitWith {
 	diag_log "MCC: Mission Wizard Error: No mission objective's postion found, make a bigger zone";
 	MCC_MWisGenerating = false;
+	publicVariable "MCC_MWisGenerating";
 	["MCC: Mission Wizard Error: No mission objective's postion found, make a bigger zone"] call bis_fnc_halt;
 };
 

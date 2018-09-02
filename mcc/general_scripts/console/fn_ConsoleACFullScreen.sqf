@@ -76,11 +76,10 @@ MCC_fnc_ConsoleACControlHandler = {
 		_fov = missionNamespace getVariable ["MCC_fakeACFOV",0.8];
 
 		_posNew = [(_posX * _fov*150) , (_posY *_fov*150),0];
-		systemChat str _posNew;
+
 		_camTarget setdir (getdir _uav);
 		_camTarget setpos (_camTarget modeltoWorld[(_posNew select 0)*-1,(_posNew select 1),0]);
 	};
-	systemChat str _this;
 };
 
 //Handles

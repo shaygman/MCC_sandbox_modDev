@@ -1106,8 +1106,6 @@ MCC_CONST_CAM_Handler =
 		_posX 	= _input select 1;
 		_posY 	= _input select 2;
 
-		//systemChat str [_posx,_posY];
-
 		if (!isnil "MCC_mousePos") then {
 			_ctrlPos 	= ctrlPosition _ctrl;
 			_ctrlPosX 	= _ctrlPos select 0;

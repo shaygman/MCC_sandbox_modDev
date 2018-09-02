@@ -20,8 +20,6 @@ _mode = [_this,0,"Open",[displaynull,""]] call bis_fnc_param;
 _this = [_this,1,[]] call bis_fnc_param;
 _fullVersion = missionnamespace getvariable ["BIS_fnc_arsenal_fullGarage",false];
 
-systemChat str _this;
-
 #define IDC_RSCDISPLAYGARAGE_TAB_CAR		-1
 #define IDC_RSCDISPLAYGARAGE_TAB_ARMOR		-1
 #define IDC_RSCDISPLAYGARAGE_TAB_HELI		-1

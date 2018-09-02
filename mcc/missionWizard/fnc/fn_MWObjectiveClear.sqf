@@ -7,10 +7,6 @@
 //_faction = enemy Faction
 // Return - nothing
 //===============================================================================================================================================================================
-
-#define MCC_MWSITES [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]
-
-
 private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_range","_doc","_sidePlayer","_campaignMission","_maxObjectivesDistance"];
 
 _objPos 		= _this select 0;
@@ -19,8 +15,8 @@ _side 			= _this select 2;
 _faction 		= _this select 3;
 _sidePlayer 	= _this select 4;
 _preciseMarkers = _this select 5;
-_campaignMission = param [ 6, false, [false]];
-_maxObjectivesDistance = param [ 7, 400, [0]];
+_campaignMission = param [6, false, [false]];
+_maxObjectivesDistance = param [7, 400, [0]];
 
 if (_isCQB) then {
 	_range = if (_campaignMission) then {100} else {50};
@@ -31,7 +27,7 @@ if (_isCQB) then {
 
 	//Lets spawn an FOB
 	if (!_campaignMission || (random 1 > 0.7)) then {
-		[_objPos, random 360, (MCC_MWSITES call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
+		_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
 	};
 };
 

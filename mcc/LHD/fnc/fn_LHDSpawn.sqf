@@ -32,7 +32,8 @@ params [
 	["_hq", true, [true]],
 	["_LHDType",0,[false,0]],
 	["_displayName","",[""]],
-	["_store",true,[true]]
+	["_store",true,[true]],
+	["_rearm",true,[true]]
 ];
 
 if (!isServer) exitWith {};
@@ -366,7 +367,9 @@ switch (_LHDType) do
 };
 
 //Set Ships as a service centers
-_ship setVariable ["MCC_fnc_pylonsChangeSource",true,true];
+if (_rearm) then {
+	_ship setVariable ["MCC_fnc_pylonsChangeSource",true,true];
+};
 
 //Set vars
 switch (_LHDType) do

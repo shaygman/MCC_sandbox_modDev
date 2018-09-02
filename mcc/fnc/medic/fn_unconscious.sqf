@@ -58,9 +58,6 @@ if (isplayer _source && _source != _unit) then {
 };
 
 
-//waitUntil {isTouchingGround _unit};
-
-
 //Make it captive
 _captiveSideId = switch (side _unit) do
 					{
@@ -76,7 +73,11 @@ _unit setCaptive _captiveSideId;
 if (damage _unit < 0.3) then {_unit setDamage 0.8};
 
 //Lets try ragdolls
-while {vehicle _unit != _unit} do {unassignVehicle _unit;_unit action ["eject", vehicle _unit];sleep 0.5};
+private _time = time + 3;
+while {vehicle _unit != _unit && time < _time} do {unassignVehicle _unit;_unit action ["eject", vehicle _unit];sleep 0.5};
+
+//Sometimes u just can't get the unit out
+if (vehicle _unit != _unit) exitWith {_unit setDamage 1};
 
 [_unit,3,0,objNull,false,false] call MCC_fnc_addVelocity;
 

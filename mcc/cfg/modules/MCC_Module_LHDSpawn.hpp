@@ -52,6 +52,14 @@ class MCC_Module_LHDSpawn : Module_F
 			property = "store";
 		};
 
+		class rearm : Checkbox
+		{
+			displayName = "Rearm and Refuel";
+			description = "Enable rearming, refueling and reparing vehicles from main deck";
+			typeName = "BOOL";
+			property = "rearm";
+		};
+
 		class lhdType : Combo
 		{
 			displayName = "Ship type";

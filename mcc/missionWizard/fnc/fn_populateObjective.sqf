@@ -154,7 +154,7 @@ if (_isRoadblocks) then
 if (_isIED) then
 {
 	private ["_name","_objectType","_iedpos","_iedX","_iedY","_groupArray","_dir"];
-	_roadPositions = [_missionCenter,(_missionRadius*0.5)] call MCC_fnc_findRoadsLeadingZone;
+	_roadPositions = [_missionCenter,(_missionRadius*2)] call MCC_fnc_findRoadsLeadingZone;
 	if (count _roadPositions >0) then
 	{
 		_unitsArray 	= [_civFaction,"carx"] call MCC_fnc_makeUnitsArray;

@@ -300,7 +300,7 @@ else
 				, mcc_delayed_spawn
 				];
 
-		systemchat str _ar;
+		if (missionNamespace getVariable ["MCC_Chat",true]) then {systemchat str _ar};
 		// Send data over the network, or when on server, execute directly
 
 				if ( (isServer) && ( (mcc_hc == 0) || !(MCC_isHC) ) ) then
