@@ -1,9 +1,9 @@
-//======================================================MCC_fnc_MWSpawnStatic=========================================================================================================
-// Spawn infantry groups in the zone.
-// Example:[_totalEnemyUnits,_missionCenter,_radius,_arrayUnits,_priceGroup,_priceUnit,_side,_artillery] call MCC_fnc_MWSpawnStatic;
-// Return - handler
-//========================================================================================================================================================================================
-private ["_side","_unitPlaced","_totalEnemyUnits","_radius","_arrayUnits","_group","_init","_perSpawn","_spawnPos","_zone","_marker","_priceGroup","_priceUnit","_price","_artillery","_pos","_missionCenter","_availablePos","_vehicleClass","_vehicle","_time"];
+/*=================================================MCC_fnc_MWSpawnStatic=========================================================================================================
+	Spawn infantry groups in the zone.
+	Example:[_totalEnemyUnits,_missionCenter,_radius,_arrayUnits,_priceGroup,_priceUnit,_side,_artillery] call MCC_fnc_MWSpawnStatic;
+	Return - handler
+================================================================================================================================================================================*/
+private ["_side","_unitPlaced","_totalEnemyUnits","_radius","_arrayUnits","_group","_init","_perSpawn","_spawnPos","_zone","_marker","_priceGroup","_priceUnit","_price","_artillery","_pos","_missionCenter","_availablePos","_vehicleClass","_vehicle","_time","_enableMarkers"];
 _totalEnemyUnits	= _this select 0;
 _missionCenter		= _this select 1;
 _radius				= _this select 2;
@@ -13,6 +13,7 @@ _priceUnit			= _this select 5;
 _side				= _this select 6;
 _artillery			= _this select 7;	///0 - none, 1 - mortar, 2 - self propelled artillery, 3 - Random, 999 - not artillery piece
 _zone				= _this select 8;
+_enableMarkers 			= param [9,false,[false]];
 
 _unitPlaced = 0;
 
@@ -62,20 +63,34 @@ if (count _arrayUnits > 0) then {
 		};
 
 		//Add a markers to artiilery
-		if (getNumber (configfile >> "CfgVehicles" >> _vehicleClass >> "artilleryScanner") > 0) then {
+		if (getNumber (configfile >> "CfgVehicles" >> _vehicleClass >> "artilleryScanner") > 0 && _enableMarkers) then {
 
-			_marker = createMarker [format ["MCC_MWArtillery_%1",(["MCC_MWArtillery",1] call BIS_fnc_counter)],(_pos getPos [50 + (random 200),random 360])];
+			private _markers = [];
+			private _range = 50 + (random 200);
+			_pos = (_pos getPos [_range,random 360]);
+			_marker = createMarker [format ["MCC_MWArtillery_%1",(["MCC_MWArtillery",1] call BIS_fnc_counter)],_pos];
 			_marker setMarkerShape "ICON";
 			_marker setMarkerType "mil_warning";
 			_marker setMarkerColor "ColorRed";
 			_marker setMarkerText "Artillery";
 
-			[_group,_marker] spawn {
-				params ["_group","_marker"];
+			_markers pushBack _marker;
+
+			_marker = createMarker [format ["MCC_MWArtillery_%1",(["MCC_MWArtillery",1] call BIS_fnc_counter)],_pos];
+			_marker setMarkerShape "ELLIPSE";
+			_marker setMarkerType "hd_marker";
+			_marker setMarkerColor "ColorRed";
+			_marker setMarkerBrush  "DiagGrid";
+			_marker setMarkerSize [_range, _range];
+
+			_markers pushBack _marker;
+
+			[_group,_markers] spawn {
+				params ["_group","_markers"];
 
 				while {(alive leader _group) && (vehicle leader _group != leader _group)} do {sleep 60};
 
-				deleteMarker _marker;
+				{deleteMarker _x} foreach _markers;
 			};
 		};
 

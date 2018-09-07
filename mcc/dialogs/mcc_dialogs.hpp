@@ -342,6 +342,36 @@ class MCC_RscCheckBox
 	x = "0.375 * safezoneW + safezoneX";
 	y = "0.36 * safezoneH + safezoneY";
 };
+
+class MCC_CheckBoxes
+{
+	idc = -1;
+	type = 7; // CT_CHECKBOXES
+	style = 2; // ST_CENTER
+
+	x = 0.25;
+	y = 0.25;
+	w = 0.5;
+	h = 0.5;
+
+	colorSelectedBg[] = {0, 0, 0, 0.2}; // selected item bg color
+
+	colorText[] = {0.6, 0.6, 0.6, 0.6}; // checkbox unchecked color
+	colorTextSelect[] = {1, 1, 1, 1}; // checkbox checked color
+
+	colorBackground[] = {0, 0, 0, 0.2}; // control generic BG color
+
+	font = "PuristaMedium";
+	sizeEx = 0.04;
+
+	onCheckBoxesSelChanged = "hint str _this";
+
+	columns = 8;
+	rows = 4;
+	strings[] = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+	checked_strings[] = {"[0]","[1]","[2]","[3]","[4]","[5]","[6]","[7]","[8]","[9]","[10]","[11]","[12]","[13]","[14]","[15]","[16]","[17]","[18]","[19]","[20]","[21]","[22]","[23]","[24]","[25]","[26]","[27]","[28]","[29]","[30]","[31]"};
+};
+
 class MCC_RscButtonMenu : MCC_RscButton
 {
   action = "";

@@ -44,6 +44,7 @@ General
 	Added - Add Valor/Credit module to Zeus and Ed3n
 	Added - 20 meters evac helicopter flight height
 	Added - Armed civilians weapons can be defined in MCC settings module or by altering "MCC_armedCivilansWeapons" variable
+	Fixed - Stay alive in a destroyed vehicle without able to eject when MCC medic is on
 	Fixed - Save MCC to profile was bugged
 	Fixed - Cruise missile CAS didn't work on dedicated servers
 	Fixed - Sling loading air drops wasn't working properly
@@ -57,7 +58,7 @@ General
 
 
 TODO -
-check why when dead in a vehicle don't respawn
+Mission Wizard configuration module
 Add refuel/rearm to pylons and add pylons to carriers - make it optional
 Check respawn
 Check droppods

@@ -108,7 +108,7 @@ if (_playMusic == 0) then {
 		{
 			_module = (_x select 8);
 			_object = if !(isnull (_module getVariable ["AttachObject_object",objNull])) then {_module getVariable ["AttachObject_object",objNull]} else {_module};
-			_taskDescription = _x select 3;
+			_taskDescription = _x select 2;
 			_zoomEnd = if (_object isKindOf "man") then {0.6} else {0.3};
 
 			_sfx =  switch (true) do

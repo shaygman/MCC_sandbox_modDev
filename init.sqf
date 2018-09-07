@@ -487,7 +487,48 @@ MCC_currentSide = 0; //0- west 1 - east 2- resistance 3 - civilian
 MCC_saveIndex = 0;
 
 //================================================== Mission Wizard params ========================================================================//
-MCC_MWmaxPlayers = 30;
+if (isNil "MCC_MWmaxPlayers") then {MCC_MWmaxPlayers = 40};
+
+//HVT Array 0-BLUEFOR 1-OPFOR 2-INDEPENDENT 3 - CIVILIAN
+if (isNil "MCC_MWHVT") then {MCC_MWHVT = ["B_officer_F","O_officer_F","I_officer_F","C_Nikos"]};
+
+//Static Radio towers
+if (isNil "MCC_MWRadio") then {MCC_MWRadio = ["Land_TTowerBig_2_F"]};
+
+//Static fuel tanks
+if (isNil "MCC_MWFuelTanks") then {MCC_MWFuelTanks = ["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"]};
+
+//Armored tanks for destroy armor mission
+if (isNil "MCC_MWTanks") then {MCC_MWTanks = ["B_MBT_01_cannon_F","O_MBT_02_cannon_F"]};
+
+//Air vehicles for destroy armor mission
+if (isNil "MCC_MWAir") then {MCC_MWAir = ["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","O_UAV_02_F","O_UAV_02_CAS_F","B_Heli_Attack_01_F","I_Plane_Fighter_03_CAS_F","I_Plane_Fighter_03_AA_F"]};
+
+//Ammo cache for destroy cache missions
+if (isNil "MCC_MWcache") then {MCC_MWcache = ["Box_East_AmmoVeh_F","Land_Pallet_MilBoxes_F"]};
+
+//Radar for destroy Radar missions
+if (isNil "MCC_MWradar") then {MCC_MWradar = ["Land_Radar_Small_F","B_Radar_System_01_F","O_Radar_System_02_F"]};
+
+//Intel objects
+if (isNil "MCC_MWIntelObjects") then {MCC_MWIntelObjects = ["Land_File2_F","Land_FilePhotos_F","Land_Laptop_unfolded_F","Land_SatellitePhone_F","Land_Suitcase_F"]};
+
+//IED objects
+if (isNil "MCC_MWIED") then {MCC_MWIED = ["IEDLandSmall_Remote_Ammo","IEDLandBig_Remote_Ammo","IEDUrbanSmall_Remote_Ammo","IEDUrbanBig_Remote_Ammo"]};
+
+//Composition objects
+if (isNil "MCC_MWSITES") then {MCC_MWSITES = [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]};
+
+//AA
+if (isNil "MCC_MWAAB") then {MCC_MWAAB = ["B_APC_Tracked_01_AA_F"]}; //Anti-air vehicles West
+if (isNil "MCC_MWAAO") then {MCC_MWAAO = ["O_APC_Tracked_02_AA_F"]}; //Anti-air vehicles East
+if (isNil "MCC_MWAAI") then {MCC_MWAAI = ["I_APC_Wheeled_03_cannon_F"]}; //Anti-air vehicles Independent
+
+//Artillery
+if (isNil "MCC_MWArtilleryB") then {MCC_MWArtilleryB = ["B_MBT_01_arty_F","B_MBT_01_mlrs_F"]};	//Artillery vehicles - West
+if (isNil "MCC_MWArtilleryO") then {MCC_MWArtilleryO = ["O_MBT_02_arty_F","O_Mortar_01_F"]};		//Artillery vehicles - East
+if (isNil "MCC_MWArtilleryI") then {MCC_MWArtilleryI = ["I_Mortar_01_F"]};						//Artillery vehicles - Independent
+
 MCC_MWDifficulty = ["Easy","Medium","Hard"];
 MCC_MWMissionType = ["None",
                      "Random",
@@ -522,29 +563,6 @@ MCC_MWMissionTypeIcons = ["",
 					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\mine_ca.paa",
 					 "\A3\ui_f\data\igui\cfg\simpleTasks\types\help_ca.paa"
 					];
-
-MCC_MWHVT = ["B_officer_F","O_officer_F","I_officer_F","C_Nikos"]; 	//HVT Array 0-BLUEFOR 1-OPFOR 2-INDEPENDENT 3 - CIVILIAN
-MCC_MWRadio = ["Land_TTowerBig_2_F"];								//Static Radio towers
-MCC_MWFuelTanks = ["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"];	//Static fuel tanks
-MCC_MWTanks = ["B_MBT_01_cannon_F","O_MBT_02_cannon_F"];			//Armored tanks for destroy armor mission
-MCC_MWAir = ["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","O_UAV_02_F","O_UAV_02_CAS_F","B_Heli_Attack_01_F","I_Plane_Fighter_03_CAS_F","I_Plane_Fighter_03_AA_F"];
-MCC_MWcache = ["Box_East_AmmoVeh_F","Land_Pallet_MilBoxes_F"];								//Ammo cache for destroy cache missions
-MCC_MWradar = ["Land_Radar_Small_F","B_Radar_System_01_F","O_Radar_System_02_F"];								//Radar for destroy Radar missions
-MCC_MWIntelObjects = ["Land_File2_F","Land_FilePhotos_F","Land_Laptop_unfolded_F","Land_SatellitePhone_F","Land_Suitcase_F"]; //Intel objects
-MCC_MWIED = ["IEDLandSmall_Remote_Ammo","IEDLandBig_Remote_Ammo","IEDUrbanSmall_Remote_Ammo","IEDUrbanBig_Remote_Ammo"]; 	//IED objects
-
-//Composition objects
-MCC_MWSITES = [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]];
-//AA
-MCC_MWAAB = ["B_APC_Tracked_01_AA_F"]; //Anti-air vehicles West
-MCC_MWAAO = ["O_APC_Tracked_02_AA_F"]; //Anti-air vehicles East
-MCC_MWAAI = ["I_APC_Wheeled_03_cannon_F"]; //Anti-air vehicles Independent
-
-//Artillery
-MCC_MWArtilleryB = ["B_MBT_01_arty_F","B_MBT_01_mlrs_F"];	//Artillery vehicles - West
-MCC_MWArtilleryO = ["O_MBT_02_arty_F","O_Mortar_01_F"];		//Artillery vehicles - East
-MCC_MWArtilleryI = ["I_Mortar_01_F"];						//Artillery vehicles - Independent
-
 
 MCC_MWObjectiveMarkers = [];
 MCC_MWmissionsCenter = [];

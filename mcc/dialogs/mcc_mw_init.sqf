@@ -64,30 +64,24 @@ lbClear _comboBox;
 _comboBox lbSetCurSel MCC_zone_index;
 
 //==========================       Mission Wizard ===============================================
+
+//Number of players
 _comboBox = _mccdialog displayCtrl MCC_MWPlayersIDC;
-lbClear _comboBox;
-for [{_x = 1},{_x <= MCC_MWmaxPlayers},{_x = _x+1}] do
-	{
-		_displayname = format ["%1",_x];
-		_comboBox lbAdd _displayname;
-	};
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWPlayersIndex",0]);
+_comboBox sliderSetRange [1, MCC_MWmaxPlayers];
+_comboBox sliderSetPosition (profileNamespace getVariable ["MCC_MWPlayersIndex",(floor MCC_MWmaxPlayers/2)]);
+_comboBox sliderSetSpeed [1, 1];
 
+//Stealth
 _comboBox = _mccdialog displayCtrl MCC_MWStealthIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWStealthIndex",2]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWStealthIndex",2]),true];
 
+//Objective markers
 _comboBox = _mccdialog displayCtrl MCC_MWPreciseMarkersComboIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["Yes","No"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWPreciseMarkersIndex",0]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWPreciseMarkersIndex",0]),true];
+
+//General Markers
+_comboBox = _mccdialog displayCtrl MCC_MWDebugComboIDC;
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWDebugIndex",0]),true];
 
 _comboBox = _mccdialog displayCtrl MCC_MWReinforcementIDC;
 lbClear _comboBox;
@@ -97,21 +91,10 @@ lbClear _comboBox;
 } foreach ["No","Yes - Aerial","Yes - Motorized","Yes - Random"];
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWReinforcementIndex",3]);
 
-_comboBox = _mccdialog displayCtrl MCC_MWArtilleryIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Mortars","Self Propelled Artillery","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWArtilleryIndex",3]);
-
+//Difficulty
 _comboBox = _mccdialog displayCtrl MCC_MWDifficultyIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach MCC_MWDifficulty;
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWDifficultyIndex",0]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWDifficultyIndex",0]),true];
+
 
 //Objective 1
 _comboBox = _mccdialog displayCtrl MCC_MWObjective1IDC;
@@ -141,63 +124,40 @@ lbClear _comboBox;
 } foreach MCC_MWMissionType;
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWObjective3Index",0]);
 
+//Vehicles
 _comboBox = _mccdialog displayCtrl MCC_MWVehiclesIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWVehiclesIndex",2]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWVehiclesIndex",2]),true];
 
+//Armor
 _comboBox = _mccdialog displayCtrl MCC_MWArmorIDC;
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWArmorIndex",2]),true];
+
+//Artillery
+_comboBox = _mccdialog displayCtrl MCC_MWArtilleryIDC;
 lbClear _comboBox;
 {
 	_displayname = _x;
 	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWArmorIndex",2]);
+} foreach ["No","Mortars","Self Propelled Artillery","Random"];
+_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWArtilleryIndex",3]);
 
-
+//Music
 _comboBox = _mccdialog displayCtrl MCC_MCC_MWMusicIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["Cinematic","Pop-Up","None"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWMusicIndex",0]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWMusicIndex",0]),true];
 
-_comboBox = _mccdialog displayCtrl MCC_MWDebugComboIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWDebugIndex",0]);
-
+//IED
 _comboBox = _mccdialog displayCtrl MCC_MWIEDIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWIEDIndex",2]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWIEDIndex",2]),true];
 
+//Suicide Bombers
 _comboBox = _mccdialog displayCtrl MCC_MWSBIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWSBIndex",2]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWSBIndex",2]),true];
 
+//Armed Civilians
 _comboBox = _mccdialog displayCtrl MCC_MWArmedCiviliansIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWArmedCiviliansIndex",2]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWArmedCiviliansIndex",2]),true];
 
+//CQB
 _comboBox = _mccdialog displayCtrl MCC_MWCQBIDC;
 lbClear _comboBox;
 {
@@ -206,22 +166,15 @@ lbClear _comboBox;
 } foreach ["No","Yes Without Civilians","Yes With Civilians","Random"];
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWCQBIndex",3]);
 
+//Roadblocks
 _comboBox = _mccdialog displayCtrl MCC_MWRoadBlocksIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["No","Yes","Random"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWRoadBlockIndex",2]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWRoadBlockIndex",2]),true];
 
+//Animals
 _comboBox = _mccdialog displayCtrl MCC_MWAnimalsIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["Yes","No"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWAnimalsIndex",0]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWAnimalsIndex",2]),true];
 
+//Weather
 _comboBox = _mccdialog displayCtrl MCC_MWWeatherComboIDC;
 lbClear _comboBox;
 {
@@ -230,10 +183,6 @@ lbClear _comboBox;
 } foreach ["Don't change","Random","Sandstorm","Blizzard","Snow"];
 _comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWWeatherIndex",1]);
 
+//Mission Area
 _comboBox = _mccdialog displayCtrl MCC_MCC_MWAreaComboIDC;
-lbClear _comboBox;
-{
-	_displayname = _x;
-	_comboBox lbAdd _displayname;
-} foreach ["Whole map","Current zone"];
-_comboBox lbSetCurSel (profileNamespace getVariable ["MCC_MWAreaIndex",0]);
+_comboBox ctrlSetChecked [(profileNamespace getVariable ["MCC_MWAreaIndex",0]),true];

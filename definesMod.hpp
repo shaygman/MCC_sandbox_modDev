@@ -92,6 +92,7 @@ class CfgFunctions
 		#include "\mcc_sandbox_mod\mcc\compositions\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\vehicles\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\logistics\cfgFunctions.hpp"
+		#include "\mcc_sandbox_mod\mcc\UI\cfgFunctions.hpp"
 	};
 };
 

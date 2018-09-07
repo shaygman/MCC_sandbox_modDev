@@ -26,7 +26,7 @@
 #define MCC_MWAnimalsIDC 6023
 #define MCC_MCC_MWMusicIDC 6024
 
-private ["_playersNumber","_difficulty","_totalEnemyUnits","_isCQB","_check","_minObjectivesDistance","_maxObjectivesDistance","_enemySide","_enemyfaction","_sidePlayer","_factionPlayer","_obj1","_obj2","_obj3","_wholeMap","_armor","_vehicles","_stealth","_isIED","_isAS","_isRoadblocks","_isCiv","_weatherChange","_isSB","_preciseMarkers","_reinforcement","_artillery","_civFaction","_playMusic","_animals","_markerName"];
+private ["_playersNumber","_difficulty","_totalEnemyUnits","_isCQB","_check","_minObjectivesDistance","_maxObjectivesDistance","_enemySide","_enemyfaction","_sidePlayer","_factionPlayer","_obj1","_obj2","_obj3","_wholeMap","_armor","_vehicles","_stealth","_isIED","_isAS","_isRoadblocks","_isCiv","_weatherChange","_isSB","_preciseMarkers","_reinforcement","_artillery","_civFaction","_playMusic","_animals","_markerName","_markers"];
 
 //MCC_MWAnimalsIndex MCC_MWBattleGroundIndex MCC_MWMusicIndex
 if (isnil "MCC_MWisGenerating") then {MCC_MWisGenerating = false};
@@ -35,78 +35,23 @@ if (MCC_MWisGenerating) exitWith {systemchat "MCC is now generating a mission pl
 MCC_MWisGenerating = true;
 
 //Get params
-_playersNumber 		= (lbCurSel MCC_MWPlayersIDC) + 1;
+_playersNumber 		= (sliderPosition  MCC_MWPlayersIDC) + 1;
 _civFaction			= (U_FACTIONSCIV select (lbCurSel CIVILIANFACTIONCOMBO)) select 2;
-_playMusic			= lbCurSel MCC_MCC_MWMusicIDC;
-_difficulty 		= (lbCurSel MCC_MWDifficultyIDC+1)*1.5;		//each player == 3 enemy players multiply by difficulty
-_stealth 			= if ((lbCurSel MCC_MWStealthIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWStealthIDC)==0) then {false} else {true};
-						};
+_playMusic			=  profileNamespace getVariable ["MCC_MWMusicIndex",0];
+_difficulty 		= ((profileNamespace getVariable ["MCC_MWDifficultyIndex",0])+1) * 2;		//each player == 3 enemy players multiply by difficulty
+_stealth 			= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWStealthIndex",2]);
+_isIED 				= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWIEDIndex",2]);
+_isSB 				= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWSBIndex",2]);
+_isAS 				= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWArmedCiviliansIndex",2]);
+_isRoadblocks 		= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWRoadBlockIndex",2]);
+_armor 				= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWArmorIndex",2]);
+_vehicles 			= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWVehiclesIndex",2]);
+_animals 			= [false,true,([true,false] call BIS_fnc_selectRandom)] select (profileNamespace getVariable ["MCC_MWAnimalsIndex",2]);
+_wholeMap 			= [true,false] select (profileNamespace getVariable ["MCC_MWAreaIndex",0]);
+_markers 			= [false,true] select (profileNamespace getVariable ["MCC_MWDebugIndex",0]);
+_preciseMarkers 	= [true,false] select (profileNamespace getVariable ["MCC_MWPreciseMarkersIndex",0]);
 
-_isIED 				= if ((lbCurSel MCC_MWIEDIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWIEDIDC)==0) then {false} else {true};
-						};
-
-_isSB 				= if ((lbCurSel MCC_MWSBIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWSBIDC)==0) then {false} else {true};
-						};
-
-_isAS				= if ((lbCurSel MCC_MWArmedCiviliansIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWArmedCiviliansIDC)==0) then {false} else {true};
-						};
-
-_isRoadblocks		= if ((lbCurSel MCC_MWRoadBlocksIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWRoadBlocksIDC)==0) then {false} else {true};
-						};
-
-_armor 				= if ((lbCurSel MCC_MWArmorIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWArmorIDC)==0) then {false} else {true};
-						};
-
-_vehicles 			= if ((lbCurSel MCC_MWVehiclesIDC)==3) then
-						{
-							[true,false] call BIS_fnc_selectRandom;
-						}
-						else
-						{
-							if ((lbCurSel MCC_MWVehiclesIDC)==0) then {false} else {true};
-						};
-
-_animals			= if ((lbCurSel MCC_MWAnimalsIDC)==0) then {true} else {false};
 _weatherChange		= lbCurSel MCC_MWWeatherComboIDC;
-_wholeMap			= if ((lbCurSel MCC_MCC_MWAreaComboIDC)==0) then {true} else {false};
-MCC_debug			= if ((lbCurSel MCC_MWDebugComboIDC)==0) then {false} else {true};
-_preciseMarkers		= if ((lbCurSel MCC_MWPreciseMarkersComboIDC)==0) then {true} else {false};
 _reinforcement		= (lbCurSel MCC_MWReinforcementIDC);
 _artillery			= (lbCurSel MCC_MWArtilleryIDC);
 
@@ -147,7 +92,7 @@ _obj3 				= MCC_MWMissionType select (lbCurSel MCC_MWObjective3IDC);
 _sidePlayer 		= side player;
 _factionPlayer 		= faction player;
 _enemySide			= mcc_sidename;
-_totalEnemyUnits 		= if ((_playersNumber * _difficulty)>10) then {(_playersNumber * _difficulty)} else {20};
+_totalEnemyUnits 	= if ((_playersNumber * _difficulty)>10) then {(_playersNumber * _difficulty)} else {20};
 
 _minObjectivesDistance 	= if (_isCQB) then {100} else {200};
 _maxObjectivesDistance 	= (_minObjectivesDistance*1.5) + (10*_playersNumber);
@@ -193,15 +138,7 @@ publicVariableServer "mcc_zone_marker_Y";
 
 if (MCC_debug) then {systemchat format ["Total enemy's units: %1", _totalEnemyUnits]};
 diag_log format ["MCC Mission Wizard total enemy Count = %1", _totalEnemyUnits];
-/*
-//Check if faction has groups in it if not exit
-if (count MCC_MWGroupArrayMen == 0 && count MCC_customGroupsSaveMW == 0) exitWith
-{
-	diag_log "MCC: Mission Wizard Error: No group available in the selected enemy faction";
-	MCC_MWisGenerating = false;
-	["MCC: Mission Wizard Error: No group available in the selected enemy faction"] call bis_fnc_halt;
-};
-*/
+
 //------------------------------------------------------------- Here we go  Create loading text----------------------------------------------------------------
 while {dialog} do {closedialog 0; sleep 0.2};
 [] spawn
@@ -225,11 +162,9 @@ while {dialog} do {closedialog 0; sleep 0.2};
 
 //Build the mission on the server
 [
-	[
-		[_wholeMap, _totalEnemyUnits,  _minObjectivesDistance, _maxObjectivesDistance, _weatherChange, _preciseMarkers, _playMusic],
-		[_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction],
-		[_obj1, _obj2, _obj3],
-		[_isCQB, _isCiv, _armor, _vehicles, _stealth, _isIED, _isAS, _isSB, _isRoadblocks, _animals],
-		[_reinforcement, _artillery]
-	],"MCC_fnc_MWinitMission",false,false
-] call BIS_fnc_MP;
+	[_wholeMap, _totalEnemyUnits,  _minObjectivesDistance, _maxObjectivesDistance, _weatherChange, _preciseMarkers, _playMusic,_markers],
+	[_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction],
+	[_obj1, _obj2, _obj3],
+	[_isCQB, _isCiv, _armor, _vehicles, _stealth, _isIED, _isAS, _isSB, _isRoadblocks, _animals],
+	[_reinforcement, _artillery]
+] remoteExec ["MCC_fnc_MWinitMission",2];
