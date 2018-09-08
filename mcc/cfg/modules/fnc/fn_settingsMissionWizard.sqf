@@ -19,12 +19,8 @@ _varName = switch (_module getvariable ["VariableName",0]) do
 				case 6:	{"MCC_MWradar"};
 				case 7:	{"MCC_MWIntelObjects"};
 				case 8:	{"MCC_MWIED"};
-				case 9:	{"MCC_MWAAB"};
-				case 10:	{"MCC_MWAAO"};
-				case 11:	{"MCC_MWAAI"};
-				case 12:	{"MCC_MWArtilleryB"};
-				case 13:	{"MCC_MWArtilleryO"};
-				case 14:	{"MCC_MWArtilleryI"};
+				case 9:	{"MCC_MWAA"};
+				case 10:	{"MCC_MWArtillery"};
 
 				default	{"MCC_MWHVT"};
 			};

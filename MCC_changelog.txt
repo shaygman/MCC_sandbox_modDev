@@ -15,6 +15,10 @@ Weapons/Items/Gear Shops: *NEW*
 	Added - Persistent parameter - the shop will save persistent data so any items in the shop will be available after mission restart - player based market.
 	Added - Prices parameter - prices will be defined automatically by MCC depends on the item stats the mission maker can define how expensive one shop will be compared to other shops.
 
+Vehicle rearm - air vehicles pylon change module
+	Added - you can now repair, refuel and rearm from this module.
+
+
 Vehicles Camonets *NEW*
 	- Added - Vehicles that supports animations source aka camo nets exc will spawn with random animations by default.
 	- Added - Vehicle commander can deploy animations (camo nets exc) using MCC or ACE interaction.
@@ -40,6 +44,7 @@ RTS & Campaign & Mission Wizard
 	- Fixed - can't build FOB even if it is more than 500 meters away
 
 General
+	Added - Mission Wizard settings module - configure which objectives classes will be in the mission wizard by syncing the vehicles to the module.
 	Added - Disable MCC edit in Zeus from MCC settings
 	Added - Add Valor/Credit module to Zeus and Ed3n
 	Added - 20 meters evac helicopter flight height
@@ -58,7 +63,6 @@ General
 
 
 TODO -
-Mission Wizard configuration module
 Add refuel/rearm to pylons and add pylons to carriers - make it optional
 Check respawn
 Check droppods

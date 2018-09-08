@@ -516,18 +516,18 @@ if (isNil "MCC_MWIntelObjects") then {MCC_MWIntelObjects = ["Land_File2_F","Land
 //IED objects
 if (isNil "MCC_MWIED") then {MCC_MWIED = ["IEDLandSmall_Remote_Ammo","IEDLandBig_Remote_Ammo","IEDUrbanSmall_Remote_Ammo","IEDUrbanBig_Remote_Ammo"]};
 
-//Composition objects
-if (isNil "MCC_MWSITES") then {MCC_MWSITES = [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]};
+//Composition objects civilian
+if (isNil "MCC_MWSITES") then {MCC_MWSITES = [["Guerrilla","Camps","CampA"],["Guerrilla","Camps","CampB"],["Guerrilla","Camps","CampC"],["Guerrilla","Camps","CampD"],["Guerrilla","Camps","CampE"],["Guerrilla","Camps","CampF"],["MCC_comps","civilians","slums"],["MCC_comps","Guerrilla","campSite"]]};
 
-//AA
-if (isNil "MCC_MWAAB") then {MCC_MWAAB = ["B_APC_Tracked_01_AA_F"]}; //Anti-air vehicles West
-if (isNil "MCC_MWAAO") then {MCC_MWAAO = ["O_APC_Tracked_02_AA_F"]}; //Anti-air vehicles East
-if (isNil "MCC_MWAAI") then {MCC_MWAAI = ["I_APC_Wheeled_03_cannon_F"]}; //Anti-air vehicles Independent
+//Composition objects military
+if (isNil "MCC_MWSITESmilitary") then {MCC_MWSITESmilitary = [["Military","Outposts","OutpostA"],["Military","Outposts","OutpostB"],["Military","Outposts","OutpostC"],["Military","Outposts","OutpostD"],["Military","Outposts","OutpostE"],["Military","Outposts","OutpostF"]]};
+
+//Anti-air vehicles
+if (isNil "MCC_MWAA") then {MCC_MWAA = ["B_APC_Tracked_01_AA_F","O_APC_Tracked_02_AA_F","I_APC_Wheeled_03_cannon_F"]};
 
 //Artillery
-if (isNil "MCC_MWArtilleryB") then {MCC_MWArtilleryB = ["B_MBT_01_arty_F","B_MBT_01_mlrs_F"]};	//Artillery vehicles - West
-if (isNil "MCC_MWArtilleryO") then {MCC_MWArtilleryO = ["O_MBT_02_arty_F","O_Mortar_01_F"]};		//Artillery vehicles - East
-if (isNil "MCC_MWArtilleryI") then {MCC_MWArtilleryI = ["I_Mortar_01_F"]};						//Artillery vehicles - Independent
+if (isNil "MCC_MWArtillery") then {MCC_MWArtillery = ["B_MBT_01_arty_F","B_MBT_01_mlrs_F","O_MBT_02_arty_F","O_Mortar_01_F","I_Mortar_01_F"]};
+
 
 MCC_MWDifficulty = ["Easy","Medium","Hard"];
 MCC_MWMissionType = ["None",
@@ -544,7 +544,7 @@ MCC_MWMissionType = ["None",
 					 "Download Intel",
 					 "Capture Area",
 					 "Disarm IED",
-					 "Hearts & Minds"
+					 "Logistics"
 					 ];
 
 MCC_MWMissionTypeIcons = ["",

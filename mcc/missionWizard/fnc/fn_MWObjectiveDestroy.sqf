@@ -7,7 +7,7 @@
 //_faction = enemy Faction
 // Return - nothing
 //===========================================================================================================================================================*/
-private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_type","_objType","_typeSize","_spawnPos","_object","_dummyObject","_spawndir","_unitsArray","_group","_init","_range","_campaignMission","_sidePlayer"];
+private ["_objPos","_isCQB","_side","_faction","_preciseMarkers","_type","_objType","_typeSize","_spawnPos","_object","_dummyObject","_spawndir","_unitsArray","_group","_init","_range","_campaignMission","_sidePlayer","_vehiclesArray","_vehiclesArrayFlitered"];
 
 _objPos 		= _this select 0;
 _isCQB 			= _this select 1;
@@ -29,95 +29,29 @@ _objType = switch (_this select 5) do
 
 
 //What do we spawn
-switch _objType do
-{
-	case "fuel":
+_vehiclesArray = switch _objType do
 	{
-		_type =  (missionNamespace getVariable ["MCC_MWFuelTanks",["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"]]) call BIS_fnc_selectRandom;
+		case "fuel":{missionNamespace getVariable ["MCC_MWFuelTanks",["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"]]};
+		case "radio":{missionNamespace getVariable ["MCC_MWRadio",["Land_TTowerBig_2_F"]]};
+		case "tanks":{missionNamespace getVariable ["MCC_MWTanks",["B_MBT_01_cannon_F","O_MBT_02_cannon_F"]]};
+		case "aa":{missionNamespace getVariable ["MCC_MWAA",["B_APC_Tracked_01_AA_F","O_APC_Tracked_02_AA_F","I_APC_Wheeled_03_cannon_F"]]};
+		case "artillery": {missionNamespace getVariable ["MCC_MWArtillery",["B_MBT_01_arty_F","B_MBT_01_mlrs_F","O_MBT_02_arty_F","O_Mortar_01_F","I_Mortar_01_F"]]};
+		case "air":{missionNamespace getVariable ["MCC_MWAir",["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","O_UAV_02_F","O_UAV_02_CAS_F","B_Heli_Attack_01_F","I_Plane_Fighter_03_CAS_F","I_Plane_Fighter_03_AA_F"]]};
+		case "cache":{missionNamespace getVariable ["MCC_MWcache",["Box_East_AmmoVeh_F"]]};
+		case "radar":{missionNamespace getVariable ["MCC_MWradar",["Land_Radar_Small_F"]]};
+		default	{missionNamespace getVariable ["MCC_MWFuelTanks",["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"]]};
 	};
 
-	case "radio":
-	{
-		_type =  (missionNamespace getVariable ["MCC_MWRadio",["Land_TTowerBig_2_F"]]) call BIS_fnc_selectRandom;
-	};
+//Find the objects from the enemy side
+_vehiclesArrayFlitered = _vehiclesArray select {([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side};
 
-	case "tanks":
-	{
-		_type =  (missionNamespace getVariable ["MCC_MWTanks",["B_MBT_01_cannon_F","O_MBT_02_cannon_F"]]) call BIS_fnc_selectRandom;
-	};
-
-	case "aa":
-	{
-		_type = switch _side do
-				{
-					case west:
-					{
-						(missionNamespace getVariable ["MCC_MWAAB",["B_APC_Tracked_01_AA_F"]]) call BIS_fnc_selectRandom;
-					};
-
-					case east:
-					{
-						(missionNamespace getVariable ["MCC_MWAAO",["O_APC_Tracked_02_AA_F"]]) call BIS_fnc_selectRandom;
-					};
-
-					case resistance:
-					{
-						(missionNamespace getVariable ["MCC_MWAAI",["I_APC_Wheeled_03_cannon_F"]]) call BIS_fnc_selectRandom;
-					};
-
-					case default
-					{
-						(missionNamespace getVariable ["MCC_MWAAO",["O_APC_Tracked_02_AA_F"]]) call BIS_fnc_selectRandom;
-					};
-				};
-	};
-
-	case "artillery":
-	{
-		_type = switch _side do
-				{
-					case west:
-					{
-						(missionNamespace getVariable ["MCC_MWArtilleryB",["B_MBT_01_arty_F","B_MBT_01_mlrs_F"]]) call BIS_fnc_selectRandom;
-					};
-
-					case east:
-					{
-						(missionNamespace getVariable ["MCC_MWArtilleryO",["O_MBT_02_arty_F","O_Mortar_01_F"]]) call BIS_fnc_selectRandom;
-					};
-
-					case resistance:
-					{
-						(missionNamespace getVariable ["MCC_MWArtilleryI",["I_Mortar_01_F"]]) call BIS_fnc_selectRandom;
-					};
-
-					case default
-					{
-						(missionNamespace getVariable ["MCC_MWArtilleryO",["B_APC_Tracked_01_AA_F"]]) call BIS_fnc_selectRandom;
-					};
-				};
-	};
-
-	case "air":
-	{
-		_type =  (missionNamespace getVariable ["MCC_MWAir",["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","O_UAV_02_F","O_UAV_02_CAS_F","B_Heli_Attack_01_F","I_Plane_Fighter_03_CAS_F","I_Plane_Fighter_03_AA_F"]]) call BIS_fnc_selectRandom;
-	};
-
-	case "cache":
-	{
-		_type =  (missionNamespace getVariable ["MCC_MWcache",["Box_East_AmmoVeh_F"]]) call BIS_fnc_selectRandom;
-	};
-
-	case "radar":
-	{
-		_type =  (missionNamespace getVariable ["MCC_MWradar",["Land_Radar_Small_F"]]) call BIS_fnc_selectRandom;
-	};
-
-	default
-	{
-		_type =  (missionNamespace getVariable ["MCC_MWFuelTanks",["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"]]) call BIS_fnc_selectRandom;
-	};
+//Couldn't find any object just select all
+if (count _vehiclesArrayFlitered <= 0) then {
+	_vehiclesArrayFlitered = _vehiclesArray;
 };
+
+//Select random vehicle
+_type = _vehiclesArrayFlitered call BIS_fnc_selectRandom;
 
 //How big is it
 _typeSize = switch _objType do

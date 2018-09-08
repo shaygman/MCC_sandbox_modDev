@@ -5,7 +5,7 @@
 // _sim = string, simulation type: "soldier", "car", "motorcycle", "tank", "helicopter", "airplane", "ship", "parachute"
 // _classType = string, class type "men","car","ship","sumarine"
 //========================================================================================================================================================================
-private ["_CfgVehicles","_i","_CfgVehicle","_simulation","_simTypesUnits","_idx","_faction","_vehicleDisplayName","_cfgclass","_cfgFaction","_unitsArray","_vehicleClass","_classType","_notArmed"];
+private ["_CfgVehicles","_i","_CfgVehicle","_simulation","_simTypesUnits","_idx","_faction","_vehicleDisplayName","_cfgclass","_cfgFaction","_unitsArray","_vehicleClass","_classType","_notArmed","_dlc"];
 
 _faction			=  toLower (param [0, "", [""]]);
 _simTypesUnits		=  toLower (param [1, "", [""]]);
@@ -29,8 +29,9 @@ for "_i" from 1 to (count _CfgVehicles - 1) do
 		_cfgFaction 			= toLower (getText(_CfgVehicle >> "faction"));
 		_simulation 			= getText(_CfgVehicle >> "simulation");
 		_vehicleClass			= getText(_CfgVehicle >> "vehicleClass");
+		_dlc					= toLower (getText(_CfgVehicle >>"DLC"));
 
-		if (_faction in [_cfgFaction,"all"]) then
+		if (_faction in [_cfgFaction,"all"] && !(_dlc in ["kart"])) then
 		{
 			if (toLower(_simulation) == _simTypesUnits && !(gettext(_CfgVehicle >> "DLC") in ["Kart"])) then {
 					if ((toLower(_vehicleClass) == _classType) || (_classType == "")) then {

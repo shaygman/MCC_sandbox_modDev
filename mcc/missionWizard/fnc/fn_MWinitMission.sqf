@@ -103,7 +103,7 @@ _objArray			 	= missionNamespace getVariable ["MCC_MWMissionType",["Secure HVT",
 																			   "Download Intel",
 																			   "Capture Area",
 																			   "Disarm IED",
-																			   "Hearts & Minds"
+																			   "Logistics"
 																			  ]];
 
 //Remove random and none
@@ -395,7 +395,7 @@ _objectives = [];
 						_defendingFaction 	= _factionPlayer;
 						_defendingSide 		= _sidePlayer;
 					} else {
-						_defendingFaction = "CIV_F";
+						_defendingFaction = _civFaction;
 						_defendingSide = civilian
 					};
 
@@ -420,13 +420,13 @@ _objectives = [];
 					[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveDisable",2];
 				};
 
-				case (_objType in ["Hearts & Minds"]): {
+				case (_objType in ["Logistics"]): {
 					//[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance] remoteExec ["MCC_fnc_MWObjectiveLogistics",2];
 
-					[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance,_markerName] spawn {
-						params ["_objPos", "_isCQB","_enemySide", "_enemyfaction","_sidePlayer","_preciseMarkers","_campaignMission","_maxObjectivesDistance","_markerName"];
+					[_objPos, _isCQB,_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction, _preciseMarkers] spawn {
+						params ["_objPos", "_isCQB","_enemySide", "_enemyfaction","_sidePlayer","_factionPlayer","_civFaction","_preciseMarkers"];
 
-						private ["_supplyTruck","_startPos","_unit","_supplyTruckClass"];
+						private ["_supplyTruck","_startPos","_unit","_supplyTruckClass","_aidSide","_unitsArray","_units","_counter","_group"];
 
 						//Find a supply truck
 						{
@@ -452,13 +452,45 @@ _objectives = [];
 						//Add to curator
 						{_x addCuratorEditableObjects [[_supplyTruck],true]} forEach allCurators;
 
+						_aidSide = ["civ","military"] call BIS_fnc_selectRandom;
+
 						//If not CQB spawn some POI
 						if !(_isCQB) then {
-							_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
-							[_objPos,30,0,4,_faction, _side] remoteExec ["MCC_fnc_garrison",2];
+							_objPos = [_objPos,_aidSide] call MCC_fnc_buildRandomComposition;
 						};
 
+						//Garrison with some friendly troops
+						if (_aidSide == "civ") then {
+							[_objPos,30,0,4,_civFaction, civilian] remoteExec ["MCC_fnc_garrison",2];
+						} else {
+							[_objPos,30,0,4,_factionPlayer, _sidePlayer] remoteExec ["MCC_fnc_garrison",2];
+						};
+
+						//Spawn one group in defend
+						_unitsArray = [_enemyfaction ,"soldier"] call MCC_fnc_makeUnitsArray;
+
+						if (count _unitsArray > 0) then {
+							if (count _unitsArray > 6) then {_unitsArray resize 6};
+
+							_units = [];
+
+							_objPos = [_objPos,0,100,2,0,50,0] call BIS_fnc_findSafePos;
+
+						    _counter = floor random 8;
+
+							for "_i" from 1 to _counter do {
+								_units pushBack ((_unitsArray call bis_fnc_selectRandom) select 0);
+							};
+
+							_group = [_objPos, _units, 1, _enemySide, false, false] call MCC_fnc_groupSpawn;
+							[_group, _missionPos] call bis_fnc_taskDefend;
+						};
+
+						[_unit,"Logistics",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 					};
+
+					//prevent spawning garrison in houses
+					_isCQB = false;
 				};
 			};
 		};
@@ -501,7 +533,6 @@ _objectives = [];
 
 		// Is CQB
 		if (_isCQB) then {
-			systemChat str [_objPos,(_maxObjectivesDistance*0.5),0,(_totalEnemyUnits*0.05) min 2,_enemyfaction, _enemySide];
 			[[_objPos,(_maxObjectivesDistance*0.5),0,(_totalEnemyUnits*0.05) min 2,_enemyfaction, _enemySide],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
 		};
 

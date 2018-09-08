@@ -12,7 +12,7 @@
 		["_vehicleClass","",[""]]
 	];
 
-	private ["_respawns","_startPos","_fnc_startPos"];
+	private ["_respawns","_startPos","_fnc_startPos","_unit"];
 
 	_fnc_startPos = {
 		params ["_sidePlayer","_vehicleClass","_startPos"];
@@ -30,13 +30,13 @@
 
 	//Find mission start position
 	//First look for MCC HQ
-	_startPos = call compile format ["MCC_START_%1",_sidePlayer];
+	_startPos = missionNameSpace getvariable [(format ["MCC_START_%1",nil]),[]];
 
 	if (!isNil "_startPos") then {
-		_startPos = [_sidePlayer, _vehicleClass, (_startPos)] call _fnc_startPos;
-
 		if (count _startPos <=0) then {
 			_startPos = nil;
+		} else {
+			_startPos = [_sidePlayer, _vehicleClass, _startPos] call _fnc_startPos;
 		};
 	};
 

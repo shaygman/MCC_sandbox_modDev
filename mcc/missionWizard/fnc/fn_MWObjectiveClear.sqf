@@ -27,7 +27,7 @@ if (_isCQB) then {
 
 	//Lets spawn an FOB
 	if (!_campaignMission || (random 1 > 0.7)) then {
-		_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
+		_objPos = [_objPos,"military"] call MCC_fnc_buildRandomComposition;
 	};
 };
 

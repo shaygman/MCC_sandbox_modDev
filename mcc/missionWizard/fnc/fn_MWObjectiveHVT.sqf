@@ -1,25 +1,23 @@
 //=====================================MCC_fnc_MWObjectiveHVT=========================================================================================================
 // Create an HVT objective
-// Example:[_objPos,_isCQB,_alive] call MCC_fnc_MWObjectiveHVT;
+// Example:[_objPos,_isCQB,_hostageRescue] call MCC_fnc_MWObjectiveHVT;
 // _objPos = position, objectice position
 //_isCQB = Boolean, true - for CQB areay false if it doesn't matters.
-//_alive = Boolean, true - catch him alive, False - kill him
+//_hostageRescue = Boolean, true - catch him alive, False - kill him
 // Return - nothing
 //===============================================================================================================================================================
 #define	MCC_UNTIE_ICON "\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_unbind_ca.paa"
 
-private ["_objPos","_isCQB","_alive","_buildingPos","_spawnPos","_unitsArray","_faction","_type","_group","_side","_unit","_building","_unitPlaced","_time","_array","_sidePlayer","_factionPlayer","_walking","_preciseMarkers","_HVTClasses","_selectedBuilding"];
+private ["_objPos","_isCQB","_hostageRescue","_buildingPos","_spawnPos","_unitsArray","_faction","_type","_group","_side","_unit","_building","_unitPlaced","_time","_array","_sidePlayer","_factionPlayer","_walking","_preciseMarkers","_selectedBuilding","_fnc_findHVTClass"];
 
 _objPos = _this select 0;
 _isCQB = _this select 1;
-_alive = _this select 2;
+_hostageRescue = _this select 2;
 _side = _this select 3;
 _faction = _this select 4;
 _sidePlayer = _this select 5;
 _factionPlayer = _this select 6;
 _preciseMarkers = _this select 7;
-
-_HVTClasses = missionNamespace getVariable ["MCC_MWHVT",["B_officer_F","O_officer_F","I_officer_F","C_Nikos"]];
 
 MCC_MWcreateHostage =
 {
@@ -30,7 +28,7 @@ MCC_MWcreateHostage =
 
 	_group = creategroup _side;
 	_rank = ["PRIVATE","CORPORAL","SERGEANT","LIEUTENANT"] select (floor random 3);
-	_unit = _group createUnit [_type select 0,_spawnPos,[],0.5,"NONE"];
+	_unit = _group createUnit [_type, _spawnPos,[],0.5,"NONE"];
 	waituntil {alive _unit};
 	_unit setrank _rank;
 	MCC_tempName = format ["MCC_objectUnits_%1", ["MCC_objectUnitsCounter",1] call bis_fnc_counter];
@@ -42,7 +40,37 @@ MCC_MWcreateHostage =
 	_unit;
 };
 
+_fnc_findHVTClass = {
+	params ["_faction","_side","_random"];
 
+	private ["_unitsArray","_HVTClasses","_hvtClass"];
+
+	_hvtClass = "";
+
+	//Random unit or from MCC_MWHVT variable
+	if (_random) then {
+		_unitsArray	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;
+		while {_hvtClass == ""} do {_hvtClass = (_unitsArray call BIS_fnc_selectRandom) select 0};
+
+	} else {
+		_HVTClasses = missionNamespace getVariable ["MCC_MWHVT",["B_officer_F","O_officer_F","I_officer_F","C_Nikos"]];
+
+		//Find the right side HVT
+		{
+			if (([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side) exitWith {
+				_hvtClass = _x;
+			};
+		} forEach _HVTClasses;
+
+		//Can't find - select random
+		if (_hvtClass == "") then {
+			_unitsArray	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;
+			while {_hvtClass == ""} do {_hvtClass = (_unitsArray call BIS_fnc_selectRandom) select 0};
+		};
+	};
+
+	_hvtClass
+};
 
 if (_isCQB) then {
 
@@ -59,17 +87,10 @@ if (_isCQB) then {
 
 		//No other unit in the spawn position?
 		if (count (nearestObjects [_spawnPos, ["Man"], 1])<1) then {
-			if (_alive) then {
+			if (_hostageRescue) then {
 
-				//Hostage
-				_unitsArray	= [_factionPlayer ,"soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
-				_type = [""];
-
-				//Karts again?!
-				while {(_type select 0) in ["C_Driver_1_F"] || (_type select 0) == ""} do
-				{
-					_type = _unitsArray call BIS_fnc_selectRandom;
-				};
+				//find Hostage class
+				_type = [_factionPlayer, _sidePlayer, false] call _fnc_findHVTClass;
 
 				_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
 				waituntil {alive _unit};
@@ -78,17 +99,8 @@ if (_isCQB) then {
 
 			} else {
 
-				_type = nil;
-
-				//Find the right side HVT
-				{
-					if (([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side) exitWith {
-						_type = _x;
-					};
-				} forEach _HVTClasses;
-
-				if (isNil "_type") then {_type = _HVTClasses call BIS_fnc_selectRandom};
-
+				//find HVT class
+				_type = [_faction, _side, false] call _fnc_findHVTClass;
 				_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
 				waituntil {alive _unit};
 
@@ -108,12 +120,9 @@ if (_isCQB) then {
 
 	_group = creategroup _side;
 
-	if (_alive) then {
-		//Hostage
-
-		//Let's build the faction unit's array
-		_unitsArray	= [_factionPlayer ,"soldier"] call MCC_fnc_makeUnitsArray;
-		_type = _unitsArray call BIS_fnc_selectRandom;
+	if (_hostageRescue) then {
+		//find Hostage class
+		_type = [_factionPlayer, _sidePlayer, false] call _fnc_findHVTClass;
 
 		//Find an empry spot
 		_spawnPos = _objPos findEmptyPosition [0,100,(_type select 0)];
@@ -128,14 +137,8 @@ if (_isCQB) then {
 
 	} else {
 
-		//Find the right side HVT
-		{
-			if (([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side) exitWith {
-				_type = _x;
-			};
-		} forEach _HVTClasses;
-
-		if (isNil "_type") then {_type = _HVTClasses call BIS_fnc_selectRandom};
+		//find HVT class
+		_type = [_faction, _side, false] call _fnc_findHVTClass;
 
 		//Find an empry spot
 		_spawnPos = _objPos findEmptyPosition [0,100,_type];
@@ -164,10 +167,11 @@ if (_isCQB) then {
 
 	//Lets spawn some body guards
 	_unitsArray 	= [_faction ,"soldier"] call MCC_fnc_makeUnitsArray;
+	private _guardsNumber = floor random 5;
 
-	for [{_i=0},{_i<3},{_i=_i+1}] do {
+	for [{_i=0},{_i< _guardsNumber},{_i=_i+1}] do {
 
-		_type = _unitsArray select round (random 4);
+		_type = _unitsArray select floor (random 4);
 		_spawnPos = (getpos _unit) findEmptyPosition [0,100,(_type select 0)];
 		_unit = _group createUnit [_type select 0,_spawnPos,[],0.5,"NONE"];
 		waituntil {alive _unit};

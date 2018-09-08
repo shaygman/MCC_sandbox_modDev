@@ -70,40 +70,16 @@ class MCC_Module_settingsMissionWizard : Module_F
 					value = 8;
 				};
 
-				class MCC_MWAAB
+				class MCC_MWAA
 				{
-					name = "Anti-Air West(Vehicle)";
+					name = "Anti-Air(Vehicle)";
 					value = 9;
 				};
 
-				class MCC_MWAAO
+				class MCC_MWArtillery
 				{
-					name = "Anti-Air East(Vehicle)";
+					name = "Artillery(Vehicle)";
 					value = 10;
-				};
-
-				class MCC_MWAAI
-				{
-					name = "Anti-Air Independent(Vehicle)";
-					value = 11;
-				};
-
-				class MCC_MWArtilleryB
-				{
-					name = "Artillery West(Vehicle)";
-					value = 12;
-				};
-
-				class MCC_MWArtilleryO
-				{
-					name = "Artillery Independent(Vehicle)";
-					value = 13;
-				};
-
-				class MCC_MWArtilleryI
-				{
-					name = "Artillery Independent(Vehicle)";
-					value = 14;
 				};
 			};
 		};
