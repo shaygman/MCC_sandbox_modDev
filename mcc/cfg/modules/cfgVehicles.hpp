@@ -36,3 +36,4 @@
 #include "MCC_Module_medicSetState.hpp"
 #include "MCC_Module_createShop.hpp"
 #include "MCC_Module_addValor.hpp"
+#include "MCC_Module_settingsMissionWizard.hpp"

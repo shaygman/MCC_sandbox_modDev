@@ -78,14 +78,17 @@ if (_isCQB) then {
 
 			} else {
 
-				//HVT
-				switch _side do
-					{
-						case west: {_type =   _HVTClasses select 0};
-						case east: {_type =   _HVTClasses select 1};
-						case resistance:  {_type =   _HVTClasses select 2};
-						default {_type =   _HVTClasses select 3};
+				_type = nil;
+
+				//Find the right side HVT
+				{
+					if (([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side) exitWith {
+						_type = _x;
 					};
+				} forEach _HVTClasses;
+
+				if (isNil "_type") then {_type = _HVTClasses call BIS_fnc_selectRandom};
+
 				_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
 				waituntil {alive _unit};
 
@@ -125,14 +128,14 @@ if (_isCQB) then {
 
 	} else {
 
-		//HVT
-		switch _side do
-			{
-				case west: {_type =   _HVTClasses select 0};
-				case east: {_type =   _HVTClasses select 1};
-				case resistance:  {_type =   _HVTClasses select 2};
-				default {_type =   _HVTClasses select 3};
+		//Find the right side HVT
+		{
+			if (([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side) exitWith {
+				_type = _x;
 			};
+		} forEach _HVTClasses;
+
+		if (isNil "_type") then {_type = _HVTClasses call BIS_fnc_selectRandom};
 
 		//Find an empry spot
 		_spawnPos = _objPos findEmptyPosition [0,100,_type];

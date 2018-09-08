@@ -1,6 +1,6 @@
 Change log r26:
 
-Static Ships
+Static Ships  *NEW*
 	Added - Spawn BI Carrier, BI destroyer, BI submarine or CUP LHD from Zeus or 3den. Each ship will serve as respawn point and HQ and Mission maker can spawn vehicels on ships
 	Added - Ship stores, players can trade credit to purchase vehicles from ships
 	Added - Side commander can access the ships' fleet interface and spawn vehicles using resources

@@ -146,13 +146,13 @@ if (_specialIntro != "none") then {
 		{
 			//Fade in
 			["BLACK IN",_trazDuration,0] call MCC_fnc_tranzEffect;
-			_camPos set [2,30];
+			_camPos set [2,300];
 			_cam camPrepareTarget _camPos;
 			_cam cameraEffect ["internal", "BACK"];
 			_cam camCommitPrepared 0;
 
 			// Move camera in a circle
-			[position _object, 400, 400, random 360, round random 1,_cam] spawn {
+			[position _object, 600, 600, random 360, round random 1,_cam] spawn {
 				params ["_pos", "_alt", "_rad", "_ang", "_dir","_cam"];
 				private ["_coords"];
 
@@ -247,6 +247,7 @@ if (_specialIntro != "none") then {
 	_cam camSetPos _camPos;
 	_cam camPrepareTarget _object;
 	_cam camCommitPrepared 0;
+	_timeEnd = time + _shotDuration;
 
 	//Fade in
 	[ "BLACK IN",_trazDuration,0] call MCC_fnc_tranzEffect;
@@ -268,8 +269,11 @@ if (_specialIntro != "none") then {
 	//Briefings
 	[[[_taskDescription,"<t size='0.7' font='PuristaMedium'>%1</t>",0]],safezoneX,0,"<t color='#E2EEE0' align='left'>%1</t>"] call BIS_fnc_typeText;
 
-	sleep 1-_trazDuration;
+	waitUntil {time > _timeEnd};
 };
+
+//Fade out
+[ "BLACK OUT",2,100] call MCC_fnc_tranzEffect;
 
 //Clean up
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", _endCinimeticEH];
