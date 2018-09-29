@@ -476,7 +476,7 @@ _StartTimeIssueOrders = time;
 		 };
 		 //Next CA
 		 sleep 0.1;
-	}forEach 	([AllGroups,[],{_SelectCA distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+	}forEach 	([AllGroups,[_SelectCA],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
 
 
 
@@ -566,7 +566,7 @@ _StartTimeIssueOrders = time;
 
 										};
 					};
-				}forEach ([AllGroups,[],{_SpotPos distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+				}forEach ([AllGroups,[_SpotPos],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
 		};
 
 }forEach _tbc;

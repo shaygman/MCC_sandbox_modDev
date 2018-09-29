@@ -37,4 +37,4 @@ if (_isCQB) then {
 sleep 2;
 
 //Create Task
-[_objPos,"clear_area",_preciseMarkers,_side,_maxObjectivesDistance,_sidePlayer] call MCC_fnc_MWCreateTask;
+[objnull, _objPos,"clear_area",_preciseMarkers,_side,_maxObjectivesDistance,_sidePlayer] call MCC_fnc_MWCreateTask;

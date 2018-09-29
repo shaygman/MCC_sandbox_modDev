@@ -29,7 +29,7 @@ while {count _foundBuildings == 0} do
 
 
 	if (!isnil "_buildingsArray") then {
-		_buildingsArraySorted = [_buildingsArray, [], { _objPos distance _x }, "ASCEND"] call BIS_fnc_sortBy;
+		_buildingsArraySorted = [_buildingsArray, [_objPos], { _input0 distance _x }, "ASCEND"] call BIS_fnc_sortBy;
 
 		{
 			_building = _x;

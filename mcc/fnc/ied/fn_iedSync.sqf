@@ -12,8 +12,8 @@ if (mcc_isloading) then {waitUntil {! mcc_isloading}};
 
 _nearObjectsA 	= _pointA nearObjects [MCC_dummy,50];
 _nearObjectsB 	= _pointB nearObjects [MCC_dummy,50];
-_nearObjectsA	= [_nearObjectsA, [], { _pointA distance _x }, "ASCEND"] call BIS_fnc_sortBy;
-_nearObjectsB	= [_nearObjectsB, [], { _pointB distance _x }, "ASCEND"] call BIS_fnc_sortBy;
+_nearObjectsA	= [_nearObjectsA, [_pointA], { _input0 distance _x }, "ASCEND"] call BIS_fnc_sortBy;
+_nearObjectsB	= [_nearObjectsB, [_pointB], { _input0 distance _x }, "ASCEND"] call BIS_fnc_sortBy;
 _triggerA	 	= _nearObjectsA select 0;
 _triggerB	 	= _nearObjectsB select 0;
 

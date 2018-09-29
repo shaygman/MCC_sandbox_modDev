@@ -16,7 +16,7 @@ Weapons/Items/Gear Shops: *NEW*
 	Added - Prices parameter - prices will be defined automatically by MCC depends on the item stats the mission maker can define how expensive one shop will be compared to other shops.
 
 Vehicle rearm - air vehicles pylon change module
-	Added - you can now repair, refuel and rearm from this module.
+	Added - you can now repair, refuel and rearm using the rearm module.
 
 
 Vehicles Camonets *NEW*
@@ -63,7 +63,8 @@ General
 
 
 TODO -
-Add refuel/rearm to pylons and add pylons to carriers - make it optional
+the intel module doesn't work after loading a mission
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
 Check respawn
 Check droppods
 under water objectives?

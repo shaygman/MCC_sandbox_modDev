@@ -428,6 +428,8 @@ _objectives = [];
 
 						private ["_supplyTruck","_startPos","_unit","_supplyTruckClass","_aidSide","_unitsArray","_units","_counter","_group"];
 
+						_objPos set [2,0];
+
 						//Find a supply truck
 						{
 							if (((getNumber (configfile >> "CfgVehicles" >> _x >> "side")) call BIS_fnc_sideType) isEqualTo _sidePlayer) exitWith {
@@ -483,10 +485,10 @@ _objectives = [];
 							};
 
 							_group = [_objPos, _units, 1, _enemySide, false, false] call MCC_fnc_groupSpawn;
-							[_group, _missionPos] call bis_fnc_taskDefend;
+							[_group, _objPos] call bis_fnc_taskDefend;
 						};
 
-						[_unit,"Logistics",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+						[_supplyTruck, _objPos,"Logistics",_preciseMarkers,_enemySide,400] call MCC_fnc_MWCreateTask;
 					};
 
 					//prevent spawning garrison in houses

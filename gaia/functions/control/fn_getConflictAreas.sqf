@@ -62,10 +62,9 @@ switch (_HQ_side) do
 }forEach _Targets;
 
 // Order the CA's. The one who is the closest to any zone wins
-//_ca=[_ca,[],{[_HQ_side,_x] CALL GAIA_fnc_getDistanceToClosestZone;},"ASCEND"] call BIS_fnc_sortBy;
 if (count(_ca)>0) then
 	{
-		_CA=[_CA,[],{[_HQ_side,_x] CALL GAIA_fnc_getDistanceToClosestZone;}] call BIS_fnc_sortBy;
+		_CA=[_CA,[_HQ_side],{[_input0,_x] CALL GAIA_fnc_getDistanceToClosestZone;}] call BIS_fnc_sortBy;
 	};
 
 

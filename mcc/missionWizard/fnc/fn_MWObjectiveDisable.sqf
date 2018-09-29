@@ -84,4 +84,4 @@ _groupArray = if (count MCC_MWGroupArrayMenRecon > 0) then {
 
 {_x addCuratorEditableObjects [[_object],false]} forEach allCurators;
 
-[_object,"disableIED",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+[_object, getpos _object,"disableIED",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;

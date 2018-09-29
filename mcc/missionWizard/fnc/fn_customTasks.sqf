@@ -132,6 +132,29 @@ switch (true) do {
 		_logic setvariable ["RscAttributeTaskState","Succeeded", true];
 	};
 
+	case (_taskType in ["logistic"]): {
+		_missionDone = false;
+		while {canMove _attachedUnit && !_missionDone} do {
+			if (_attachedUnit distance2D _logic < 50) then {
+				_missionDone = true;
+			};
+
+			sleep 1;
+		};
+
+		if (_missionDone) then {
+			_logic setvariable ["RscAttributeTaskState","Succeeded", true];
+
+			{
+				missionNamespace setVariable [format ["MCC_campaignMissionsStatus_%1_succeed",(side leader _attachedUnit)],(missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_succeed",(side leader _attachedUnit)],0])+1];
+			} forEach [west,east,resistance];
+		} else {
+			_logic setvariable ["RscAttributeTaskState","Failed", true];
+			missionNamespace setVariable [format ["MCC_campaignMissionsStatus_%1_failed",(side leader _attachedUnit)],(missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_failed",(side leader _attachedUnit)],0])+1];
+		};
+
+	};
+
 	case (_taskType in ["parent"]): {
 		waituntil {isNull _logic || ({!(_x call bis_fnc_taskCompleted)} count (_taskName call BIS_fnc_taskChildren) > 0)};
 

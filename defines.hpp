@@ -89,6 +89,7 @@ class CfgFunctions
 		#include "mcc\vehicles\cfgFunctions.hpp"
 		#include "mcc\logistics\cfgFunctions.hpp"
 		#include "mcc\UI\cfgFunctions.hpp"
+		#include "mcc\roads\cfgFunctions.hpp"
 	};
 };
 

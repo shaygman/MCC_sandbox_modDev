@@ -23,21 +23,21 @@ Switch (_side) do
 if _ExcludeAmbientZone then
 {
 	_zones = ([_zones, {parseNumber _x <1000}] call BIS_fnc_conditionalSelect);
-	_ClosestZone=(([_Zones,[],{(_pos distance (getMarkerPos _x))},"ASCEND"] call BIS_fnc_sortBy)select 0);
+	_ClosestZone=(([_Zones,[_pos],{(_input0 distance (getMarkerPos _x))},"ASCEND"] call BIS_fnc_sortBy)select 0);
 }
 else
-{_ClosestZone=(([_Zones,[],{_pos distance (getMarkerPos _x)},"ASCEND"] call BIS_fnc_sortBy)select 0);};
+{_ClosestZone=(([_Zones,[_pos],{_input0 distance (getMarkerPos _x)},"ASCEND"] call BIS_fnc_sortBy)select 0);};
 
 if (IsNil("_ClosestZone") )then
 	{_Distance = 99999;}
 else
-	{		
+	{
 		if (!(getMarkerColor _ClosestZone == ""))then
 		{_Distance = ((getMarkerPos _ClosestZone) distance _pos);}
 		else
 		{_Distance = 99999;};
 	};
-	
+
 _Distance
 
 

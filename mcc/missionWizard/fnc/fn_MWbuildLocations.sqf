@@ -56,7 +56,7 @@ if (isnil "_locations") exitWith (diag_log format["MCC MW: fn_MWbuildLocations %
 {
 	_type = type _x;
 	_name = text _x;
-	_locationsArray set [count _locationsArray, [_x,_name]];
+	_locationsArray pushBack [_x,_name];
 	if (missionNamespace getVariable ["MCC_debug",false]) then
 	{
 		createmarkerlocal [_name ,getpos _x];

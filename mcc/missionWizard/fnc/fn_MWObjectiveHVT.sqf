@@ -95,7 +95,7 @@ if (_isCQB) then {
 				_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
 				waituntil {alive _unit};
 
-				[_unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+				[_unit, getpos _unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 
 			} else {
 
@@ -104,7 +104,7 @@ if (_isCQB) then {
 				_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
 				waituntil {alive _unit};
 
-				[_unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+				[_unit, getpos _unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 			};
 
 			_unitPlaced = true;
@@ -125,13 +125,13 @@ if (_isCQB) then {
 		_type = [_factionPlayer, _sidePlayer, false] call _fnc_findHVTClass;
 
 		//Find an empry spot
-		_spawnPos = _objPos findEmptyPosition [0,100,(_type select 0)];
+		_spawnPos = _objPos findEmptyPosition [0,100,_type];
 		_unit = [_sidePlayer,_spawnPos,_type] call MCC_MWcreateHostage;
 
 		//Start Briefings
 		waituntil {alive _unit};
 
-		[_unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+		[_unit, getpos _unit,"Secure_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 		//Static Patrol
 		_walking = false;
 
@@ -162,7 +162,7 @@ if (_isCQB) then {
 			_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
 		};
 
-		[_unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+		[_unit, getpos _unit,"Kill_HVT",_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 	};
 
 	//Lets spawn some body guards

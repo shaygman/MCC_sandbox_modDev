@@ -96,7 +96,7 @@ if ( _wppos distance [0,0,0]>0) then
 			  //If this fails, every transport in the universe will try to serve us, maybe something smarter
 			  if (		((_group getVariable  ["GAIA_Order",""]) == "DoTransport")) exitwith {true;};
 			//Lets assume the closest valid transporter is the most logic one (not always true, but i dunno yet how to improve without overcomplicate stuff)
-			}forEach ([AllGroups,[],{(leader _group) distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+			}forEach ([AllGroups,[_group],{(leader _input0) distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
 		};
 	};
 

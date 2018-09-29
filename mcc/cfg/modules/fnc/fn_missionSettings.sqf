@@ -17,21 +17,21 @@ if (_module isKindOf "MCC_Module_settings") exitWith {
 	//Save gear
 	_var 	= _module getvariable ["saveGear",1];
 	missionNamespace setVariable ["MCC_saveGearIndex",_var];
-	MCC_saveGear = if (_var == 0) then {false} else {true};
+	MCC_saveGear = (_var isEqualTo 1);
 
 	//Messeges
 	_var 	= _module getvariable ["messages",1];
 	missionNamespace setVariable ["MCC_MessagesIndex",_var];
-	MCC_Chat = if (_var == 0) then {false} else {true};
+	MCC_Chat = (_var isEqualTo 1);
 
 	//Sync
 	_var 	= _module getvariable ["sync",1];
-	MCC_syncOn = if (_var == 0) then {false} else {true};
+	MCC_syncOn = (_var isEqualTo 1);
 
 	//Artillery computer
 	_var 	= _module getvariable ["artilleryComputer",1];
 	missionNamespace setVariable ["MCC_artilleryComputerIndex",_var];
-	enableEngineArtillery (if (_var == 0) then {false} else	{true});
+	enableEngineArtillery (_var isEqualTo 1);
 
 	//Time Excel
 	_var 	= _module getvariable ["timeAccel",0];
@@ -40,11 +40,11 @@ if (_module isKindOf "MCC_Module_settings") exitWith {
 	//Delete players body
 	_var 	= _module getvariable ["deleteBody",1];
 	missionNamespace setVariable ["mcc_deletePlayerBodyIndex",_var];
-	MCC_deletePlayersBody = if (_var == 0) then {false} else {true};
+	MCC_deletePlayersBody = (_var isEqualTo 1);
 
 	//Respawn Menu
 	_var 	= _module getvariable ["respawnMenu",1];
-	MCC_openRespawnMenu = if (_var == 0) then {false} else {true};
+	MCC_openRespawnMenu = (_var isEqualTo 1);
 
 	//Respawn Cinematic
 	MCC_respawnCinematic = ((_module getvariable ["respawnCinematic",1]) == 1);
@@ -54,11 +54,11 @@ if (_module isKindOf "MCC_Module_settings") exitWith {
 
 	//SQL PDA
 	_var 	= _module getvariable ["sqlPDA",1];
-	MCC_allowsqlPDA = if (_var == 0) then {false} else {true};
+	MCC_allowsqlPDA = (_var isEqualTo 1);
 
 	//Commander Console
 	_var 	= _module getvariable ["commanderConsole",1];
-	MCC_allowConsole = if (_var == 0) then {false} else {true};
+	MCC_allowConsole = (_var isEqualTo 1);
 
 	//Commander Console Show units without GPS
 	_var 	= _module getvariable ["commanderConsoleShowGPS",1];
@@ -66,28 +66,28 @@ if (_module isKindOf "MCC_Module_settings") exitWith {
 
 	//Commander Console Show friendly WP
 	_var 	= _module getvariable ["commanderConsoleWP",1];
-	MCC_ConsoleDrawWP = if (_var == 0) then {false} else {true};
-	MCC_ConsolePlayersCanSeeWPonMap = if (_var == 0) then {false} else {true};
+	MCC_ConsoleDrawWP = (_var isEqualTo 1);
+	MCC_ConsolePlayersCanSeeWPonMap = (_var isEqualTo 1);
 
 	//Commander Console Can command AI
 	_var 	= _module getvariable ["commanderConsoleAI",1];
-	MCC_ConsoleCanCommandAI = if (_var == 0) then {false} else {true};
+	MCC_ConsoleCanCommandAI = (_var isEqualTo 1);
 
 	//Squad dialog
 	_var 	= _module getvariable ["squadDialog",1];
-	MCC_allowSquadDialog = if (_var == 0) then {false} else {true};
+	MCC_allowSquadDialog = (_var isEqualTo 1);
 
 	//Squad dialog camera
 	_var 	= _module getvariable ["squadDialogPip",1];
-	MCC_allowSquadDialogCamera = if (_var == 0) then {false} else {true};
+	MCC_allowSquadDialogCamera = (_var isEqualTo 1);
 
 	//Logistics
 	_var 	= _module getvariable ["logistics",1];
-	MCC_allowlogistics = if (_var == 0) then {false} else {true};
+	MCC_allowlogistics =(_var isEqualTo 1);
 
 	//Allow RTS
 	_var 	= _module getvariable ["allowRTS",0];
-	MCC_allowRTS = if (_var == 0) then {false} else {true};
+	MCC_allowRTS = (_var isEqualTo 1);
 
 	//Purchable airDrops
 	MCC_defaultSupplyDropsEnabled = _module getvariable ["defaultSupplyDropsEnabled",false];

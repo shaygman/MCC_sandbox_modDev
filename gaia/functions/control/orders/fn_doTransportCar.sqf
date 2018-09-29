@@ -32,7 +32,7 @@ _nearRoad 					= (leader _group nearRoads 300);
 
 if (count(_nearroad)>0) then
 //Arrange a pickup on the side of the street, else we gonna have ai crazyness going on
-{_road = (([_nearRoad,[],{leader _group distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);
+{_road = (([_nearRoad,[_group],{leader _input0 distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);
 
  _roadConnectedTo = roadsConnectedTo _road;
 
@@ -47,7 +47,7 @@ if (count(_nearroad)>0) then
 
 _nearRoad 					= ( _wpPos nearRoads 300);
 if (count(_nearroad)>0) then
-{_PosCloseRoadEnd   = position(([_nearRoad,[],{_wpPos distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);};
+{_PosCloseRoadEnd   = position(([_nearRoad,[_wpPos],{_input0 distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);};
 
 if (
 			//There is a road found to pickup and a road foudn to drop him off

@@ -1,5 +1,5 @@
 //======================================================MCC_fnc_nearestRoad=========================================================================================================
-// Example:[_pos,_radius] call MCC_fnc_nearestRoad; 
+// Example:[_pos,_radius] call MCC_fnc_nearestRoad;
 /*
 	Author: Nelson Duarte
 
@@ -10,7 +10,7 @@
 	_this select 0:	ARRAY	- The center position
 	_this select 1:	NUMBER	- The distance from center position
 	_this select 2:	ARRAY	- List of blacklisted road objects
-	
+
 	Returns:
 	OBJECT	- Nearest road object on success
 	NULL	- If no road object is found within given radius
@@ -41,7 +41,7 @@ if (count _nearRoads > 0) then {
 			//The current road
 			private "_current";
 			_current = _x;
-			
+
 			//Is road blacklisted?
 			if !(_current in _blacklisted) then {
 				_nearRoadsFinal set [count _nearRoadsFinal, _current];
@@ -50,11 +50,11 @@ if (count _nearRoads > 0) then {
 	} else {
 		_nearRoadsFinal = _nearRoads;
 	};
-	
+
 	//Make sure we have roads to process
 	if (count _nearRoadsFinal > 0) then {
 		//Order by nearest
-		_nearRoadsFinalSorted = [_nearRoadsFinal, [], { _position distance _x }, "ASCEND"] call BIS_fnc_sortBy;
+		_nearRoadsFinalSorted = [_nearRoadsFinal, [_position], { _input0 distance _x }, "ASCEND"] call BIS_fnc_sortBy;
 
 		//Nearest road
 		_road = _nearRoadsFinalSorted select 0;
@@ -65,5 +65,5 @@ if (count _nearRoads > 0) then {
 _nearRoadsFinalSorted
 
 
-				
-		
+
+

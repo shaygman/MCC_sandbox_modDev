@@ -1001,7 +1001,7 @@ MCC_CONST_CAM_Handler =
 			for "_i" from 0 to (count _list)-1 do {if !(isNull attachedTo (_list select _i)) then {_list set [_i, -1]}};
 			_list = _list - [-1];
 			_list = _list + ((screenToWorld [_posX,_posY]) nearObjects [MCC_RTS_BUILDING_DUMMY_ANCHOR, 20]);
-			_list = [_list,[],{(screenToWorld [_posX,_posY]) distance _x},"ASCEND"] call BIS_fnc_sortBy;
+			_list = [_list,[[_posX,_posY]],{(screenToWorld _input0) distance _x},"ASCEND"] call BIS_fnc_sortBy;
 
 			if (count _list > 0 && !_isFort) then {
 				_obj = _list select 0;

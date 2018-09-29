@@ -6,15 +6,16 @@
 //_preciseMarker = Boolean, true - precise task marker
 // Return - [taskName,Task pos]
 //===================================================================================================================================================================*/
-private ["_obj","_task","_preciseMarker","_type","_stringName","_stringDescription","_pos","_objectName","_missionTime","_missionIntel","_indecator","_capturVar",
-      "_stateCond","_missionWherabouts","_side","_sidePlayer","_pic","_sides","_taskId","_taskType"];
+private ["_type","_stringName","_stringDescription","_pos","_objectName","_missionTime","_missionIntel","_indecator","_capturVar","_stateCond","_missionWherabouts","_pic","_sides","_taskId","_taskType"];
 
-_obj 			= _this select 0;
-_task 			= _this select 1;
-_preciseMarker 	= _this select 2;
-_side = param [3, east];
-_maxObjectivesDistance = param [4, 400, [0]];
-_sidePlayer = param [5, sideLogic];
+_this params [
+  ["_obj",objNull,[objNull]],
+  ["_pos",[],[[]]],
+  ["_task","",[""]],
+  ["_preciseMarker",false,[false]],
+  ["_side",sideLogic,[sideLogic]],
+  ["_maxObjectivesDistance",400,[400]]
+];
 
 //define contesting sides
 _sides = [east,west,resistance] - [_side];
@@ -46,7 +47,8 @@ _missionWherabouts =
       "around here"
    ];
 
-_pos = if (typeName _obj == "OBJECT") then {getpos _obj} else {_obj};
+if (_pos isEqualTo []) then {_pos = getPos _obj};
+if (count _pos ==2) then {_pos set [2,0]};
 
 if !(_preciseMarker) then {
 	_pos =  [(_pos select 0) + (random 300 - random 300),(_pos select 1) + (random 300 - random 300),(_pos select 2)];
@@ -240,6 +242,15 @@ switch (_task) do {
       _taskType = "mine";
    };
 
+   case "Logistics": {
+      _stringName   = "Deliver supplies";
+
+      _stringDescription =  "Deliver supplies. <br/><br/>Local population needs medical supplies.<br/>Top brass belive that delivering them this supplies is in our favor.<br/>Get the supply track and deliver it to the designated area.";
+
+      _pic = "a3\Missions_F_BOOTCAMP\data\img\Bootcamp_overview_CA.paa";
+      _taskType = "logistic";
+   };
+
    //clear_area
    default {
       _stringName   = "Clear Area";
@@ -289,13 +300,13 @@ if (_task == "clear_area") then {
     _vehicle = _group createunit ["MCC_ModuleObjective_F", _pos,[],0.5,"NONE"];
     _taskId = str _vehicle + str (["MCC_fnc_moduleObjective_id",1] call bis_fnc_counter);
     _vehicle setvariable ["RscAttributeOwners",[_x],true];
-    if (typeName _obj == "OBJECT") then {_vehicle setvariable ["AttachObject_object",_obj,true]};
+    if !(isNull _obj) then {_vehicle setvariable ["AttachObject_object",_obj,true]};
     _vehicle setvariable ["RscAttributeTaskState","created", true];
     _vehicle setvariable ["taskType",_taskType,true];
     _vehicle setvariable ["taskName",[_taskId,_missionName],true];
     _vehicle setvariable ["RscAttributeTaskDescription",[_stringDescription,_stringName,_stringName],true];
 
-    if (typeName _obj == "OBJECT" && _preciseMarker) then {
+    if (!(isNull _obj) && _preciseMarker) then {
       _vehicle setvariable ["showMarker",[_obj,true],true];
        _vehicle setvariable ["show3d",true,true];
     } else {

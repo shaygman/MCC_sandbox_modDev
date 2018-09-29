@@ -24,7 +24,7 @@ if !(isnil("_Zone")) then
 				 _nearRoad 					= (_pos nearRoads 10);
 			   	 if (count(_nearroad)>0) then
 			   	 	//Arrange a pickup on the side of the street, else we gonna have ai crazyness going on
-			   	 	{_road = (([_nearRoad,[],{leader _group distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);
+			   	 	{_road = (([_nearRoad,[_group],{leader _input0 distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);
 						 _roadConnectedTo = roadsConnectedTo _road;
 						if (count(_roadConnectedTo)>0) then
  							{

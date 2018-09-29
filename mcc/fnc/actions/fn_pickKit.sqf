@@ -69,16 +69,7 @@ private ["_nearHolders","_holder"];
 _nearHolders = (getpos _suspect nearObjects ["weaponHolderSimulated",5]);
 
 if (count _wepPlayer > 0) then {
-	/*
-	if (count _nearHolders > 0) then {
-		_nearHolders = [_nearHolders,[],{(_suspect distance _x)},"ASCEND"] call BIS_fnc_sortBy;
-		_wepHolder = _nearHolders select 0;
-	} else {
-		_wepHolder = "weaponHolderSimulated" createVehicle getpos _suspect;
-		waituntil {!isnil "_wepHolder"};
-		_wepHolder setpos getpos _suspect;
-	};
-	*/
+
 	_wepHolder = "weaponHolderSimulated" createVehicle getpos _suspect;
 	waituntil {!isnil "_wepHolder"};
 	_wepHolder setpos getpos _suspect;

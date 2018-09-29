@@ -64,8 +64,8 @@ while {true} do {
 			_group = _x;
 			_leader = leader _group;
 
-			_attackZonesPos = [_attackZonesPos,[],{_leader distance _x},"ASCEND"] call BIS_fnc_sortBy;
-			_defendZonesPos = [_defendZonesPos,[],{_leader distance _x},"ASCEND"] call BIS_fnc_sortBy;
+			_attackZonesPos = [_attackZonesPos,[_leader],{_input0 distance _x},"ASCEND"] call BIS_fnc_sortBy;
+			_defendZonesPos = [_defendZonesPos,[_leader],{_input0 distance _x},"ASCEND"] call BIS_fnc_sortBy;
 
 			if (count _attackZonesPos == 0) exitWith {};
 			_closestZonePos = _attackZonesPos select 0;

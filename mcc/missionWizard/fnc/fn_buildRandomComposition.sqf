@@ -31,13 +31,18 @@ while {str _spawnPos == "[-500,-500,0]" || (count (_spawnPos nearRoads 50) > 2)}
 if (count _spawnPos <3) then {_spawnPos set [2,0]};
 */
 
-private _compTypeName = switch (tolower _compType) do
+private ["_compostion","_compTypeName"];
+
+_compTypeName = switch (tolower _compType) do
 						{
 							case "military":{"MCC_MWSITESmilitary"};
 							case "civ":{"MCC_MWSITES"};
-							default	{["civ","military"] call BIS_fnc_selectRandom};
+							default	{["MCC_MWSITES","MCC_MWSITESmilitary"] call BIS_fnc_selectRandom};
 						};
 
-_null = [_pos, random 360, ((missionNamespace getVariable [_compTypeName,[]]) call BIS_fnc_selectRandom)] call MCC_fnc_compositionsPlace;
+_compostion = (missionNamespace getVariable [_compTypeName,[]]) call BIS_fnc_selectRandom;
+
+if (count _pos == 2) then {_pos set [2,0]};
+_null = [_pos, random 360, _compostion] call MCC_fnc_compositionsPlace;
 
 _pos;

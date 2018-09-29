@@ -37,8 +37,10 @@ _selectedBuilding = ([_objPos, 100] call MCC_fnc_MWFindbuildingPos) call BIS_fnc
 _building = _selectedBuilding select 0;
 _buildingPos = _selectedBuilding select 1;
 
+_spawnPos = _objPos;
+
 if (!(isnil "_buildingPos") &&
-    (_isCQB || (! _isCQB && (_building distance2D _objPos) <= 20))
+    (_isCQB || (! _isCQB && (_building distance2D _objPos) <= 50))
     ) then {
 
 	_time = time;
@@ -89,7 +91,7 @@ _init = '_this call MCC_fnc_pickItem';
 {_x addCuratorEditableObjects [[_object],false]} forEach allCurators;
 
 //Start Briefings
-[_object,_taskType,_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
+[_object, getpos _object,_taskType,_preciseMarkers,_side,400,_sidePlayer] call MCC_fnc_MWCreateTask;
 
 
 
