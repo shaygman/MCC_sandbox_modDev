@@ -105,8 +105,6 @@ if (isServer) then
 					 )
 				then
 				{
-
-
 						//Maximum ambient is 6 groups per player with a max of 35.
 						_groupAmount = (((count(playableUnits))max 1)*6) min MCC_GAIA_AC_MAXGROUPS;
 						_spotValid = false;
@@ -208,38 +206,38 @@ if (isServer) then
 
 
 
+						{
+							if (
+										//The dude is alive
+										alive _x
+										&&
+										// He is a human
+										_x isKindOf "man"
+										&&
+										// He is not part of the Ambient Combat
+										!(group _x getVariable ["GAIA_AMBIENT",false])
+										&&
+										// He is not a player
+										!(isplayer _x)
+										&&
+										count((group _x) getVariable ["GAIA_ZONE_INTEND",[]])>0
+
+
+
+									)
+							then
 							{
-								if (
-											//The dude is alive
-											alive _x
-											&&
-											// He is a human
-											_x isKindOf "man"
-											&&
-											// He is not part of the Ambient Combat
-											!(group _x getVariable ["GAIA_AMBIENT",false])
-											&&
-											// He is not a player
-											!(isplayer _x)
-											&&
-											count((group _x) getVariable ["GAIA_ZONE_INTEND",[]])>0
 
-
-
-										)
-								then
+								_unit			 = _x;
+								switch (side _x) do
 								{
+							    case west: 					{ if !((faction _x) in _FactionsWest) then {_FactionsWest=_FactionsWest+ [(faction _x)]};};
+									case east: 					{ if !((faction _x) in _FactionsEast) then {_FactionsEast=_FactionsEast+ [(faction _x)]};};
+							    case independent	: {if !((faction _x) in _FactionsIndep) then {_FactionsIndep=_FactionsIndep+ [(faction _x)]};};
+								};
+						 	};
 
-									_unit			 = _x;
-									switch (side _x) do
-									{
-								    case west: 					{ if !((faction _x) in _FactionsWest) then {_FactionsWest=_FactionsWest+ [(faction _x)]};};
-										case east: 					{ if !((faction _x) in _FactionsEast) then {_FactionsEast=_FactionsEast+ [(faction _x)]};};
-								    case independent	: {if !((faction _x) in _FactionsIndep) then {_FactionsIndep=_FactionsIndep+ [(faction _x)]};};
-									};
-							 	};
-
-							} foreach allUnits;
+						} foreach allUnits;
 
 
 
@@ -257,8 +255,6 @@ if (isServer) then
 							};
 
 					//hint format ["%1 ratio: %2 total: %3 disttot %4",[ _FactionsWest,_FactionsEast, _FactionsIndep],_sideRatios,_totunits,_distTot];
-
-
 					if _DoStuff then
 					{
 

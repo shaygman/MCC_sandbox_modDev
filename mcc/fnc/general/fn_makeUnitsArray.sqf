@@ -18,6 +18,8 @@ _idx      			= 0;
 _CfgVehicles 		= configFile >> "CfgVehicles";
 _unitsArray			=[];
 
+_simTypesUnits = [_simTypesUnits, _simTypesUnits + "x"];
+
 for "_i" from 1 to (count _CfgVehicles - 1) do
 {
 	_CfgVehicle = _CfgVehicles select _i;
@@ -33,16 +35,19 @@ for "_i" from 1 to (count _CfgVehicles - 1) do
 
 		if (_faction in [_cfgFaction,"all"] && !(_dlc in ["kart"])) then
 		{
-			if (toLower(_simulation) == _simTypesUnits && !(gettext(_CfgVehicle >> "DLC") in ["Kart"])) then {
-					if ((toLower(_vehicleClass) == _classType) || (_classType == "")) then {
-							if (!(["vr",tolower _vehicleClass] call bis_fnc_inString) && //no karts
-								(count getArray(_CfgVehicle >> "weapons")>2 || _notArmed)	//no unarmed
-								) then {
-								_unitsArray set[_idx,[_cfgclass,_vehicleDisplayName]];
-								_idx = _idx + 1;
-							};
-						};
+			if (toLower(_simulation) in _simTypesUnits && !(gettext(_CfgVehicle >> "DLC") in ["Kart"])) then {
+
+				if ((toLower(_vehicleClass) == _classType) || (_classType == "")) then {
+
+					if (!(["vr",tolower _vehicleClass] call bis_fnc_inString) && //no karts
+						(count getArray(_CfgVehicle >> "weapons")>2 || _notArmed)	//no unarmed
+						) then {
+
+						_unitsArray set[_idx,[_cfgclass,_vehicleDisplayName]];
+						_idx = _idx + 1;
+					};
 				};
+			};
 		};
 	};
 };

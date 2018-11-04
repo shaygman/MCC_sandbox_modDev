@@ -30,10 +30,10 @@ if (isServer || isDedicated) then {
 		setTimeMultiplier (paramsArray select 3);
 
 		private ["_difficulty","_missionMax","_factionCiv","_factionPlayer","_sidePlayer","_factionEnemy","_sideEnemy","_sidePlayer2","_tickets","_isCiv","_isCar","_isParkedCar","_isLocked","_civSpawnDistance","_maxCivSpawn","_factionCiv","_factionCivCar","_missionRotation"];
-		_sidePlayer = west;
 		_factionPlayer = SIDE1;
-		_sideEnemy = east;
+		_sidePlayer = (getNumber (configfile >> "CfgFactionClasses" >> _factionPlayer >> "side")) call BIS_fnc_sideType;
 		_factionEnemy = SIDE2;
+		_sideEnemy = (getNumber (configfile >> "CfgFactionClasses" >> _factionEnemy >> "side")) call BIS_fnc_sideType;
 		_factionCiv = SIDECIV;
 		_missionMax = (paramsArray select 6);
 		_difficulty = (paramsArray select 5);

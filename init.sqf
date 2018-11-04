@@ -543,8 +543,7 @@ MCC_MWMissionType = ["None",
 					 "Acquire Intel",
 					 "Download Intel",
 					 "Capture Area",
-					 "Disarm IED",
-					 "Logistics"
+					 "Disarm IED"//,"Logistics"
 					 ];
 
 MCC_MWMissionTypeIcons = ["",

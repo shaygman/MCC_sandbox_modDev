@@ -123,43 +123,47 @@ if !mcc_isloading then {
 
 		case 6:	//Enable CP
 		{
-			private "_answer";
+			if (serverCommandAvailable "#lock") then {
+				private "_answer";
 
-			_answer = ["<t font='TahomaB'>Are you sure you want to enable/disable role selection?</t>","Role Selection",nil,true] call BIS_fnc_guiMessage;
-			waituntil {!isnil "_answer"};
-			if (_answer) then {
-				CP_activated = missionnamespace getVariable ["CP_activated", false];
-				missionnamespace setVariable ["CP_activated", !CP_activated];
-				publicVariable "CP_activated";
-				if (CP_activated) then
-				{
-					ctrlsettext [520,"Disable Roles"];
-				}
-				else
-				{
-					ctrlsettext [520,"Enable Roles"];
-				};
-
-				mcc_safe=mcc_safe + format ['
-												missionnamespace setVariable ["CP_activated", %1];
-												publicVariable "CP_activated";
-												_null=[] execVM "%2mcc\roleSelection\scripts\player_init.sqf";
-											'
-											,CP_activated
-											,MCC_path
-											];
-
-				if (CP_activated) then {_null=[] execVM MCC_path + "mcc\roleSelection\scripts\player_init.sqf"};
-
-				//Set tickets on server otherwise EH will be broadcast to the server
-				if (isServer) then
-				{
+				_answer = ["<t font='TahomaB'>Are you sure you want to enable/disable role selection?</t>","Role Selection",nil,true] call BIS_fnc_guiMessage;
+				waituntil {!isnil "_answer"};
+				if (_answer) then {
+					CP_activated = missionnamespace getVariable ["CP_activated", false];
+					missionnamespace setVariable ["CP_activated", !CP_activated];
+					publicVariable "CP_activated";
+					if (CP_activated) then
 					{
-						_sideTickets = format ["MCC_tickets%1", _x];
-						_tickets = missionNameSpace getVariable [_sideTickets,200];
-						[_x, _tickets] call BIS_fnc_respawnTickets;
-					} foreach [west, east, resistance];
+						ctrlsettext [520,"Disable Roles"];
+					}
+					else
+					{
+						ctrlsettext [520,"Enable Roles"];
+					};
+
+					mcc_safe=mcc_safe + format ['
+													missionnamespace setVariable ["CP_activated", %1];
+													publicVariable "CP_activated";
+													_null=[] execVM "%2mcc\roleSelection\scripts\player_init.sqf";
+												'
+												,CP_activated
+												,MCC_path
+												];
+
+					if (CP_activated) then {_null=[] execVM MCC_path + "mcc\roleSelection\scripts\player_init.sqf"};
+
+					//Set tickets on server otherwise EH will be broadcast to the server
+					if (isServer) then
+					{
+						{
+							_sideTickets = format ["MCC_tickets%1", _x];
+							_tickets = missionNameSpace getVariable [_sideTickets,200];
+							[_x, _tickets] call BIS_fnc_respawnTickets;
+						} foreach [west, east, resistance];
+					};
 				};
+			} else {
+				"Error" hintC "Must be a logged admin or server host to enable role selection";
 			};
 		};
 

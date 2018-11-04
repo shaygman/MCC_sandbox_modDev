@@ -124,6 +124,7 @@ _resualt = ["Settings MCC",[
  						["Purchasable Supply Drops",(missionNamespace getVariable ["MCC_defaultSupplyDropsEnabled",true])],
  						["Purchasable CAS",(missionNamespace getVariable ["MCC_defaultCASEnabled",true])],
  						["Disable Zeus Edit",(missionNamespace getVariable ["MCC_CuratorEditDisabled",false])],
+ 						["Reduce Tickets on Respawn",(missionNamespace getVariable ["MCC_reduceTicketsOnDeath",true])],
  						["Artilery Computer",true],
  						["Time Acceleration",20],
  						["Resistance Hostile To",["All","East","West"]]
@@ -151,14 +152,15 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
            "MCC_allowRTS",
            "MCC_defaultSupplyDropsEnabled",
            "MCC_defaultCASEnabled",
-           "MCC_CuratorEditDisabled"
+           "MCC_CuratorEditDisabled",
+           "MCC_reduceTicketsOnDeath"
            ];
 
-(_resualt select 18) remoteExec ["enableEngineArtillery",0];
-(_resualt select 19) remoteExec ["setTimeMultiplier",2];
+(_resualt select 19) remoteExec ["enableEngineArtillery",0];
+(_resualt select 20) remoteExec ["setTimeMultiplier",2];
 
 //Resistance Hostility
-switch (_resualt select 20) do {
+switch (_resualt select 21) do {
 
 	//East
 	case 1:

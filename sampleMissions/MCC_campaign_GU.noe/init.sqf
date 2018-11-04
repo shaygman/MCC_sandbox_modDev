@@ -1,31 +1,7 @@
-//General
-missionNameSpace setVariable ["MCC_syncOn",true];
-missionNameSpace setVariable ["MCC_teleportToTeam",false];
-missionNameSpace setVariable ["MCC_saveGear",false];
-missionNameSpace setVariable ["MCC_Chat",false];
-missionNameSpace setVariable ["MCC_deletePlayersBody",false];
-missionNameSpace setVariable ["MCC_allowlogistics",true];
-missionNameSpace setVariable ["MCC_allowRTS",true];
-
-//Role selection
-missionNameSpace setVariable ["CP_activated",true];
-missionNameSpace setVariable ["MCC_allowChangingKits",true];
-
-//Mechanics
-missionNameSpace setVariable ["MCC_cover",true];
-missionNameSpace setVariable ["MCC_changeRecoil",true];
-missionNameSpace setVariable ["MCC_coverUI",true];
-missionNameSpace setVariable ["MCC_coverVault",true];
-missionNameSpace setVariable ["MCC_interaction",true];
-missionNameSpace setVariable ["MCC_ingameUI",true];
-missionNameSpace setVariable ["MCC_quickWeaponChange",false];
-missionNameSpace setVariable ["MCC_surviveMod",false];
-missionNameSpace setVariable ["MCC_showActionKey",false];
-missionNamespace setVariable ["MCC_allowSQLRallyPoint",true];
-
-//Medical
-missionNameSpace setVariable ["MCC_medicXPmesseges",true];
-missionNameSpace setVariable ["MCC_medicPunishTK",true];
+#define	SIDE1	"CUP_I_NAPA"
+#define	SIDE2	"CUP_O_RU"
+#define	SIDECIV	"CUP_C_CHERNARUS"
+#define	SIDECIVCAR	"CUP_C_CHERNARUS"
 
 //Radio
 if ((paramsArray select 4) ==1) then {
@@ -41,11 +17,7 @@ if ((paramsArray select 4) ==1) then {
 };
 
 //artillery
-enableEngineArtillery false;
 HW_arti_types = [["HE Laser-guided","Bo_GBU12_LGB",3,50],["HE 82mm","Sh_82mm_AMOS",1,75]];
-
-//Spawn UI
-_null = [1,true,true,true,true,true,true] spawn MCC_fnc_inGameUI;
 
 if (isServer || isDedicated) then {
 	0 spawn {
@@ -54,56 +26,15 @@ if (isServer || isDedicated) then {
 		missionNameSpace setVariable ["MCC_allowedPlayers", []];
 		publicVariable "MCC_allowedPlayers";
 
-		//Resources
-		missionNamespace setVariable ["MCC_resWest",[1000,1000,1000,200,200]];
-		publicVariable "MCC_resWest";
-
-		//Random Weather
-		private ["_weather"];
-		_weather = (["Random","clear","cloudy","rain","storm","sandStorm","snow"]) select (["param_weather", 0] call BIS_fnc_getParamValue);
-
-		if (_weather == "Random") then {
-			_weather = [["clear","cloudy","rain","storm"],[0.55,0.15,0.15,0.15]] call bis_fnc_selectRandomWeighted;
-		};
-
-		switch (_weather) do {
-		    case "clear": {
-		    	[[(random 0.2), (random 0.2), (random 0.2), 0, 0,(random 0.1),0]] spawn MCC_fnc_setWeather;
-		    };
-
-		    case "cloudy": {
-		    	[[0.4 + (random 0.2), 0.4 +(random 0.2), 0.4 +(random 0.2), 0.4 +(random 0.2), 0.4 +(random 0.2),0 +(random 0.2),0]] spawn MCC_fnc_setWeather;
-		    };
-
-		    case "rain": {
-		    	[[0.6 + (random 0.2), 0.6 +(random 0.2), 0.6 +(random 0.2), 0.6 +(random 0.2), 0.6 +(random 0.2),0.1 +(random 0.2),0]] spawn MCC_fnc_setWeather;
-		    };
-
-		    case "storm": {
-		    	[[0.8 + (random 0.2), 0.8 +(random 0.2), 0.8 +(random 0.2), 0.8 +(random 0.2), 0.8 +(random 0.2),0.3 +(random 0.2),0]] spawn MCC_fnc_setWeather;
-		    };
-		};
-
-		//Random Time
-		private ["_time"];
-		_time = ([-1,6,12,18,0]) select (["param_daytime", 0] call BIS_fnc_getParamValue);
-
-		if (_time < 0) then {
-			_time = [[6,12,18,0],[0.25,0.25,0.25,0.25]] call bis_fnc_selectRandomWeighted;
-		};
-		_time spawn BIS_fnc_paramDaytime;
-
-
 		//Time Multiplier
 		setTimeMultiplier (paramsArray select 3);
 
-
 		private ["_difficulty","_missionMax","_factionCiv","_factionPlayer","_sidePlayer","_factionEnemy","_sideEnemy","_sidePlayer2","_tickets","_isCiv","_isCar","_isParkedCar","_isLocked","_civSpawnDistance","_maxCivSpawn","_factionCiv","_factionCivCar","_missionRotation"];
-		_sidePlayer = independent;
-		_factionPlayer = "CUP_I_NAPA";	//CUP_O_ChDKZ	OPF_F	OPF_T_F		CUP_O_RU	CUP_O_SLA	CUP_O_TK
-		_sideEnemy = west;
-		_factionEnemy = "CUP_B_GB";	//CUP_B_GB  CUP_B_US_Army   CUP_B_USMC	BLU_F	BLU_T_F
-		_factionCiv = "CIV_F";
+		_factionPlayer = SIDE1;
+		_sidePlayer = (getNumber (configfile >> "CfgFactionClasses" >> _factionPlayer >> "side")) call BIS_fnc_sideType;
+		_factionEnemy = SIDE2;
+		_sideEnemy = (getNumber (configfile >> "CfgFactionClasses" >> _factionEnemy >> "side")) call BIS_fnc_sideType;
+		_factionCiv = SIDECIV;
 		_missionMax = (paramsArray select 6);
 		_difficulty = (paramsArray select 5);
 		_sidePlayer2 = sideLogic;
@@ -111,7 +42,7 @@ if (isServer || isDedicated) then {
 		_missionRotation = 3;
 
 		//Start campaign
-		[_sidePlayer,_factionPlayer,_sideEnemy,_factionEnemy,_factionCiv,_missionMax,_difficulty,_sidePlayer2,_tickets,_missionRotation,400] spawn MCC_fnc_campaignInit;
+		[_sidePlayer,_factionPlayer,_sideEnemy,_factionEnemy,_factionCiv,_missionMax,_difficulty,_sidePlayer2,_tickets,_missionRotation,500] spawn MCC_fnc_campaignInit;
 
 		//Start day/night cycle
 		[_sidePlayer,_sidePlayer2,_factionEnemy] spawn MCC_fnc_dayCycle;
@@ -124,8 +55,8 @@ if (isServer || isDedicated) then {
 			_isLocked  = false;
 			_civSpawnDistance = 700;
 			_maxCivSpawn = 10;
-			_factionCiv	= "CIV_F";
-			_factionCivCar = "CIV_F";
+			_factionCiv	= SIDECIV;
+			_factionCivCar = SIDECIVCAR;
 
 			[_isCiv,_isCar,_isParkedCar,_isLocked,_civSpawnDistance,_maxCivSpawn,_factionCiv,_factionCivCar] spawn MCC_fnc_ambientInit;
 

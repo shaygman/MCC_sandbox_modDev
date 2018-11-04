@@ -46,7 +46,7 @@ ctrlShow [MCC_GroupGenInfo_IDC,false];
 {str _x setMarkerAlphaLocal 0.4;(format["LABEL_%1",_x]) setMarkerAlphaLocal 0.3;} foreach (missionNamespace getVariable ["MCC_zones_numbers",[]]);
 
 //Hide admin buttons for no-admins
-if !(serverCommandAvailable "#logout") then
+if !(serverCommandAvailable "#kick") then
 {
 	ctrlShow [MCC_UM_KICK,false];
 	ctrlShow [MCC_UM_BAN,false];

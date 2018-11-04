@@ -22,14 +22,14 @@ _spawnpos		= _this select 2;
 
 if ((_spawnpos distance [0,0,0])== 0) exitwith {grpNull};
 
-_roads						 = [];
-_simu							 = "";
-_unitarray				 = [];
-_amount						 = 0;
-_GrpUnit					 = [];
-_grp							 = grpNull;
+_roads		= [];
+_simu		= "";
+_unitarray	= [];
+_amount		= 0;
+_GrpUnit	= [];
+_grp		= grpNull;
 
-_sideNr		= [[0,1,2],_sideRatios] call BIS_fnc_selectRandomweighted;
+_sideNr	= [[0,1,2],_sideRatios] call BIS_fnc_selectRandomweighted;
 _side     = ([west,east,independent] select _sideNr);
 _faction  = ([ _FactionsWest,_FactionsEast, _FactionsIndep] select _sideNr) call BIS_fnc_selectRandom;
 if (_faction == "") exitwith {grpNull};
@@ -61,31 +61,27 @@ if (!(isOnRoad _spawnpos) and (_simu in ["soldier", "car","motorcycle","tank"]))
 if (_simu == "soldier") then
 {
 	// Love the x simulation
-	_unitarray= [_faction ,_simu,"men"] call MCC_fnc_makeUnitsArray;
-	_unitarray = _unitarray + ( [_faction ,_simu+"x","men"] call MCC_fnc_makeUnitsArray);
+	_unitarray= [_faction ,_simu] call MCC_fnc_makeUnitsArray;
 
-	_amount = (floor random 10) max 3;
-	_dude   = [];
-	_GrpUnit= [];
-	for [{_i=0}, {_i <  _amount}, {_i=_i+1}] do
+	if (count(_unitarray)>0) then
 	{
-		_dude = _unitarray select (floor random (count _unitarray));
-
-		_GrpUnit = _GrpUnit + [ (_dude  select 0)];
-
-
+		_amount = (floor random 10) max 3;
+		_dude   = [];
+		_GrpUnit= [];
+		for [{_i=0}, {_i <  _amount}, {_i=_i+1}] do
+		{
+			_dude = _unitarray select (floor random (count _unitarray));
+			_GrpUnit = _GrpUnit + [ (_dude  select 0)];
+		};
+		_grp = [_spawnPos, _side, _GrpUnit] call BIS_fnc_spawnGroup;
+		( _grp) setVariable ["GAIA_ZONE_INTEND",[_ActiveZone, (["MOVE","NOFOLLOW","FORTIFY"]call BIS_fnc_selectRandom)], true];
 	};
-	_grp = [_spawnPos, _side, _GrpUnit] call BIS_fnc_spawnGroup;
-	( _grp) setVariable ["GAIA_ZONE_INTEND",[_ActiveZone, (["MOVE","NOFOLLOW","FORTIFY"]call BIS_fnc_selectRandom)], true];
 
 }
 else
 {
-		// Love the x simulation
+	// Love the x simulation
 	_unitarray= [_faction ,_simu] call MCC_fnc_makeUnitsArray;
-	_unitarray = _unitarray + ( [_faction ,_simu+"x"] call MCC_fnc_makeUnitsArray);
-
-
 
 	if (count(_unitarray)>0) then
 	{

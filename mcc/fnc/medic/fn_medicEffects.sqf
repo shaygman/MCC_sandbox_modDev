@@ -110,7 +110,7 @@ if (isplayer _unit && (_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconsci
     ) then {
 	private ["_medics","_savior"];
 
-	_medics = (units _unit) select {("FirstAidKit" in (items _x) || "Medikit" in (items _x) || "MCC_epipen" in (items _x)) && (alive _x) && !(_x getVariable ["MCC_medicUnconscious",false]) && canMove _x && (lifeState _x != "INCAPACITATED") && (vehicle _x == _x)};
+	_medics = (units _unit) select {("FirstAidKit" in (items _x) || "Medikit" in (items _x) || "MCC_epipen" in (items _x)) && (alive _x) && !(_x getVariable ["MCC_medicUnconscious",false]) && canMove _x && (lifeState _x != "INCAPACITATED") && (vehicle _x == _x) && !(isPlayer _x)};
 
 	if (count _medics > 0) then {
 		_savior = selectRandom _medics;

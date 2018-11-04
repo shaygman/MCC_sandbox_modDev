@@ -31,7 +31,7 @@ _fncKeyUp =
 		{_x enableChannel true} forEach [3,4,5];
 
 		//enable Global
-		if (serverCommandAvailable "#logout" || isServer) then {
+		if (serverCommandAvailable "#kick" || isServer) then {
 			0 enableChannel true;
 		} else {
 			if (currentChannel ==0) then {setCurrentChannel 5};

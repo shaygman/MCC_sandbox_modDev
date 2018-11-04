@@ -242,10 +242,11 @@ switch (_task) do {
       _taskType = "mine";
    };
 
+   //Logistics
    case "Logistics": {
       _stringName   = "Deliver supplies";
 
-      _stringDescription =  "Deliver supplies. <br/><br/>Local population needs medical supplies.<br/>Top brass belive that delivering them this supplies is in our favor.<br/>Get the supply track and deliver it to the designated area.";
+      _stringDescription =  "Deliver supplies. <br/><br/>Local population are in needs for food and water supplies.<br/>Top brass belive that delivering them this supplies is in our favor.<br/>Get the supply track and deliver it to the designated area.";
 
       _pic = "a3\Missions_F_BOOTCAMP\data\img\Bootcamp_overview_CA.paa";
       _taskType = "logistic";

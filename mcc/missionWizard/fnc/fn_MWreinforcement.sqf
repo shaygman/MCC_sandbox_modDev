@@ -22,7 +22,7 @@ _missionCenterTriggerArea 	= _this select 3;
 _cond					 	= _this select 4;
 _zoneNumber					= _this select 5;
 _faction					= _this select 6;
-_warning					= _this select 7;
+_warning					= param [7,true];
 _totalEnemyUnits			= _this select 8;
 
 
@@ -118,7 +118,7 @@ for "_i" from 0 to (count _cond) step 1 do
 			{
 				//Lets give the player some hint about movment
 				_dir 	= [_missionCenterTriggerPos, _newPos] call BIS_fnc_dirTo;
-				_strDir = "<t size='1' t font = 'puristaLight' color='#FFFFFF'> HQ: Enemy QRF helicopter is moving in from the " + ([_dir] call MCC_fnc_dirToString) + "</t>";
+				_strDir = "<t size='1' t font = 'puristaLight' color='#FFFFFF'> HQ: Enemy aerial QRF is moving in from the " + ([_dir] call MCC_fnc_dirToString) + "</t>";
 				_command = format ['["%1",0,0.2,5,1,0.0] spawn bis_fnc_dynamictext;',_strDir];
 				[[2,compile _command], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
 			};
@@ -131,7 +131,7 @@ for "_i" from 0 to (count _cond) step 1 do
 			{
 				//Lets give the player some hint about movment
 				_dir 	= [_missionCenterTriggerPos, _newPos] call BIS_fnc_dirTo;
-				_strDir = "<t size='1' t font = 'puristaLight' color='#FFFFFF'> HQ: Enemy QRF convoy is moving in from the " + ([_dir] call MCC_fnc_dirToString) + "</t>";
+				_strDir = "<t size='1' t font = 'puristaLight' color='#FFFFFF'> HQ: Enemy motorized QRF is moving in from the " + ([_dir] call MCC_fnc_dirToString) + "</t>";
 				_command = format ['["%1",0,0.2,5,1,0.0] spawn bis_fnc_dynamictext;',_strDir];
 				[[2,compile _command], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
 			};

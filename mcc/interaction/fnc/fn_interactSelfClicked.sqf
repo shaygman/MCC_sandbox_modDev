@@ -320,7 +320,7 @@ switch (true) do {
 		};
 
 		//Global
-		if (serverCommandAvailable "#logout" || isServer) then {
+		if (serverCommandAvailable "#kick" || isServer) then {
 			_array pushback (["setCurrentChannel 0","Global","\A3\Ui_f\data\GUI\Cfg\Ranks\general_gs.paa"]);
 		};
 

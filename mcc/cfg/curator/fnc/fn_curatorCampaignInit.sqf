@@ -39,7 +39,7 @@ _pos = getpos _module;
 
 _factionArray = [];
 {
-	_factionArray pushBack (_x select 0);
+	_factionArray pushBack (format ["%1(%2)",_x select 0,_x select 1]);
 } forEach U_FACTIONS;
 
  _resualt = ["Starts MCC Campaign - Need: MCC Start Location",[
@@ -70,9 +70,10 @@ _tickets = _resualt select 6;
 _missionRotation = _resualt select 7;
 _tileSize = _resualt select 8;
 _loadDb = _resualt select 9;
+_playMusic = _resualt select 10;
 
 //Start ambient civilians
-[_sidePlayer,_factionPlayer,_sideEnemy,_factionEnemy,_factionCiv,_missionMax,_difficulty,_sidePlayer2,_tickets,_missionRotation,_tileSize,_loadDb,_playMusic] remoteExec ["MCC_fnc_campaignInit",2];
+[_sidePlayer,_factionPlayer,_sideEnemy,_factionEnemy,_factionCiv,_missionMax,_difficulty,_sidePlayer2,_tickets,_missionRotation,_tileSize,_loadDb, _playMusic] remoteExec ["MCC_fnc_campaignInit",2];
 
 //Start day/night cycle
 [[_sidePlayer,_sidePlayer2],"MCC_fnc_dayCycle",false,false] spawn BIS_fnc_MP;

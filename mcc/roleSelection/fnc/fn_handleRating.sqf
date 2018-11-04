@@ -10,9 +10,9 @@ _rating = (param [1, 0, [0]]) min 1000;
 
 //Seems like addrating doesn't call EH so lets take the time to do it manually
 _rating = ((rating player)-(player getVariable ["MCC_playerRating",0])) max 0;
-if (_rating <= 0) exitWith {};
-
 player setVariable ["MCC_playerRating",rating player];
+
+if (_rating <= 0) exitWith {};
 
 if (missionNamespace getVariable ["MCC_debug",false]) then {systemChat ("Player rating changed" + str _rating)};
 

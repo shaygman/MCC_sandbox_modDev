@@ -316,7 +316,6 @@ _heliCrew move _pos;
 (driver _heli) move _pos;
 
 _heli setSpeedMode "FULL";
-_heli setDestination [_away, "VehiclePlanned", true];
 
 waitUntil { sleep 1;(driver _heli) move _pos;(_heli distance2d _dropPos) < 100};  // include heli heigth else if flying higher then 250 m this wil be 'true'
 
@@ -535,7 +534,7 @@ _heliPilot doMove _away;
 _heli setSpeedMode "FULL";
 _heli setBehaviour "CARELESS";
 
-_heli setDestination [_away, "VehiclePlanned", true];
+//_heli setDestination [_away, "VehiclePlanned", true];
 
 //Close doors
 [_heli,false] spawn MCC_fnc_heliOpenCloseDoor;

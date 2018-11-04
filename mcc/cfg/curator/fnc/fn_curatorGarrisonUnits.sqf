@@ -12,7 +12,7 @@ _pos = getpos _module;
 
 _factionArray = [];
 {
-	_factionArray pushBack (_x select 0);
+	_factionArray pushBack (format ["%1(%2)",_x select 0,_x select 1]);
 } forEach U_FACTIONS;
 
  _resualt = ["Garrison Buildings",[

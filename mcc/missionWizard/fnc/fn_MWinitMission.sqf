@@ -431,16 +431,18 @@ _objectives = [];
 						_objPos set [2,0];
 
 						//Find a supply truck
+						_supplyTruckClass = "C_Van_01_box_F";
+						/*
 						{
 							if (((getNumber (configfile >> "CfgVehicles" >> _x >> "side")) call BIS_fnc_sideType) isEqualTo _sidePlayer) exitWith {
 								_supplyTruckClass = _x
 							};
 						} forEach (missionNamespace getVariable ["MCC_supplyTracks",[]]);
 
-						if (isNil "_supplyTruckClass") exitWith {
-							diag_log "MCC_fnc_MCCMissioWizard: Error Can't find a logistic truck class";
-							[[_markerName]] call MCC_MWCleanup;
+						if (isNil "_supplyTruckClass") then {
+							_supplyTruckClass = "C_Van_01_box_F";
 						};
+						*/
 
 						_startPos = [_sidePlayer,_supplyTruckClass] call MCC_fnc_MWGetStartLocation;
 
@@ -454,11 +456,11 @@ _objectives = [];
 						//Add to curator
 						{_x addCuratorEditableObjects [[_supplyTruck],true]} forEach allCurators;
 
-						_aidSide = ["civ","military"] call BIS_fnc_selectRandom;
+						_aidSide = "civ"; //["civ","military"] call BIS_fnc_selectRandom;
 
 						//If not CQB spawn some POI
 						if !(_isCQB) then {
-							_objPos = [_objPos,_aidSide] call MCC_fnc_buildRandomComposition;
+							_objPos = [_objPos,"civ"] call MCC_fnc_buildRandomComposition;
 						};
 
 						//Garrison with some friendly troops
@@ -487,7 +489,7 @@ _objectives = [];
 							_group = [_objPos, _units, 1, _enemySide, false, false] call MCC_fnc_groupSpawn;
 							[_group, _objPos] call bis_fnc_taskDefend;
 						};
-
+						//Land_WaterBottle_01_stack_F Land_FoodSacks_01_small_brown_idap_F
 						[_supplyTruck, _objPos,"Logistics",_preciseMarkers,_enemySide,400] call MCC_fnc_MWCreateTask;
 					};
 

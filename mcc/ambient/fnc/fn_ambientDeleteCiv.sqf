@@ -15,14 +15,16 @@ _arrayName = param [ 2, "", [""]];
 _civArray = missionNamespace getVariable [_arrayName,[]];
 {
 	_civ = _x;
-	if (isNull _civ) then {
-		_civArray set [_forEachIndex, -1];
-	} else {
-		if (({(_x distance _civ < _civSpawnDistance) || !(lineintersects [eyepos _x,getposasl _civ,_x,_civ])} count _spawnCenters)==0) then {
-			deleteVehicle _civ;
+	if (typeName _civ == typeName objNull) then {
+		if (isNull _civ) then {
 			_civArray set [_forEachIndex, -1];
-		};
-	}
+		} else {
+			if (({(_x distance _civ < _civSpawnDistance) || !(lineintersects [eyepos _x,getposasl _civ,_x,_civ])} count _spawnCenters)==0) then {
+				deleteVehicle _civ;
+				_civArray set [_forEachIndex, -1];
+			};
+		}
+	};
 } forEach _civArray;
 
 _civArray = _civArray - [-1];

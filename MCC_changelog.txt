@@ -49,6 +49,9 @@ General
 	Added - Add Valor/Credit module to Zeus and Ed3n
 	Added - 20 meters evac helicopter flight height
 	Added - Armed civilians weapons can be defined in MCC settings module or by altering "MCC_armedCivilansWeapons" variable
+	Added - Only logged admin can enable role selection
+	Fixed - Commander console Artillery correction is calculated relative to the player
+	Fixed - Role selection didn't add XP after respawn
 	Fixed - Stay alive in a destroyed vehicle without able to eject when MCC medic is on
 	Fixed - Save MCC to profile was bugged
 	Fixed - Cruise missile CAS didn't work on dedicated servers
@@ -60,13 +63,13 @@ General
 	Fixed - Error message every time civilian is being shot while ambient civilian module is up
 	Fixed - "Create Task first" error when trying to create a task
 	Fixed - Unable to perform medical actions on self using MCC self interaction
+	Fixed - Ambient Warzone didn't work well with RHS
 
 
 TODO -
-the intel module doesn't work after loading a mission
+fire kill vehicles
+suprresion effects kill all other effects (sandstorm)
 Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-Check respawn
-Check droppods
 under water objectives?
 ADD surrender to AI in campaign
 

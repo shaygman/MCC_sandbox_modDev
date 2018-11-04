@@ -59,6 +59,12 @@ if (_loadDb) then {
 	["MCC_campaign",true,true,true,true,true,true,true,true,true] call MCC_fnc_loadServer;
 };
 
+//Add tickets to the sides
+if (_tickets > 0) then {
+	{
+		[_x,_tickets] call BIS_fnc_respawnTickets;
+	} forEach [_sidePlayer,_sidePlayer2];
+};
 
 //Build the faction's unitsArrays and send it to the server.
 _check = [_factionEnemy, _sideEnemy] call MCC_fnc_MWCreateUnitsArray;

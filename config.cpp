@@ -98,6 +98,24 @@ class CfgMissions
 			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_CSAT.Altis";
 		};
 
+		class MCC_CAMPAIGN_ALTIS_RHS_US
+		{
+			briefingName = "(MCC RHS) Campaign USA vs RU";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_RHS.Altis";
+		};
+
+		class MCC_CAMPAIGN_ALTIS_RHS_GRU
+		{
+			briefingName = "(MCC RHS) Campaign CHDKZ vs USA";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_RHS_GRU.Altis";
+		};
+
+		class MCC_CAMPAIGN_ALTIS_RHS_RU
+		{
+			briefingName = "(MCC RHS) Campaign RU vs USA";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_RHS_RU.Altis";
+		};
+
 		//Tanoa
 		class MCC_CAMPAIGN_TANOA
 		{

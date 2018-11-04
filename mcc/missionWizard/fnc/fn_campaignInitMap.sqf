@@ -57,7 +57,8 @@ if (count _allTiles > 0) then {
 } else {
 
 	_mapSize = getnumber (( configfile >> "cfgworlds" >> worldname) >> "mapSize");
-	if (_mapSize == 0) then {_mapSize = 30000};
+	if (_mapSize == 0) then {_mapSize = 20000};
+	_size = _size max floor (_mapSize / 100);
 	_xCounter = 0;
 	_yCounter = 0;
 

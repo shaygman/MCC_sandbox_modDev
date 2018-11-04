@@ -9,7 +9,7 @@ _channelID = (missionNameSpace getVariable ["MCC_radioBroadcastingChannel",""]) 
 switch (_channelID select 1) do {
 	//Global
 	case 0 :{
-		_allowed	= if (serverCommandAvailable "#logout" || isServer) then {true} else {false};
+		_allowed	= if (serverCommandAvailable "#kick" || isServer) then {true} else {false};
 		_spectrum = 0;
 	};
 

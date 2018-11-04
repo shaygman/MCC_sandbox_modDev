@@ -31,6 +31,11 @@ if (missionNamespace getvariable ["MCC_saveGear",false]) then {
 
 WaitUntil {alive player};
 
+//Reduce tickets
+if (([playerSide] call BIS_fnc_respawnTickets > 0) && (missionNamespace getVariable ["MCC_reduceTicketsOnDeath",true])) then {
+	[playerSide,-1] call BIS_fnc_respawnTickets
+};
+
 //Mark it zero again
 player addRating (-1 * (rating player));
 

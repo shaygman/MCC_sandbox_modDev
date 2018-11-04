@@ -6,7 +6,7 @@ private ["_ar", "_mccdialog", "_login","_null","_isAdmin","_t","_missionMaker"];
 //update request number
 mcc_request= (missionNamespace getVariable ["mcc_request",0])+1;
 
-_isAdmin = serverCommandAvailable "#logout" || isServer;
+_isAdmin = serverCommandAvailable "#kick" || isServer;
 _ar = [
 	player
 	, name (player)

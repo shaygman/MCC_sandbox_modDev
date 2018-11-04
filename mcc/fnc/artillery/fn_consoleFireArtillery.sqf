@@ -6,8 +6,7 @@
 // _y_correction: 		Integer
 //===========================================================================================================================================================================
 
-private ["_requestor","_x_correction","_y_correction","_cannons_to_fireReal","_cannonsObjects","_cannonsetup","_cannon","_splashpos","_firedelay",
-         "_artitype","_nrshells","_spread"];
+private ["_requestor","_x_correction","_y_correction","_cannons_to_fireReal","_cannonsObjects","_cannonsetup","_cannon","_splashpos","_firedelay","_artitype","_nrshells","_spread","_modelpos"];
 
 _requestor 				= _this select 0;
 _x_correction 			= _this select 1;
@@ -32,8 +31,9 @@ _cannonsObjects = [];
 	_spread 	= (_x select 1) select 4;
 
 	//X-correction
-	_splashpos set [0, (_splashpos select 0) + (_x_correction *20)];
-	_splashpos set [1, (_splashpos select 1) + (_y_correction *20)];
+	_modelpos = _requestor worldToModel _splashpos;
+	_modelpos = [(_modelpos select 0) + _x_correction, (_modelpos select 1) + _y_correction, _modelpos select 2];
+	_splashpos = _requestor modelToWorld _modelpos;
 
 	if (isPlayer _cannon) then
 	{

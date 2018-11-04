@@ -10,7 +10,7 @@ _ratio = _ratio * (missionNamespace getVariable ["MCC_supressionEffectsForce",1]
 _radar = missionNamespace getVariable ["MCC_hitRadar",0];
 
 
-_colorCorrectionEffect = ppEffectCreate ["ColorCorrections", 1500];
+_colorCorrectionEffect = ppEffectCreate ["ColorCorrections", 12399];
 _colorCorrectionEffect ppEffectForceInNVG true;
 _colorCorrectionEffect ppEffectEnable true;
 
