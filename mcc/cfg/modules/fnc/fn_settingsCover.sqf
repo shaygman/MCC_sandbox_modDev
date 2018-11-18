@@ -15,10 +15,6 @@ if (typeName (_module getVariable ["cover",true]) == typeName 0) exitWith {
 	_var 	= _module getvariable ["cover",1];
 	MCC_cover = if (_var == 0) then {false} else {true};
 
-	//coverRecoil
-	_var 	= _module getvariable ["coverRecoil",1];
-	MCC_changeRecoil = if (_var == 0) then {false} else {true};
-
 	//coverUI
 	_var 	= _module getvariable ["coverUI",1];
 	MCC_coverUI = if (_var == 0) then {false} else {true};

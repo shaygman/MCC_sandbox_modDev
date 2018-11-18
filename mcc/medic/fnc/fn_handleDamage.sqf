@@ -43,7 +43,7 @@ if (!local _unit || (damage _unit >=1) || !alive _unit) then {
 		_unit setVariable ["MCC_medicBleeding",_bleeding min 1,true];
 
 		//Set damage coef
-		_damage = if (isPlayer _unit) then {((missionNamespace getVariable ["MCC_medicDamageCoef",0.6])*_damage) min 0.95} else {_damage* 1.3};
+		_damage = if (isPlayer _unit) then {((missionNamespace getVariable ["MCC_medicDamageCoef",0.6])*_damage) min 0.95} else {_damage* 1.2};
 		_damage min 0.9
 	};
 };

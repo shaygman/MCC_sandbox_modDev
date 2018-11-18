@@ -10,4 +10,6 @@ class HUD {
 	class supressionInit {};
 	class supressionFiredEH {};
 	class supressionEffects {};
+	class forceCamera {description = "Force first person camera";};
+	class PvPInterface {description = "Enable PvP interface";};
 };

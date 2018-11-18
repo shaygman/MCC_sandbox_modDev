@@ -861,22 +861,10 @@ diag_log format ["%1 - MCC Local Headless Client: %2", time, MCC_isLocalHC];
 //******************************************************************************************************************************
 
 //---------------------------------------------
-//		General
-//---------------------------------------------
-CP_dialogInitDone = true; 				//define if dialog is been initialize
-
-"CP_activated" addPublicVariableEventHandler {
-	if(CP_activated && !isDedicated) then {
-		_null=[] execVM MCC_path + "mcc\roleSelection\scripts\player_init.sqf"
-	};
-};
-
-//---------------------------------------------
 //		Server Init
 //---------------------------------------------
 MCC_isDedicated = false;
-if (isServer || isdedicated) then
-{
+if (isServer || isdedicated) then {
 	if (isDedicated) then {MCC_isDedicated = true; publicVariable "MCC_isDedicated"};
 	_null=[] execVM MCC_path + "mcc\roleSelection\scripts\server\server_init.sqf";
 };
@@ -884,23 +872,25 @@ if (isServer || isdedicated) then
 //---------------------------------------------
 //		public Variables
 //---------------------------------------------
-"CP_westGroups" addPublicVariableEventHandler {
-		{
-			(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
-		} foreach CP_westGroups;
-	};
+0 spawn {
+	"CP_westGroups" addPublicVariableEventHandler {
+			{
+				(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
+			} foreach (missionNamespace getVariable ["CP_westGroups",[]]);
+		};
 
-"CP_eastGroups" addPublicVariableEventHandler {
-		{
-			(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
-		} foreach CP_eastGroups;
-	};
+	"CP_eastGroups" addPublicVariableEventHandler {
+			{
+				(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
+			} foreach (missionNamespace getVariable ["CP_eastGroups",[]]);
+		};
 
-"CP_guarGroups" addPublicVariableEventHandler {
-		{
-			(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
-		} foreach CP_guarGroups;
-	};
+	"CP_guarGroups" addPublicVariableEventHandler {
+			{
+				(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
+			} foreach(missionNamespace getVariable ["CP_guarGroups",[]]);
+		};
+};
 
 //******************************************************************************************************************************
 //											Client side init
@@ -1013,11 +1003,6 @@ if (hasInterface) then {
 
 		//Handle add - action
 		[] spawn MCC_fnc_handleAddaction;
-
-		//Handle Radio
-		if (missionNameSpace getVariable ["MCC_VonRadio",false]) then {
-			[] spawn MCC_fnc_vonRadio;
-		};
 
 		//Handle CP stuff
 		MCC_CPplayerLoop = compile preprocessFile format ["%1mcc\general_scripts\loops\mcc_CPplayerLoop.sqf",MCC_path];
@@ -1137,10 +1122,10 @@ if (isnil "MCC_terrainPref") then
 	profileNamespace setVariable ["MCC_terrainPref", MCC_terrainPref];
 };
 
-//============= Start public EH locally ===========================
-if(CP_activated && !isDedicated && !MCC_isLocalHC) then {
-	_null=[] execVM MCC_path + "mcc\roleSelection\scripts\player_init.sqf"
-};
+addMissionEventHandler ["EntityRespawned", {
+	params ["_entity", "_corpse"];
+	systemChat str _this;
+}];
 
 //============= Init MCC done===========================
 MCC_initDone = true;

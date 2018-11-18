@@ -7,7 +7,12 @@ class CfgPatches
 		units[] = {"mcc_sandbox_module","mcc_sandbox_moduleSF","mcc_sandbox_moduleRestrictedZone","mcc_sandbox_moduleUndercover","MCC_Module_AAS","mcc_Module_createZones","MCC_Module_settingsMechanics","MCC_Module_settings","MCC_Module_settingsMedicSystem","MCC_Module_settingsRS","MCC_Module_ambientBirds","MCC_module_ambientFire","MCC_Module_createIntel","MCC_Module_LHDSpawn","MCC_Module_GAIARespawns","MCC_Module_RTSBuildings","MCC_ModuleObjective_F","MCC_Module_medicSetState","MCC_Module_createShop","MCC_Module_addValor","MCC_Module_settingsMissionWizard"};
 		weapons[] = {};
 		requiredVersion = 1.00;
-		requiredAddons[] = {"A3_Modules_F"};
+		requiredAddons[] = {"A3_Modules_F",
+								"A3_Data_F_Tank_Loadorder",
+					            "cba_ui",
+					            "cba_xeh",
+					            "cba_jr"
+					        };
 		author = "shay_gman";
 		name = "MCC Sandbox";
 		versionDesc = "MCC Sandbox 4";
@@ -40,6 +45,13 @@ class CfgMods
 		logoOver = "mcc_sandbox_mod\data\mod.paa";
 		logoSmall = "mcc_sandbox_mod\data\mod.paa";
 	};
+};
+
+//CBA
+class Extended_PreInit_EventHandlers {
+	class MCC_PreInits {
+        init = call compile preprocessFileLineNumbers "mcc_sandbox_mod\XEH_preInit.sqf";
+    };
 };
 
 class CfgFactionClasses

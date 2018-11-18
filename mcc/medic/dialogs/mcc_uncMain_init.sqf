@@ -93,30 +93,30 @@ while { alive player && (player getvariable ["MCC_medicUnconscious",false])} do 
 
 	if (_blink && random 1 < 0.2) then {
 		_cPPEffect ppEffectAdjust [0,0,0, [0,0,0,0], [0,0,0,1], [1,1,1,1], [0.5,0.5,0,0,0,0.5,0.5]];
-		_cPPEffect ppEffectCommit 1;
+		_cPPEffect ppEffectCommit .5;
 		_rPPEffect ppEffectAdjust [0.5, 0.5, 0.3, 0.3];
-		_rPPEffect ppEffectCommit 1;
+		_rPPEffect ppEffectCommit .5;
 		_blink = false;
 	};
 
 	if (floor time mod 8 == 0 && random 1 < 0.4 && !_blink) then {
 		_cPPEffect ppEffectAdjust [0,0,0, [0,0,0,0], [0,0,0,1], [1,1,1,1], [0.8,0.8,0,0,0,0.8,0.8]];
-		_cPPEffect ppEffectCommit 1;
+		_cPPEffect ppEffectCommit .5;
 		_rPPEffect ppEffectAdjust [0.8, 0.8, 0.3, 0.3];
-		_rPPEffect ppEffectCommit 1;
+		_rPPEffect ppEffectCommit .5;
 		_blink = true;
 	};
 
 	if (floor time mod 3 == 0 && random 1 > 0.5) then {player say3D format ["WoundedGuyA_0%1",(floor (random 8))+1]};
 
-	sleep 1;
+	sleep .5;
 };
-
-//Cleanup
-//_disp displayRemoveEventHandler ["KeyDown", _escEH];
 
 //remove unconscious state
 player setUnconscious false;
+player setFatigue 0;
+player setCaptive false;
+
 
 //hotfix: revived while performing an action & playing animation
 player playAction "Stop";
@@ -129,32 +129,11 @@ if (currentWeapon player == "") then {
 	};
 };
 
-//Destroy effects
-ppEffectDestroy  _rPPEffect;
-ppEffectDestroy  _cPPEffect;
-player setFatigue 0;
-player setCaptive false;
-
-
-//player playmoveNow "amovppnemstpsraswrfldnon";
-
-//Remove helper
-[player] spawn MCC_fnc_deleteHelper;
-
-//closeDialog 0;
-//close rsc
-(["mcc_uncMain"] call BIS_fnc_rscLayer) cutText ["", "PLAIN"];
-
-/*
-//remove 'anim changed' event handler
-private _ehAnimChanged = player getVariable ["bis_ehAnimChanged", -1];
-if (_ehAnimChanged != -1) then {player removeEventHandler ["AnimChanged", _ehAnimChanged]};
-*/
-
 //Enable action menu
 {inGameUISetEventHandler [_x, "false"]} forEach ["PrevAction", "Action", "NextAction"];
 
 waitUntil {alive player};
+
 //Enable ACRE
 player setVariable ["acre_sys_core_isDisabled", false, True];
 
@@ -162,7 +141,15 @@ player setVariable ["acre_sys_core_isDisabled", false, True];
 player setVariable ["tf_voiceVolume", 1, True];
 player setVariable ["tf_unable_to_use_radio", false, True];
 
+//Destroy effects
+ppEffectDestroy  _rPPEffect;
+ppEffectDestroy  _cPPEffect;
+
+//close rsc
+(["mcc_uncMain"] call BIS_fnc_rscLayer) cutText ["", "PLAIN"];
+
 //Remove EH
 (findDisplay 46) displayRemoveEventHandler ["KeyDown", _keyDown];
 (findDisplay 46) displayRemoveEventHandler ["KeyUp", _keyUp];
+
 missionNamespace setVariable ["MCC_unconsciousRespawnKeyIsHolding",false];

@@ -14,7 +14,7 @@ if (missionNamespace getvariable ["MCC_medicBleedingEnabled",false]) then {
 	_remaineBlood = _unit getvariable ["MCC_medicRemainBlood",_maxBleeding];
 
 	if (isnil "MCC_medicBleedingPPEffectColor" && isPlayer _unit) then {
-		MCC_medicBleedingPPEffectColor = ppEffectCreate ["ColorCorrections", 1522];
+		MCC_medicBleedingPPEffectColor = ppEffectCreate ["ColorCorrections", 15222];
 		MCC_medicBleedingPPEffectColor ppEffectForceInNVG True;
 
 		MCC_medicBleedingPPEffectBlur = ppEffectCreate ["DynamicBlur", 440];
@@ -105,31 +105,30 @@ if !(isPlayer _unit) then {
 _bleeding = _unit getVariable ["MCC_medicBleeding",0];
 
 //AI heal for players and AI
-if (isplayer _unit && (_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconscious",false])) ||
-    !isPlayer _unit && (_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconscious",false]) || damage _unit > 0.3)
+if ((_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconscious",false]) || damage _unit > 0.2) &&
+    !(alive (_unit getVariable ["MCC_medicSavior",objNull]))
     ) then {
 	private ["_medics","_savior"];
 
-	_medics = (units _unit) select {("FirstAidKit" in (items _x) || "Medikit" in (items _x) || "MCC_epipen" in (items _x)) && (alive _x) && !(_x getVariable ["MCC_medicUnconscious",false]) && canMove _x && (lifeState _x != "INCAPACITATED") && (vehicle _x == _x) && !(isPlayer _x)};
+	_medics = (allUnits) select {
+		side _x == (_unit getVariable ["MCC_originalSide",side player]) && (_unit distance2D _x < 100) &&
+		("FirstAidKit" in (items _x) || "Medikit" in (items _x) || "MCC_epipen" in (items _x)) && (alive _x) &&
+		!(_x getVariable ["MCC_medicUnconscious",false])
+		&& canMove _x
+		&& (lifeState _x != "INCAPACITATED")
+		&& (vehicle _x == _x)
+		&& !(isPlayer _x)
+		&& !(_unit isEqualTo (_x getVariable ["MCC_medicSavingUnit",objNull]))
+	};
 
 	if (count _medics > 0) then {
 		_savior = selectRandom _medics;
 
-		[_savior,_unit] spawn {
-			params ["_savior","_unit"];
+		//Prevent sending too many medics
+		_unit setVariable ["MCC_medicSavior",_savior,true];
+		_savior setVariable ["MCC_medicSavingUnit",_unit,true];
 
-			_savior doMove getpos _unit;
-			_t = time + 15;
-
-			waituntil { sleep .5; (_savior distance _unit < 5) or !(alive _unit) or !(alive _savior) or (_savior getVariable ["MCC_medicUnconscious",false]) or !(canMove _savior) or (lifeState _savior == "INCAPACITATED")  or (vehicle _savior != _savior) or time > _t};
-		};
-
-		if (_savior distance _unit < 5) then {
-			_savior action ["heal", _unit];
-			_unit setVariable ["MCC_medicUnconscious",false,true];
-			_unit setVariable ["MCC_medicBleeding",0,true];
-			_unit setDamage 0;
-		};
+		[_savior,_unit] remoteExec ["MCC_fnc_AIHeal", _savior];
 	};
 };
 

@@ -75,7 +75,7 @@ if ((_index == 1) && _commander && (missionNamespace getVariable ["MCC_allowCons
 };
 
 //Squad Dialog
-if (_index == 2 && (missionNamespace getVariable ["MCC_allowSquadDialog",true])) exitWith {
+if (_index == 2) exitWith {
 	while {dialog} do {closeDialog 0; sleep 0.01};
 	createDialog "CP_RESPAWNPANEL";
 };

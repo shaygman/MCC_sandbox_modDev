@@ -34,7 +34,7 @@ class MCC_logisticsCargo
 		class Text: MCC_RscText
 		{
 			idc = -1;
-			text = "Cargo"
+			text = "Cargo";
 			x = 0.474219 * safezoneW + safezoneX;
 			y = 0.302 * safezoneH + safezoneY;
 			w = 0.0721875 * safezoneW;

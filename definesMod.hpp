@@ -32,9 +32,6 @@
 //----Key Settings-----------------
 #include "\mcc_sandbox_mod\mcc\Dialogs\mcc_rscKeyBinds.hpp"
 
-//----medic-----------------
-#include "\mcc_sandbox_mod\mcc\Dialogs\medic\mcc_uncMain.hpp"
-
 //--------------------------------CP------------------------------------------------
 #define CPPATH "\mcc_sandbox_mod\"
 #define CPVersion "0.1"
@@ -62,6 +59,7 @@
 #include "\mcc_sandbox_mod\mcc\LHD\cfg.hpp"
 #include "\mcc_sandbox_mod\mcc\vehicles\cfg.hpp"
 #include "\mcc_sandbox_mod\mcc\logistics\cfg.hpp"
+#include "\mcc_sandbox_mod\mcc\medic\cfg.hpp"
 
 //--------------------------Cfg----------------------------------------------------
 class CfgFunctions
@@ -93,6 +91,7 @@ class CfgFunctions
 		#include "\mcc_sandbox_mod\mcc\vehicles\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\logistics\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\UI\cfgFunctions.hpp"
+		#include "\mcc_sandbox_mod\mcc\medic\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\roads\cfgFunctions.hpp"
 	};
 };
@@ -143,7 +142,7 @@ class RscTitles
 	#include "\mcc_sandbox_mod\mcc\HUD\cfg.hpp"
 
 	//----medic-----------------
-	#include "mcc\Dialogs\medic\mcc_uncMain.hpp"
+	#include "mcc\medic\dialogs\mcc_uncMain.hpp"
 };
 
 class CfgDebriefing

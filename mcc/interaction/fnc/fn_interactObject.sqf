@@ -2,22 +2,18 @@
 // Interaction with containers object
 // Example:[player,_object]  call MCC_fnc_interactObject;
 //=============================================================================================================================================================================
-private ["_object","_typeOfobject","_ctrl","_break","_searchTime","_animation","_phase","_doorTypes","_isHouse","_loadName","_waitTime","_array","_displayname",
-         "_randomChance","_loot","_wepHolder","_class","_money","_rand","_wepArray","_randomAmmount"];
+private ["_object","_typeOfobject","_ctrl","_break","_searchTime","_animation","_phase","_doorTypes","_isHouse","_loadName","_waitTime","_array","_displayname","_path","_randomChance","_loot","_wepHolder","_class","_money","_rand","_wepArray","_randomAmmount"];
 disableSerialization;
 _object 	= _this select 0;
 if (isNil "MCC_interactionKey_holding") then {MCC_interactionKey_holding = false};
 
 if ((player distance _object < 7) && ((missionNamespace getVariable ["MCC_interactionKey_holding",false]) || (MCC_isACE && MCC_isMode)) && !(missionNameSpace getVariable [format ["MCC_isInteracted%1",getpos _object], false]) && (isNull attachedTo _object)) then {
+	_path = if (isClass (missionconfigFile >> "CfgMCCspawnItems")) then {(missionconfigFile >> "CfgMCCspawnItems")} else {(configFile >> "CfgMCCspawnItems")};
 
 	//Get what we can have in the loot from the server
 	{
 		if (isNil _x) then {
-			if (isClass (missionconfigFile >> "CfgMCCspawnItems" >> _x)) then {
-				missionNamespace setVariable [_x,getArray (missionconfigFile >> "CfgMCCspawnItems" >> _x >> "itemClasses")];
-			} else {
-				missionNamespace setVariable [_x,getArray (configFile >> "CfgMCCspawnItems" >> _x >> "itemClasses")];
-			};
+			missionNamespace setVariable [_x,getArray (_path >> _x >> "itemClasses")];
 		};
 	} forEach ["MCC_medItems","MCC_fuelItems","MCC_repairItems","MCC_foodItem","MCC_money","MCC_fruits","MCC_survivalWeapons","MCC_survivalMagazines","MCC_survivalAttachments"];
 
@@ -71,16 +67,14 @@ if ((player distance _object < 7) && ((missionNamespace getVariable ["MCC_intera
 	} forEach ([false] call MCC_fnc_getSurvivalPlaceHolders);
 
 	if (!isnil "_typeOfobject") then {
+
 		_randomChance = [];
 		_randomAmmount = [];
+
+		_path = if (isClass (missionconfigFile >> "CfgMCCspawnObjects")) then {(missionconfigFile >> "CfgMCCspawnObjects")} else {(configFile >> "CfgMCCspawnObjects")};
 		{
-			if (isClass (missionconfigFile >> "CfgMCCspawnObjects" >> _typeOfobject)) then {
-				_randomChance pushBack (getNumber (missionconfigFile >> "CfgMCCspawnObjects" >> _typeOfobject >> format ["chance%1",_x]));
-				_randomAmmount pushBack (getNumber (missionconfigFile >> "CfgMCCspawnObjects" >> _typeOfobject >> format ["max%1",_x]));
-			} else {
-				_randomChance pushBack (getNumber (configFile >> "CfgMCCspawnObjects" >> _typeOfobject >> format ["chance%1",_x]));
-				_randomAmmount pushBack (getNumber (configFile >> "CfgMCCspawnObjects" >> _typeOfobject >> format ["max%1",_x]));
-			};
+			_randomChance pushBack (getNumber (_path >> _typeOfobject >> format ["chance%1",_x]));
+			_randomAmmount pushBack (getNumber (_path >> _typeOfobject >> format ["max%1",_x]));
 		} forEach ["Weapon","Ammo","Med","Fuel","Repair","Food","Money","fruit"];
 
 		//createvirtual wepholder

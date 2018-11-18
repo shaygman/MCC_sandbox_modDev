@@ -42,13 +42,13 @@ missionNamespace setVariable ["MCC_initSupression",true];
 
 //Init fired EH on each unit
 0 spawn {
-    while {true} do {
+    while {(missionNamespace getVariable ["MCC_initSupression",false])} do {
         {
             if !((vehicle _x) getVariable ["MCC_initSupression",false]) then {
                 (vehicle _x) addEventHandler ["fired",{_this call MCC_fnc_supressionFiredEH}];
                 (vehicle _x) setVariable ["MCC_initSupression",true];
             };
         } forEach allUnits;
-        sleep 1;
+        sleep 30;
     };
 };

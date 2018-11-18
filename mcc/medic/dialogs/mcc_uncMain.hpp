@@ -2,7 +2,7 @@ class mcc_uncMain
 {
 	idd = -1;
 	movingEnable = 0;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\medic\mcc_uncMain_init.sqf'");
+	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\medic\dialogs\mcc_uncMain_init.sqf'");
 	duration = 1e+100;
 	fadeIn = 0;
 	fadeOut = 0;

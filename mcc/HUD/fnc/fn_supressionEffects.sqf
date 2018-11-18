@@ -74,36 +74,22 @@ switch (_radar) do
 	};
 };
 
+if (missionNamespace getVariable ["MCC_suppressionOn",false]) then {
+	_colorCorrectionEffect ppEffectCommit 0;
 
-_colorCorrectionEffect ppEffectCommit 0;
+	// RBlur
+	_blurEffects = ppEffectCreate ["DynamicBlur", 440];
+	_blurEffects ppEffectForceInNVG true;
+	_blurEffects ppEffectAdjust [_ratio];
+	_blurEffects ppEffectEnable true;
 
-// RBlur
-_blurEffects = ppEffectCreate ["DynamicBlur", 440];
-_blurEffects ppEffectForceInNVG true;
-_blurEffects ppEffectAdjust [_ratio];
-_blurEffects ppEffectEnable true;
+	_blurEffects ppEffectCommit 0;
 
-_blurEffects ppEffectCommit 0;
+	enableCamShake true;
+	resetCamShake;
+	addCamShake [(_ratio * 5),_ratio, _ratio*80];
 
-enableCamShake true;
-resetCamShake;
-addCamShake [(_ratio * 5),_ratio, _ratio*80];
-
-sleep 0.5;
-ppEffectDestroy [_blurEffects];
-ppEffectDestroy [_colorCorrectionEffect];
-
-/*
-0 = ["ColorCorrections", 1500,  [0.1,1,0, [0,0,.50,0],[0,0,0,1],[0,0,0,1],[0.9,0.9,0,0.2,-0.1,0.6,0.95]]] spawn
-{
- params ["_name", "_priority", "_effect", "_handle"];
-_handle = ppEffectCreate [_name, _priority];
- _handle ppEffectEnable true;
- _handle ppEffectAdjust _effect;
- _handle ppEffectCommit 0;
- waitUntil {ppEffectCommitted _handle};
- uiSleep 0.3;
- comment "admire effect for a sec";
- _handle ppEffectEnable false;
- ppEffectDestroy _handle;
-};*/
+	sleep 0.5;
+	ppEffectDestroy [_blurEffects];
+	ppEffectDestroy [_colorCorrectionEffect];
+};

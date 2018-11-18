@@ -10,8 +10,8 @@ _precise 	= player getVariable ["MCC_falseGrenadePrecise",2];
 _ctrl 		= ((uiNamespace getVariable "mcc_3dObject") displayCtrl 0);
 
 if (count _magData == 0 || str _ctrl == "no control") exitWith {[2] call MCC_fnc_weaponSelect};
-_magClass	= _magData select 0;
-_magMuzzle	= _magData select 4;
+_magClass	= _magData param [0,""];
+_magMuzzle	= _magData param [4,""];
 
 if (player getVariable ["MCC_busy",false]) exitWith {};
 player setVariable ["MCC_busy",true];

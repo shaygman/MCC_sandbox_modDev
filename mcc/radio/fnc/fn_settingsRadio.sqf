@@ -18,3 +18,5 @@ MCC_vonRadioDistanceGroup = _logic getvariable ["radioGroup",500];
 _var 	= _logic getvariable ["kickIdle",1];
 MCC_vonRadioKickIdle = if (_var == 0) then {false} else {true};
 MCC_vonRadioKickIdleTime = _logic getvariable ["kickIdleTime",20];
+
+[] spawn MCC_fnc_vonRadio;

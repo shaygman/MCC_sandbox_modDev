@@ -116,10 +116,10 @@ switch (true) do {
 		_hitPoints = ["HitHead","HitBody","hitLegs","hitHands"];
 		_partName = ["Head: ","Body: ","Legs: ","Hands: "];
 		_partPic = [
-					MCC_path + "mcc\dialogs\medic\data\soldier_head.paa",
-					MCC_path + "mcc\dialogs\medic\data\soldier_body.paa",
-					MCC_path + "mcc\dialogs\medic\data\soldier_legs.paa",
-					MCC_path + "mcc\dialogs\medic\data\soldier_hands.paa"
+					MCC_path + "mcc\medic\dialogs\data\soldier_head.paa",
+					MCC_path + "mcc\medic\dialogs\data\soldier_body.paa",
+					MCC_path + "mcc\medic\dialogs\data\soldier_legs.paa",
+					MCC_path + "mcc\medic\dialogs\data\soldier_hands.paa"
 					];
 		_array = [["[(missionNamespace getVariable ['MCC_interactionLayer_1',[]]),2] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
 		_bleeding = _suspect getVariable ["MCC_medicBleeding",0];

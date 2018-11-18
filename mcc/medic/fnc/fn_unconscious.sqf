@@ -67,6 +67,7 @@ _captiveSideId = switch (side _unit) do
                         default {50};
 					};
 
+_unit setVariable ["MCC_originalSide",side _unit, true];
 _unit setCaptive _captiveSideId;
 
 //_unit playmoveNow "Unconscious";
@@ -123,7 +124,6 @@ if (isPlayer _unit) exitWith {
 
 	while {dialog} do {closeDialog 0; sleep 0.01};
 	(["mcc_uncMain"] call BIS_fnc_rscLayer) cutRsc ["mcc_uncMain", "PLAIN"];
-	//createDialog "mcc_uncMain";
 };
 
 [_unit,_noBleeding,_forceUnconscious] spawn {
@@ -163,28 +163,18 @@ if (isPlayer _unit) exitWith {
 		sleep 2 + random 5;
 	};
 
-	_unit playmoveNow "amovppnemstpsraswrfldnon";
-	_unit setCaptive false;
-	_unit enableAI "MOVE";
-	_unit enableAI "TARGET";
-	_unit enableAI "AUTOTARGET";
-	_unit enableAI "ANIM";
-	_unit enableAI "FSM";
-	_unit disableConversation false;
-
+	//Bleed out
 	if ((_unit getVariable ["MCC_medicUnconscious",false]) &&
 	    alive _unit &&
 	    (damage _unit > 0.3)
 	    ) then {
+
+		private _ehAnimChanged = _unit getVariable ["bis_ehAnimChanged", -1];
+		if (_ehAnimChanged != -1) then {_unit removeEventHandler ["AnimChanged", _ehAnimChanged]};
+
 	    _unit setDamage 1;
+	} else {
+		[_unit] call MCC_fnc_wakeUp;
 	};
-
-	//Remove helper
-	[_unit] spawn MCC_fnc_deleteHelper;
-
-	//remove 'anim changed' event handler
-	private _ehAnimChanged = _unit getVariable ["bis_ehAnimChanged", -1];
-	if (_ehAnimChanged != -1) then {_unit removeEventHandler ["AnimChanged", _ehAnimChanged]};
-
 };
 

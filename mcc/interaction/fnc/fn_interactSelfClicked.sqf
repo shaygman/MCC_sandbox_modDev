@@ -25,15 +25,21 @@ _pos = ASLToATL (_ins select 0 select 0);
 
 switch (true) do {
 	case (_ctrlData == "medic"): {
-		private ["_bandage","_medkit","_maxBleeding","_complex","_isMedic","_itemsPlayer","_itemsSuspect","_bandagePic","_medkitPic","_string","_remaineBlood","_color","_fatigueEffect"];
+		private ["_bandage","_medkit","_maxBleeding","_complex","_isMedic","_itemsPlayer","_itemsSuspect","_bandagePic","_medkitPic","_string","_remaineBlood","_color","_fatigueEffect","_saline","_salinePic"];
 		//_child =  MCC_interactionMenu1;
 		_complex = missionNamespace getVariable ["MCC_medicComplex",false];
 		if (_complex) then {
 			_bandage = "MCC_bandage";
 			_medkit = "MCC_firstAidKit";
+
+			_saline = "MCC_salineBag";
+			_salinePic = getText (configFile >> "cfgWeapons" >> _saline >> "picture");
 		} else {
 			_bandage = "FirstAidKit";
 			_medkit = "Medikit";
+
+			_saline = "Medikit";
+			_salinePic = format ["%1data\items\saline.paa",MCC_path];
 		};
 		_bandagePic = getText (configFile >> "cfgWeapons" >> _bandage >> "picture");
 		_medkitPic = getText (configFile >> "cfgWeapons" >> _medkit >> "picture");
@@ -60,12 +66,14 @@ switch (true) do {
 				   ["",_string,format ["%1data\IconPulse.paa",MCC_path],_color],
 				   ["[(_this select 0),'physical'] spawn MCC_fnc_interactSelfClicked","Physical Check",format ["%1data\IconPhysical.paa",MCC_path]],
 				   [format ["['bandage','%1'] spawn MCC_fnc_medicUseItem",netid _suspect],format ["Bandages X %1", {_x == _bandage} count (_itemsPlayer)],_bandagePic],
+				   [format ["['saline','%1'] spawn MCC_fnc_medicUseItem",netid _suspect],format ["IV Bag X %1", {_x == _saline} count (_itemsPlayer)],_salinePic],
 				   [format ["['heal','%1'] spawn MCC_fnc_medicUseItem",netid _suspect],"Heal",_medkitPic]
 				 ];
 
 		if ( !alive _suspect) then {_array set [2,-1]};
 		if (!(_bandage in (_itemsPlayer)) || !alive _suspect) then {_array set [3,-1]};
-		if (!(_medkit in _itemsPlayer) || !_isMedic || !alive _suspect || (_suspect getVariable ["MCC_medicUnconscious",false]) || ((_suspect getVariable ["MCC_medicBleeding",0])> 0.2)) then {_array set [4,-1]};
+		if (!(_saline in (_itemsPlayer)) || !alive _suspect || !_isMedic) then {_array set [4,-1]};
+		if (!(_medkit in _itemsPlayer) || !_isMedic || !alive _suspect || (_suspect getVariable ["MCC_medicUnconscious",false]) || ((_suspect getVariable ["MCC_medicBleeding",0])> 0.2)) then {_array set [5,-1]};
 		_array = _array - [-1];
 		_layer = 1;
 	};
@@ -75,10 +83,10 @@ switch (true) do {
 		_hitPoints = ["HitHead","HitBody","hitLegs","hitHands"];
 		_partName = ["Head: ","Body: ","Legs: ","Hands: "];
 		_partPic = [
-					MCC_path + "mcc\dialogs\medic\data\soldier_head.paa",
-					MCC_path + "mcc\dialogs\medic\data\soldier_body.paa",
-					MCC_path + "mcc\dialogs\medic\data\soldier_legs.paa",
-					MCC_path + "mcc\dialogs\medic\data\soldier_hands.paa"
+					MCC_path + "mcc\medic\dialogs\data\soldier_head.paa",
+					MCC_path + "mcc\medic\dialogs\data\soldier_body.paa",
+					MCC_path + "mcc\medic\dialogs\data\soldier_legs.paa",
+					MCC_path + "mcc\medic\dialogs\data\soldier_hands.paa"
 					];
 		_array = [["[(missionNamespace getVariable ['MCC_interactionLayer_1',[]]),2] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
 		_bleeding = _suspect getVariable ["MCC_medicBleeding",0];

@@ -73,14 +73,6 @@ if (_module isKindOf "MCC_Module_settings") exitWith {
 	_var 	= _module getvariable ["commanderConsoleAI",1];
 	MCC_ConsoleCanCommandAI = (_var isEqualTo 1);
 
-	//Squad dialog
-	_var 	= _module getvariable ["squadDialog",1];
-	MCC_allowSquadDialog = (_var isEqualTo 1);
-
-	//Squad dialog camera
-	_var 	= _module getvariable ["squadDialogPip",1];
-	MCC_allowSquadDialogCamera = (_var isEqualTo 1);
-
 	//Logistics
 	_var 	= _module getvariable ["logistics",1];
 	MCC_allowlogistics =(_var isEqualTo 1);

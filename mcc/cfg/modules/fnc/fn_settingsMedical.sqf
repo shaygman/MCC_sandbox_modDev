@@ -14,7 +14,6 @@ if (missionNamespace getVariable ["MCC_isACE",false]) exitWith {};
 if (typeName (_module getVariable ["medicComplex",true]) == typeName 0) exitWith {
 	//Enable system
 	MCC_medicSystemEnabled = true;
-	[] spawn MCC_fnc_initMedic;
 
 	//Complex
 	MCC_medicComplex = ((_module getvariable ["medicComplex",1])==1);
@@ -72,8 +71,5 @@ publicvariable "MCC_medicSystemEnabled";
 		   "MCC_medicShowWounded",
 		   "MCC_medicOnlyMedicHeals"
 		  ];
-
-//Start Medic system on clients
-[] remoteExec ["MCC_fnc_initMedic", 0, true];
 
 deleteVehicle _module;

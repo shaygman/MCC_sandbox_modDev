@@ -168,7 +168,7 @@ class RscTitles
 	#include "mcc\HUD\cfg.hpp"
 
 	//----medic-----------------
-	#include "mcc\Dialogs\medic\mcc_uncMain.hpp"
+	#include "mcc\medic\dialogs\mcc_uncMain.hpp"
 };
 
 class CfgDebriefing

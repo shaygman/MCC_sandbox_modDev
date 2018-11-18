@@ -1,3 +1,21 @@
+Changelog r27:
+
+MCC now requires CBA
+
+- Changed: Survival module - spawn crates in house will now spawn weapons and survival gear on the ground and not empty boxes.
+- Fix : AI stuck on move order
+
+TODO -
+check why enabling medic complex in settings doesn't change bi medics
+check lock/unlock door module in BI
+Disable interaction when ace is ons
+CAS in commander console
+fire kill vehicles
+suprresion effects kill all other effects (sandstorm)
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
+under water objectives?
+ADD surrender to AI in campaign
+
 Change log r26:
 
 Static Ships  *NEW*
@@ -65,13 +83,6 @@ General
 	Fixed - Unable to perform medical actions on self using MCC self interaction
 	Fixed - Ambient Warzone didn't work well with RHS
 
-
-TODO -
-fire kill vehicles
-suprresion effects kill all other effects (sandstorm)
-Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-under water objectives?
-ADD surrender to AI in campaign
 
 Change log r25:
 
