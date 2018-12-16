@@ -10,7 +10,7 @@ _channelID = -1;
 
 _fncKeyDown =
 {
-	if (!(player getVariable ["MCC_radioBroadcasting",false])) then	{
+	if (!(player getVariable ["MCC_radioBroadcasting",false]) && (missionNamespace getVariable ["MCC_VonRadio",false])) then	{
 		if (!isNull findDisplay 55 && !isNull findDisplay 63) then {
 			player setVariable ["MCC_radioBroadcasting",true];
 			(ctrlText (findDisplay 63 displayCtrl 101)) call MCC_fnc_VONRadioPressed;

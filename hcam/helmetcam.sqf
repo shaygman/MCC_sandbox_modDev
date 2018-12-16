@@ -68,7 +68,9 @@ if (!isnil "hcam_cam") then
 	{
 		while {!isNull hcam_cam} do {
 			// destroy camera and cancel the loop if player closes the liveFeed or takes off his tactical glasses.
-			_units = synchronizedObjects (player getVariable ["MCC_fnc_SFLogic",objNull]);
+			//_units = synchronizedObjects (player getVariable ["MCC_fnc_SFLogic",objNull]);
+
+			_units = units player - [player];
 
 			// Set Target
 			hcam_target = _units select hcam_id;
@@ -80,7 +82,10 @@ if (!isnil "hcam_cam") then
 				_pilot attachTo [hcam_target,[0,0,0],"pilot"];
 				_old = name hcam_target;
 				hcam_cam cameraEffect ["INTERNAL", "BACK","rendertarget0"];
-				[hcamNVG] call bis_fnc_livefeedeffects;
+
+				//hcamNVG call bis_fnc_livefeedeffects;
+				"rendertarget0" setPiPEffect [hcamNVG];
+
 				HCAM_CTRL_TITLE ctrlsettext (name hcam_target);
 			};
 
@@ -89,7 +94,9 @@ if (!isnil "hcam_cam") then
 				hcam_cam cameraEffect ["INTERNAL", "BACK","rendertarget0"];
 				"rendertarget0" setPiPEffect [3, 1, 0.8, 1, 0.1, [0.3, 0.3, 0.3, -0.1], [1.0, 0.0, 1.0, 1.0], [0, 0, 0, 0]];
 				HCAM_CTRL_PIP ctrlsettext "#(argb,256,256,1)r2t(rendertarget0,1.0)";
-				[hcamNVG] call bis_fnc_livefeedeffects;
+
+				//hcamNVG call bis_fnc_livefeedeffects;
+				"rendertarget0" setPiPEffect [hcamNVG];
 				_camOn = true;
 			};
 
@@ -124,10 +131,10 @@ if (!isnil "hcam_cam") then
 					_target attachTo [_neck,[0.5,10,_tz*10]];
 					_neck setDir _dir;
 
-					sleep 0.1;
+					sleep 0.01;
 				};
 			} else {
-				sleep 1;
+				sleep .5;
 			};
 
 			if (isnil "hcam_cam") then {hcam_cam = ObjNull};

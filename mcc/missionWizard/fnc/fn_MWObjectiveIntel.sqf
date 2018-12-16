@@ -25,6 +25,10 @@ _objType = if (_isDownloadIntel) then {"Land_DataTerminal_01_F"} else {
 
 //If not CQB spawn some POI
 if !(_isCQB) then {
+
+	//Clear area
+	[_objPos,50,true] call MCC_fnc_hideTerrainObjectsArea;
+
 	_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
 };
 

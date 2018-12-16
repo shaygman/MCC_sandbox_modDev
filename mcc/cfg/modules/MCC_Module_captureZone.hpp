@@ -55,6 +55,14 @@ class MCC_Module_captureZone : Module_F
 			property = "faction1";
 		};
 
+		class respawn : Checkbox
+		{
+			displayName = "Respawn";
+			description = "Owner side can respawn on sector";
+			typeName = "BOOL";
+			property = "respawn";
+		};
+
 		class enableHUD  : Checkbox
 		{
 			displayName = "HUD";
@@ -62,12 +70,19 @@ class MCC_Module_captureZone : Module_F
 			property = "enableHUD";
 		};
 
+		class sectorName : Edit
+		{
+			displayName = "Designation";
+			typeName = "STRING";
+			property = "sectorName";
+		};
+
 		class ModuleDescription: ModuleDescription{};
 	};
 
 	class ModuleDescription: ModuleDescription
 	{
-		description = "Create a capture zone that yield resources over time";
+		description = "Create a capture zone that yield resources over time, sync the module with a trigger to set the are of capturing and a flagpole (optional)";
 		position = 1;
 		direction = 1;
 		optional = 0;

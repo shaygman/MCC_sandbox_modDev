@@ -258,7 +258,7 @@ if (_isSB) then {
 		if (random 1 >0.5) then	{
 			//Name the bomber.
 			_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
-			_pos = [[[_missionCenter,(_missionRadius*0.4)]],["water","out"],{true}] call BIS_fnc_randomPos;
+			_pos = [[[_missionCenter,(_missionRadius*0.4)]],["water"],{true}] call BIS_fnc_randomPos;
 
 			[[_pos,_objectType,"large",floor (random 2),_playersSides],"MCC_fnc_SBSingle",false,false] spawn BIS_fnc_MP;
 
@@ -286,7 +286,7 @@ if (_isAS) then {
 
 			//Name the AC.
 			_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
-			_pos = [[[_missionCenter,(_missionRadius*0.4)]],["water","out"],{true}] call BIS_fnc_randomPos;
+			_pos = [[[_missionCenter,(_missionRadius*0.4)]],["water"],{true}] call BIS_fnc_randomPos;
 
 			[[_pos,_objectType,_playersSides,"Armed Civilian",random 360],"MCC_fnc_ACSingle",false,false] spawn BIS_fnc_MP;
 

@@ -234,12 +234,12 @@ if ((count _allCuratorObjectives) > 0) then
 				[_vehicle,"RscAttributeTaskDescription",_objectData select 6] call bis_fnc_setServerVariable;
 			};
 
-			case (_class in ["MCC_ModuleObjective_F"]):
+			case (_class in ["MCC_ModuleObjective_FCurator"]):
 			{
 				_attachedUnit = _objectData select 2;
 				if (typeName (_attachedUnit) == "STRING" ) then {waituntil {!(isnil _attachedUnit)}};
 
-				_vehicle =  _group createunit ["MCC_ModuleObjective_F", _pos,[],0.5,"NONE"];
+				_vehicle =  _group createunit ["MCC_ModuleObjective_FCurator", _pos,[],0.5,"NONE"];
 				_vehicle setvariable ["RscAttributeOwners",call compile _side];
 
 				if (typeName _attachedUnit == "STRING" ) then {
@@ -289,7 +289,7 @@ if ((count _allCuratorObjectives) > 0) then
 			};
 		};
 
-		if (_class != "MCC_ModuleObjective_F") then {
+		if (_class != "MCC_ModuleObjective_FCurator") then {
 			{_x addCuratorEditableObjects [[_vehicle],false]} forEach allCurators;
 			_vehicle setvariable ["updated",true];
 		};

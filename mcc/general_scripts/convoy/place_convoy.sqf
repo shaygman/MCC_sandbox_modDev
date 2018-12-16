@@ -85,7 +85,7 @@ if (_vipclass != "0") then {
 	_group = group driver _hvtCar;
 
 	for "_i" from 1 to (_cargoNum-1) do {
-		_cargo = _group createUnit [_escrot, _pos1, [], 0, "CORPORAL"];
+		_cargo = _group createUnit [_escrot, _pos1, [], 0, "CARGO"];
 		_cargo assignAsCargo _hvtCar;
 		_cargo MoveInCargo _hvtCar;
 	};

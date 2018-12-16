@@ -45,7 +45,7 @@ if !(isClass (configFile >> "CfgPatches" >> "ace_medical")) then {
 	[
 	    "MCC_medicBleedingEnabled",
 	    "CHECKBOX",
-	   	["Bleeding","PLayers and AI will suffer from bleeding effects and will need to stop bleeding or die over time"],
+	   	["Bleeding","Players and AI will suffer from bleeding effects and will need to stop bleeding or die over time"],
 	    "MCC Medical System",
 	    false,
 	    true

@@ -65,6 +65,9 @@ if (_isCQB) then {
 		sleep 0.1;
 	};
 
+	//Clear area
+	[_spawnPos,30,true] call MCC_fnc_hideTerrainObjectsArea;
+
 	_dummyObject =[_spawnPos, random 360, "c_nestBig"] call MCC_fnc_objectMapper;
 	_spawnPos = getpos _dummyObject;
 	_spawndir = getdir _dummyObject;

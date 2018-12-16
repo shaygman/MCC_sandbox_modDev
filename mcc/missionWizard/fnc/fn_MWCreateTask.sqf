@@ -267,13 +267,14 @@ switch (_task) do {
 
 private ["_group","_vehicle"];
 
-_group = createGroup sidelogic;
+_group = group ((allMissionObjects "logic") select 0);
 
 //clear area mission
 private _missionName = missionNamespace getVariable ["MCC_fnc_MWinitMission_missionName",""];
 
 if (_task == "clear_area") then {
-    _vehicle = _group createunit ["MCC_ModuleObjective_F", _pos,[],0.5,"NONE"];
+    _vehicle = _group createunit ["MCC_ModuleObjective_FCurator", _pos,[],0.5,"NONE"];
+    _vehicle setVariable ["BIS_fnc_initModules_disableAutoActivation", false,true];
     _taskId = str _vehicle + str (["MCC_fnc_moduleObjective_id",1] call bis_fnc_counter);
     _vehicle setvariable ["RscAttributeOwners",_sides,true];
     if (typeName _obj == "OBJECT") then {_vehicle setvariable ["AttachObject_object",_obj,true]};
@@ -298,7 +299,8 @@ if (_task == "clear_area") then {
 } else {
   //spawn task for each side
   {
-    _vehicle = _group createunit ["MCC_ModuleObjective_F", _pos,[],0.5,"NONE"];
+    _vehicle = _group createunit ["MCC_ModuleObjective_FCurator", _pos,[],0.5,"NONE"];
+    _vehicle setVariable ["BIS_fnc_initModules_disableAutoActivation", false,true];
     _taskId = str _vehicle + str (["MCC_fnc_moduleObjective_id",1] call bis_fnc_counter);
     _vehicle setvariable ["RscAttributeOwners",[_x],true];
     if !(isNull _obj) then {_vehicle setvariable ["AttachObject_object",_obj,true]};

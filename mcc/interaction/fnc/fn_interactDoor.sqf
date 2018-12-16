@@ -76,17 +76,8 @@ switch (true) do {
 			player setVariable ["MCC_interactionActive",false];
 		};
 
-		//We just pressed open/close door
-		if (((_object getVariable [format ["bis_disabled_%1",_door],0])==1) && !MCC_interactionKey_holding) exitWith {
-						_object animate [_animation, 0.1];
-			//_object animateSource [_animation,  0.1];
-			sleep 0.1;
-			_object animate [_animation, 0];
-			//_object animateSource [_animation, 0];
-		};
+		[_object,_door,_phase,_animation] call MCC_fnc_doorHandle;
 
-		//_object animateSource [_animation, _phase];
-		_object animate [_animation, _phase];
 		sleep _waitTime;
 		player setVariable ["MCC_interactionActive",false];
 	};

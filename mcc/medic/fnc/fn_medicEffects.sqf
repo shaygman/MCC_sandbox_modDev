@@ -4,6 +4,11 @@
 private ["_bleeding","_remaineBlood","_maxBleeding","_ypos","_ratio","_blink","_unit"];
 _unit = param [0,objNull,[objNull]];
 
+//Remove Event Handler
+if !(alive _unit) exitWith {
+	[_unit getVariable ["MCC_fnc_initMedicXEH",-1]] call CBA_fnc_removePerFrameHandler;
+};
+
 //Zeus open
 if (!(missionNamespace getvariable ["MCC_medicSystemEnabled",false]) || isNull _unit || !(local _unit)) exitWith {};
 
@@ -105,9 +110,11 @@ if !(isPlayer _unit) then {
 _bleeding = _unit getVariable ["MCC_medicBleeding",0];
 
 //AI heal for players and AI
-if ((_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconscious",false]) || damage _unit > 0.2) &&
-    !(alive (_unit getVariable ["MCC_medicSavior",objNull]))
+if ((_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconscious",false]) || damage _unit > 0.2)
+    && alive _unit
+    && !(alive (_unit getVariable ["MCC_medicSavior",objNull]))
     ) then {
+
 	private ["_medics","_savior"];
 
 	_medics = (allUnits) select {
@@ -118,7 +125,7 @@ if ((_bleeding > 0.1 || (_unit getVariable ["MCC_medicUnconscious",false]) || da
 		&& (lifeState _x != "INCAPACITATED")
 		&& (vehicle _x == _x)
 		&& !(isPlayer _x)
-		&& !(_unit isEqualTo (_x getVariable ["MCC_medicSavingUnit",objNull]))
+		&& (isNull (_x getVariable ["MCC_medicSavingUnit",objNull]))
 	};
 
 	if (count _medics > 0) then {

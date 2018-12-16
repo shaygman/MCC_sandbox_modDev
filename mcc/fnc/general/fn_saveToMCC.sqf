@@ -23,7 +23,7 @@ _logics = allMissionObjects "logic";
 //Curator objectives
 _curatorObjectives = [];
 {
-	if (typeOf _x in ["ModuleObjectiveAttackDefend_F","ModuleObjectiveSector_F","ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_F"]) then
+	if (typeOf _x in ["ModuleObjectiveAttackDefend_F","ModuleObjectiveSector_F","ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_FCurator"]) then
 	{
 		_curatorObjectives pushBack _x;
 	};
@@ -70,7 +70,7 @@ _logics = _logics - _curatorObjectives;
 			//Others
 			default
 			{
-				if !(typeOf _x in ["ModuleObjectiveAttackDefend_F","ModuleObjectiveSector_F","ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_F"]) then
+				if !(typeOf _x in ["ModuleObjectiveAttackDefend_F","ModuleObjectiveSector_F","ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_FCurator"]) then
 				{
 					_arrayVehicles set [count _arrayVehicles, [_x,"EMPTY"]];
 				};
@@ -79,7 +79,7 @@ _logics = _logics - _curatorObjectives;
 	}
 	else
 	{
-		if (!(group _x in _checkedGroups) && !(_x getVariable ["mccIgnore",false]) && (alive _x) && !(typeOf _x in ["ModuleObjectiveAttackDefend_F","ModuleObjectiveSector_F","ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_F"])) then
+		if (!(group _x in _checkedGroups) && !(_x getVariable ["mccIgnore",false]) && (alive _x) && !(typeOf _x in ["ModuleObjectiveAttackDefend_F","ModuleObjectiveSector_F","ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_FCurator"])) then
 		{
 			_arrayGroups set [count _arrayGroups, [group _x,toupper (format ["%1",side _x])]];
 			_checkedGroups set [count _checkedGroups, group _x];
@@ -100,7 +100,7 @@ if (count _curatorObjectives > 0) then
 	{
 		_class = typeOf _x;
 
-		if (_class in ["ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_F"]) then
+		if (_class in ["ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_FCurator"]) then
 		{
 			_attachedUnit = _x getvariable ["bis_fnc_curatorAttachObject_object",objnull];
 
@@ -136,7 +136,7 @@ if (count _curatorObjectives > 0) then
 				_tempArray = [_class, getpos _x, _newName, str (_x getvariable ["RscAttributeOwners",[]]) ,_x getvariable ["RscAttributeTaskState","created"], _x getvariable ["RscAttributeTaskDestination",0],[_x,"RscAttributeTaskDescription",["","", ""]] call bis_fnc_getServerVariable, _x getVariable ["customTask",""]];
 			};
 
-			case (_class in ["MCC_ModuleObjective_F"]):
+			case (_class in ["MCC_ModuleObjective_FCurator"]):
 			{
 				_tempArray = [_class,
 							  getpos _x,

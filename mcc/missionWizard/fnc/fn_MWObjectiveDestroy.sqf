@@ -43,7 +43,7 @@ _vehiclesArray = switch _objType do
 	};
 
 //Find the objects from the enemy side
-_vehiclesArrayFlitered = _vehiclesArray select {([(getNumber(configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) == _side};
+_vehiclesArrayFlitered = _vehiclesArray select {([(getNumber (configFile >> "cfgVehicles" >> _x >> "side"))] call BIS_fnc_sideType) isEqualTo _side};
 
 //Couldn't find any object just select all
 if (count _vehiclesArrayFlitered <= 0) then {
@@ -99,6 +99,8 @@ while {str _spawnPos == "[-500,-500,0]" || isOnRoad _spawnPos} do
 	//_spawnPos = _objPos findEmptyPosition [0,200,_typeSize];
 };
 
+//Clear area
+[_spawnPos,30,true] call MCC_fnc_hideTerrainObjectsArea;
 
 //Case we are dealing with a vehicle
 if (_objType in ["tanks","aa","artillery"]) then

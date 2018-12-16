@@ -35,4 +35,5 @@ class interaction
 	class ACE_addGrenadesChildren {description = "Build ACE childrens for grenades";};
 	class interactDoorGrenadeThrow {description = "Throw a grenade into a house";};
 	class magazineRepack  {description = "Repack all the handguns and primary weapon magazines in the player's inventory";};
+	class doorHandle {description = "Open and close buildings homes with animations";};
 };

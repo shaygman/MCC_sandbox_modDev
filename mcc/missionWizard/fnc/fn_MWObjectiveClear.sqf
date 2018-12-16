@@ -27,6 +27,10 @@ if (_isCQB) then {
 
 	//Lets spawn an FOB
 	if (!_campaignMission || (random 1 > 0.7)) then {
+
+		//Clear area
+		[_objPos,50,true] call MCC_fnc_hideTerrainObjectsArea;
+
 		_objPos = [_objPos,"military"] call MCC_fnc_buildRandomComposition;
 	};
 };

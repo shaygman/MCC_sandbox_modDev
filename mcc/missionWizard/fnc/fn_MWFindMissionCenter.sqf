@@ -42,7 +42,7 @@ else
 	_time = time + 30;
 	while {!_centerFound && time < _time} do
 		{
-			_newPos = [[MCC_worldArea],["water","out"],{(_this distance _pos > _minRadius)}] call BIS_fnc_randomPos; //first is whitelist second is blacklist, third is condition
+			_newPos = [[MCC_worldArea],["water"],{(_this distance _pos > _minRadius)}] call BIS_fnc_randomPos; //first is whitelist second is blacklist, third is condition
 
 			if (_isCQB) then
 				{

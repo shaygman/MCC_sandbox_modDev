@@ -26,7 +26,7 @@ if (_saveAll) then
 	_logicItems		= allMissionObjects "logic";
 
 	{
-		if (typeOf _x in ["ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_F"]) then
+		if (typeOf _x in ["ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_FCurator"]) then
 		{
 			_allCuratorObjectives pushBack _x;
 		};
@@ -40,7 +40,7 @@ else
 	_allItems		= curatorEditableObjects MCC_curator;
 
 	{
-		if (typeOf _x in ["ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_F"]) then
+		if (typeOf _x in ["ModuleObjective_F","ModuleObjectiveGetIn_F","ModuleObjectiveMove_F","ModuleObjectiveNeutralize_F","ModuleObjectiveProtect_F","MCC_ModuleObjective_FCurator"]) then
 		{
 			_allCuratorObjectives pushBack _x;
 		};
@@ -195,7 +195,7 @@ if (count _allCuratorObjectives > 0) then
 						+ 	format ["[this,""RscAttributeTaskDescription"",[""%1"",""%2"",""%3""]] call bis_fnc_setServerVariable;", _desc select 0, _desc select 1, _desc select 2];
 
 
-		if (_class in ["ModuleObjective_F","MCC_ModuleObjective_F"]) then
+		if (_class in ["ModuleObjective_F","MCC_ModuleObjective_FCurator"]) then
 		{
 			{
 				_init = _init + format ["this setVariable [%1,%2];", str _x, str (_object getVariable _x)]

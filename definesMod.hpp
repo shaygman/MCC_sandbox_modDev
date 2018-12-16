@@ -1,5 +1,5 @@
 #define MCCPATH "\mcc_sandbox_mod\"
-#define MCCVersion "(r26)"
+#define MCCVersion "(r27)"
 #define MCCMODE true
 
 

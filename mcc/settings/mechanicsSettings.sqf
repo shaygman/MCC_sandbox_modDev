@@ -144,27 +144,28 @@
 
 //Breaching Ammo
 [
-    "MCC_breachingAmmo_Settings",
+    "MCC_breacingAmmo",
     "EDITBOX",
     ["Breaching Ammo","Shooting this ammo from less then 10 meters will unlock doors"],
     ["MCC Mechanics","Ammo Type"],
     '["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug"]',
     true,
     {
-    	MCC_breacingAmmo = call compile MCC_breachingAmmo_Settings;
+        params ["_value"];
+        MCC_breacingAmmo = call compile _value;
     }
 ] call CBA_Settings_fnc_init;
 
 //Non Lethal Ammo
 [
-    "MCC_nonLeathalAmmo_Settings",
+    "MCC_nonLeathalAmmo",
     "EDITBOX",
     ["Non Lethal Ammo","Shooting this ammo from less then 10 meters will unlock doors"],
     ["MCC Mechanics","Ammo Type"],
     '["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug"]',
     true,
     {
-    	MCC_nonLeathalAmmo = call compile MCC_nonLeathalAmmo_Settings;
+        params ["_value"];
+        MCC_nonLeathalAmmo = call compile _value;
     }
 ] call CBA_Settings_fnc_init;
-

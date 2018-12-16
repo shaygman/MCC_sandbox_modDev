@@ -29,6 +29,9 @@ _multiplyMatrixFunc =
 	private ["_array1", "_array2", "_result"];
 	_array1 = _this select 0;
 	_array2 = _this select 1;
+
+	diag_log format ["MCC DEBUG: %1", [_array1,_array2]];
+
 	_result =
 	[
 	(((_array1 select 0) select 0) * (_array2 select 0)) + (((_array1 select 0) select 1) * (_array2 select 1)),
@@ -42,6 +45,8 @@ _configName = configFile >> "CfgGroups" >> "Empty";
 {
 	_configName = _configName >> _x;
 } forEach _script;
+
+diag_log format ["MCC DEBUG: %1",_configName];
 
 for "_i" from 0 to ((count _configName) - 1) do
 {

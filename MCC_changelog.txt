@@ -1,9 +1,34 @@
+Changelog r28:
+- Added: Mission Generator objectives will clear area of terrain objects before spawning in objectives
+- Fixed: Can't generate mission to a specific zone
+- Fixed: Restrict vehicles to roles was on by default
+- Fixed: MCC interaction will open/close door on non vanila maps
+- Fixed: MCC medics healing dead bodies and not willing to heal after player respawn
+- Fixed: MCC medics will regroup after healing AI
+
+TODO -
+CAS gun run zeus didn't work
+Controllable CAS don't have a timer and don't do exit - also when dead need to release.
+
+check why enabling medic complex in settings doesn't change bi medics
+Disable interaction when ace is ons
+CAS in commander console
+fire kill vehicles
+suprresion effects kill all other effects (sandstorm)
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
+under water objectives?
+ADD surrender to AI in campaign
+
 Changelog r27:
 
 MCC now requires CBA
-
+- Added: Full support to CBA addon settings, you can define most of MCC settings using CBA
+- Added: Custom names for capture sectors in Advance and Secure module
 - Changed: Survival module - spawn crates in house will now spawn weapons and survival gear on the ground and not empty boxes.
 - Fix : AI stuck on move order
+- Fix : Special forces helmet camera now works on group members not only on synced units.
+- Fix: never ending generating mission bug
+
 
 TODO -
 check why enabling medic complex in settings doesn't change bi medics

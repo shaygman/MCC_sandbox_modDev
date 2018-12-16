@@ -35,3 +35,4 @@
 #include "MCC_Module_medicSetStateCurator.hpp"
 #include "MCC_Module_createShopCurator.hpp"
 #include "MCC_Module_addValorCurator.hpp"
+#include "MCC_Module_Objective_FCurator.hpp"

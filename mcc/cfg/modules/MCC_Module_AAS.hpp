@@ -75,7 +75,7 @@ class MCC_Module_AAS : Module_F
 
 	class ModuleDescription: ModuleDescription
 	{
-		description = "Creates an Advance And Secure mission where objectives can only be captured in a specific order";
+		description = "Creates an Advance And Secure mission where objectives can only be captured in a specific order, Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission";
 		optional = 0;
 		sync[] = {"MCC_Module_captureZone"};
 

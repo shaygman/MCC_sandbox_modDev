@@ -50,6 +50,10 @@ switch (tolower _state) do
 		//Add Task
 		0 = [_taskName,_owners,_taskText,_taskDestination,_taskState,_taskPriority,_taskNotification,true,_taskType,_alwaysVisible] call bis_fnc_setTask;
 
+		/*
+		[["child2","parent3"],true,["text","Head","bosy2"],position player,"created",0,true,true,"target",true] call bis_fnc_setTask;
+		*/
+
 		sleep 5;
 
 		_module setVariable ["updated",false,true];

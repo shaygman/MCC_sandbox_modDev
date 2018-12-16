@@ -13,7 +13,8 @@ _ctrl = _this select 2;
 _alt = _this select 3;
 _hcam_key = actionKeys (format ["User%1",hcam_Key]);
 
-_units = synchronizedObjects (player getVariable ["MCC_fnc_SFLogic",objNull]);
+//_units = synchronizedObjects (player getVariable ["MCC_fnc_SFLogic",objNull]);
+_units = units player - [player];
 
 
 
@@ -62,27 +63,32 @@ if ( _shift && !_ctrl && !_alt ) then {
 	};
 };
 
+//Ctrl - night vision
+
 if (! _shift && _ctrl && !_alt ) then {
+
 	switch (hcamNVG) do
 		{
 			case 0:	//Regular
 			{
-				[1] call bis_fnc_livefeedeffects;
+				//[1] call bis_fnc_livefeedeffects;
 				hcamNVG = 1;
 			};
 
 			case 1:	//NV
 			{
-				[2] call bis_fnc_livefeedeffects;
+				//[2] call bis_fnc_livefeedeffects;
 				hcamNVG = 2;
 			};
 
 			case 2:	//Thermal
 			{
-				[0] call bis_fnc_livefeedeffects;
+				//[0] call bis_fnc_livefeedeffects;
 				hcamNVG = 0;
 			};
 		};
+
+	"rendertarget0" setPiPEffect [hcamNVG];
 };
 // KEY pressed - Switch to next groupmember
 if ( !_shift && !_ctrl && !_alt ) then {

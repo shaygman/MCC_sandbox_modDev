@@ -117,7 +117,7 @@ if (count _locations == 0) then {
 //Still no location go bruth force
 if (count _locations == 0) then {
 	for "_i" from 1 to 100  do {
-		_temploc = [[getpos MCC_worldArea, MCC_worldArea], "ground", ["water","out"],{}] call BIS_fnc_randomPos;
+		_temploc = [[getpos MCC_worldArea, MCC_worldArea], "ground", ["water"],{}] call BIS_fnc_randomPos;
 		_locations pushBack [_temploc, ""];
 	};
 };

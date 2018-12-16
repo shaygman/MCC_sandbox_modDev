@@ -114,6 +114,10 @@ if (_isCQB) then {
 		};
 	};
 } else {
+
+	//Clear area
+	[_objPos,50,true] call MCC_fnc_hideTerrainObjectsArea;
+
 	//Open area
 	_objPos = [_objPos] call MCC_fnc_buildRandomComposition;
 	[_objPos,30,0,4,_faction, _side] remoteExec ["MCC_fnc_garrison",2];

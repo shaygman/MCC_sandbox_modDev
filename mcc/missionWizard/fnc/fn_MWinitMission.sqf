@@ -329,7 +329,8 @@ _multipleObjectives = {_x != "None" && _x != ""} count [_obj1, _obj2, _obj3] > 1
 //If just one task no need to create parent
 if (_multipleObjectives) then {
 	_missionName = (_missionName1 select 0) + " " + (_missionName2 select 0);
-	_missionObjective = (createGroup sideLogic) createunit ["MCC_ModuleObjective_F", [-2000,-2000,0],[],0.5,"NONE"];
+	_missionObjective = (createGroup sideLogic) createunit ["MCC_ModuleObjective_FCurator", [-2000,-2000,0],[],0.5,"NONE"];
+	_missionObjective setVariable ["BIS_fnc_initModules_disableAutoActivation", false,true];
 	_taskId = str _missionObjective + str (["MCC_fnc_moduleObjective_id",1] call bis_fnc_counter);
 	_missionObjective setvariable ["RscAttributeOwners",[_sidePlayer,_enemySide],true];
 	_missionObjective setvariable ["RscAttributeTaskState","created", true];
@@ -555,14 +556,14 @@ _objectives = [];
 				if (random 1 >0.5) then {
 					//Name the bomber.
 					_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
-					_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water","out"],{true}] call BIS_fnc_randomPos;
+					_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
 
 					[[_pos,_objectType,"large",floor (random 2),_sidePlayer],"MCC_fnc_SBSingle",false,false] spawn BIS_fnc_MP;
 
 					//Debug
 					if (MCC_debug) then {
 						private ["_marker","_name"];
-						_name = FORMAT ["SBMarker_%1", ["SBMarker_",1] call bis_fnc_counter];
+						_name = FORMAT ["SBMarker_%1", ["SBMarker",1] call bis_fnc_counter];
 						_marker = createMarkerLocal[_name, _pos];
 						_marker setMarkerTypeLocal "mil_dot";
 						_marker setMarkerColorLocal "ColorOrange";
@@ -579,7 +580,7 @@ _objectives = [];
 				if (random 1 >0.5) then {
 					//Name the AC.
 					_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
-					_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water","out"],{true}] call BIS_fnc_randomPos;
+					_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
 
 					[[_pos,_objectType,_sidePlayer,"Armed Civilian",random 360],"MCC_fnc_ACSingle",false,false] spawn BIS_fnc_MP;
 
@@ -879,7 +880,7 @@ if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = n
 	missionNamespace setVariable ["MCC_MWMissionRuning",true];
 	publicvariable "MCC_MWMissionRuning";
 
-	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (_missionCenter nearObjects ["MCC_ModuleObjective_F", (_maxObjectivesDistance*2.5)]) > 0} do {
+	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (_missionCenter nearObjects ["MCC_ModuleObjective_FCurator", (_maxObjectivesDistance*2.5)]) > 0} do {
 		sleep 1;
 	};
 

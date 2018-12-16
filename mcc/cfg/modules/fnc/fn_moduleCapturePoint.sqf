@@ -85,7 +85,7 @@ switch _mode do {
 		/////////////////////////////////////////////////////////////////////////////////////
 
 		//--- Load params
-		_name = _logic getvariable ["Name",""];
+		_name = _logic getvariable ["sectorName",""];
 		_designation = _logic getvariable ["Designation",""];
 		_onOwnerChange = compile (_logic getvariable ["OnOwnerChange","true"]);
 		_scoreReward = (_logic getvariable ["ScoreReward",0]) call bis_fnc_parsenumber;
@@ -93,6 +93,7 @@ switch _mode do {
 		_radius = (_logic getvariable ["radius",50]) call bis_fnc_parsenumber;
 		_flag = _logic getvariable ["flag",false];
 		_enableHUD = _logic getvariable ["enableHUD",true];
+		_addRespawn = _logic getvariable ["respawn",false];
 
 		if (typeName _flag == typeName 0) then {_flag = _flag == 0};
 
@@ -318,6 +319,21 @@ switch _mode do {
 
 				//--- Broadcast
 				_logic setvariable ["owner",_owner,true];
+
+				//---- Respawn
+				if (_addRespawn) then {
+					private ["_respawnId"];
+					_respawnId = _logic getvariable ["respawnID",-1];
+
+					//Remove previous respawn
+					if (_respawnId != -1) then {
+						[_ownerOld, _respawnId] call BIS_fnc_removeRespawnPosition;
+					};
+
+					//Add new respawn
+					_respawnId = [_owner, _designation] call BIS_fnc_addRespawnPosition;
+					_logic setVariable ["respawnID",_respawnId,true];
+				};
 
 				//--- Reward
 				_owner addscoreside _scoreReward;

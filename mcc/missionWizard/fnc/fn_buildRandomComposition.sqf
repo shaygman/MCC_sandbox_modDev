@@ -40,7 +40,7 @@ _compTypeName = switch (tolower _compType) do
 							default	{["MCC_MWSITES","MCC_MWSITESmilitary"] call BIS_fnc_selectRandom};
 						};
 
-_compostion = (missionNamespace getVariable [_compTypeName,[]]) call BIS_fnc_selectRandom;
+_compostion = (missionNamespace getVariable [_compTypeName,[[]]]) call BIS_fnc_selectRandom;
 
 if (count _pos == 2) then {_pos set [2,0]};
 _null = [_pos, random 360, _compostion] call MCC_fnc_compositionsPlace;

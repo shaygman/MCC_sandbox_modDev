@@ -15,10 +15,19 @@ _t = time + 15;
 
 waituntil { sleep .5; (_savior distance _unit < 3) or !(alive _unit) or !(alive _savior) or (_savior getVariable ["MCC_medicUnconscious",false]) or !(canMove _savior) or (lifeState _savior == "INCAPACITATED")  or (vehicle _savior != _savior) or time > _t};
 
-if (_savior distance _unit < 3) then {
+if (_savior distance _unit < 3 && alive _unit) then {
 	_savior action ["heal", _unit];
+	sleep 3;
 
-	[_unit] remoteExec ["MCC_fnc_wakeUp",_unit];
+	if (_savior distance _unit < 3 && alive _unit  && alive _savior) then {
+		[_unit] remoteExec ["MCC_fnc_wakeUp",_unit];
+	};
+
+	//Oreder him to regroup
+	if (alive _savior) then {
+		doStop _savior;
+		_savior doFollow leader _savior;
+	};
 };
 
 _unit setVariable ["MCC_medicSavior",objNull,true];
