@@ -9,8 +9,10 @@
 	private ["_string","_logicPos","_logicEmpty","_nearObjects","_target","_nvgstate","_camLogic","_camBuildings","_camLight","_role","_exp","_level","_teleportAtStart","_starLoc"];
 
 	waituntil {time > 0 && alive player && isPlayer player && count ([player] call BIS_fnc_getRespawnPositions) > 0};
-	cutText ["","BLACK IN",5];
+	if !(player getVariable ["cpReady",true]) exitWith {};
+
 	player setVariable ["cpReady",false,true];
+	cutText ["","BLACK IN",5];
 
 	/*
 	//Disable weapon disassemble
@@ -141,9 +143,10 @@
 	player setRank MCCplayerRank;
 	player switchmove "";
 
-	camDestroy CP_gearCam;
-	deleteVehicle CP_gearCam;
-	CP_gearCam = nil;
+	if !(isNil "CP_gearCam") then {
+		camDestroy CP_gearCam;
+		CP_gearCam = nil;
+	};
 
 	deleteVehicle _camLogic;
 	setviewdistance _viewDistance;

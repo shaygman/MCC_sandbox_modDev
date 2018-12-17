@@ -220,7 +220,7 @@ class CAManBase: Man {
 			};
 
 			class ACE_MCC_door_lock {
-				displayName = "Wedge<br/>Door";
+				displayName = "Lock<br/>Door";
 				condition = "(({_x in items _player} count ['ACE_DefusalKit','ACE_key_lockpick','MCC_multiTool'])!=0) && (([cursorTarget] call MCC_fnc_isDoorLocked)==2)";
 				icon = "\A3\ui_f\data\map\groupicons\waypoint.paa";
 				statement = "[cursorTarget] spawn MCC_fnc_doorLock;";

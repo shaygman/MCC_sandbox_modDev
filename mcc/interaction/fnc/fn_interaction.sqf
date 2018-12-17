@@ -38,6 +38,37 @@ player setVariable ["MCC_interactionActiveTime",time];
 //Get objects for survival
 _objArray = missionNamespace getVariable ["MCC_SurvivalPlaceHoldersObjects",[] call MCC_fnc_getSurvivalPlaceHolders];
 
+//if ACE is on use it only to halt AI and open doors
+if (missionNamespace getVariable ["MCC_isACE",false]) exitWith {
+
+	if (vehicle player == player) then {
+		_target = cursorTarget;
+		player reveal _target;
+
+		//Try to halt AI
+		if (_target isKindof "CAManBase" && (player distance _target < 30)) then {
+
+			//Cant neturalize friendly units
+			if ([_target] call MCC_fnc_canHaltAI) then {
+
+				[_target] call MCC_fnc_doHaltAI;
+			};
+		};
+
+		//Handle house
+		if (_target isKindof "house" || _target isKindof "wall") then {
+			private ["_door","_animation","_phase","_tempArray"];
+
+			_tempArray = [_target]  call MCC_fnc_isDoor;
+			_door = _tempArray select 0;
+			_animation = _tempArray select 1;
+			_phase = _tempArray select 2;
+
+			[_target,_door,_phase,_animation] call MCC_fnc_doorHandle;
+		};
+	};
+};
+
 //Outside of vehicle
 if (vehicle player == player) then {
 	_target = cursorTarget;
@@ -128,9 +159,6 @@ if (vehicle player == player) then {
 	if (_break) exitWith {};
 } else {
 	if (!(missionNamespace getVariable ["MCC_interactionKey_holding",false])) exitWith {};
-
-	//Disable if ACE is on
-	if ((missionNamespace getVariable ["MCC_isACE",false])  && (missionNamespace getVariable ["MCC_isMode",false])) exitWith {};
 
 	MCC_fnc_vehicleCargoMenuClicked = {
 		private ["_ctrl","_index","_ctrlData","_object","_animation","_phase","_door","_locked"];

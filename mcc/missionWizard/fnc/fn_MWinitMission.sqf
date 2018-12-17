@@ -880,7 +880,7 @@ if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = n
 	missionNamespace setVariable ["MCC_MWMissionRuning",true];
 	publicvariable "MCC_MWMissionRuning";
 
-	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (_missionCenter nearObjects ["MCC_ModuleObjective_FCurator", (_maxObjectivesDistance*2.5)]) > 0} do {
+	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (allMissionObjects "MCC_ModuleObjective_FCurator") > 0} do {
 		sleep 1;
 	};
 

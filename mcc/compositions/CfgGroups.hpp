@@ -483,10 +483,10 @@ class Empty
                 icon = "\a3\Ui_f\data\Map\VehicleIcons\iconVehicle_ca.paa";
 
                 class Object1 {side=8;vehicle="UserTexture_1x2_F";rank="";position[]={0.240234,0.0761719,-0.00146484};dir=127.408;};
-                class Object3 {side=8;vehicle="Land_Mound01_8m_F";rank="";position[]={-4.05859,-6.00586,0.296776};dir=209.577;};
-                class Object4 {side=8;vehicle="Land_Mound01_8m_F";rank="";position[]={3.6377,-6.33008,0.29826};dir=155.329;};
-                class Object5 {side=8;vehicle="Land_Mound01_8m_F";rank="";position[]={7.69922,-0.106445,0.299109};dir=89.7928;};
-                class Object6 {side=8;vehicle="Land_Mound01_8m_F";rank="";position[]={4.02148,6.6084,0.302582};dir=33.4026;};
+                class Object3 {side=8;vehicle="Land_BagFence_Long_F";rank="";position[]={-4.05859,-6.00586,0.296776};dir=209.577;};
+                class Object4 {side=8;vehicle="Land_BagFence_Long_F";rank="";position[]={3.6377,-6.33008,0.29826};dir=155.329;};
+                class Object5 {side=8;vehicle="Land_BagFence_Long_F";rank="";position[]={7.69922,-0.106445,0.299109};dir=89.7928;};
+                class Object6 {side=8;vehicle="Land_BagFence_Long_F";rank="";position[]={4.02148,6.6084,0.302582};dir=33.4026;};
                 class Object7 {side=8;vehicle="Land_Razorwire_F";rank="";position[]={4.02051,-8.11035,-0.315329};dir=157.442;};
                 class Object8 {side=8;vehicle="Land_Razorwire_F";rank="";position[]={5.8291,7.73926,-0.295542};dir=46.6176;};
                 class Object9 {side=8;vehicle="Land_Razorwire_F";rank="";position[]={9.82324,0.961914,-0.312958};dir=90.1228;};
@@ -495,3 +495,4 @@ class Empty
         };
     };
 };
+//"Land_Mound01_8m_F"

@@ -32,7 +32,7 @@
     "EDITBOX",
     ["Fuel Tanks (Land)","Object that will be used in destroy fuel tanks missions"],
     "MCC Mission Wizard",
-    '["Land_TTowerBig_2_F"]',
+    '["Land_dp_smallTank_F","Land_ReservoirTank_V1_F","Land_dp_bigTank_F"]',
     true,
     {
         params ["_value"];
@@ -116,7 +116,7 @@
     "EDITBOX",
     ["Ammo cache (Box)","Ammo box that will be used in destroy cache vehicle missions"],
     "MCC Mission Wizard",
-    '["O_Heli_Attack_02_F","O_Heli_Attack_02_black_F","O_UAV_02_F","O_UAV_02_CAS_F","B_Heli_Attack_01_F","I_Plane_Fighter_03_CAS_F","I_Plane_Fighter_03_AA_F"]',
+    '["Box_East_AmmoVeh_F","Land_Pallet_MilBoxes_F"]',
     true,
     {
         params ["_value"];

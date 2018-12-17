@@ -1,3 +1,4 @@
+/*
 //Role Selection activated
 [
     "CP_activated",
@@ -48,7 +49,7 @@
     false,
     true
 ] call CBA_Settings_fnc_init;
-
+*/
 //Default groups
 [
     "CP_defaultGroups",
@@ -64,6 +65,7 @@
 ] call CBA_Settings_fnc_init;
 
 //---------------------------- Experiance points -----------------------------------
+/*
 //XP Gain
 [
     "CP_gainXP",
@@ -73,7 +75,7 @@
     true,
     true
 ] call CBA_Settings_fnc_init;
-
+*/
 //XP notifications
 [
     "CP_expNotifications",
