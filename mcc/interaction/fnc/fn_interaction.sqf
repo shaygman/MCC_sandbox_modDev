@@ -117,8 +117,8 @@ if (vehicle player == player) then {
 	};
 
 	//Handle supply crate
-	if (typeof _target in (missionNamespace getVariable ["MCC_logisticsCrates_TypesWest",[]])) exitWith {
-
+	if (typeof _target in (missionNamespace getVariable ["MCC_logisticsCrates_TypesWest",[]]) ||
+	    typeof _target in (missionNamespace getVariable ["MCC_logisticsCrates_TypesEast",[]])) exitWith {
 		_null= [_target] call MCC_fnc_interactUtility;
 		_break = true;
 	};

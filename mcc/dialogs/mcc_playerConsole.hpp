@@ -669,7 +669,7 @@ class mcc_consoleF6: MCC_RscButton
 			class MCC_Repair: MCC_RscPicture
 			{
 				idc = 92;
-				tooltip = "Supplies";
+				tooltip = "Materials";
 				text = __EVAL(MCCPATH +"data\IconRepair.paa");
 				colorText[] = { 0, 0.5, 0.9, 1 };
 

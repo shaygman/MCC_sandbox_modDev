@@ -208,6 +208,7 @@ switch (_mode) do
 			_box = MCC_ANCHOR createvehicle _pos;
 			_box setdir _dir;
 			_box setVariable ["mcc_delete",false,true];
+			_box setVariable ["mcc_mainBoxSide",_side,true];
 			_box setVariable ["MCC_kitSelect",["all"],true];
 			_box attachto [_dummy,[-3.5,0,-0.8]];
 			[_side, _box] call MCC_fnc_makeObjectVirtualBox;

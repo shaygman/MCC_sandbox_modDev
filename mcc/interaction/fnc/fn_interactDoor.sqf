@@ -168,6 +168,18 @@ switch (true) do {
 
 					[_array,1] call MCC_fnc_interactionsBuildInteractionUI;
 				};
+
+				//Withdraw resources box
+				case (_ctrlData == "WithdrawResources"):
+				{
+					private _array = [["[(missionNamespace getVariable ['MCC_interactionLayer_0',[]]),1] spawn MCC_fnc_interactionsBuildInteractionUI","Back",format ["%1mcc\interaction\data\iconBack.paa",MCC_path]]];
+
+					_array pushBack [format ["[%1, 'ammo'] spawn MCC_fnc_logisticsWithdrawBox",_object getVariable ['mcc_mainBoxSide',sidelogic]],"Ammo","\mcc_sandbox_mod\data\IconAmmo.paa"];
+					_array pushBack [format ["[%1, 'Materials'] spawn MCC_fnc_logisticsWithdrawBox",_object getVariable ['mcc_mainBoxSide',sidelogic]],"Ammo","\mcc_sandbox_mod\data\IconRepair.paa"];
+					_array pushBack [format ["[%1, 'Fuel'] spawn MCC_fnc_logisticsWithdrawBox",_object getVariable ['mcc_mainBoxSide',sidelogic]],"Ammo","\mcc_sandbox_mod\data\IconFuel.paa"];
+
+					[_array,1] call MCC_fnc_interactionsBuildInteractionUI;
+				};
 			};
 		};
 
@@ -206,29 +218,41 @@ switch (true) do {
 				};
 			};
 
-
 			//MOVED TO SELF INTERACTION
+
 			//FOB BOX
-			if (count (_object getVariable ["MCC_kitSelect",[]]) > 0) then {
-
-				//rts main box
-				if ((count (_object getVariable ["MCC_virtual_cargo",[]]) > 0) && (missionNamespace getVariable ["MCC_surviveMod",false])) then {
-						_array pushBack["['mainBox'] spawn MCC_fnc_vehicleMenuClicked","Open Vault",format ["%1mcc\interaction\data\safe.paa",MCC_path]];
-				};
-
-				//Change Kits
-				if (missionNamespace getVariable ["MCC_allowChangingKits",true]) then {
-					_array pushBack["['kitSelect'] spawn MCC_fnc_vehicleMenuClicked","Change Kit",format ["%1data\IconPhysical.paa",MCC_path]];
-				};
+			if ((_object getVariable ['mcc_mainBoxSide',sidelogic]) != sidelogic) then {
 
 				//Resupply main box
 				if (!(missionNamespace getVariable ["MCC_surviveMod",false])) then {
 					_array pushBack["['resupply_inf'] spawn MCC_fnc_vehicleMenuClicked","Resupply","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"];
 				};
+
+				//Withdraw Boxes
+				if (missionNamespace getVariable ['MCC_allowlogistics',false]) then {
+					_array pushBack["['WithdrawResources'] spawn MCC_fnc_vehicleMenuClicked","Withdraw Resources","\mcc_sandbox_mod\data\IconRepair.paa"];
+				};
 			};
 
+			//rts main box
+			if ((count (_object getVariable ["MCC_virtual_cargo",[]]) > 0) && (missionNamespace getVariable ["MCC_surviveMod",false])) then {
+					_array pushBack["['mainBox'] spawn MCC_fnc_vehicleMenuClicked","Open Vault",format ["%1mcc\interaction\data\safe.paa",MCC_path]];
+			};
+
+			//Change Kits
+			if ((count (_object getVariable ["MCC_kitSelect",[]]) > 0) &&
+			    (missionNamespace getVariable ["MCC_allowChangingKits",false]) &&
+			    (missionNamespace getVariable ["CP_activated",false])
+			    ) then {
+				_array pushBack["['kitSelect'] spawn MCC_fnc_vehicleMenuClicked","Change Kit",format ["%1data\IconPhysical.paa",MCC_path]];
+			};
+
+
 			//Resupply regular boxes
-			if (typeof _object in ["MCC_ammoBox","MCC_crateAmmo","MCC_crateAmmoBigWest","MCC_crateAmmoBigEast","Box_NATO_AmmoVeh_F","B_Slingload_01_Ammo_F","Land_Pod_Heli_Transport_04_ammo_F"]) then {
+			if (typeof _object =="MCC_ammoBox" ||
+			    typeOf _object in MCC_logisticsCrates_TypesWest ||
+			    typeOf _object in MCC_logisticsCrates_TypesEast
+			    ) then {
 					_array pushBack["['resupply_limited'] spawn MCC_fnc_vehicleMenuClicked","Resupply","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"];
 				};
 

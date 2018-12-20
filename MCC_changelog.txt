@@ -9,13 +9,13 @@ Changelog r28:
 - Fixed: Wrong class names in Mission Wizard objectives - destroy cache spawned helicopters and destroy fuel tanks spawns radio towers
 - Fixed: Campaign stops after first mission
 - Fixed: Video probe was upside down when mirroring under a door using ACE
+- Fixed: Can't open HQ vault from ACE
 - Added: While using ACE a player can now use MCC action only to halt AI, quickly open doors
 - Added: MCC ammo crate, fuel crate and supply crate to Zeus
+- Added: Withdraw and deposite ammo/fuel/material boxes from any FOB or HQ
 - Changed: Clear area objective's area reduced by 50%
 
 TODO -
-Consider removing the old logistics system and use ACE/MCC
-
 Finish the MWinitmission function for better finished objectives
 
 CAS gun run zeus didn't work

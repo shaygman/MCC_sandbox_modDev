@@ -101,13 +101,13 @@ class ReammoBox_F: thingX {
                 distance = 5;
                 condition = "(count (_target getVariable ['MCC_virtual_cargo',[]]) > 0)";
                 statement =  "[_target] spawn MCC_fnc_mainBoxOpen";
-                icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa";
+                icon = "\a3\ui_f\data\IGUI\Cfg\Actions\reammo_ca.paa";
                 showDisabled = 0;
                 priority = 1.2;
             };
 
         class ACE_MCC_changeKit {
-                displayName = "Change<br/>Kit";
+                displayName = "Change<br/>Role";
                 distance = 5;
                 condition = "((count (_target getVariable ['MCC_kitSelect',[]]) > 0) && (missionNamespace getVariable ['MCC_allowChangingKits',false]))";
                 statement =  "_player setVariable ['MCC_kitSelect',(_target getVariable ['MCC_kitSelect',['all']])]; createDialog 'CP_GEARPANEL'";
@@ -134,6 +134,15 @@ class ReammoBox_F: thingX {
                 showDisabled = 0;
         };
 
+        class ACE_MCC_supplyBoxDeposit {
+                displayName = "Deposit";
+                distance = 7;
+               	condition = "([_player, _player,50] call MCC_fnc_nearRespawn) && ((typeOf _target in (missionNamespace getVariable ['MCC_logisticsCrates_TypesWest',[]])) || (typeOf _target in (missionNamespace getVariable ['MCC_logisticsCrates_TypesEast',[]])))";
+                statement =  "[_target, side _player] call MCC_fnc_logisticsBoxDeposit;";
+                icon = "\mcc_sandbox_mod\mcc\logistics\data\unloadIcon.paa";
+                showDisabled = 0;
+        };
+
         class ACE_MCC_supplyBox {
                 displayName = "Resupply";
                 distance = 5;
@@ -152,8 +161,35 @@ class ReammoBox_F: thingX {
                 icon = "\a3\Ui_f\data\GUI\Cfg\CommunicationMenu\transport_ca.paa";
                 showDisabled = 0;
                 priority = 1.2;
-            };
-	  };
+        };
+
+        class ACE_MCC_withdrawBox {
+				displayName = "Withdraw<br/>Resources";
+				condition = "(((_target getVariable ['mcc_mainBoxSide',sidelogic]) != sidelogic) && (missionNamespace getVariable ['MCC_allowlogistics',false]))";
+				icon = "\mcc_sandbox_mod\data\IconRepair.paa";
+
+				class ACE_MCC_withdrawAmmo {
+					displayName = "Ammo";
+					condition = "true";
+					statement = "[(_target getVariable ['mcc_mainBoxSide',sidelogic]), 'ammo'] spawn MCC_fnc_logisticsWithdrawBox;";
+					icon = "\mcc_sandbox_mod\data\IconAmmo.paa";
+				};
+
+				class ACE_MCC_withdrawSupplies {
+					displayName = "Materials";
+					condition = "true";
+					statement = "[(_target getVariable ['mcc_mainBoxSide',sidelogic]), 'materials'] spawn MCC_fnc_logisticsWithdrawBox;";
+					icon = "\mcc_sandbox_mod\data\IconRepair.paa";
+				};
+
+				class ACE_MCC_withdrawfuel {
+					displayName = "Ammo";
+					condition = "true";
+					statement = "[(_target getVariable ['mcc_mainBoxSide',sidelogic]), 'fuel'] spawn MCC_fnc_logisticsWithdrawBox;";
+					icon = "\mcc_sandbox_mod\data\IconFuel.paa";
+				};
+		    };
+	  	};
 	};
 	class ACE_SelfActions {};
 };

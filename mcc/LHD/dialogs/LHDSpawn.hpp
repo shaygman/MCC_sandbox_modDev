@@ -95,7 +95,7 @@ class MCC_LHDSpawn
 					w = 0.0257812 * safezoneW;
 					h = 0.044 * safezoneH;
 					colorText[] = {0,0.5,0.9,10};
-					tooltip = "Supplies"; //--- ToDo: Localize;
+					tooltip = "Materials"; //--- ToDo: Localize;
 				};
 				class fuelPic: MCC_RscPicture
 				{
@@ -234,7 +234,7 @@ class MCC_LHDSpawn
 					w = 0.0154689 * safezoneW;
 					h = 0.033 * safezoneH;
 					colorText[] = {0,0.5,0.9,10};
-					tooltip = "Supplies"; //--- ToDo: Localize;
+					tooltip = "Materials"; //--- ToDo: Localize;
 				};
 				class MCC_Fuel: MCC_RscPicture
 				{

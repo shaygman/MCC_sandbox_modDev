@@ -63,7 +63,7 @@ while { true } Do {
 
 	//No crew lets see if we abonadand the vehicle
 	_abandoned = if (count (crew _object) == 0 && _abondanDistance > 0) then {{_x distance _object < _abondanDistance} count (allPlayers - entities "HeadlessClient_F") == 0} else {false};
-	_nearFOB = {{_x distance2D _object < 100} count ([_x] call BIS_fnc_getRespawnPositions) > 0} foreach [west,east,resistance,civilian];
+	_nearFOB = {[_x, _x, 100] call MCC_fnc_nearRespawn} foreach [west,east,resistance,civilian];
 
 	//see if we have been damaged or disabled
 	if ((_abandoned && _object distance _vehPos > 50 && (count attachedObjects _object == 0) && !_nearFOB) ||

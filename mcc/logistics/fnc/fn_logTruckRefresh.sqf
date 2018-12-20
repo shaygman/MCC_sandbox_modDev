@@ -1,10 +1,7 @@
 //==================================================================MCC_fnc_logTruckRefresh======================================================================================
 // Refresh the logistics dialog
 //===============================================================================================================================================================================
-#define CRATE_COST 100
-#define ANCHOR_POINT_WEST [0,-0.2,0]
-#define ANCHOR_POINT_EAST [0,-0.9,0]
-#define ANCHOR_POINT_GUER [0,+0.5,0]
+#include "..\defines.sqf"
 
 #define MCC_LOGISTICS_LOAD_TRUCK (uiNamespace getVariable "MCC_LOGISTICS_LOAD_TRUCK")
 #define MCC_loadTruckC1 (uiNamespace getVariable "MCC_loadTruckC1")

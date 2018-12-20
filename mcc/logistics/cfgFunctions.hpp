@@ -13,4 +13,6 @@ class logistics
 	class logisticsCargoUnload  {description = "Unload an item from the virtual cargo space of a vehicle";};
 	class logisticsCargoInit {description = "Init the virtual logistics cargo dialog - internal use only";};
 	class logisticsCargoLoad {description = "Load an object to vehicle";};
+	class logisticsWithdrawBox {description = "withdraw a resource box from HQ and reduce the resources";};
+	class logisticsBoxDeposit {description = "Deposit a resource box from HQ and add the resources";};
 };

@@ -126,7 +126,7 @@ class MCC_LOGISTICS_LOAD_TRUCK
 		{
 			idc = -1;
 			text =  __EVAL(MCCPATH +"data\IconRepair.paa");
-			tooltip = "Supplies";
+			tooltip = "Materials";
 			colorText[] = { 0, 0.5, 0.9, 1 };
 
 			x = 0.454167 * safezoneW + safezoneX;

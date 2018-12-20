@@ -86,7 +86,7 @@ class MCC_ResourcesControlsGroup: MCC_RscControlsGroupNoScrollbars
 			idc = -1;
 			colorText[] = { 0, 0.5, 0.9, 1 };
 			text = __EVAL(MCCPATH +"data\IconRepair.paa");
-			tooltip = "Supplies";
+			tooltip = "Materials";
 
 			x = 0.00515598 * safezoneW;
 			y = 0.044 * safezoneH;

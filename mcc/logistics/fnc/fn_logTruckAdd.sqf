@@ -1,10 +1,7 @@
 //===============================================================MCC_fnc_logTruckAdd==========================================================================================
 // Add or remove crates from a log truck
 //============================================================================================================================================================================
-#define CRATE_COST 200
-#define ANCHOR_POINT_WEST [0,-0.2,0]
-#define ANCHOR_POINT_EAST [0,-0.9,0]
-#define ANCHOR_POINT_GUER [0,+0.5,0]
+#include "..\defines.sqf"
 
 #define MCC_LOGISTICS_LOAD_TRUCK (uiNamespace getVariable "MCC_LOGISTICS_LOAD_TRUCK")
 #define MCC_loadTruckC1 (uiNamespace getVariable "MCC_loadTruckC1")
@@ -16,7 +13,6 @@
 #define MCC_loadTruckOutpot (uiNamespace getVariable "MCC_loadTruckOutpot")
 #define MCC_loadTruckOutpot2 (uiNamespace getVariable "MCC_loadTruckOutpot2")
 #define MCC_loadTruckOutpot3 (uiNamespace getVariable "MCC_loadTruckOutpot3")
-
 
 private ["_add","_loadedCrates","_truck","_crateType","_index","_array","_resLevel","_crate","_attachPoint","_attachedObjects","_startLoad","_nearByCrates",
 	         "_position","_factor","_unload","_isHeli","_maxLoad","_pos","_costFactor"];

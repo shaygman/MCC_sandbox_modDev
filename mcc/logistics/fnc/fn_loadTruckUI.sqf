@@ -6,7 +6,7 @@ private ["_truck","_caller","_startPos"];
 _caller 	= _this select 0;
 _truck 		= vehicle _caller;
 
-if ({_truck distance2d _x < 50} count ([_caller] call BIS_fnc_getRespawnPositions) > 0) then {
+if ([_truck, _caller, 50] call MCC_fnc_nearRespawn) then {
 	player setVariable ["mcc_logTruck_screenStart", true];
 } else {
 	player setVariable ["mcc_logTruck_screenStart", false];

@@ -27,7 +27,7 @@ _pos = getpos _module;
 
  _resualt = ["Set Resources",[
  						["Side",["East","West","Resistance"]],
- 						["Supplies",3000],
+ 						["Materials",3000],
  						["Ammo",3000],
  						["Fuel",3000],
  						["Food",1000],

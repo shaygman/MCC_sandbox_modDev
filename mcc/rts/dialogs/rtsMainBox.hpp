@@ -100,7 +100,7 @@ class MCC_rtsMainBox
 					idc = -1;
 
 					text = __EVAL(MCCPATH +"mcc\rts\data\IconRepair.paa");
-					tooltip = "Supplies";
+					tooltip = "Materials";
 					colorText[] = { 0, 0.5, 0.9, 1 };
 
 					x = 0.00515625 * safezoneW;

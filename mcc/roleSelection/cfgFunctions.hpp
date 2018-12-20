@@ -33,4 +33,5 @@ class roleSelection {
 	class RSgearButtonClicked {};
 	class handleKilled {description = "Kill messeges";};
 	class gearAI {description = "Gear AI with gear acording to its role";};
+	class nearRespawn {description = "find in an object/unit is near its respawn position";};
 };

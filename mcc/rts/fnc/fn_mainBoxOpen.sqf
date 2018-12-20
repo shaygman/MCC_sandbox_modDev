@@ -10,5 +10,5 @@
 private ["_target"];
 disableSerialization;
 
-_object     = [_this,0,missionnamespace,[missionnamespace,objnull]] call bis_fnc_param;
-_null = [playerSide] call MCC_fnc_mainBoxInit;
+_object = param [0,missionnamespace,[missionnamespace,objnull]];
+_null = [_object] call MCC_fnc_mainBoxInit;

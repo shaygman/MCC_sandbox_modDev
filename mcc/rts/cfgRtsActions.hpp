@@ -201,7 +201,7 @@ class MCC_rts_repair2Food
 	picture = "mcc\rts\data\repair2Food.paa";
 	#endif
 
-	displayName = "Trade Supplies";
+	displayName = "Trade Materials";
 	descriptionShort = "Trade supplies with the locals for food";
 	condition = "";
 	requiredBuildings[] = {{"tradePost",1}};

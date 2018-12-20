@@ -153,6 +153,7 @@ for "_i" from 0 to ((count _objs) - 1) do {
 
 //find the main box and add helper
 if (_constType == "hq") then {
+	_object setVariable ["mcc_mainBoxSide",_side,true];
 	[_side, _object] call MCC_fnc_makeObjectVirtualBox
 };
 

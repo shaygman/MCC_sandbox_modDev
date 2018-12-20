@@ -48,6 +48,7 @@ class CfgMods
 };
 
 //CBA
+
 class Extended_PreInit_EventHandlers {
 	class MCC_PreInits {
         init = call compile preprocessFileLineNumbers "mcc_sandbox_mod\XEH_preInit.sqf";

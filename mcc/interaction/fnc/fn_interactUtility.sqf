@@ -15,13 +15,19 @@ if ((missionNamespace getVariable ["MCC_interactionKey_holding",false]) && !(_ob
 
 	//Resupply from ammo
 	if (_objectClass in ["MCC_crateAmmo","Box_NATO_AmmoVeh_F"]) then {
-		_array pushBack ["[player getVariable ['interactWith',objNull]] call MCC_fnc_resupply","Resupply",format ["%1data\IconAmmo.paa",MCC_path]];
+		_array pushBack ["[player getVariable ['interactWith',objNull]] call MCC_fnc_resupply","Resupply","\a3\ui_f\data\IGUI\Cfg\Actions\reload_ca.paa"];
 	};
 
 	//Break down MCC crates
-	if (_objectClass in (missionNamespace getVariable ["MCC_logisticsCrates_TypesWest",[]])) then {
+	if (_objectClass in (missionNamespace getVariable ["MCC_logisticsCrates_TypesWest",[]]) ||
+	    _objectClass in (missionNamespace getVariable ["MCC_logisticsCrates_TypesEast",[]])) then {
+
 		_array pushBack ["[player getVariable ['interactWith',objNull]] call MCC_fnc_breakdown","Break Down",format ["%1data\IconAmmo.paa",MCC_path]];
 		_array pushBack ["[player getVariable ['interactWith',objNull]] call MCC_fnc_dragObject","Drag",format ["%1data\iconDrag.paa",MCC_path]];
+
+		if ([player,player,50] call MCC_fnc_nearRespawn) then {
+			_array pushBack ["[(player getVariable ['interactWith',objNull]),side player] call MCC_fnc_logisticsBoxDeposit","Deposit",format ["%1mcc\logistics\data\unloadIcon.paa",MCC_path]];
+		};
 	};
 
 
