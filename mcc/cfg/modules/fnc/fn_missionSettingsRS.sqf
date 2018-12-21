@@ -2,37 +2,46 @@
 // module
 // Example: [] call MCC_fnc_missionSettingsRS;
 //================================================================================================================================================================
-private ["_module","_var","_pos","_path"];
+private ["_module"];
 
 _module = param [0, objNull, [objNull]];
-_path = missionNamespace getVariable ["MCC_path",""];
+
 
 if (typeName (_module getVariable ["rsAllWeapons",true]) == typeName 0) exitWith {
-	//(RS)Role Selection
-	CP_activated = true;
 
-	//(RS)All Weapons
-	MCC_rsAllWeapons = ((_module getvariable ["rsAllWeapons",0])==1);
+	[_module] spawn {
+		params ["_module"];
+		waitUntil {time > 5};
 
-	//(RS)Kit Change
-	MCC_allowChangingKits = ((_module getvariable ["allowKitChange",0])==1);
+		private _path = missionNamespace getVariable ["MCC_path",""];
 
-	//(RS)XP Gain
-	CP_gainXP = ((_module getvariable ["rsGainXp",0])==1);
+		//(RS)Role Selection
+		CP_activated = true;
 
-	//(RS)Kit Weapons
-	MCC_rsEnableRoleWeapons = ((_module getvariable ["rsEnableRoleWeapons",0])==1);
+		//(RS)All Weapons
+		MCC_rsAllWeapons = ((_module getvariable ["rsAllWeapons",0])==1);
 
-	//(RS)Drivers/Pilots
-	MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
+		//(RS)Kit Change
+		MCC_allowChangingKits = ((_module getvariable ["allowKitChange",0])==1);
 
-	if (hasInterface) then {
-		_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
+		//(RS)XP Gain
+		CP_gainXP = ((_module getvariable ["rsGainXp",0])==1);
+
+		//(RS)Kit Weapons
+		MCC_rsEnableRoleWeapons = ((_module getvariable ["rsEnableRoleWeapons",0])==1);
+
+		//(RS)Drivers/Pilots
+		MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
+
+		if (hasInterface) then {
+			_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
+		};
 	};
 };
 
 //Not curator exit
 if !(local _module) exitWith {};
+private _path = missionNamespace getVariable ["MCC_path",""];
 
 _resualt = ["Settings Role Selection",[
  						["(RS)Role Selection",(missionNamespace getVariable ["CP_activated",true])],

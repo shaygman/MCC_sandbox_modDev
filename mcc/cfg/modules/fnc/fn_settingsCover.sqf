@@ -3,7 +3,7 @@
 // Example: [] call MCC_fnc_settingsCover;
 // _group1 = group, the group name
 //==============================================================================================================================================================
-private ["_module","_var","_pos"];
+private ["_module","_var"];
 
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {deleteVehicle _module};
@@ -11,66 +11,73 @@ if (isNull _module) exitWith {deleteVehicle _module};
 
 if (typeName (_module getVariable ["cover",true]) == typeName 0) exitWith {
 
-	//cover
-	_var 	= _module getvariable ["cover",1];
-	MCC_cover = if (_var == 0) then {false} else {true};
+	[_module] spawn {
+		params ["_module"];
+		private ["_var"];
 
-	//coverUI
-	_var 	= _module getvariable ["coverUI",1];
-	MCC_coverUI = if (_var == 0) then {false} else {true};
+		waitUntil {time > 5};
 
-	//cover Vault
-	_var 	= _module getvariable ["coverVault",1];
-	MCC_coverVault = if (_var == 0) then {false} else {true};
+		//cover
+		_var 	= _module getvariable ["cover",1];
+		MCC_cover = if (_var == 0) then {false} else {true};
 
-	//Switch weapon
-	_var 	= _module getvariable ["switchWeapons",1];
-	MCC_quickWeaponChange = if (_var == 0) then {false} else {true};
+		//coverUI
+		_var 	= _module getvariable ["coverUI",1];
+		MCC_coverUI = if (_var == 0) then {false} else {true};
 
-	//interaction
-	_var 	= _module getvariable ["interaction",1];
-	MCC_interaction = if (_var == 0) then {false} else {true};
+		//cover Vault
+		_var 	= _module getvariable ["coverVault",1];
+		MCC_coverVault = if (_var == 0) then {false} else {true};
 
-	//interaction UI
-	_var 	= _module getvariable ["interactionUI",0];
-	MCC_ingameUI = if (_var == 0) then {false} else {true};
+		//Switch weapon
+		_var 	= _module getvariable ["switchWeapons",1];
+		MCC_quickWeaponChange = if (_var == 0) then {false} else {true};
 
+		//interaction
+		_var 	= _module getvariable ["interaction",1];
+		MCC_interaction = if (_var == 0) then {false} else {true};
 
-
-	/* =========================	SURVIVE MOD	========================================*/
-	//Survive mod player Pos
-	MCC_surviveModPlayerPos	= _module getvariable ["survivePlayerPosition",false];
-
-	//Survive mod player Gear
-	MCC_surviveModPlayerGear	= _module getvariable ["survivePlayerGear",false];
-
-	//Survive mod player status
-	MCC_surviveModPlayerStats	= _module getvariable ["survivePlayerStats",false];
-
-	//Survive mod
-	_var 	= _module getvariable ["survive",0];
-	MCC_surviveMod = _var > 0;
-	MCC_surviveModAllowSearch = _var ==1;
-
-	/* =================================================================================*/
+		//interaction UI
+		_var 	= _module getvariable ["interactionUI",0];
+		MCC_ingameUI = if (_var == 0) then {false} else {true};
 
 
-	//Action menu
-	_var 	= _module getvariable ["actionMenu",1];
-	MCC_showActionKey = if (_var == 0) then {false} else {true};
 
-	//Arcade Tanks
-	MCC_arcadeTanks = ((_module getvariable ["arcadeTanks",0])==1);
+		/* =========================	SURVIVE MOD	========================================*/
+		//Survive mod player Pos
+		MCC_surviveModPlayerPos	= _module getvariable ["survivePlayerPosition",false];
 
-	//Disable Fatigue
-	MCC_disableFatigue = ((_module getvariable ["fatigue",0])==1);
-	player enableFatigue !(missionNamespace getVariable ["MCC_disableFatigue",false]);
+		//Survive mod player Gear
+		MCC_surviveModPlayerGear	= _module getvariable ["survivePlayerGear",false];
 
-	//Breaching Ammo
-	MCC_breacingAmmo = call compile (_module getvariable ["breachingAmmo","[]"]);
+		//Survive mod player status
+		MCC_surviveModPlayerStats	= _module getvariable ["survivePlayerStats",false];
 
-	//Non Lethal Ammo
-	MCC_nonLeathalAmmo = call compile (_module getvariable ["nonLeathalAmmo","[]"]);
+		//Survive mod
+		_var 	= _module getvariable ["survive",0];
+		MCC_surviveMod = _var > 0;
+		MCC_surviveModAllowSearch = _var ==1;
+
+		/* =================================================================================*/
+
+
+		//Action menu
+		_var 	= _module getvariable ["actionMenu",1];
+		MCC_showActionKey = if (_var == 0) then {false} else {true};
+
+		//Arcade Tanks
+		MCC_arcadeTanks = ((_module getvariable ["arcadeTanks",0])==1);
+
+		//Disable Fatigue
+		MCC_disableFatigue = ((_module getvariable ["fatigue",0])==1);
+		player enableFatigue !(missionNamespace getVariable ["MCC_disableFatigue",false]);
+
+		//Breaching Ammo
+		MCC_breacingAmmo = call compile (_module getvariable ["breachingAmmo","[]"]);
+
+		//Non Lethal Ammo
+		MCC_nonLeathalAmmo = call compile (_module getvariable ["nonLeathalAmmo","[]"]);
+	};
 };
 
 //Not curator exit

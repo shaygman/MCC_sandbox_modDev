@@ -3,95 +3,101 @@
 // Example: [] call MCC_fnc_missionSettings;
 // _group1 = group, the group name
 //================================================================================================================================================================
-private ["_module","_var","_pos"];
+private ["_module"];
 
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {deleteVehicle _module};
 
 if (_module isKindOf "MCC_Module_settings") exitWith {
-	//T2T
-	_var 	= _module getvariable ["t2t",0];
-	missionNamespace setVariable ["MCC_t2tIndex",_var];
-	if (MCC_t2tIndex isEqualTo 0) then {MCC_teleportToTeam = false};
 
-	//Save gear
-	_var 	= _module getvariable ["saveGear",1];
-	missionNamespace setVariable ["MCC_saveGearIndex",_var];
-	MCC_saveGear = (_var isEqualTo 1);
+	[_module] spawn {
+		params ["_module"];
+		waitUntil {time > 5};
 
-	//Messeges
-	_var 	= _module getvariable ["messages",1];
-	missionNamespace setVariable ["MCC_MessagesIndex",_var];
-	MCC_Chat = (_var isEqualTo 1);
+		//T2T
+		private _var 	= _module getvariable ["t2t",0];
+		missionNamespace setVariable ["MCC_t2tIndex",_var];
+		if (MCC_t2tIndex isEqualTo 0) then {MCC_teleportToTeam = false};
 
-	//Sync
-	_var 	= _module getvariable ["sync",1];
-	MCC_syncOn = (_var isEqualTo 1);
+		//Save gear
+		_var 	= _module getvariable ["saveGear",1];
+		missionNamespace setVariable ["MCC_saveGearIndex",_var];
+		MCC_saveGear = (_var isEqualTo 1);
 
-	//Artillery computer
-	_var 	= _module getvariable ["artilleryComputer",1];
-	missionNamespace setVariable ["MCC_artilleryComputerIndex",_var];
-	enableEngineArtillery (_var isEqualTo 1);
+		//Messeges
+		_var 	= _module getvariable ["messages",1];
+		missionNamespace setVariable ["MCC_MessagesIndex",_var];
+		MCC_Chat = (_var isEqualTo 1);
 
-	//Time Excel
-	_var 	= _module getvariable ["timeAccel",0];
-	if (_var > 0) then	{setTimeMultiplier _var};
+		//Sync
+		_var 	= _module getvariable ["sync",1];
+		MCC_syncOn = (_var isEqualTo 1);
 
-	//Delete players body
-	_var 	= _module getvariable ["deleteBody",1];
-	missionNamespace setVariable ["mcc_deletePlayerBodyIndex",_var];
-	MCC_deletePlayersBody = (_var isEqualTo 1);
+		//Artillery computer
+		_var 	= _module getvariable ["artilleryComputer",1];
+		missionNamespace setVariable ["MCC_artilleryComputerIndex",_var];
+		enableEngineArtillery (_var isEqualTo 1);
 
-	//Respawn Menu
-	_var 	= _module getvariable ["respawnMenu",1];
-	MCC_openRespawnMenu = (_var isEqualTo 1);
+		//Time Excel
+		_var 	= _module getvariable ["timeAccel",0];
+		if (_var > 0) then	{setTimeMultiplier _var};
 
-	//Respawn Cinematic
-	MCC_respawnCinematic = ((_module getvariable ["respawnCinematic",1]) == 1);
+		//Delete players body
+		_var 	= _module getvariable ["deleteBody",1];
+		missionNamespace setVariable ["mcc_deletePlayerBodyIndex",_var];
+		MCC_deletePlayersBody = (_var isEqualTo 1);
 
-	//Respawn on Leader
-	missionNameSpace setVariable ["MCC_respawnOnGroupLeader",(_module getvariable ["respawnOnGroupLeader",1]) ==1];
+		//Respawn Menu
+		_var 	= _module getvariable ["respawnMenu",1];
+		MCC_openRespawnMenu = (_var isEqualTo 1);
 
-	//SQL PDA
-	_var 	= _module getvariable ["sqlPDA",1];
-	MCC_allowsqlPDA = (_var isEqualTo 1);
+		//Respawn Cinematic
+		MCC_respawnCinematic = ((_module getvariable ["respawnCinematic",1]) == 1);
 
-	//Commander Console
-	_var 	= _module getvariable ["commanderConsole",1];
-	MCC_allowConsole = (_var isEqualTo 1);
+		//Respawn on Leader
+		missionNameSpace setVariable ["MCC_respawnOnGroupLeader",(_module getvariable ["respawnOnGroupLeader",1]) ==1];
 
-	//Commander Console Show units without GPS
-	_var 	= _module getvariable ["commanderConsoleShowGPS",1];
-	MCC_ConsoleOnlyShowUnitsWithGPS = if (_var == 0) then {true} else {false};
+		//SQL PDA
+		_var 	= _module getvariable ["sqlPDA",1];
+		MCC_allowsqlPDA = (_var isEqualTo 1);
 
-	//Commander Console Show friendly WP
-	_var 	= _module getvariable ["commanderConsoleWP",1];
-	MCC_ConsoleDrawWP = (_var isEqualTo 1);
-	MCC_ConsolePlayersCanSeeWPonMap = (_var isEqualTo 1);
+		//Commander Console
+		_var 	= _module getvariable ["commanderConsole",1];
+		MCC_allowConsole = (_var isEqualTo 1);
 
-	//Commander Console Can command AI
-	_var 	= _module getvariable ["commanderConsoleAI",1];
-	MCC_ConsoleCanCommandAI = (_var isEqualTo 1);
+		//Commander Console Show units without GPS
+		_var 	= _module getvariable ["commanderConsoleShowGPS",1];
+		MCC_ConsoleOnlyShowUnitsWithGPS = if (_var == 0) then {true} else {false};
 
-	//Logistics
-	_var 	= _module getvariable ["logistics",1];
-	MCC_allowlogistics =(_var isEqualTo 1);
+		//Commander Console Show friendly WP
+		_var 	= _module getvariable ["commanderConsoleWP",1];
+		MCC_ConsoleDrawWP = (_var isEqualTo 1);
+		MCC_ConsolePlayersCanSeeWPonMap = (_var isEqualTo 1);
 
-	//Allow RTS
-	_var 	= _module getvariable ["allowRTS",0];
-	MCC_allowRTS = (_var isEqualTo 1);
+		//Commander Console Can command AI
+		_var 	= _module getvariable ["commanderConsoleAI",1];
+		MCC_ConsoleCanCommandAI = (_var isEqualTo 1);
 
-	//Purchable airDrops
-	MCC_defaultSupplyDropsEnabled = _module getvariable ["defaultSupplyDropsEnabled",false];
+		//Logistics
+		_var 	= _module getvariable ["logistics",1];
+		MCC_allowlogistics =(_var isEqualTo 1);
 
-	//Purchable CAS
-	MCC_defaultCASEnabled = _module getvariable ["defaultCASEnabled",false];
+		//Allow RTS
+		_var 	= _module getvariable ["allowRTS",0];
+		MCC_allowRTS = (_var isEqualTo 1);
 
-	//Disable Curator Edit
-	MCC_CuratorEditDisabled = _module getvariable ["CuratorEditDisabled",false];
+		//Purchable airDrops
+		MCC_defaultSupplyDropsEnabled = _module getvariable ["defaultSupplyDropsEnabled",false];
 
-	//Armed Civilians Weapons
-	MCC_armedCivilansWeapons = call compile (_module getvariable ["armedCiviliansWeapons",["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"]]);
+		//Purchable CAS
+		MCC_defaultCASEnabled = _module getvariable ["defaultCASEnabled",false];
+
+		//Disable Curator Edit
+		MCC_CuratorEditDisabled = _module getvariable ["CuratorEditDisabled",false];
+
+		//Armed Civilians Weapons
+		MCC_armedCivilansWeapons = call compile (_module getvariable ["armedCiviliansWeapons",["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"]]);
+	};
 };
 
 //Not curator exit

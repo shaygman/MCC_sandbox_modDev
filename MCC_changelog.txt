@@ -1,23 +1,25 @@
 Changelog r28:
 - Added: Mission Generator objectives will clear area of terrain objects before spawning in objectives
+- Added: While using ACE a player can now use MCC action only to halt AI or quickly open doors
+- Added: MCC ammo crate, fuel crate and supply crate will be shown in Zeus
+- Added: Withdraw and deposite ammo/fuel/material boxes from any FOB or HQ (from the main box)
+- Added: Sleep interval so modules will overwrite CBA settings if placed in a mission
 - Removed: Enable role selection from CBA settings
+- Changed: Clear area objective's area reduced by 50%
+- Changed: The way the campaign determin if a mission is done - for more accurate resualts
 - Fixed: Can't generate mission to a specific zone
 - Fixed: Restrict vehicles to roles was on by default
+- Fixed: Campaign stops after first mission
 - Fixed: MCC interaction didn't open/close door on non vanila maps
 - Fixed: MCC medics healing dead bodies and not willing to heal after player respawn
 - Fixed: MCC AI medics did not regroup after healing
 - Fixed: Wrong class names in Mission Wizard objectives - destroy cache spawned helicopters and destroy fuel tanks spawns radio towers
-- Fixed: Campaign stops after first mission
 - Fixed: Video probe was upside down when mirroring under a door using ACE
+- Fixed: MCC interaction pop up while using ACE
 - Fixed: Can't open HQ vault from ACE
-- Added: While using ACE a player can now use MCC action only to halt AI, quickly open doors
-- Added: MCC ammo crate, fuel crate and supply crate to Zeus
-- Added: Withdraw and deposite ammo/fuel/material boxes from any FOB or HQ
-- Changed: Clear area objective's area reduced by 50%
+- Fixed: systemchat when unit respawned
 
 TODO -
-Finish the MWinitmission function for better finished objectives
-
 CAS gun run zeus didn't work
 Controllable CAS don't have a timer and don't do exit - also when dead need to release.
 

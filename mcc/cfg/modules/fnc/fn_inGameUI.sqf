@@ -43,32 +43,52 @@ _mode = param [0,3,[0,objNull]];
 //If it's a mod not a call
 if (typeName _mode == typeName objNull) then {
 	_module = _mode;
-	_mode = _module getVariable ["mode",3];
-	_compass = _module getVariable ["compass",false];
-	_compassTeamMates = _module getVariable ["compassTeamMates",false];
 
-	//Group Markers
-	missionNamespace setVariable ["MCC_groupMarkers",_module getvariable ["groupMarkers",true]];
+	[_module] spawn {
+		params ["_module"];
+		waitUntil {time > 5};
 
-	//Indevidual Markers
-	missionNamespace setVariable ["MCC_indevidualMarkers",_module getvariable ["indevidualMarkers",false]];
+		private ["_mode","_compass","_compassTeamMates"];
 
-	//NameTags
-	missionNamespace setVariable ["MCC_nameTags",(_module getvariable ["nameTags",0])>1];
-	missionNamespace setVariable ["MCC_NameTags_direct",!((_module getvariable ["nameTags",0])==2)];
+		_mode = _module getVariable ["mode",3];
+		_compass = _module getVariable ["compass",false];
+		_compassTeamMates = _module getVariable ["compassTeamMates",false];
 
-	//Supression
-	missionNamespace setVariable ["MCC_suppressionOn",_module getvariable ["suppression",false]];
+		//Group Markers
+		missionNamespace setVariable ["MCC_groupMarkers",_module getvariable ["groupMarkers",true]];
 
-	//Hit Radar
-	missionNamespace setVariable ["MCC_hitRadar",_module getvariable ["hitRadar",0]];
+		//Indevidual Markers
+		missionNamespace setVariable ["MCC_indevidualMarkers",_module getvariable ["indevidualMarkers",false]];
 
-	//Tickets
-	missionNamespace setVariable ["MCC_UIModuleTickets",_module getvariable ["tickets",false]];
+		//NameTags
+		missionNamespace setVariable ["MCC_nameTags",(_module getvariable ["nameTags",0])>1];
+		missionNamespace setVariable ["MCC_NameTags_direct",!((_module getvariable ["nameTags",0])==2)];
 
-	//Tutorials
-	if (_module getvariable ["tutorials",false]) then {
-		0 spawn MCC_fnc_helpersInit;
+		//Supression
+		missionNamespace setVariable ["MCC_suppressionOn",_module getvariable ["suppression",false]];
+
+		//Hit Radar
+		missionNamespace setVariable ["MCC_hitRadar",_module getvariable ["hitRadar",0]];
+
+		//Tickets
+		missionNamespace setVariable ["MCC_UIModuleTickets",_module getvariable ["tickets",false]];
+
+		//Tutorials
+		if (_module getvariable ["tutorials",false]) then {
+			0 spawn MCC_fnc_helpersInit;
+		};
+
+		//Compass HUD
+		if (_compass) then {_compassTeamMates spawn MCC_fnc_initCompassHUD};
+
+		//Supression
+		if (missionNamespace getVariable ["MCC_suppressionOn",false]) then {[] spawn MCC_fnc_supressionInit};
+
+		//Force first person camera
+		[_mode] call MCC_fnc_forceCamera;
+
+		//Tickets	- Move to function
+		if (missionNamespace getVariable ["MCC_UIModuleTickets",true]) then {[] spawn MCC_fnc_PvPInterface};
 	};
 
 } else {
@@ -100,16 +120,17 @@ if (typeName _mode == typeName objNull) then {
 	if (param [10,false,[false]]) then {
 		0 spawn MCC_fnc_helpersInit;
 	};
+
+	//Compass HUD
+	if (_compass) then {_compassTeamMates spawn MCC_fnc_initCompassHUD};
+
+	//Supression
+	if (missionNamespace getVariable ["MCC_suppressionOn",false]) then {[] spawn MCC_fnc_supressionInit};
+
+	//Force first person camera
+	[_mode] call MCC_fnc_forceCamera;
+
+	//Tickets	- Move to function
+	if (missionNamespace getVariable ["MCC_UIModuleTickets",true]) then {[] spawn MCC_fnc_PvPInterface};
+
 };
-
-//Compass HUD
-if (_compass) then {_compassTeamMates spawn MCC_fnc_initCompassHUD};
-
-//Supression
-if (missionNamespace getVariable ["MCC_suppressionOn",false]) then {[] spawn MCC_fnc_supressionInit};
-
-//Force first person camera
-[_mode] call MCC_fnc_forceCamera;
-
-//Tickets	- Move to function
-if (missionNamespace getVariable ["MCC_UIModuleTickets",true]) then {[] spawn MCC_fnc_PvPInterface};

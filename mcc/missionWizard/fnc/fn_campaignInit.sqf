@@ -297,30 +297,29 @@ while { count _locations > 0 &&
 	//Wait untill mission is complete
 	waitUntil {!(missionNamespace getVariable ["MCC_MWMissionRuning",true])};
 
-	_activeObjectivesSide1 = missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_total",_sidePlayer],0];
-	_activeObjectivesSide2 = missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_total",_sidePlayer2],0];
+	//Get the objectives
+	private _objectives = (allMissionObjects "MCC_ModuleObjective_FCurator") select {(_x getvariable ["MCC_customTask",false])};
 
-	_failedObjectivesSide1 = missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_failed",_sidePlayer],0];
-	_failedObjectivesSide2 = missionNamespace getVariable [format ["MCC_campaignMissionsStatus_%1_failed",_sidePlayer2],0];
+	_activeObjectivesSide1 = _objectives select {_sidePlayer in (_x getvariable ["RscAttributeOwners",[]])};
+	_activeObjectivesSide2 = _objectives select {_sidePlayer2 in (_x getvariable ["RscAttributeOwners",[]])};
+
+	_failedObjectivesSide1 = _activeObjectivesSide1 select {(_x getvariable ["RscAttributeTaskState",""]) != "Succeeded"};
+	_failedObjectivesSide2 = _activeObjectivesSide2 select {(_x getvariable ["RscAttributeTaskState",""]) != "Succeeded"};
+
 	sleep 2;
 	_ticketsEnd = [_sidePlayer] call BIS_fnc_respawnTickets;
 	_sumTickets = _ticketsStart - _ticketsEnd;
 
 	if (_sidePlayer != sideLogic) then {
-		["Main",_activeObjectivesSide1,_failedObjectivesSide1,_sidePlayer,_totalPlayers,_difficulty,60,[0.2,0.4,0.2,0.15,0.05],_sumTickets] spawn MCC_fnc_missionDone;
+		["Main",count _activeObjectivesSide1,count _failedObjectivesSide1,_sidePlayer,_totalPlayers,_difficulty,60,[0.2,0.4,0.2,0.15,0.05],_sumTickets] spawn MCC_fnc_missionDone;
 	};
 
 	if (_sidePlayer2 != sideLogic) then {
-		["Main",_activeObjectivesSide2,_failedObjectivesSide2,_sidePlayer2,_totalPlayers,_difficulty,60,[0.2,0.4,0.2,0.15,0.05]] spawn MCC_fnc_missionDone;
+		["Main",count  _activeObjectivesSide2,count _failedObjectivesSide2,_sidePlayer2,_totalPlayers,_difficulty,60,[0.2,0.4,0.2,0.15,0.05]] spawn MCC_fnc_missionDone;
 	};
 
-	//Reset objectives coutners
-	{
-		missionNamespace setVariable [format ["MCC_campaignMissionsStatus_%1_total",_X],0];
-		missionNamespace setVariable [format ["MCC_campaignMissionsStatus_%1_failed",_X],0];
-		missionNamespace setVariable [format ["MCC_campaignMissionsStatus_%1_succeed",_X],0];
-	} forEach [_sidePlayer,_sidePlayer2];
-
+	//delete all objectives
+	{deleteVehicle _x} forEach (allMissionObjects "MCC_ModuleObjective_FCurator");
 
 	//if we have another side give him some credit
 	/*

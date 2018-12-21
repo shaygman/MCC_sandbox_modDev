@@ -1103,11 +1103,6 @@ if (isnil "MCC_terrainPref") then
 	profileNamespace setVariable ["MCC_terrainPref", MCC_terrainPref];
 };
 
-addMissionEventHandler ["EntityRespawned", {
-	params ["_entity", "_corpse"];
-	systemChat str _this;
-}];
-
 //============= Init MCC done===========================
 MCC_initDone = true;
 endLoadingScreen;

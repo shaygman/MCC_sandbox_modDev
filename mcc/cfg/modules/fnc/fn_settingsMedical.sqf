@@ -12,32 +12,38 @@ if (missionNamespace getVariable ["MCC_isACE",false]) exitWith {};
 
 //did we get here from the 2d editor?
 if (typeName (_module getVariable ["medicComplex",true]) == typeName 0) exitWith {
-	//Enable system
-	MCC_medicSystemEnabled = true;
 
-	//Complex
-	MCC_medicComplex = ((_module getvariable ["medicComplex",1])==1);
+	[_module] spawn {
+		params ["_module"];
+		waitUntil {time > 5};
 
-	//bleeding
-	MCC_medicBleedingEnabled = ((_module getvariable ["medicBleedingEnabled",1])==1);
+		//Enable system
+		MCC_medicSystemEnabled = true;
 
-	//BleedingTime
-	MCC_medicBleedingTime = (_module getvariable ["BleedingTime",200]);
+		//Complex
+		MCC_medicComplex = ((_module getvariable ["medicComplex",1])==1);
 
-	//DamageCoef
-	MCC_medicDamageCoef = (_module getvariable ["DamageCoef",1]);
+		//bleeding
+		MCC_medicBleedingEnabled = ((_module getvariable ["medicBleedingEnabled",1])==1);
 
-	//XPmesseges
-	MCC_medicXPmesseges = ((_module getvariable ["medicXPmesseges",1])==1);
+		//BleedingTime
+		MCC_medicBleedingTime = (_module getvariable ["BleedingTime",200]);
 
-	//PunishTK
-	MCC_medicPunishTK = ((_module getvariable ["medicPunishTK",1])==1);
+		//DamageCoef
+		MCC_medicDamageCoef = (_module getvariable ["DamageCoef",1]);
 
-	//Medic HuD
-	MCC_medicShowWounded = ((_module getvariable ["MCC_medicShowWounded",1])==1);
+		//XPmesseges
+		MCC_medicXPmesseges = ((_module getvariable ["medicXPmesseges",1])==1);
 
-	//Only Medic Heals
-	MCC_medicOnlyMedicHeals = ((_module getvariable ["onlyMedicsCanHeal",1])==1);
+		//PunishTK
+		MCC_medicPunishTK = ((_module getvariable ["medicPunishTK",1])==1);
+
+		//Medic HuD
+		MCC_medicShowWounded = ((_module getvariable ["MCC_medicShowWounded",1])==1);
+
+		//Only Medic Heals
+		MCC_medicOnlyMedicHeals = ((_module getvariable ["onlyMedicsCanHeal",1])==1);
+	};
 };
 
 //Not curator exit

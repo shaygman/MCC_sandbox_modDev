@@ -880,9 +880,15 @@ if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = n
 	missionNamespace setVariable ["MCC_MWMissionRuning",true];
 	publicvariable "MCC_MWMissionRuning";
 
+	while {{(_x getvariable ["MCC_customTask",false]) && ((_x getvariable ["RscAttributeTaskState",""]) in ["created","assigned"])} count (allMissionObjects "MCC_ModuleObjective_FCurator") > 0} do {
+		sleep 1;
+	};
+
+	/*
 	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (allMissionObjects "MCC_ModuleObjective_FCurator") > 0} do {
 		sleep 1;
 	};
+	*/
 
 	missionNamespace setVariable ["MCC_MWMissionRuning",false];
 	publicvariable "MCC_MWMissionRuning";
