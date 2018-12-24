@@ -408,7 +408,9 @@ MCC_consoleACgunReady3 = true;
 MCC_consoleACmousebuttonUp = true;
 
 MCC_airDropArray = [];
-MCC_CASBombs = ["Gun-run short","Gun-run long","Gun-run (Zeus)","Rockets-run (Zeus)","CAS-run (Zeus)","S&D","Rockets-run","AT run","AA run","JDAM","LGB","Bombing-run","Cruise Missile","AC-130","UAV","Controllable"];
+//"Gun-run short","Gun-run long",
+MCC_CASBombs = ["Gun-run (Direct)","Rockets-run (Direct)","CAS-run (Direct)","Bombs-run (Direct)","S&D","Rockets-run","AT run","AA run","JDAM","LGB","Bombing-run","Cruise Missile","AC-130","UAV","Controllable"]; //
+
 MCC_GunRunBusy = [0,0,0,0,0,0,0];
 MCC_CASrequestMarker = false;
 

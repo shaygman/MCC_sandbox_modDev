@@ -100,6 +100,7 @@ class cas
 	class deletePlane		{description = "set a plane to move to a location and delete it once it come closer then 800 meters.";};
 	class airDrop		{description = "Handles CAS and airdrop requests on the server";};
 	class uavDetect {};
+	class cas {description = "Simulate Zeus CAS with moded vehicles";};
 };
 
 class artillery

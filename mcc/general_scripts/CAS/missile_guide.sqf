@@ -1,5 +1,4 @@
-private ["_primaryTarget","_missileStart","_missileType","_missileSpeed","_perSecondChecks","_target","_missile","_travelTime",
-		"_steps","_relDirHor","_relDirVer","_fireLight","_velocityForCheck","_targetIsHeliEmpty","_light","_code"];
+private ["_primaryTarget","_missileStart","_missileType","_missileSpeed","_perSecondChecks","_target","_missile","_travelTime","_steps","_relDirHor","_relDirVer","_fireLight","_velocityForCheck","_targetIsHeliEmpty","_light","_code"];
 _primaryTarget = _this select 0; //target for the missile
 _missileStart = _this select 1; //position where te missile will be spawned
 _missileType = _this select 2; //type of the missile

@@ -4,9 +4,11 @@ Changelog r28:
 - Added: MCC ammo crate, fuel crate and supply crate will be shown in Zeus
 - Added: Withdraw and deposite ammo/fuel/material boxes from any FOB or HQ (from the main box)
 - Added: Sleep interval so modules will overwrite CBA settings if placed in a mission
+- Added: MCC direct CAS - should work for all vehicles but resaults may vary depends on the addon vehicle.
 - Removed: Enable role selection from CBA settings
 - Changed: Clear area objective's area reduced by 50%
-- Changed: The way the campaign determin if a mission is done - for more accurate resualts
+- Changed: The way the campaign determine if a mission is done - for more accurate results
+- Fixed: MCC CAS didn't work
 - Fixed: Can't generate mission to a specific zone
 - Fixed: Restrict vehicles to roles was on by default
 - Fixed: Campaign stops after first mission

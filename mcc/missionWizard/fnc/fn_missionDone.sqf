@@ -189,7 +189,7 @@ for "_i" from 1 to _counter do {
 	//CAS
 	if (_randomAsset > 0.6 && ([["hq",3], _sidePlayer, 200] call MCC_fnc_CheckBuildings)) then {
 		private ["_arrayName","_spawnKind","_planeType"];
-		_spawnKind = ["Gun-run (Zeus)","Rockets-run (Zeus)","CAS-run (Zeus)","SnD","Rockets-run","AA run","JDAM","LGB","Bombing-run"] call bis_fnc_selectRandom;
+		_spawnKind = ["Gun-run (Direct)","Rockets-run (Direct)","CAS-run (Direct)","Bombs-run (Direct)","SnD","Rockets-run","AA run","JDAM","LGB","Bombing-run"] call bis_fnc_selectRandom;
 		_planeType = switch (_sidePlayer) do {
 						case west : {["B_Plane_CAS_01_F"]};
 						case east : {["O_Plane_CAS_02_F"]};

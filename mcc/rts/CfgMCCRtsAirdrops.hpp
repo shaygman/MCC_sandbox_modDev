@@ -31,7 +31,7 @@ class WEST
 	{
 		class gun_run
 		{
-			casType = "Gun-run (Zeus)"; //Can be: "Gun-run (Zeus)", "Rockets-run (Zeus)", "UAV", "UAV Armed", "Cruise Missile", "AC-130", "S&D", "JDAM", "LGB", "Bombing-run", "Rockets-run"
+			casType = "CAS-run (Direct)"; //Can be: "Gun-run (Direct)","Rockets-run (Direct)","CAS-run (Direct)","Bombs-run (Direct)"
 			className = "B_Plane_CAS_01_F";
 			resources[] = {{"ammo",100},{"fuel",100}};
 		};
@@ -99,7 +99,7 @@ class EAST
 	{
 		class gun_run
 		{
-			casType = "Gun-run (Zeus)"; //Can be: "Gun-run (Zeus)", "Rockets-run (Zeus)", "UAV", "UAV Armed", "Cruise Missile", "AC-130", "S&D", "JDAM", "LGB", "Bombing-run", "Rockets-run"
+			casType = "CAS-run (Direct)"; //Can be: "Gun-run (Direct)","Rockets-run (Direct)","CAS-run (Direct)","Bombs-run (Direct)"
 			className = "O_Plane_CAS_01_F";
 			resources[] = {{"ammo",100},{"fuel",100}};
 		};
@@ -167,7 +167,7 @@ class GUER
 	{
 		class gun_run
 		{
-			casType = "Gun-run (Zeus)"; //Can be: "Gun-run (Zeus)", "Rockets-run (Zeus)", "UAV", "UAV Armed", "Cruise Missile", "AC-130", "S&D", "JDAM", "LGB", "Bombing-run", "Rockets-run"
+			casType = "CAS-run (Direct)"; //can be: "Gun-run (Direct)","Rockets-run (Direct)","CAS-run (Direct)","Bombs-run (Direct)"
 			className = "I_Plane_CAS_01_F";
 			resources[] = {{"ammo",100},{"fuel",100}};
 		};
