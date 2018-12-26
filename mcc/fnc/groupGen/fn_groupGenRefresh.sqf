@@ -2,31 +2,26 @@
 // Refresh the group gen markers
 // Example:[] call MCC_fnc_groupGenRefresh
 //==============================================================================================================================================================================
-private ["_markerSupport","_markerAutonomous","_markerNaval","_markerRecon","_side","_unitsCount","_markerType","_markerColor","_leader","_markerInf","_handler",
-		         "_markerMech","_markerArmor","_markerAir","_icon","_wpArray","_behaviour","_unitsSize","_unitsSizeMarker","_IsGaiaControlled","_players"];
+private ["_markerSupport","_markerAutonomous","_markerNaval","_markerRecon","_side","_unitsCount","_markerType","_markerColor","_leader","_markerInf","_markerMech","_markerArmor","_markerAir","_icon","_wpArray","_behaviour","_unitsSize","_unitsSizeMarker","_IsGaiaControlled","_players","_groupIconVisible","_groupIconSelectable"];
 #define groupGen_IDD 2994
 
 //Group info while clicked
 if (!isnil "HCEast" ||  !isnil "HCWest" || !isnil "HCGuer") exitWith {}; 			//If HC is working aboart process
-onGroupIconClick
-{
-	if (!dialog || (tolower str (finddisplay groupGen_IDD) == "no display")) exitWith {};
+private _groupIconHandle = addMissionEventHandler ["GroupIconClick", {
+								params [
+									"_is3D", "_group", "_waypointId",
+									"_mouseButton", "_posX", "_posY",
+									"_shift", "_control", "_alt"
+								];
 
-	_is3D = _this select 0;
-	_group = _this select 1;
-	_wpID = _this select 2;
-	_button = _this select 3;
-	_posx = _this select 4;
-	_posy = _this select 5;
-	_shift = _this select 6;
-	_ctrl = _this select 7;
-	_alt = _this select 8;
-
-	[_group,_button,[_posx,_posy],_shift,_ctrl,_alt] execVm format ["%1mcc\general_scripts\groupGen\ClickGroupIcon.sqf",MCC_path];
-};
+								[_group,_mouseButton,[_posX,_posY],_shift,_control,_alt] execVm format ["%1mcc\general_scripts\groupGen\ClickGroupIcon.sqf",MCC_path];
+							}];
 
 MCC_groupGenRefreshLoop = true;
 MCC_groupGenRefreshTerminate = false;
+
+_groupIconVisible = groupIconsVisible;
+_groupIconSelectable = groupIconSelectable;
 
 setGroupIconsVisible [true,false];
 setGroupIconsSelectable true;
@@ -141,7 +136,7 @@ while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupG
 		if (((side _leader in MCC_groupGenGroupStatus) || ("players" in MCC_groupGenGroupStatus && (count MCC_groupGenGroupStatus == 1))) && _players && !(_leader iskindof "Logic")) then
 		{
 			//Draw WP
-			if (count _wpArray > 0)then
+			if (count _wpArray > 0) then
 			{
 				private ["_wp","_wPos","_wType"];
 				MCC_lastPos = nil;
@@ -305,6 +300,7 @@ while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupG
 
 				_icon = (_x getvariable "MCCgroupIconSize") select 0;
 				if (!isnil "_icon") then {_x removeGroupIcon _icon};
+
 				_icon = _x addGroupIcon [_unitsSizeMarker,[0,0]];
 				_x setvariable ["MCCgroupIconSize",[_icon,_unitsSizeMarker],false];
 
@@ -366,17 +362,15 @@ while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupG
 	sleep 1.5;
 };
 
-//Clear stuff after exiting
-{
-	_leader = (leader _x);
-	if ((side _leader in MCC_groupGenGroupStatus) && alive _leader) then
+	//Clear stuff after exiting
 	{
-		clearGroupIcons _x;
-	};
-} foreach allgroups;
+		_x removeGroupIcon (_x getVariable ["MCCgroupIconData",-1]);
+		_x removeGroupIcon ((_x getVariable ["MCCgroupIconSize",[-1]]) select 0);
+		_x removeGroupIcon (_x getVariable ["MCCgroupIconDataSelected",-1]);
+	} foreach allgroups;
 
-setGroupIconsVisible [false,false];
-setGroupIconsSelectable false;
+setGroupIconsVisible _groupIconVisible;
+setGroupIconsSelectable _groupIconSelectable;
 
 //Artillery
 missionNameSpace setVariable ["MCC_artilleryEnabled",false];
@@ -388,5 +382,7 @@ deleteMarkerLocal "mcc_spawnMarker";
 
 //Remove EH
 ((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 9000) ctrlRemoveEventHandler ["draw",_handler];
+
+removeMissionEventHandler ["GroupIconClick",_groupIconHandle];
 
 MCC_groupGenRefreshLoop = false;

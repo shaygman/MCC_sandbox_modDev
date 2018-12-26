@@ -301,22 +301,18 @@ _comboBox lbSetCurSel 0;
 
 if (!isnil "HCEast" ||  !isnil "HCWest" || !isnil "HCGuer") exitWith {}; 			//If HC is working aboart process
 
-onGroupIconClick {
-    if (!(MCC_Console1Open) && dialog) exitWith {};
+private _groupIconHandle = addMissionEventHandler ["GroupIconClick", {
+								params [
+									"_is3D", "_group", "_waypointId",
+									"_mouseButton", "_posX", "_posY",
+									"_shift", "_control", "_alt"
+								];
 
-	_is3D = _this select 0;
-    _group = _this select 1;
-    _wpID = _this select 2;
-    _button = _this select 3;
-    _posx = _this select 4;
-    _posy = _this select 5;
-    _shift = _this select 6;
-    _ctrl = _this select 7;
-    _alt = _this select 8;
+   								 if (!(MCC_Console1Open) && dialog) exitWith {};
 
-	[_group,_button,[_posx,_posy],_shift,_ctrl,_alt] execVM format ["%1mcc\fnc\console\fn_consoleClickGroupIcon.sqf",MCC_path];
-	//[_group,_button,[_posx,_posy],_shift,_ctrl,_alt] spawn MCC_fnc_consoleClickGroupIcon;
-};
+								[_group,_mouseButton,[_posX,_posY],_shift,_control,_alt] execVM format ["%1mcc\fnc\console\fn_consoleClickGroupIcon.sqf",MCC_path];
+								//[_group,_button,[_posx,_posy],_shift,_ctrl,_alt] spawn MCC_fnc_consoleClickGroupIcon;
+							}];
 
 //Add - Ctrl + number group selections handlers
 if (isnil "MCC_consoleGroupSelectionEH") then {
@@ -473,11 +469,9 @@ MCC_fnc_mapDrawWPConsole =
 
 	//Clear stuff after exiting
 	{
-		_leader = (leader _x);
-		if ((side _leader == side player) && alive _leader) then
-			{
-				clearGroupIcons _x;
-			};
+		_x removeGroupIcon (_x getVariable ["MCCgroupIconData",-1]);
+		_x removeGroupIcon ((_x getVariable ["MCCgroupIconSize",[-1]]) select 0);
+		_x removeGroupIcon (_x getVariable ["MCCgroupIconDataSelected",-1]);
 	} foreach allgroups;
 
 	setGroupIconsVisible [false,false];
@@ -485,4 +479,6 @@ MCC_fnc_mapDrawWPConsole =
 
 	//Remove EH
 	(_mccdialog displayCtrl 9120) ctrlRemoveEventHandler ["draw",_handler];
+
+	removeMissionEventHandler ["GroupIconClick",_groupIconHandle];
 };

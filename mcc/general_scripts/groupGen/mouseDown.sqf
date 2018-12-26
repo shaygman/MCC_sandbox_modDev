@@ -180,7 +180,7 @@ if (mcc_missionmaker == (name player)) then {
 		else
 		{
 			hint "Artillery inbound.";
-			[[_ctrl ctrlMapScreenToWorld [_posX,_posY], shelltype, shellspread, nshell,MCCSimulate,MCC_artyDelay],'MCC_fnc_artillery',true,false] spawn BIS_fnc_MP;
+			[_ctrl ctrlMapScreenToWorld [_posX,_posY], shelltype, shellspread, nshell,MCCSimulate,MCC_artyDelay] remoteExec ["MCC_fnc_artillery",2];
 		};
 		sleep 0.5;
 		deleteMarkerLocal "mcc_arty";

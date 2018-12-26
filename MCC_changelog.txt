@@ -1,3 +1,8 @@
+Changelog r29:
+- Fix: Spawning artillery was called on each client and not only on the server
+- Fixed: MCC bugging warlords and high command
+
+
 Changelog r28:
 - Added: Mission Generator objectives will clear area of terrain objects before spawning in objectives
 - Added: While using ACE a player can now use MCC action only to halt AI or quickly open doors

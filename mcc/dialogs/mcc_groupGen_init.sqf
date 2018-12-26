@@ -33,8 +33,7 @@ uiNamespace setVariable ["MCC_groupGen_Dialog", _this select 0];
 if (player != getAssignedCuratorUnit MCC_curator) then {[compile format ["objectFromNetId '%1' assignCurator MCC_curator;", netid player],"BIS_fnc_spawn",false,false] spawn BIS_fnc_MP};
 
 //Track units if enabled
-if (MCC_trackMarker) then
-{
+if (MCC_trackMarker) then {
 	MCC_trackMarkerHandler = ((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 9000) ctrladdeventhandler ["draw","_this call MCC_fnc_trackUnits;"];
 };
 
@@ -46,40 +45,32 @@ ctrlShow [MCC_GroupGenInfo_IDC,false];
 {str _x setMarkerAlphaLocal 0.4;(format["LABEL_%1",_x]) setMarkerAlphaLocal 0.3;} foreach (missionNamespace getVariable ["MCC_zones_numbers",[]]);
 
 //Hide admin buttons for no-admins
-if !(serverCommandAvailable "#kick") then
-{
+if !(serverCommandAvailable "#kick") then {
 	ctrlShow [MCC_UM_KICK,false];
 	ctrlShow [MCC_UM_BAN,false];
 };
 
-for "_i" from 500 to 518 step 1 do
-{
+for "_i" from 500 to 518 step 1 do {
 	((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl _i) ctrlShow false;
 };
 
-if (CP_activated) then
-{
+if (missionNamespace getVariable ["CP_activated",false]) then {
 	ctrlsettext [520,"Disable Roles"];
-}
-else
-{
+} else {
 	ctrlsettext [520,"Enable Roles"];
 };
 
-if (MCC_GAIA_AC) then
-{
+if (missionNamespace getVariable ["MCC_GAIA_AC",false]) then {
 	ctrlsettext [1015,"Ambient Warzone(on)"];
-}
-else
-{
+} else {
 	ctrlsettext [1015,"Ambient Warzone(off)"];
 };
 
 //Capture
-if (!MCC_capture_state) then { ctrlEnable [MCCSTOPCAPTURE,false];};
+if !(missionNamespace getVariable ["MCC_capture_state",false]) then { ctrlEnable [MCCSTOPCAPTURE,false];};
 
 //Respawn
-if (!MCC_enable_respawn) then {((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 2) ctrlEnable false};
+if !(missionNamespace getVariable ["MCC_enable_respawn",false]) then {((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 2) ctrlEnable false};
 
 //Mission Maker
 ctrlSetText [MCCMISSIONMAKERNAME, format["%1",mcc_missionmaker]];

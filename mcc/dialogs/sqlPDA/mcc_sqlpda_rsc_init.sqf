@@ -253,11 +253,9 @@ _disp call
 
 	//Clear stuff after exiting
 	{
-		_leader = (leader _x);
-		if ((side _leader == side player) && alive _leader) then
-			{
-				clearGroupIcons _x;
-			};
+		_x removeGroupIcon (_x getVariable ["MCCgroupIconData",-1]);
+		_x removeGroupIcon ((_x getVariable ["MCCgroupIconSize",[-1]]) select 0);
+		_x removeGroupIcon (_x getVariable ["MCCgroupIconDataSelected",-1]);
 	} foreach allgroups;
 
 	setGroupIconsVisible [false,false];
