@@ -57,6 +57,8 @@ if (!_cpActivated && _respawnDialog) then {
 	_openDialog = {(_x getVariable ["teleport",0]) != 0} count _startLocations > 0;
 
 	if (_openDialog) then {
+    waituntil {!dialog};
+
 		cutText ["","BLACK",0.1];
 		sleep 3;
 

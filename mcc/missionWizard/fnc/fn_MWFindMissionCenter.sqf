@@ -21,7 +21,6 @@ _isBasedLocations 	= _this select 3;
 
 _centerFound = false;
 
-
 if (_isBasedLocations) then
 {
 	if (_isCQB) then
@@ -40,30 +39,30 @@ else
 {
 	//Lets find a pice of land
 	_time = time + 30;
-	while {!_centerFound && time < _time} do
-		{
-			_newPos = [[MCC_worldArea],["water"],{(_this distance _pos > _minRadius)}] call BIS_fnc_randomPos; //first is whitelist second is blacklist, third is condition
+	while {!_centerFound && time < _time} do {
 
-			if (_isCQB) then
-				{
-					_buildingsArray	= nearestObjects  [_newPos,["House","Ruins","Church","FuelStation","Strategic"],300];	//Let's find the buildings in the area
-					if ((count _buildingsArray>10) && (!surfaceIsWater _newPos)) then
-						{
-							_newPos = getpos (_buildingsArray select 5);
-							_centerFound = true;
-						};
-				}
-					else
-				{
-					if (!surfaceIsWater _newPos) then {_centerFound = true};
-				};
-		};
+		_newPos = [[[_pos,_minRadius]],["water"]] call BIS_fnc_randomPos; //first is whitelist second is blacklist, third is condition
+
+		if (_isCQB) then
+			{
+				_buildingsArray	= nearestObjects  [_newPos,["House","Ruins","Church","FuelStation","Strategic"],_minRadius];	//Let's find the buildings in the area
+				if ((count _buildingsArray > 0) && (!surfaceIsWater _newPos)) then
+					{
+						_newPos = getpos (_buildingsArray select 5);
+						_centerFound = true;
+					};
+			}
+				else
+			{
+				if (!surfaceIsWater _newPos) then {_centerFound = true};
+			};
+	};
 
 	if (time >= _time) then
 	{
 		diag_log "MCC: Mission Wizard Error: No mission center postion found, make a bigger zone";
 		MCC_MWisGenerating = false;
-		["MCC: Mission Wizard Error: No mission center found, make a bigger zone"] call bis_fnc_halt;
+		["MCC: Mission Wizard Error: No mission center found, make a bigger zone"] spawn bis_fnc_halt;
 	};
 };
 if (isnil "_location") then {_location = [0,""]};

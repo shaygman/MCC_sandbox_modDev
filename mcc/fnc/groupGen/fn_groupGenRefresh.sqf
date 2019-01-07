@@ -119,8 +119,9 @@ MCC_fnc_mapDrawWP =
 
 _handler = ((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 9000) ctrladdeventhandler ["draw","_this call MCC_fnc_mapDrawWP;"];
 
-while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupGenRefreshTerminate} do 		//Draw WP
-{
+//Draw WP
+while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupGenRefreshTerminate} do {
+
 	private ["_tempArray1","_tempArray2"];
 	_tempArray1 = [];
 	_tempArray2 = [];
@@ -145,8 +146,7 @@ while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupG
 				{
 					_wp = (_wpArray select _i);
 					_wPos  = waypointPosition _wp;
-					if ((_wPos  distance [0,0,0]) > 50) then
-					{
+					if ((_wPos  distance [0,0,0]) > 50) then {
 						_wType = waypointType _wp;
 						_tempArray1 set [count _tempArray1, [_texture,[0,0,1,1],_wPos,24,24,0,_wType,0,0.04,"PuristaBold","center"]];
 
@@ -154,40 +154,6 @@ while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupG
 
 						_tempArray2 set [count _tempArray2, [[MCC_lastPos select 0, MCC_lastPos select 1],_wPos,[0,0,1,1]]];
 
-						/*								//We don't need it on the 3D editor too much UI lag
-						if (!isnil "MCC_3D_CAM") then
-						{
-							if ((MCC_3D_CAM distance vehicle _leader) < 1000) then
-							{
-								private ["_size"];
-								_size =if ((1.5 - ((MCC_3D_CAM distance vehicle _leader)*0.001)) < 0) then {0} else {(1.5 - ((MCC_3D_CAM distance vehicle _leader)*0.001))};
-
-								if (_size>0) then
-								{
-									drawIcon3D [
-											_texture,
-											[0,1,1,0.6],
-											[_wPos select 0,_wPos select 1,2],
-											_size,
-											_size,
-											0,
-											_wType,
-											0,
-											(_size*0.03),
-											"PuristaBold",
-											"center"
-										];
-
-
-										drawLine3D [
-											[MCC_lastPos select 0, MCC_lastPos select 1, (MCC_lastPos select 2)+2],
-											[_wPos select 0, _wPos select 1, (_wPos select 2)+2],
-											[0,1,1,0.8]
-										];
-								};
-							};
-						};
-						*/
 						MCC_lastPos = _wPos;
 					};
 				};
@@ -359,7 +325,7 @@ while {dialog && (str (finddisplay groupGen_IDD) != "no display") && !MCC_groupG
 	//Refresh UM list
 	[] call MCC_fnc_groupGenUMRefresh;
 
-	sleep 1.5;
+	sleep .5;
 };
 
 	//Clear stuff after exiting

@@ -72,8 +72,9 @@ switch (true) do {
 	};
 
 	case (_taskType in ["mine"]): {
-		waituntil {isnull _attachedUnit || (_attachedUnit getvariable ["iedTrigered",false])};
-		if (isNull _attachedUnit) then {
+		waituntil {!(alive _attachedUnit) || !(_attachedUnit getvariable ["armed",true])};
+		sleep 1;
+		if (alive _attachedUnit) then {
 			_logic setvariable ["RscAttributeTaskState","Succeeded", true];
 		} else {
 			_logic setvariable ["RscAttributeTaskState","Failed", true];

@@ -20,6 +20,7 @@
     true
 ] call CBA_Settings_fnc_init;
 
+/*
 //Respawn menu
 [
     "MCC_openRespawnMenu",
@@ -29,7 +30,7 @@
     true,
     true
 ] call CBA_Settings_fnc_init;
-
+*/
 //Respawn Cinematic
 [
     "MCC_respawnCinematic",

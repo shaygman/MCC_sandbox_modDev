@@ -200,8 +200,8 @@ if (typeName _wholeMap == typeName true ) then {
 		MWMissionArea settriggerarea [mcc_zone_marker_X,mcc_zone_marker_Y,0,true];
 		MCC_worldArea = MWMissionArea;
 
-		private "_radius";
-		_radius = (mcc_zone_marker_X + mcc_zone_marker_Y)/2;
+		private _radius = (mcc_zone_marker_X + mcc_zone_marker_Y)/2;
+
 		//Let's map the area
 		MCC_MWcityLocations     = [getpos MWMissionArea,_radius,"city"] call MCC_fnc_MWbuildLocations;
 		MCC_MWmilitaryLocations = [getpos MWMissionArea,_radius,"mil"] call MCC_fnc_MWbuildLocations;
@@ -362,6 +362,8 @@ _objectives = [];
 
 		//Random Mission
 		if (_objType == "Random") then {_objType = _objArray select (floor random count _objArray)};
+
+
 		_objPos = nil;
 		_timeStart = time;
 		while {isnil "_objPos" && (time < _timeStart +5)} do {
@@ -381,223 +383,225 @@ _objectives = [];
 			systemchat "MCC: Mission Wizard Error: Can't find good objective's position try again";
 			diag_log "MCC: Mission Wizard Error: Can't find good objective's position try again";
 			[[_markerName]] call MCC_MWCleanup;
-		};
-
-		if (["Destroy", _objType] call BIS_fnc_inString) then {
-			[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_objType,_campaignMission,_sidePlayer] remoteExec ["MCC_fnc_MWObjectiveDestroy",2];
 		} else {
-			switch (true) do {
 
-				case (_objType in ["Secure HVT"]): {
+			if (["Destroy", _objType] call BIS_fnc_inString) then {
+				[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_objType,_campaignMission,_sidePlayer] remoteExec ["MCC_fnc_MWObjectiveDestroy",2];
+			} else {
+				switch (true) do {
 
-					private ["_defendingFaction","_defendingSide"];
-					//Change faction because we are dealing with a hostage and not an enemy
-					if ((random 1)>0.5) then {
-						_defendingFaction 	= _factionPlayer;
-						_defendingSide 		= _sidePlayer;
-					} else {
-						_defendingFaction = _civFaction;
-						_defendingSide = civilian
-					};
+					case (_objType in ["Secure HVT"]): {
 
-					//Spawn a hostage on the server
-					[_objPos, _isCQB, true, _enemySide, _enemyfaction, _defendingSide, _defendingFaction,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveHVT",2];
-				};
-
-				case (_objType in ["Kill HVT"]): {
-					[_objPos, _isCQB, false, _enemySide, _enemyfaction, _sidePlayer, _factionPlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveHVT",2];
-				};
-
-				case (_objType in ["Acquire Intel","Download Intel"]): {
-					[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_sidePlayer,(_objType isEqualTo "Download Intel")] remoteExec ["MCC_fnc_MWObjectiveIntel",2];
-
-				};
-
-				case (_objType in ["Capture Area"]): {
-					[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance] remoteExec ["MCC_fnc_MWObjectiveClear",2];
-				};
-
-				case (_objType in ["Disarm IED"]): {
-					[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveDisable",2];
-				};
-
-				case (_objType in ["Logistics"]): {
-					//[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance] remoteExec ["MCC_fnc_MWObjectiveLogistics",2];
-
-					[_objPos, _isCQB,_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction, _preciseMarkers] spawn {
-						params ["_objPos", "_isCQB","_enemySide", "_enemyfaction","_sidePlayer","_factionPlayer","_civFaction","_preciseMarkers"];
-
-						private ["_supplyTruck","_startPos","_unit","_supplyTruckClass","_aidSide","_unitsArray","_units","_counter","_group"];
-
-						_objPos set [2,0];
-
-						//Find a supply truck
-						_supplyTruckClass = "C_Van_01_box_F";
-						/*
-						{
-							if (((getNumber (configfile >> "CfgVehicles" >> _x >> "side")) call BIS_fnc_sideType) isEqualTo _sidePlayer) exitWith {
-								_supplyTruckClass = _x
-							};
-						} forEach (missionNamespace getVariable ["MCC_supplyTracks",[]]);
-
-						if (isNil "_supplyTruckClass") then {
-							_supplyTruckClass = "C_Van_01_box_F";
-						};
-						*/
-
-						_startPos = [_sidePlayer,_supplyTruckClass] call MCC_fnc_MWGetStartLocation;
-
-						if (count _startPos <= 0) exitWith {
-							diag_log "MCC_fnc_MCCMissioWizard: Error Can't find a start location position";
-							[[_markerName]] call MCC_MWCleanup;
-						};
-
-						_supplyTruck = _supplyTruckClass createVehicle _startPos;
-
-						//Add to curator
-						{_x addCuratorEditableObjects [[_supplyTruck],true]} forEach allCurators;
-
-						_aidSide = "civ"; //["civ","military"] call BIS_fnc_selectRandom;
-
-						//If not CQB spawn some POI
-						if !(_isCQB) then {
-							_objPos = [_objPos,"civ"] call MCC_fnc_buildRandomComposition;
-						};
-
-						//Garrison with some friendly troops
-						if (_aidSide == "civ") then {
-							[_objPos,30,0,4,_civFaction, civilian] remoteExec ["MCC_fnc_garrison",2];
+						private ["_defendingFaction","_defendingSide"];
+						//Change faction because we are dealing with a hostage and not an enemy
+						if ((random 1)>0.5) then {
+							_defendingFaction 	= _factionPlayer;
+							_defendingSide 		= _sidePlayer;
 						} else {
-							[_objPos,30,0,4,_factionPlayer, _sidePlayer] remoteExec ["MCC_fnc_garrison",2];
+							_defendingFaction = _civFaction;
+							_defendingSide = civilian
 						};
 
-						//Spawn one group in defend
-						_unitsArray = [_enemyfaction ,"soldier"] call MCC_fnc_makeUnitsArray;
+						//Spawn a hostage on the server
+						[_objPos, _isCQB, true, _enemySide, _enemyfaction, _defendingSide, _defendingFaction,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveHVT",2];
+					};
 
-						if (count _unitsArray > 0) then {
-							if (count _unitsArray > 6) then {_unitsArray resize 6};
+					case (_objType in ["Kill HVT"]): {
+						[_objPos, _isCQB, false, _enemySide, _enemyfaction, _sidePlayer, _factionPlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveHVT",2];
+					};
 
-							_units = [];
+					case (_objType in ["Acquire Intel","Download Intel"]): {
+						[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_sidePlayer,(_objType isEqualTo "Download Intel")] remoteExec ["MCC_fnc_MWObjectiveIntel",2];
 
-							_objPos = [_objPos,0,100,2,0,50,0] call BIS_fnc_findSafePos;
+					};
 
-						    _counter = floor random 8;
+					case (_objType in ["Capture Area"]): {
+						[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance] remoteExec ["MCC_fnc_MWObjectiveClear",2];
+					};
 
-							for "_i" from 1 to _counter do {
-								_units pushBack ((_unitsArray call bis_fnc_selectRandom) select 0);
+					case (_objType in ["Disarm IED"]): {
+						[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers] remoteExec ["MCC_fnc_MWObjectiveDisable",2];
+					};
+
+					case (_objType in ["Logistics"]): {
+						//[_objPos, _isCQB,_enemySide, _enemyfaction,_sidePlayer,_preciseMarkers,_campaignMission,_maxObjectivesDistance] remoteExec ["MCC_fnc_MWObjectiveLogistics",2];
+
+						[_objPos, _isCQB,_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction, _preciseMarkers] spawn {
+							params ["_objPos", "_isCQB","_enemySide", "_enemyfaction","_sidePlayer","_factionPlayer","_civFaction","_preciseMarkers"];
+
+							private ["_supplyTruck","_startPos","_unit","_supplyTruckClass","_aidSide","_unitsArray","_units","_counter","_group"];
+
+							_objPos set [2,0];
+
+							//Find a supply truck
+							_supplyTruckClass = "C_Van_01_box_F";
+							/*
+							{
+								if (((getNumber (configfile >> "CfgVehicles" >> _x >> "side")) call BIS_fnc_sideType) isEqualTo _sidePlayer) exitWith {
+									_supplyTruckClass = _x
+								};
+							} forEach (missionNamespace getVariable ["MCC_supplyTracks",[]]);
+
+							if (isNil "_supplyTruckClass") then {
+								_supplyTruckClass = "C_Van_01_box_F";
+							};
+							*/
+
+							_startPos = [_sidePlayer,_supplyTruckClass] call MCC_fnc_MWGetStartLocation;
+
+							if (count _startPos <= 0) exitWith {
+								diag_log "MCC_fnc_MCCMissioWizard: Error Can't find a start location position";
+								[[_markerName]] call MCC_MWCleanup;
 							};
 
-							_group = [_objPos, _units, 1, _enemySide, false, false] call MCC_fnc_groupSpawn;
-							[_group, _objPos] call bis_fnc_taskDefend;
+							_supplyTruck = _supplyTruckClass createVehicle _startPos;
+
+							//Add to curator
+							{_x addCuratorEditableObjects [[_supplyTruck],true]} forEach allCurators;
+
+							_aidSide = "civ"; //["civ","military"] call BIS_fnc_selectRandom;
+
+							//If not CQB spawn some POI
+							if !(_isCQB) then {
+								_objPos = [_objPos,"civ"] call MCC_fnc_buildRandomComposition;
+							};
+
+							//Garrison with some friendly troops
+							if (_aidSide == "civ") then {
+								[_objPos,30,0,4,_civFaction, civilian] remoteExec ["MCC_fnc_garrison",2];
+							} else {
+								[_objPos,30,0,4,_factionPlayer, _sidePlayer] remoteExec ["MCC_fnc_garrison",2];
+							};
+
+							//Spawn one group in defend
+							_unitsArray = [_enemyfaction ,"soldier"] call MCC_fnc_makeUnitsArray;
+
+							if (count _unitsArray > 0) then {
+								if (count _unitsArray > 6) then {_unitsArray resize 6};
+
+								_units = [];
+
+								_objPos = [_objPos,0,100,2,0,50,0] call BIS_fnc_findSafePos;
+
+							    _counter = floor random 8;
+
+								for "_i" from 1 to _counter do {
+									_units pushBack ((_unitsArray call bis_fnc_selectRandom) select 0);
+								};
+
+								_group = [_objPos, _units, 1, _enemySide, false, false] call MCC_fnc_groupSpawn;
+								[_group, _objPos] call bis_fnc_taskDefend;
+							};
+							//Land_WaterBottle_01_stack_F Land_FoodSacks_01_small_brown_idap_F
+							[_supplyTruck, _objPos,"Logistics",_preciseMarkers,_enemySide,400] call MCC_fnc_MWCreateTask;
 						};
-						//Land_WaterBottle_01_stack_F Land_FoodSacks_01_small_brown_idap_F
-						[_supplyTruck, _objPos,"Logistics",_preciseMarkers,_enemySide,400] call MCC_fnc_MWCreateTask;
-					};
 
-					//prevent spawning garrison in houses
-					_isCQB = false;
-				};
-			};
-		};
-
-		//Stealth mission
-		/*
-		if (_stealth) then {
-			private ["_activate","_cond","_alarm"];
-			switch (_sidePlayer) do {
-				case west: {_activate =  "WEST"; _cond = "WEST D"};
-				case east: {_activate =  "EAST"; _cond = "EAST D"};
-				case resistance: {_activate =  "GUER"; _cond = "GUER D"};
-				case civilian: {_activate =  "CIV"; _cond = "CIV D"};
-			};
-			_alarm = "Land_Loudspeakers_F" createVehicle ([_objPos,1,100,10,0,10,0,[],[[-500,-500,0],[-500,-500,0]]] call BIS_fnc_findSafePos);
-
-			//for saving
-			_init = format ["['', %1, 100, 100, '%2', '%3', 'AlarmSfx',false] call MCC_fnc_MusicTrigger",getpos _alarm, _activate, _cond];
-			_alarm setVariable ["vehicleinit",_init];
-			{_x addCuratorEditableObjects [[_alarm],false]} forEach allCurators;
-
-			[["", getpos _alarm, 100, 100, _activate, _cond,"AlarmSfx",false],"MCC_fnc_MusicTrigger",true,false] spawn BIS_fnc_MP;
-		};
-		*/
-
-		sleep 1;
-
-		waituntil {!isnil "MCC_MWObjectivesNames"};
-		_objPos = MCC_MWObjectivesNames select 0;
-
-		//Lets create a zone
-		_zoneNumber = (count (missionNamespace getVariable ["MCC_zones_numbers",[]])) + 1;
-		_script_handler = [_zoneNumber,_objPos,_maxObjectivesDistance*(if (_campaignMission) then {1} else {2})] call MCC_fnc_MWUpdateZone;
-		waituntil {_script_handler};
-
-		//Spawn some Infantry groups
-		_spawnbehavior	= ["NOFOLLOW","bisd"] call BIS_fnc_selectRandom;
-		_unitPlaced = [(_totalEnemyUnits*0.2),_zoneNumber,_spawnbehavior,_enemySide] call MCC_fnc_MWSpawnInfantry;
-		if (MCC_debug) then {diag_log format ["Total enemy's infantry Spawned in zone%1: %2", _zoneNumber,_unitPlaced]};
-
-		// Is CQB
-		if (_isCQB) then {
-			[[_objPos,(_maxObjectivesDistance*0.5),0,(_totalEnemyUnits*0.05) min 2,_enemyfaction, _enemySide],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
-		};
-
-		// Is _isCiv
-		if (_isCiv) then {
-			[[_objPos,(_maxObjectivesDistance*0.5),1,(_totalEnemyUnits*0.05) min 2,_civFaction,"CIV"],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
-		};
-
-
-		//Suicide Bombers
-		private ["_name","_objectType","_unitsArray","_pos"];
-		_unitsArray 	= [_civFaction, "soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
-
-		if (_isSB && (count _unitsArray > 0)) then {
-			for [{_i = 0},{_i <=(_totalEnemyUnits/30)},{_i = _i+1}] do {
-				if (random 1 >0.5) then {
-					//Name the bomber.
-					_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
-					_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
-
-					[[_pos,_objectType,"large",floor (random 2),_sidePlayer],"MCC_fnc_SBSingle",false,false] spawn BIS_fnc_MP;
-
-					//Debug
-					if (MCC_debug) then {
-						private ["_marker","_name"];
-						_name = FORMAT ["SBMarker_%1", ["SBMarker",1] call bis_fnc_counter];
-						_marker = createMarkerLocal[_name, _pos];
-						_marker setMarkerTypeLocal "mil_dot";
-						_marker setMarkerColorLocal "ColorOrange";
-						_marker setMarkerSizeLocal[0.4, 0.4];
-						_marker setMarkerTextLocal "SB";
+						//prevent spawning garrison in houses
+						_isCQB = false;
 					};
 				};
 			};
-		};
 
-		//Armed Civilans
-		if (_isAS && (count _unitsArray > 0)) then {
-			for [{_i = 0},{_i <=(_totalEnemyUnits/15)},{_i = _i+1}] do {
-				if (random 1 >0.5) then {
-					//Name the AC.
-					_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
-					_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
+			//Stealth mission
+			/*
+			if (_stealth) then {
+				private ["_activate","_cond","_alarm"];
+				switch (_sidePlayer) do {
+					case west: {_activate =  "WEST"; _cond = "WEST D"};
+					case east: {_activate =  "EAST"; _cond = "EAST D"};
+					case resistance: {_activate =  "GUER"; _cond = "GUER D"};
+					case civilian: {_activate =  "CIV"; _cond = "CIV D"};
+				};
+				_alarm = "Land_Loudspeakers_F" createVehicle ([_objPos,1,100,10,0,10,0,[],[[-500,-500,0],[-500,-500,0]]] call BIS_fnc_findSafePos);
 
-					[[_pos,_objectType,_sidePlayer,"Armed Civilian",random 360],"MCC_fnc_ACSingle",false,false] spawn BIS_fnc_MP;
+				//for saving
+				_init = format ["['', %1, 100, 100, '%2', '%3', 'AlarmSfx',false] call MCC_fnc_MusicTrigger",getpos _alarm, _activate, _cond];
+				_alarm setVariable ["vehicleinit",_init];
+				{_x addCuratorEditableObjects [[_alarm],false]} forEach allCurators;
 
-					//Debug
-					if (MCC_debug) then {
-						private ["_marker","_name"];
-						_name = FORMAT ["ACMarker_%1", ["ACMarker_",1] call bis_fnc_counter];
-						_marker = createMarkerLocal[_name, _pos];
-						_marker setMarkerTypeLocal "mil_dot";
-						_marker setMarkerColorLocal "ColorOrange";
-						_marker setMarkerSizeLocal[0.4, 0.4];
-						_marker setMarkerTextLocal "AC";
+				[["", getpos _alarm, 100, 100, _activate, _cond,"AlarmSfx",false],"MCC_fnc_MusicTrigger",true,false] spawn BIS_fnc_MP;
+			};
+			*/
+
+			sleep 1;
+
+			waituntil {!isnil "MCC_MWObjectivesNames"};
+			_objPos = MCC_MWObjectivesNames select 0;
+
+			//Lets create a zone
+			_zoneNumber = (count (missionNamespace getVariable ["MCC_zones_numbers",[]])) + 1;
+			_script_handler = [_zoneNumber,_objPos,_maxObjectivesDistance*(if (_campaignMission) then {1} else {2})] call MCC_fnc_MWUpdateZone;
+			waituntil {_script_handler};
+
+			//Spawn some Infantry groups
+			_spawnbehavior	= ["NOFOLLOW","bisd"] call BIS_fnc_selectRandom;
+			_unitPlaced = [(_totalEnemyUnits*0.2),_zoneNumber,_spawnbehavior,_enemySide] call MCC_fnc_MWSpawnInfantry;
+			if (MCC_debug) then {diag_log format ["Total enemy's infantry Spawned in zone%1: %2", _zoneNumber,_unitPlaced]};
+
+			// Is CQB
+			if (_isCQB) then {
+				[[_objPos,(_maxObjectivesDistance*0.5),0,(_totalEnemyUnits*0.05) min 2,_enemyfaction, _enemySide],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+			};
+
+			// Is _isCiv
+			if (_isCiv) then {
+				[[_objPos,(_maxObjectivesDistance*0.5),1,(_totalEnemyUnits*0.05) min 2,_civFaction,"CIV"],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+			};
+
+
+			//Suicide Bombers
+			private ["_name","_objectType","_unitsArray","_pos"];
+			_unitsArray 	= [_civFaction, "soldier"] call MCC_fnc_makeUnitsArray;		//Let's build the faction unit's array
+
+			if (_isSB && (count _unitsArray > 0)) then {
+				for [{_i = 0},{_i <=(_totalEnemyUnits/30)},{_i = _i+1}] do {
+					if (random 1 >0.5) then {
+						//Name the bomber.
+						_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
+						_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
+
+						[[_pos,_objectType,"large",floor (random 2),_sidePlayer],"MCC_fnc_SBSingle",false,false] spawn BIS_fnc_MP;
+
+						//Debug
+						if (MCC_debug) then {
+							private ["_marker","_name"];
+							_name = FORMAT ["SBMarker_%1", ["SBMarker",1] call bis_fnc_counter];
+							_marker = createMarkerLocal[_name, _pos];
+							_marker setMarkerTypeLocal "mil_dot";
+							_marker setMarkerColorLocal "ColorOrange";
+							_marker setMarkerSizeLocal[0.4, 0.4];
+							_marker setMarkerTextLocal "SB";
+						};
 					};
 				};
 			};
+
+			//Armed Civilans
+			if (_isAS && (count _unitsArray > 0)) then {
+				for [{_i = 0},{_i <=(_totalEnemyUnits/15)},{_i = _i+1}] do {
+					if (random 1 >0.5) then {
+						//Name the AC.
+						_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
+						_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
+
+						[[_pos,_objectType,_sidePlayer,"Armed Civilian",random 360],"MCC_fnc_ACSingle",false,false] spawn BIS_fnc_MP;
+
+						//Debug
+						if (MCC_debug) then {
+							private ["_marker","_name"];
+							_name = FORMAT ["ACMarker_%1", ["ACMarker_",1] call bis_fnc_counter];
+							_marker = createMarkerLocal[_name, _pos];
+							_marker setMarkerTypeLocal "mil_dot";
+							_marker setMarkerColorLocal "ColorOrange";
+							_marker setMarkerSizeLocal[0.4, 0.4];
+							_marker setMarkerTextLocal "AC";
+						};
+					};
+				};
+			};
+
+			_objectives pushBack MCC_MWObjectivesNames;
 		};
-		_objectives pushBack MCC_MWObjectivesNames;
 	};
 } foreach [_obj1,_obj2,_obj3];
 

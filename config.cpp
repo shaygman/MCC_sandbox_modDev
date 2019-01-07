@@ -49,8 +49,8 @@ class CfgMods
 
 //CBA
 
-class Extended_PreInit_EventHandlers {
-	class MCC_PreInits {
+class Extended_PostInit_EventHandlers {
+	class MCC_PostInits {
         init = call compile preprocessFileLineNumbers "mcc_sandbox_mod\XEH_preInit.sqf";
     };
 };
@@ -155,6 +155,12 @@ class CfgMissions
 			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_BAF.abel";
 		};
 
+		class MCC_campaign_BAF_Malden
+		{
+			briefingName = "(MCC) Campaign BAF";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_BAF.Malden";
+		};
+
 		//noe
 		class MCC_CAMPAIGN_NOE_BAF
 		{
@@ -231,6 +237,25 @@ class CfgMissions
 			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_GU.Chernarus_Summer";
 		};
 
+		//Chernarus winter
+		class MCC_campaign_USA_Chernarus_Winter
+		{
+			briefingName = "(MCC) Campaign USA";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_USA.Chernarus_Winter";
+		};
+
+		class MCC_campaign_RU_Chernarus_Winter
+		{
+			briefingName = "(MCC) Campaign RU";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_RU.Chernarus_Winter";
+		};
+
+		class MCC_campaign_GU_Chernarus_Winter
+		{
+			briefingName = "(MCC) Campaign GU";
+			directory = "mcc_sandbox_mod\sampleMissions\MCC_campaign_GU.Chernarus_Winter";
+		};
+
 		//Takistan
 		class MCC_campaign_USA_Takistan
 		{
@@ -267,6 +292,12 @@ class CfgMissions
 		{
 			briefingName = "(MCC) Template";
 			directory = "mcc_sandbox_mod\sampleMissions\MCC_Template.Chernarus_Summer";
+		};
+
+		class MCC_Template_Chernarus_Winter
+		{
+			briefingName = "(MCC) Template";
+			directory = "mcc_sandbox_mod\sampleMissions\class MCC_Template.Chernarus_Winter";
 		};
 
 		class MCC_TEMPLATE_fallujah

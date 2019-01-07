@@ -9,33 +9,28 @@ _module = param [0, objNull, [objNull]];
 
 if (typeName (_module getVariable ["rsAllWeapons",true]) == typeName 0) exitWith {
 
-	[_module] spawn {
-		params ["_module"];
-		waitUntil {time > 5};
+	private _path = missionNamespace getVariable ["MCC_path",""];
 
-		private _path = missionNamespace getVariable ["MCC_path",""];
+	//(RS)Role Selection
+	CP_activated = true;
 
-		//(RS)Role Selection
-		CP_activated = true;
+	//(RS)All Weapons
+	MCC_rsAllWeapons = ((_module getvariable ["rsAllWeapons",0])==1);
 
-		//(RS)All Weapons
-		MCC_rsAllWeapons = ((_module getvariable ["rsAllWeapons",0])==1);
+	//(RS)Kit Change
+	MCC_allowChangingKits = ((_module getvariable ["allowKitChange",0])==1);
 
-		//(RS)Kit Change
-		MCC_allowChangingKits = ((_module getvariable ["allowKitChange",0])==1);
+	//(RS)XP Gain
+	CP_gainXP = ((_module getvariable ["rsGainXp",0])==1);
 
-		//(RS)XP Gain
-		CP_gainXP = ((_module getvariable ["rsGainXp",0])==1);
+	//(RS)Kit Weapons
+	MCC_rsEnableRoleWeapons = ((_module getvariable ["rsEnableRoleWeapons",0])==1);
 
-		//(RS)Kit Weapons
-		MCC_rsEnableRoleWeapons = ((_module getvariable ["rsEnableRoleWeapons",0])==1);
+	//(RS)Drivers/Pilots
+	MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
 
-		//(RS)Drivers/Pilots
-		MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
-
-		if (hasInterface) then {
-			_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
-		};
+	if (hasInterface) then {
+		_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
 	};
 };
 

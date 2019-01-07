@@ -23,7 +23,7 @@ _time = time + 20;
 
 _objectivesMarkers = missionNamespace getVariable ["MCC_MWObjectiveMarkers",[]];
 
-_ambient = if (_isCQB) then {"2*houses + meadow "} else {"3*meadow + houses + hills "};
+_ambient = if (_isCQB) then {"houses + meadow "} else {"3*meadow + houses + hills "};
 
 //if it is the first time then find objective close to the center
 while {(count _availablePos) == 0 && (_range < (_maxObjectivesDistance*3))} do {

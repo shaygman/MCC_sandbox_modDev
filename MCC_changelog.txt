@@ -1,3 +1,18 @@
+Changelog r30:
+- Fixed: Mission Generator to a specific zone
+- Fixed: Conflict with CBA addon settings and MCC modules settings caused unpredictable behavior
+- Added: MCC template to CUP Chernarus winter
+- Added: 3 MCC campaigns to CUP Chernarus winter
+
+TODO
+- IED in campaign doesn't finish the mission
+ADD earplugs to mission templates
+role pictures don't show in template
+
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
+under water objectives?
+ADD surrender to AI in campaign
+
 Changelog r29:
 - Fix: Spawning artillery was called on each client and not only on the server
 - Fixed: MCC bugging warlords and high command
@@ -26,17 +41,6 @@ Changelog r28:
 - Fixed: Can't open HQ vault from ACE
 - Fixed: systemchat when unit respawned
 
-TODO -
-CAS gun run zeus didn't work
-Controllable CAS don't have a timer and don't do exit - also when dead need to release.
-
-check why enabling medic complex in settings doesn't change bi medics
-CAS in commander console
-fire kill vehicles
-suprresion effects kill all other effects (sandstorm)
-Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-under water objectives?
-ADD surrender to AI in campaign
 
 Changelog r27:
 
@@ -48,17 +52,6 @@ MCC now requires CBA
 - Fix : Special forces helmet camera now works on group members not only on synced units.
 - Fix: never ending generating mission bug
 
-
-TODO -
-check why enabling medic complex in settings doesn't change bi medics
-check lock/unlock door module in BI
-Disable interaction when ace is ons
-CAS in commander console
-fire kill vehicles
-suprresion effects kill all other effects (sandstorm)
-Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-under water objectives?
-ADD surrender to AI in campaign
 
 Change log r26:
 
