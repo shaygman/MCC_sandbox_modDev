@@ -1,14 +1,15 @@
 Changelog r30:
 - Fixed: Mission Generator to a specific zone
 - Fixed: Conflict with CBA addon settings and MCC modules settings caused unpredictable behavior
+- Fixed: Role's icon didn't show on template missions
+- Fixed: Disarming an IED didn't completed generated mission
 - Added: MCC template to CUP Chernarus winter
 - Added: 3 MCC campaigns to CUP Chernarus winter
+- Changed: Generate mission to a zone will work much better and allows the selection of a specific zone.
 
 TODO
-- IED in campaign doesn't finish the mission
 ADD earplugs to mission templates
-role pictures don't show in template
-
+recon units to MW
 Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
 under water objectives?
 ADD surrender to AI in campaign

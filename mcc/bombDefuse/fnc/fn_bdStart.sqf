@@ -28,8 +28,7 @@ for "_i" from 1 to _noModules do {
   _modules pushBack (["wires","buttons","numpad"] call bis_fnc_selectRandom);
 };
 
-//[_difficulty,_modules,_disarmTime] call MCC_fnc_initBombDefuse
-if !(true) then {
+if !([_difficulty,_modules,_disarmTime] call MCC_fnc_initBombDefuse) then {
   _realIED setvariable ["armed",true,true];
   "SmallSecondary" createVehicle _pos;
   sleep 0.5;

@@ -6,43 +6,13 @@
 //******************************************************************************************************************************
 
 0 spawn {
-	private ["_string","_logicPos","_logicEmpty","_nearObjects","_target","_nvgstate","_camLogic","_camBuildings","_camLight","_role","_exp","_level","_teleportAtStart","_starLoc"];
+	private ["_string","_logicPos","_logicEmpty","_nearObjects","_target","_nvgstate","_camLogic","_camBuildings","_camLight","_role","_exp","_level","_teleportAtStart","_starLoc","_defaultLevel"];
 
 	waituntil {time > 0 && alive player && isPlayer player && count ([player] call BIS_fnc_getRespawnPositions) > 0};
 	if !(player getVariable ["cpReady",true]) exitWith {};
 
 	player setVariable ["cpReady",false,true];
 	cutText ["","BLACK IN",5];
-
-	/*
-	//Disable weapon disassemble
-	player removeEventHandler ["WeaponDisassembled",(player getVariable ["MCC_disableStatic",999])];
-
-	_eh = player addEventHandler ["WeaponDisassembled",
-	{
-		_this spawn
-		{
-			_unit = _this select 0;
-			_bag1 = _this select 1;
-			_bag2 = _this select 2;
-
-			_currBag = unitBackpack _unit;
-
-			titleText ["You are not allowed to disassemble static weapons.", "PLAIN DOWN", 0.5];
-
-			_unit action ["TakeBag", _bag1];
-
-			_time = time;
-			waitUntil {unitBackpack _unit == _bag1 || time - _time > 3};
-
-			_unit action ["Assemble", _bag2];
-
-			if (!isNull _currBag) then { _unit action ["TakeBag", _currBag] };
-		};
-	}];
-
-	player setVariable ["MCC_disableStatic",_eh];
-	*/
 
 	//Mark it zero again
 	player addRating (-1 * (rating player));
@@ -55,6 +25,8 @@
 	_cfg = if (isClass (missionconfigFile >> "MCC_loadouts" )) then {(missionconfigFile >> "MCC_loadouts")} else {(configFile >> "MCC_loadouts")};
 
 	//Let's build the control buttons
+	_defaultLevel = missionNamespace getVariable ["CP_defaultLevel",[1,0]];
+
 	for "_i" from 0 to (count _cfg -1) do {
 		_cfgName = format ["%1Level", configName (_cfg select _i)];
 		[_cfgName, player, CP_defaultLevel, "ARRAY"] remoteExec ["MCC_fnc_getVariable",2];

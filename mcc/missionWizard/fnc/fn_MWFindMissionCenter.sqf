@@ -12,7 +12,7 @@
 	<OUT>
  		Return - pos
 //===========================================================================================================================================================================*/
-private ["_pos","_minRadius","_centerFound","_buildingsArray","_newPos","_name","_type","_isBasedLocations","_locations","_location","_time"];
+private ["_pos","_minRadius","_centerFound","_buildingsArray","_newPos","_name","_type","_isBasedLocations","_locations","_location","_time","_radius"];
 
 _pos 				= _this select 0;
 _minRadius 			= _this select 1;
@@ -20,9 +20,9 @@ _isCQB 				= _this select 2;
 _isBasedLocations 	= _this select 3;
 
 _centerFound = false;
+_newPos = nil;
 
-if (_isBasedLocations) then
-{
+if (_isBasedLocations) then {
 	if (_isCQB) then
 	{
 		_locations = MCC_MWcityLocations + MCC_MWmilitaryLocations;
@@ -34,14 +34,22 @@ if (_isBasedLocations) then
 
 	_location = _locations call BIS_fnc_selectRandom;
 	_newPos = getpos (_location select 0);
-}
-else
-{
+} else {
 	//Lets find a pice of land
 	_time = time + 30;
+	_newPos = [0,0];
+
 	while {!_centerFound && time < _time} do {
 
-		_newPos = [[[_pos,_minRadius]],["water"]] call BIS_fnc_randomPos; //first is whitelist second is blacklist, third is condition
+		//first is whitelist second is blacklist, third is condition
+		_radius = _minRadius;
+		while {count _newPos <3 && time < _time} do
+		{
+			_newPos = [[[_pos,_radius]],["water"]] call BIS_fnc_randomPos;
+			_radius = _radius + 50;
+		};
+
+
 
 		if (_isCQB) then
 			{
@@ -57,13 +65,7 @@ else
 				if (!surfaceIsWater _newPos) then {_centerFound = true};
 			};
 	};
-
-	if (time >= _time) then
-	{
-		diag_log "MCC: Mission Wizard Error: No mission center postion found, make a bigger zone";
-		MCC_MWisGenerating = false;
-		["MCC: Mission Wizard Error: No mission center found, make a bigger zone"] spawn bis_fnc_halt;
-	};
 };
+
 if (isnil "_location") then {_location = [0,""]};
 [_newPos,(_location select 1)];

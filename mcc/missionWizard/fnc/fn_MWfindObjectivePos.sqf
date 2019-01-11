@@ -23,7 +23,7 @@ _time = time + 20;
 
 _objectivesMarkers = missionNamespace getVariable ["MCC_MWObjectiveMarkers",[]];
 
-_ambient = if (_isCQB) then {"houses + meadow "} else {"3*meadow + houses + hills "};
+_ambient = if (_isCQB) then {"houses + meadow "} else {"meadow + houses + hills "};
 
 //if it is the first time then find objective close to the center
 while {(count _availablePos) == 0 && (_range < (_maxObjectivesDistance*3))} do {
@@ -52,9 +52,12 @@ if (missionNamespace getVariable ["MCC_debug",false]) then {
 
 if (count _availablePos == 0) exitWith {
 	diag_log "MCC: Mission Wizard Error: No mission objective's postion found, make a bigger zone";
+	/*
 	MCC_MWisGenerating = false;
 	publicVariable "MCC_MWisGenerating";
-	["MCC: Mission Wizard Error: No mission objective's postion found, make a bigger zone"] call bis_fnc_halt;
+	0 = ["MCC: Mission Wizard Error: No mission objective's postion found, make a bigger zone"] spawn MCC_fnc_halt;
+	*/
+	_availablePos
 };
 
 if (_farEnough || (count _objectivesMarkers == 0)) then {

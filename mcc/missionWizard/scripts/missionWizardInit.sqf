@@ -115,7 +115,7 @@ if (isnil "_enemyfaction") exitWith
 {
 	diag_log "MCC MW: Faction is empty";
 	MCC_MWisGenerating = false;
-	["MCC: Mission Wizard Error: Faction doesn't have any units in it"] call bis_fnc_halt;
+	["MCC: Mission Wizard Error: Faction doesn't have any units in it"] spawn MCC_fnc_halt;
 };
 
 //Build the faction's unitsArrays and send it to the server.

@@ -153,7 +153,7 @@ if (typeName _wholeMap == typeName true ) then {
 			_mapSize = getnumber (_worldPath >> "mapSize");
 			if (_mapSize == 0) exitWith {
 				diag_log FORMAT ["MCC: Mission Wizard Error: mapSize param not defined for '%1'",worldname];
-				[["mapSize param not defined for '%1'",worldname],"bis_fnc_halt",_missionMaker, false] call BIS_fnc_MP;
+				[["mapSize param not defined for '%1'",worldname],"bis_fnc_halt",MCC_fnc_halt, false] call BIS_fnc_MP;
 				[[_markerName]] call MCC_MWCleanup;
 			};
 
@@ -183,16 +183,18 @@ if (typeName _wholeMap == typeName true ) then {
 
 		//Find mission center
 		_center = [getpos MWMissionArea,2000,_isCQB,MCC_MWBasedLocations] call MCC_fnc_MWFindMissionCenter;
-		if (isNil "_center") exitWith {
+
+		_missionCenter = (_center select 0);
+		if (isNil "_missionCenter") exitWith {
 			diag_log "MCC: Mission Wizard Error: Can't find mission center";
-			[["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"],"bis_fnc_halt",_missionMaker, false] call BIS_fnc_MP;
+			["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt",_missionMaker];
 			[[_markerName]] call MCC_MWCleanup;
 		};
 	} else {
 		//--------------------------------------------------------------Create a ceneter trigger --------------------------------------------------------------------------
 		if (count mcc_zone_markposition == 0) exitWith {
 			diag_log "MCC: Mission Wizard Error: Create a zone first";
-			[["MCC: Mission Wizard Error: Create a zone first"],"bis_fnc_halt",_missionMaker, false] call BIS_fnc_MP;
+			[["MCC: Mission Wizard Error: Create a zone first"],"MCC_fnc_halt",_missionMaker, false] call BIS_fnc_MP;
 			[[_markerName]] call MCC_MWCleanup;
 		};
 
@@ -200,14 +202,16 @@ if (typeName _wholeMap == typeName true ) then {
 		MWMissionArea settriggerarea [mcc_zone_marker_X,mcc_zone_marker_Y,0,true];
 		MCC_worldArea = MWMissionArea;
 
-		private _radius = (mcc_zone_marker_X + mcc_zone_marker_Y)/2;
+		private ["_markerPos","_radius"];
+		_radius = (mcc_zone_marker_X + mcc_zone_marker_Y)/2;
+		_markerPos = getpos MWMissionArea;
 
 		//Let's map the area
-		MCC_MWcityLocations     = [getpos MWMissionArea,_radius,"city"] call MCC_fnc_MWbuildLocations;
-		MCC_MWmilitaryLocations = [getpos MWMissionArea,_radius,"mil"] call MCC_fnc_MWbuildLocations;
-		MCC_MWhillsLocations 	= [getpos MWMissionArea,_radius,"hill"] call MCC_fnc_MWbuildLocations;
-		MCC_MWnatureLocations 	= [getpos MWMissionArea,_radius,"nature"] call MCC_fnc_MWbuildLocations;
-		MCC_MWmarineLocations	= [getpos MWMissionArea,_radius,"marine"] call MCC_fnc_MWbuildLocations;
+		MCC_MWcityLocations     = [_markerPos,_radius,"city"] call MCC_fnc_MWbuildLocations;
+		MCC_MWmilitaryLocations = [_markerPos,_radius,"mil"] call MCC_fnc_MWbuildLocations;
+		MCC_MWhillsLocations 	= [_markerPos,_radius,"hill"] call MCC_fnc_MWbuildLocations;
+		MCC_MWnatureLocations 	= [_markerPos,_radius,"nature"] call MCC_fnc_MWbuildLocations;
+		MCC_MWmarineLocations	= [_markerPos,_radius,"marine"] call MCC_fnc_MWbuildLocations;
 
 		//Find out if the map have locations in it.
 		MCC_MWBasedLocations = if (_isCQB) then {
@@ -219,10 +223,20 @@ if (typeName _wholeMap == typeName true ) then {
 		//Find mission center
 		_center = [getpos MWMissionArea,_radius,_isCQB,MCC_MWBasedLocations] call MCC_fnc_MWFindMissionCenter;
 
-		if (isNil "_center") exitWith {
-			systemchat "MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone";
+		//If we stray too far from the center cancel the mission
+		_missionCenter = (_center select 0);
+
+		if (isNil "_missionCenter") exitWith {
 			diag_log "MCC: Mission Wizard Error: Can't find mission center";
-			MCC_MWisGenerating = false;
+			["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt",_missionMaker];
+			[[_markerName]] call MCC_MWCleanup;
+		};
+
+		if (_missionCenter distance2D _markerPos > _radius) exitWith {
+			_missionCenter = nil;
+			diag_log "MCC: Mission Wizard Error: Can't find mission center";
+			["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt",_missionMaker];
+			[[_markerName]] call MCC_MWCleanup;
 		};
 	};
 } else {
@@ -230,8 +244,7 @@ if (typeName _wholeMap == typeName true ) then {
 	_campaignMission = true;
 };
 
-
-_missionCenter = _center select 0;
+if (isNil "_missionCenter") exitWith {};
 
 //Init the MW groups configs
 [_enemyfaction] call MCC_fnc_createConfigs;
@@ -364,26 +377,20 @@ _objectives = [];
 		if (_objType == "Random") then {_objType = _objArray select (floor random count _objArray)};
 
 
-		_objPos = nil;
+		_objPos = [];
 		_timeStart = time;
-		while {isnil "_objPos" && (time < _timeStart +5)} do {
+		while {(count _objPos == 0) && (time < _timeStart +5)} do {
 			_objPos = [_missionCenterTrigger,_isCQB, _minObjectivesDistance, _maxObjectivesDistance] call MCC_fnc_MWfindObjectivePos;
 			sleep 0.1;
 		};
 
 		//Lets try again
-		if (isnil "_objPos") then {
+		if (count _objPos == 0) then {
 			_isCQB = false;
-			_objPos = [_missionCenter,_isCQB,0, _maxObjectivesDistance] call MCC_fnc_MWfindObjectivePos;
+			_objPos = [_missionCenter,_isCQB,0, _maxObjectivesDistance*3] call MCC_fnc_MWfindObjectivePos;
 		};
 
-
-		if (isnil "_objPos") then {
-
-			systemchat "MCC: Mission Wizard Error: Can't find good objective's position try again";
-			diag_log "MCC: Mission Wizard Error: Can't find good objective's position try again";
-			[[_markerName]] call MCC_MWCleanup;
-		} else {
+		if (count _objPos > 0 && ((_objPos distance2D _missionCenter) < (_maxObjectivesDistance*3))) then {
 
 			if (["Destroy", _objType] call BIS_fnc_inString) then {
 				[_objPos, _isCQB, _enemySide, _enemyfaction,_preciseMarkers,_objType,_campaignMission,_sidePlayer] remoteExec ["MCC_fnc_MWObjectiveDestroy",2];
