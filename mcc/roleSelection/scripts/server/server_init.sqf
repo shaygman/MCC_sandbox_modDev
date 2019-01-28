@@ -7,12 +7,12 @@ if (missionNamespace getVariable ["MCC_debug",false]) then {diag_log "CP server 
 //---------------------------------------------
 if (isnil "CP_westGroups") then {CP_westGroups = []};
 if (isnil "CP_eastGroups") then {CP_eastGroups = []};
-if (isnil "CP_guarGroups") then {CP_guarGroups = []};
+if (isnil "CP_guerGroups") then {CP_guerGroups = []};
 
 
 publicVariable "CP_westGroups";
 publicVariable "CP_eastGroups";
-publicVariable "CP_guarGroups";
+publicVariable "CP_guerGroups";
 
 //Default Groups
 CP_defaultGroups = [format ["%1_SERVER",missionName], "RoleSelectionDefinse", "CP_defaultGroups", "read",[],"DEFAULT_SERVER"] call MCC_fnc_handleDB;
@@ -53,16 +53,16 @@ if (count CP_eastGroups == 0) then {
 	publicvariable "CP_eastGroups";
 };
 
-if (count CP_guarGroups == 0) then {
-	{												//East
+if (count CP_guerGroups == 0) then {
+	{												//resistance
 		_group = createGroup resistance;
 		waituntil {!isnil "_group"};
 		_group setVariable ["MCC_CPGroup",true,true];
 		_group setVariable ["name",_x,true];
-		CP_guarGroups set [_forEachIndex,[_group,_x]];
+		CP_guerGroups set [_forEachIndex,[_group,_x]];
 	} foreach CP_defaultGroups;
 
-	publicvariable "CP_guarGroups";
+	publicvariable "CP_guerGroups";
 };
 
 //Add event handler for tickets

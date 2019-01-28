@@ -12,7 +12,7 @@
      Example ["My dialog",[["question1",["Option1","option2"]],["question2",["Option1","option2"]],["question3",["Option1","option2"]]],"MCC_fnc_artillery"] call MCC_fnc_initDynamicDialog
 */
 
-private ["_title","_array","_ok","_display","_ctrlBackground","_ctrlTitle","_ctrlButtonOK","_ctrlButtonCancel","_ctrlButtonCustom","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlButtonCustomPos","_ctrlTitleOffsetY","_ctrlContent","_ctrlContentPos","_ctrlContentOffsetY","_posY"];
+private ["_ok","_display","_ctrlBackground","_ctrlTitle","_ctrlButtonOK","_ctrlButtonCancel","_ctrlButtonCustom","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlButtonCustomPos","_ctrlTitleOffsetY","_ctrlContent","_ctrlContentPos","_ctrlContentOffsetY","_posY"];
 disableSerialization;
 
 #define IDC_OK  10007
@@ -21,9 +21,11 @@ disableSerialization;
 #define DEFAULT_WIDTH (11*(((safezoneW / safezoneH) min 1.2)/40))
 #define DEFAULT_HEIGHT (1*((((safezoneW / safezoneH) min 1.2)/1.2)/25))
 
-_title = [_this, 0, "", [""]] call BIS_fnc_param;
-_array = [_this, 1, [], [[]]] call BIS_fnc_param;
-_function = [_this, 2, "", [""]] call BIS_fnc_param;
+params [
+    ["_title","",[""]],
+    ["_array",[],[[]]],
+    ["_infoText","",[""]]
+];
 
 //avoid double
 if (tolower str (findDisplay 1031982) != "no display") exitWith {[]};
@@ -153,6 +155,22 @@ _ctrlButtonCustom ctrlsetposition _ctrlButtonCustomPos;
 _ctrlButtonCustom ctrlsetText "";
 _ctrlButtonCustom ctrlcommit 0;
 _ctrlButtonCustom ctrlShow false;
+
+//Set info text
+if (_infoText != "") then {
+    _ctrlInfoTextBckgPos = ctrlPosition _ctrlBackground;
+    _ctrlInfoTextBckgPos set [1,0.6 + _posH + _ctrlTitleOffsetY];
+    _controlTittle = _display ctrlCreate ["RscText", -1];
+    _controlTittle ctrlSetPosition _ctrlInfoTextBckgPos;
+    _controlTittle ctrlSetBackgroundColor [0,0,0,0.7];
+    _controlTittle ctrlCommit 0;
+
+    _ctrlInfoTextPos = ctrlPosition  _controlTittle;
+    _ctrlInfoText = _display ctrlCreate ["RscText", -1];
+    _ctrlInfoText ctrlSetPosition _ctrlInfoTextPos;
+    _ctrlInfoText ctrlSetText _infoText;
+    _ctrlInfoText ctrlCommit 0;
+};
 
 //wait till the dialog is canceled or confirmed
 waitUntil {(missionNamespace getVariable ["MCC_DynamicDialogOK",false]) || (tolower str (findDisplay 1031982) == "no display")};

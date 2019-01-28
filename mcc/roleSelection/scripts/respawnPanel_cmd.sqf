@@ -54,8 +54,8 @@ if (missionNamespace getVariable ["CP_activated",false]) then {
 	_groups	 = switch (side player) do {
 					case west:			{CP_westGroups};
 					case east:			{CP_eastGroups};
-					case resistance:	{CP_guarGroups};
-					case civilian:		{CP_guarGroups};
+					case resistance:	{CP_guerGroups};
+					case civilian:		{CP_guerGroups};
 				};
 
 

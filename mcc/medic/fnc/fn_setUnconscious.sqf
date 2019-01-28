@@ -34,7 +34,7 @@ if (!(local _module) || isnull curatorcamera) exitWith {};
 _resualt = ["Set Unconscious",[
  						["Disable Bleeding",false],
  						["Force Unconscious",false]
- 					  ]] call MCC_fnc_initDynamicDialog;
+ 					  ],"Turn AI unit unconscious - will only work while MCC medical system is enabled"] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 _enableBleeding = _resualt select 0;

@@ -1,4 +1,24 @@
+
+Changelog R31:
+Fixed - Ambient Civilians module: Civilians spawn infron of players
+Fixed - Advance and secure resistance faction didn't bleed tickets on death
+Fixed - UAV icon always shown on map
+
+TODO
+side channel disappear
+ADD earplugs to mission templates
+recon units to MW
+rework rearm module
+Add modules to Zeus: mission maker, evac drop point, reinforcmnet
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
+under water objectives?
+ADD surrender to AI in campaign
+
+
+
 Changelog r30:
+
+Change log
 - Fixed: Mission Generator to a specific zone
 - Fixed: Conflict with CBA addon settings and MCC modules settings caused unpredictable behavior
 - Fixed: Role's icon didn't show on template missions
@@ -7,12 +27,7 @@ Changelog r30:
 - Added: 3 MCC campaigns to CUP Chernarus winter
 - Changed: Generate mission to a zone will work much better and allows the selection of a specific zone.
 
-TODO
-ADD earplugs to mission templates
-recon units to MW
-Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-under water objectives?
-ADD surrender to AI in campaign
+
 
 Changelog r29:
 - Fix: Spawning artillery was called on each client and not only on the server

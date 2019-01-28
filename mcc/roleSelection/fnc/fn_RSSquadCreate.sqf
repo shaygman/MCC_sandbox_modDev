@@ -20,7 +20,7 @@ for "_i" from 500 to 515 do {
 
 _groups	 = switch (player getVariable ["CP_side", playerside]) do {
 				case east:{missionNamespace getVariable ["CP_eastGroups",[]]};
-				case resistance:{missionNamespace getVariable ["CP_guarGroups",[]]};
+				case resistance:{missionNamespace getVariable ["CP_guerGroups",[]]};
 				default {missionNamespace getVariable ["CP_westGroups",[]]};
 			};
 
@@ -49,8 +49,8 @@ switch (player getVariable ["CP_side",playerside]) do {
 	};
 
 	case resistance:{
-		CP_guarGroups pushBack [_group,_name];
-		publicvariable "CP_guarGroups";
+		CP_guerGroups pushBack [_group,_name];
+		publicvariable "CP_guerGroups";
 	};
 
 	case default {

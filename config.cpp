@@ -59,7 +59,14 @@ class CfgFactionClasses
 {
 	class MCC
 	{
-		displayName = "MCC";
+		displayName = "(MCC) General";
+		priority = 8;
+		side = 7;
+	};
+
+	class MCC_AI
+	{
+		displayName = "(MCC) AI";
 		priority = 8;
 		side = 7;
 	};

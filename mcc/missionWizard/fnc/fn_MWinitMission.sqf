@@ -241,6 +241,7 @@ if (typeName _wholeMap == typeName true ) then {
 	};
 } else {
 	_center = _wholeMap;
+	_missionCenter = _center select 0;
 	_campaignMission = true;
 };
 

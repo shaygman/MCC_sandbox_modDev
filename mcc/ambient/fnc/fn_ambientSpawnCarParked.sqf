@@ -52,6 +52,8 @@ for "_i" from 1 to (_houseConuter min _counter) do {
 		if (_x distance _road < (_x getVariable ["radius",100])) exitWith {_spawn = false};
 	} forEach _deniedZones;
 
+	if (_spawn) then {_spawn = !([getpos _road, 200] call MCC_fnc_isVisableToPlayers)};
+
 	if (!(isNull _road) && _spawn && !(_road in _blackList)) then {
 		_blackList pushBack _road;
 		_roadConnectedTo 	= roadsConnectedTo _road;

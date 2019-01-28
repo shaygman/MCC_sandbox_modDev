@@ -122,26 +122,43 @@ _alloweObjects = [];
 //We are dealing with attachment
 if (_weapon != "") then {
 	if !(isNull (_disp displayCtrl 14000)) then {
-		ctrlDelete (_disp displayCtrl 14000);
+		{ctrlDelete (_disp displayCtrl 14000)} foreach [15000,14000,16000];
 	};
 
 	_idc = 14000;
 	_xPos = 0.355 * safezoneW + safezoneX;
+
+	//BCKG
+	if (isNull (_disp displayCtrl 16000)) then {
+		_ctrl = _disp ctrlCreate ["RscText",16000];
+		_ctrl ctrlSetPosition [_xPos, 0.17 * safezoneH + safezoneY, 0.13 * safezoneW, _hight* 15];
+		_ctrl ctrlSetBackgroundColor [0,0,0,0.5];
+		_ctrl ctrlCommit 0;
+	};
 } else {
 	//Delete old ctrl
 	{
 		if !(isNull (_disp displayCtrl _x)) then {
 			ctrlDelete (_disp displayCtrl _x);
 		};
-	} forEach [12000,13000,14000];
+	} forEach [12000,13000,14000,15000,16000];
 
 	_idc = 12000;
 	_xPos = 0.187 * safezoneW + safezoneX;
+
+	//BCKG
+	if (isNull (_disp displayCtrl 15000)) then {
+		_ctrl = _disp ctrlCreate ["RscText",15000];
+		_ctrl ctrlSetPosition [_xPos, 0.17 * safezoneH + safezoneY, 0.13 * safezoneW, _hight* 15];
+		_ctrl ctrlSetBackgroundColor [0,0,0,0.5];
+		_ctrl ctrlCommit 0;
+	};
 };
 
 _ctrl = _disp ctrlCreate ["RscListbox",_idc];
 _ctrl ctrlAddEventHandler ["LBSelChanged",format ["['%1',_this select 0, _this select 1] spawn MCC_fnc_RSItemSelected",_type]];
-_ctrl ctrlSetPosition [_xPos, 0.17 * safezoneH + safezoneY, 0.13 * safezoneW, _hight* (count _alloweObjects)*2];
+//_ctrl ctrlSetPosition [_xPos, 0.17 * safezoneH + safezoneY, 0.13 * safezoneW, _hight* (count _alloweObjects)*2];
+_ctrl ctrlSetPosition [_xPos, 0.17 * safezoneH + safezoneY, 0.13 * safezoneW, _hight* 15];
 _ctrl ctrlCommit 0;
 _ctrl = (_disp displayCtrl _idc);
 

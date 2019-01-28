@@ -39,8 +39,8 @@ if (isnull _group) then	{
 			publicVariable "CP_eastGroups";
 		};
 		case resistance: {
-			CP_guarGroups set [_idc,[_activeGroup,(CP_activeGroup select 1)]];
-			publicVariable "CP_guarGroups";
+			CP_guerGroups set [_idc,[_activeGroup,(CP_activeGroup select 1)]];
+			publicVariable "CP_guerGroups";
 		};
 	};
 };

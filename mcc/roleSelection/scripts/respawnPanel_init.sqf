@@ -55,10 +55,11 @@ if (player getVariable ["cpReady",true]) then {
 
 //Roles enables or just after regular respawn
 if !(CP_activated) then {
+	/*
 	{
 		_x ctrlshow false;
 	} foreach [CP_ticketsWestText,CP_ticketsEastText,CP_side1,CP_side1Score,CP_side2,CP_side2Score,CP_side3,CP_side3Score];
-
+	*/
 	for "_i" from 27 to 29 do {
 		ctrlshow [_i,false];
 	};
@@ -181,16 +182,17 @@ CP_flag ctrlSetText (missionNamespace getVariable [format ["CP_flag%1", _sidePla
 //Mission Name
 CP_missionName ctrlSetText missionName;
 
+//Sets sides Tickets
+_activeSides = [] call MCC_fnc_getActiveSides;
+
+_idc = 21;
+{
+	_tickets = [_x] call BIS_fnc_respawnTickets;
+	if (_tickets > 0) then {ctrlSetText [_idc, str _x]};
+	_idc = _idc + 2;
+} foreach _activeSides;
+
 if (missionNamespace getvariable ["CP_activated",false]) then {
-	//Sets sides Tickets
-	_activeSides = [] call MCC_fnc_getActiveSides;
-
-	_idc = 21;
-	{
-		ctrlSetText [_idc, str _x];
-		_idc = _idc + 2;
-	} foreach _activeSides;
-
 	//Set XP
 	_role = player getvariable "CP_role";
 	if (isnil "_role") exitWith {};
@@ -316,15 +318,15 @@ if (missionNamespace getvariable ["CP_activated",false]) then {
 		ctrlSetText [1919,_t];
 
 		//Tickets && XP
-		if (missionNamespace getVariable ["CP_activated",false]) then {
-			_activeSides = [] call MCC_fnc_getActiveSides;
+		_activeSides = [] call MCC_fnc_getActiveSides;
 
-			_idc = 22;
-			{
-				ctrlSetText [_idc, str ([_x] call BIS_fnc_respawnTickets)];
-				_idc = _idc + 2;
-			} foreach _activeSides;
-		};
+		_idc = 22;
+		{
+			_tickets = [_x] call BIS_fnc_respawnTickets;
+			if (_tickets > 0) then {ctrlSetText [_idc, str _tickets]};
+			_idc = _idc + 2;
+		} foreach _activeSides;
+
 
 		//Groups
 		private ["_groups","_group","_xPos","_yPos","_space","_ctrl","_groupName","_ctrlUnits","_buttonCtrlGroup"];
@@ -332,7 +334,7 @@ if (missionNamespace getvariable ["CP_activated",false]) then {
 		_groups	 = switch (player getVariable ["CP_side", playerside]) do {
 						case west:			{CP_westGroups};
 						case east:			{CP_eastGroups};
-						case resistance:	{CP_guarGroups};
+						case resistance:	{CP_guerGroups};
 					};
 
 		//Commander name

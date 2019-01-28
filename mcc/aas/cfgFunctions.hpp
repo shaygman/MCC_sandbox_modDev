@@ -11,4 +11,5 @@ class AAS {
 	class aas_AIControl {};
 	class aas_AIspawn {};
 	class deleteBodies {};
+	class AASgroupSpawn {};
 };

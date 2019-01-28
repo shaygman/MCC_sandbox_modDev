@@ -10,7 +10,7 @@ _idc = param [0,0,[0]];
 
 _groups	 = switch (player getVariable ["CP_side", playerside]) do {
 				case east:{missionNamespace getVariable ["CP_eastGroups",[]]};
-				case resistance:{missionNamespace getVariable ["CP_guarGroups",[]]};
+				case resistance:{missionNamespace getVariable ["CP_guerGroups",[]]};
 				default {missionNamespace getVariable ["CP_westGroups",[]]};
 			};
 

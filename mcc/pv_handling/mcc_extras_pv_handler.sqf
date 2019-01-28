@@ -40,7 +40,7 @@ if (isServer) then {
 // 	vehicle1, vehicle2, vehicle3, vehicle4, vehicle5: string, vehicle class leave "" to not spawn a vehicle
 // 	start: array, position, start location
 //	heading: array, position, where the convoy is heading
-//	side: string, convoy side "west", "east", "guar", "civ"
+//	side: string, convoy side "west", "east", "guer", "civ"
 // 	VIPcalss: string, vip class if none "0"
 //	VIPcar: string, vehicle class if VIPclass = "0" will be ignored
 //==============================================================================================================================================================================

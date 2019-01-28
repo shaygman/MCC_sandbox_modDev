@@ -20,4 +20,5 @@ class ambient {
 	class ambientFireClientSide {description = "Client side: Light and sounds effects";};
 	class ambientFireInit {description = "Init ambient fire";};
 	class ambientFirePlayerFiredEH {description = "Init EH on each client to have a small chance projectiles will start fire";};
+	class isVisableToPlayers {description = "Check if an object/unit is visable by players";};
 };

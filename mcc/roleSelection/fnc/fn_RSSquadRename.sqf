@@ -70,8 +70,8 @@ if !(ctrlShown (_disp displayCtrl _ctrlGroupIdc+700)) then {
 			};
 
 			case resistance:{
-				CP_guarGroups set [_idc,[_group,_name]];
-				publicvariable "CP_guarGroups";
+				CP_guerGroups set [_idc,[_group,_name]];
+				publicvariable "CP_guerGroups";
 			};
 
 			case default {

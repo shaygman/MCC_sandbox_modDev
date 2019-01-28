@@ -1,7 +1,7 @@
 class MCC_Module_underCoverCurator : MCC_Module_Base
 {
 	scopeCurator = 2;
-	category = "MCC_Vehicles";
+	category = "MCC_AI";
 	displayName = "Undercover Agents";
 	function = "MCC_fnc_curatorunderCover";
 };

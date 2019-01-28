@@ -52,7 +52,7 @@ MCC_fnc_mapDrawPlayersWPConsole =
 				{
 					case west:			{CP_westGroups};
 					case east:			{CP_eastGroups};
-					default				{CP_guarGroups};
+					default				{CP_guerGroups};
 				};
 
 
@@ -119,7 +119,7 @@ MCC_fnc_mapDrawPlayersWPConsole =
 							"Right"
 						];
 		};
-	} forEach (missionNamespace getVariable [(format ["MCC_uavSpotted_%1", playerSide]),[]]) + allUnitsUAV;
+	} forEach (missionNamespace getVariable [(format ["MCC_uavSpotted_%1", playerSide]),[]]);
 };
 
 findDisplay 12 displayCtrl 51 ctrlAddEventHandler ["Draw","_this call MCC_fnc_mapDrawPlayersWPConsole"];

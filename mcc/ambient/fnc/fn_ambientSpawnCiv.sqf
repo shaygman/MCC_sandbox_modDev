@@ -101,6 +101,8 @@ for "_i" from 1 to _counter do {
 		if (_x distance _pos < ((_x getVariable ["radius",100])*2)) exitWith {_spawn = false};
 	} forEach _deniedZones;
 
+	if (_spawn) then {_spawn = !([_pos, 200] call MCC_fnc_isVisableToPlayers)};
+
 	if (_spawn) then {
 		//Normal Civ
 		if (!(_civRelations < 0.4 && random 1 < 0.1) || (missionNamespace getVariable ["MCC_civRelationsIgnore",false])) then {

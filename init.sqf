@@ -868,10 +868,10 @@ if (isServer || isdedicated) then {
 			} foreach (missionNamespace getVariable ["CP_eastGroups",[]]);
 		};
 
-	"CP_guarGroups" addPublicVariableEventHandler {
+	"CP_guerGroups" addPublicVariableEventHandler {
 			{
 				(_x select 0) setGroupId [(_x select 1),"GroupColor0"];
-			} foreach(missionNamespace getVariable ["CP_guarGroups",[]]);
+			} foreach(missionNamespace getVariable ["CP_guerGroups",[]]);
 		};
 };
 

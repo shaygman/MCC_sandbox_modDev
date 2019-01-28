@@ -135,7 +135,7 @@ if (count _locations == 0) then {
 					default	{[0,0,0]};
 				};
 	if !(_basePos isEqualTo [0,0,0]) then {
-		[_basePos,1000,_x,0.2] spawn MCC_fnc_campaignPaintMarkers;
+		[_basePos,1000,_x,0.2] call MCC_fnc_campaignPaintMarkers;
 	};
 } forEach [_sidePlayer,_sidePlayer2];
 
@@ -167,20 +167,20 @@ _basePos = switch (_sidePlayer) do
 			};
 _locations = [_locations,[_basePos],{_input0 distance (_x select 0)},"ASCEND"] call BIS_fnc_sortBy;
 
-
 //Start the campaign missions?
-if (_missionMax == 0) exitWith {};
+if (_missionMax == 0) exitWith {
+	["sidetickets"] call  BIS_fnc_endMissionServer;
+};
 
 //Save DB every 20 minutes
 ["MCC_campaign",1200,true] spawn MCC_fnc_saveServer;
 
-while { count _locations > 0 &&
-		_missionDone <= _missionMax
-	  } do {
+
+while {count _locations > 0 &&	_missionDone <= _missionMax} do {
 
 	//update borders
 	{
-		_x setMarkerAlpha 0.4
+		_x setMarkerAlpha 0.4;
 	} forEach ([_sideEnemy] call MCC_fnc_campaignGetBorders);
 
 	//Find mission location
@@ -231,6 +231,7 @@ while { count _locations > 0 &&
 	_weatherChange = 0;
 	_preciseMarkers = false;
 
+	systemChat "ok";
 	sleep 5;
 	[
 		[_AOlocation, _totalEnemyUnits,  100, _AOSize, _weatherChange, _preciseMarkers, _playMusic],
