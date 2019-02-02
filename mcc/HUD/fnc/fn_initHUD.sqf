@@ -34,63 +34,64 @@
                     };
 
             {
-                if (isNull _X) exitWith {};
+                if (!isNull _X) then {
 
-                if (
-                       _x != player &&
-                       ((player getVariable ["CP_side",  playerside]) == (_x getVariable ["CP_side",  side _x]) || (captiveNum _x == _captiveSideId)) &&
-                       alive _x
-                    ) then {
+                    if (
+                           _x != player &&
+                           ((player getVariable ["CP_side",  playerside]) == (_x getVariable ["CP_side",  side _x]) || (captiveNum _x == _captiveSideId)) &&
+                           alive _x &&
+                           (missionNamespace getVariable ["MCC_nameTags",false])
+                        ) then {
 
-                    if (_direct) then {
-                         _aimedAt = cursorTarget == _x;
-                         _radius = _radius * 4;
-                    } else {
-                        _aimedAt = true;
-                    };
-
-                    _textSize = 0.03;
-                    _alpha = linearConversion [0,_radius,player distance _x,1,0.4];
-
-                    if  (_aimedAt && player distance2D _x < _radius) then {
-                        if (_x isKindOf "Man") then {
-                            _color = if (_x in units player) then {[0,1,0,1]} else {[1,1,1,1]};
-                            _color set [3,_alpha];
-                            _pic = if ((_x getvariable ["CP_roleImage", ""]) != "") then {_x getvariable ["CP_roleImage", ""]} else {[_x,"texture"] call BIS_fnc_rankParams};
-                            _pos = _x selectionPosition "head";
-                            _pos = _pos vectorAdd [0,0,0.5];
-                            _pos = _x modelToWorld _pos;
+                        if (_direct) then {
+                             _aimedAt = cursorTarget == _x;
+                             _radius = _radius * 4;
                         } else {
-
-                            //if (_x isKindOf "Car" || _x isKindOf "Tank" || _x isKindOf "Air" || _x isKindOf "ship") then {
-                                _pic = getText (configFile >> "cfgVehicles" >> (typeOf _x) >> "picture");
-                                _leader = leader _X;
-                                _name = if (alive _leader) then {name _leader} else {"Unknown"};
-
-                                _color = if (_leader in units player) then {[0,1,0,1]} else {[1,1,1,1]};
-                                _pos = visiblePosition _X;
-                                _pos = _pos vectorAdd [0,0,3];
-                           // };
+                            _aimedAt = true;
                         };
 
-                        drawIcon3D ["", [1,1,1,_alpha],  _pos, 0, 0, 0, name _x, 2, _textSize,"PuristaSemiBold"];
-                        drawIcon3D [_pic, _color,  _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
+                        _textSize = 0.03;
+                        _alpha = linearConversion [0,_radius,player distance _x,1,0.4];
+
+                        if  (_aimedAt && player distance2D _x < _radius) then {
+                            if (_x isKindOf "Man") then {
+                                _color = if (_x in units player) then {[0,1,0,1]} else {[1,1,1,1]};
+                                _color set [3,_alpha];
+                                _pic = if ((_x getvariable ["CP_roleImage", ""]) != "") then {_x getvariable ["CP_roleImage", ""]} else {[_x,"texture"] call BIS_fnc_rankParams};
+                                _pos = _x selectionPosition "head";
+                                _pos = _pos vectorAdd [0,0,0.5];
+                                _pos = _x modelToWorld _pos;
+                            } else {
+
+                                //if (_x isKindOf "Car" || _x isKindOf "Tank" || _x isKindOf "Air" || _x isKindOf "ship") then {
+                                    _pic = getText (configFile >> "cfgVehicles" >> (typeOf _x) >> "picture");
+                                    _leader = leader _X;
+                                    _name = if (alive _leader) then {name _leader} else {"Unknown"};
+
+                                    _color = if (_leader in units player) then {[0,1,0,1]} else {[1,1,1,1]};
+                                    _pos = visiblePosition _X;
+                                    _pos = _pos vectorAdd [0,0,3];
+                               // };
+                            };
+
+                            drawIcon3D ["", [1,1,1,_alpha],  _pos, 0, 0, 0, name _x, 2, _textSize,"PuristaSemiBold"];
+                            drawIcon3D [_pic, _color,  _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
+                        };
+                    };
+
+                    //Add wounded icon
+                    if ((_x isKindOf "Man") &&
+                        damage _x > 0.3 &&
+                        ((player getVariable ["CP_side",  playerside]) == (_x getVariable ["CP_side",  side _x]) || (captiveNum _x in [_captiveSideId,50])) &&
+                        (missionNamespace getvariable ["MCC_medicShowWounded",true])
+                        ) then {
+
+                        _pos = _x modelToWorld (_x selectionPosition "pelvis");
+                        _alpha = linearConversion [0,_radius,player distance _x,1,0.4];
+
+                        drawIcon3D [MCC_path + "mcc\interaction\data\IconBleeding.paa", [1,0,0,_alpha], _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
                     };
                 };
-
-                //Add wounded icon
-                if ((_x isKindOf "Man") &&
-                    damage _x > 0.3 &&
-                    ((player getVariable ["CP_side",  playerside]) == (_x getVariable ["CP_side",  side _x]) || (captiveNum _x in [_captiveSideId,50])) &&
-                    (missionNamespace getvariable ["MCC_medicShowWounded",true])
-                    ) then {
-
-                    _pos = _x modelToWorld (_x selectionPosition "pelvis");
-                    _alpha = linearConversion [0,_radius,player distance _x,1,0.4];
-
-                    drawIcon3D [MCC_path + "mcc\interaction\data\IconBleeding.paa", [1,0,0,_alpha], _pos, 0.8, 0.8, 0, "", 2, 0,"PuristaSemiBold"];
-                };
-
            } forEach _units;
 
 

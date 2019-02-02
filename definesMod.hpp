@@ -1,5 +1,5 @@
 #define MCCPATH "\mcc_sandbox_mod\"
-#define MCCVersion "(r29)"
+#define MCCVersion "(r31)"
 #define MCCMODE true
 
 
@@ -199,7 +199,6 @@ class RscControlsGroupNoScrollbars;
 //class RscButtonMenu;
 class RscShortcutButton;
 class RscAttributeText;
-class RscAttributeOwners;
 class RscCombo;
 class RscCheckBox;
 
@@ -210,9 +209,6 @@ class Independent;
 class Civilian;
 class GroupList;
 class UnitList;
-
-class RscAttributeAreaSize;
-class RscAttributeName;
 
 //Extend Main menu
 #include "\mcc_sandbox_mod\mcc\cfg\menuExt.hpp"

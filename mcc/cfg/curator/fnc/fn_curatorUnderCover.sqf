@@ -29,8 +29,8 @@ _object = _object select 1;
 if (!(local _module) || isnull curatorcamera) exitWith {};
 
 _resualt = ["Undercover Agents",[
- 						["Remove Weapons",true]
- 					  ]] call MCC_fnc_initDynamicDialog;
+ 						["Remove Weapons",true,"Automaticlly remove all weapons from the player"]
+ 					  ],"<t align='center'>Turn players unit to undercover units. While undercover, AI units will not be hostile to the player unless he will get too close to AI units, hold a visible weapon or run or cruch inside AI line of sight. Players can conceal handguns and small weapons</t>"] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 _removeGear = _resualt select 0;

@@ -48,11 +48,14 @@ class CfgMods
 };
 
 //CBA
-
 class Extended_PostInit_EventHandlers {
 	class MCC_PostInits {
         init = call compile preprocessFileLineNumbers "mcc_sandbox_mod\XEH_preInit.sqf";
     };
+};
+
+class CfgScriptPaths {
+	MCC_curatorPath = "\mcc_sandbox_mod\mcc\cfg\curator\scripts\";
 };
 
 class CfgFactionClasses
@@ -80,21 +83,21 @@ class CfgFactionClasses
 
 	class MCC_Vehicles
 	{
-		displayName = "Vehicles\Units";
+		displayName = "(MCC) Vehicles\Units";
 		priority = 8;
 		side = 7;
 	};
 
 	class MCC_Carrier
 	{
-		displayName = "Ships Static";
+		displayName = "(MCC) Ships Static";
 		priority = 8;
 		side = 7;
 	};
 
 	class MCC_RTS
 	{
-		displayName = "Real Time Strategy";
+		displayName = "(MCC) RTS";
 		priority = 8;
 		side = 7;
 	};

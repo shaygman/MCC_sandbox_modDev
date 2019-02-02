@@ -71,7 +71,7 @@ if (count (allMissionObjects "MCC_Module_settings") == 0) then {
         true,
         {
             params ["_value"];
-            setTimeMultiplier _value;
+            if (isServer) then {setTimeMultiplier _value};
         }
     ] call CBA_Settings_fnc_init;
 

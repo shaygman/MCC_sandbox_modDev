@@ -19,7 +19,7 @@ class MCC_RscInitNameBox: MCC_RscControlsGroupNoScrollbars
 		class Title: MCC_RscText
 		{
 			idc = -1;
-			text = "Name:";
+			text = "Variable Name:";
 			x = "0 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "10 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
@@ -39,40 +39,6 @@ class MCC_RscInitNameBox: MCC_RscControlsGroupNoScrollbars
 		};
 	};
 };
-
-class MCC_RscInitBox: MCC_RscControlsGroupNoScrollbars
-{
-	idc = 15001;
-	x = "7 * 			(			((safezoneW / safezoneH) min 1.2) / 40) + 			(safezoneX)";
-	y = "10 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 			(safezoneY + safezoneH - 			(			((safezoneW / safezoneH) min 1.2) / 1.2))";
-	w = "26 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
-	h = "5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-	class controls
-	{
-		class Title: MCC_RscText
-		{
-			idc = -1;
-			text = "Execute";
-			x = "0 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "10 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			colorBackground[] = {0,0,0,0.5};
-		};
-		class Value: MCC_RscText
-		{
-			idc = MCC_INITBOX;
-			type = 2;
-			style = 16;
-			autocomplete = "true";
-			x = "10.1 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "15.9 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-		};
-	};
-};
-
 
 class MCC_RscInitPresets: MCC_RscControlsGroupNoScrollbars
 {
@@ -105,10 +71,11 @@ class MCC_RscInitPresets: MCC_RscControlsGroupNoScrollbars
 	};
 };
 
-class MCC_RscAttributeRank: MCC_RscControlsGroupNoScrollbars
+//Lights
+class MCC_RscAttributeLights: MCC_RscControlsGroupNoScrollbars
 {
-	onSetFocus = "[_this,""RscAttributeRank"",'CuratorCommon'] call (uinamespace getvariable ""BIS_fnc_initCuratorAttribute"")";
-	idc = 14769;
+	onSetFocus = "[_this,""MCC_RscAttributeLights"",'MCC_curatorPath'] call (uinamespace getvariable ""BIS_fnc_initCuratorAttribute"")";
+	idc = 23500;
 	x = "7 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
 	y = "10 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
 	w = "26 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
@@ -117,8 +84,8 @@ class MCC_RscAttributeRank: MCC_RscControlsGroupNoScrollbars
 	{
 		class Title: MCC_RscText
 		{
-			idc = 13471;
-			text = "$STR_DISP_ARCUNIT_RANK";
+			idc = 23501;
+			text = "$STR_DISP_CURATOR_LIGHTS";
 			x = "0 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
@@ -127,82 +94,141 @@ class MCC_RscAttributeRank: MCC_RscControlsGroupNoScrollbars
 		};
 		class Background: MCC_RscText
 		{
-			idc = 13469;
+			idc = 23502;
 			x = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			colorBackground[] = {1,1,1,0.1};
 		};
-		class Private: MCC_RscActivePicture
+
+		class lightsOn: MCC_RscActivePicture
 		{
-			idc = 13669;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\private_gs.paa";
-			x = "11 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			idc = 23503;
+			text = "\mcc_sandbox_mod\mcc\cfg\curator\data\lightsOn.paa";
+			x = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Private";
+			tooltip = "$STR_DISP_CURATOR_LIGHTSON";
 		};
-		class Corporal: Private
+		class lightsOff: lightsOn
 		{
-			idc = 13670;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\corporal_gs.paa";
-			x = "13 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			idc = 23504;
+			text = "\mcc_sandbox_mod\mcc\cfg\curator\data\lightsOff.paa";
+			x = "19.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Corporal";
+			tooltip = "$STR_DISP_CURATOR_LIGHTSOFF";
 		};
-		class Sergeant: Private
+		class lightsAuto: lightsOn
 		{
-			idc = 13671;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\sergeant_gs.paa";
-			x = "15 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			idc = 23505;
+			text = "\mcc_sandbox_mod\mcc\cfg\curator\data\lightAuto.paa";
+			x = "22.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Sergeant";
+			tooltip = "$STR_DISP_CURATOR_LIGHTSAUTO";
 		};
-		class Lieutenant: Private
+	};
+};
+
+//Engine
+class MCC_RscAttributeEngine: MCC_RscControlsGroupNoScrollbars
+{
+	onSetFocus = "[_this,""MCC_RscAttributeEngine"",'MCC_curatorPath'] call (uinamespace getvariable ""BIS_fnc_initCuratorAttribute"")";
+	idc = 23600;
+	x = "7 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+	y = "10 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+	w = "26 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: MCC_RscText
 		{
-			idc = 13672;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\lieutenant_gs.paa";
-			x = "17 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Lieutenant";
+			idc = 23601;
+			text = "$STR_DISP_CURATOR_ENGINE";
+			x = "0 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
 		};
-		class Captain: Private
+		class Background: MCC_RscText
 		{
-			idc = 13673;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\captain_gs.paa";
-			x = "19 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
-			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Captain";
+			idc = 23602;
+			x = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {1,1,1,0.1};
 		};
-		class Major: Private
+
+		class engineOn: MCC_RscActivePicture
 		{
-			idc = 13674;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\major_gs.paa";
-			x = "21 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			idc = 23603;
+			text = "\mcc_sandbox_mod\mcc\cfg\curator\data\engineOn.paa";
+			x = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Major";
+			tooltip = "$STR_DISP_CURATOR_ENGINEON";
 		};
-		class Colonel: Private
+		class engineOff: engineOn
 		{
-			idc = 13675;
-			text = "\a3\Ui_f\data\GUI\Cfg\Ranks\colonel_gs.paa";
-			x = "23 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			idc = 23604;
+			text = "\mcc_sandbox_mod\mcc\cfg\curator\data\engineOff.paa";
+			x = "19.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_Colonel";
+			tooltip = "$STR_DISP_CURATOR_ENGINEOFF";
+		};
+		/*
+		class engineAuto: engineOn
+		{
+			idc = 23605;
+			text = "\mcc_sandbox_mod\mcc\cfg\curator\data\engineAuto.paa";
+			x = "22.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "1.5 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			tooltip = "$STR_DISP_CURATOR_ENGINEAUTO";
+		};
+		*/
+	};
+};
+
+//Ammo
+class MCC_RscAttributeAmmo: MCC_RscControlsGroupNoScrollbars
+{
+	onSetFocus = "[_this,""MCC_RscAttributeAmmo"",'MCC_curatorPath'] call (uinamespace getvariable ""BIS_fnc_initCuratorAttribute"")";
+	idc = 23700;
+	x = "7 * 			(			((safezoneW / safezoneH) min 1.2) / 40) + 			(safezoneX)";
+	y = "10 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 			(safezoneY + safezoneH - 			(			((safezoneW / safezoneH) min 1.2) / 1.2))";
+	w = "26 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "1 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: MCC_RscText
+		{
+			idc = 23701;
+			text = "$STR_DISP_CURATOR_AMMO";
+			x = "0 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Value: MCC_RscXSliderH
+		{
+			idc = 23702;
+			x = "10.1 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "15.9 * 			(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "1 * 			(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
 	};
 };

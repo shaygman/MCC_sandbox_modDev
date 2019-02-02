@@ -3,6 +3,16 @@ Changelog R31:
 Fixed - Ambient Civilians module: Civilians spawn infron of players
 Fixed - Advance and secure resistance faction didn't bleed tickets on death
 Fixed - UAV icon always shown on map
+Fixed - Name tags shown when using MCC medical HUD
+
+Changed Zeus:
+
+	Object editing:
+		- Added change unit behavior
+		- Added Edit unit names
+		- Added vehicles's turn lights on/off
+		- Added vehicles's turn engine on/off
+		- Added BI Garage to vehicles - customized components and colors.
 
 TODO
 side channel disappear

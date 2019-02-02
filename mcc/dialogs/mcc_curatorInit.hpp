@@ -13,8 +13,30 @@
 //-----------------------------------------------------------------------------
 // Main dialog
 //-----------------------------------------------------------------------------
-class MCCCuratorInit_Dialog
-{
+class RscAttributeAreaSize;
+class RscAttributeName;
+class RscAttributeRank;
+class RscAttributeUnitPos;
+class RscAttributeSkill;
+class RscAttributeDamage;
+class RscAttributeFuel;
+class RscAttributeLock;
+class RscAttributeRespawnPosition;
+class RscAttributeBehaviour;
+class RscAttributeBootcampStage;
+class RscAttributeCAS;
+class RscAttributeCountdown;
+class RscAttributeDiaryRecord;
+class RscAttributeEndMission;
+class RscAttributeExec;
+class RscAttributeFog;
+class RscAttributeRespawnVehicle;
+class RscAttributeFormation;
+class RscAttributeGroupID;
+class RscAttributeOwners;
+class RscAttributeOwners2;
+
+class MCCCuratorInit_Dialog {
 	idd = MCCCuratorInit_IDD;
 	movingEnable = true;
 	onLoad = "";
@@ -120,7 +142,6 @@ class MCCCuratorInit_Dialog
 	};
 };
 
-
 class MCC_RscDisplayAttributesMan: MCCCuratorInit_Dialog
 {
 	class Controls: Controls
@@ -131,14 +152,16 @@ class MCC_RscDisplayAttributesMan: MCCCuratorInit_Dialog
 		{
 			class Controls: controls
 			{
-				class Rank: MCC_RscAttributeRank{};
-				class UnitPos: MCC_RscAttributeUnitPos{};
-				class Damage: MCC_RscAttributeDamage{};
-				class Skill: MCC_RscAttributeSkill{};
-				class RespawnPosition: MCC_RscAttributeRespawnPosition{};
+				class name : RscAttributeName{};
+				class Rank: RscAttributeRank{};
+				class UnitPos: RscAttributeUnitPos{};
+				class Damage: RscAttributeDamage{};
+				class Skill: RscAttributeSkill{};
+				class RespawnPosition: RscAttributeRespawnPosition{};
+				class behav : RscAttributeBehaviour{};
 				class Presets: MCC_RscInitPresets{};
 				class InitNameBox: MCC_RscInitNameBox{};
-				class InitLine: MCC_RscInitBox{};
+				class exec : RscAttributeExec{};
 			};
 		};
 		class ButtonOK: ButtonOK{};
@@ -158,16 +181,21 @@ class MCC_RscDisplayAttributesVehicle: MCCCuratorInit_Dialog
 		{
 			class Controls: controls
 			{
-				class Rank: MCC_RscAttributeRank{};
-				class Damage: MCC_RscAttributeDamage{};
-				class Fuel: MCC_RscAttributeFuel{};
-				class Skill: MCC_RscAttributeSkill{};
-				class Lock: MCC_RscAttributeLock{};
-				//class RespawnVehicle: MCC_RscAttributeRespawnVehicle{};
-				class RespawnPosition: MCC_RscAttributeRespawnPosition{};
+				class name : RscAttributeName{};
+				class Rank: RscAttributeRank{};
+				class Damage: RscAttributeDamage{};
+				class Fuel: RscAttributeFuel{};
+				class ammo: MCC_RscAttributeAmmo{};
+				class Skill: RscAttributeSkill{};
+				class Lock: RscAttributeLock{};
+				class lights: MCC_RscAttributeLights{};
+				class engine: MCC_RscAttributeEngine{};
+				class RespawnVehicle: RscAttributeRespawnVehicle{};
+				class RespawnPosition: RscAttributeRespawnPosition{};
+				class behav : RscAttributeBehaviour{};
 				class Presets: MCC_RscInitPresets{};
 				class InitNameBox: MCC_RscInitNameBox{};
-				class InitLine: MCC_RscInitBox{};
+				class exec : RscAttributeExec{};
 			};
 		};
 		class ButtonOK: ButtonOK{};
@@ -189,14 +217,17 @@ class MCC_RscDisplayAttributesVehicleEmpty: MCCCuratorInit_Dialog
 		{
 			class Controls: controls
 			{
-				class Damage: MCC_RscAttributeDamage{};
-				class Fuel: MCC_RscAttributeFuel{};
-				class Lock: MCC_RscAttributeLock{};
-				class RespawnVehicle: MCC_RscAttributeRespawnVehicle{};
-				class RespawnPosition: MCC_RscAttributeRespawnPosition{};
+				class Damage: RscAttributeDamage{};
+				class Fuel: RscAttributeFuel{};
+				class ammo: MCC_RscAttributeAmmo{};
+				class Lock: RscAttributeLock{};
+				class lights: MCC_RscAttributeLights{};
+				class engine: MCC_RscAttributeEngine{};
+				class RespawnVehicle: RscAttributeRespawnVehicle{};
+				class RespawnPosition: RscAttributeRespawnPosition{};
 				class Presets: MCC_RscInitPresets{};
 				class InitNameBox: MCC_RscInitNameBox{};
-				class InitLine: MCC_RscInitBox{};
+				class exec : RscAttributeExec{};
 			};
 		};
 		class ButtonOK: ButtonOK{};
@@ -220,7 +251,7 @@ class MCC_RscDisplayAttributesObject: MCCCuratorInit_Dialog
 			{
 				class Presets: MCC_RscInitPresets{};
 				class InitNameBox: MCC_RscInitNameBox{};
-				class InitLine: MCC_RscInitBox{};
+				class exec : RscAttributeExec{};
 			};
 		};
 		class ButtonOK: ButtonOK{};

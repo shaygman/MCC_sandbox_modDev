@@ -32,9 +32,9 @@ if !(_object isKindOf "Man") exitWith {systemchat "No unit selected"; deleteVehi
 if (!(local _module) || isnull curatorcamera) exitWith {};
 
 _resualt = ["Set Unconscious",[
- 						["Disable Bleeding",false],
- 						["Force Unconscious",false]
- 					  ],"Turn AI unit unconscious - will only work while MCC medical system is enabled"] call MCC_fnc_initDynamicDialog;
+ 						["Disable Bleeding",false,"Disable bleeding over time and eventually die"],
+ 						["Force Unconscious",false,"Disable the chance to randomly wake up"]
+ 					  ],"<t align='center'>Turn AI unit unconscious - will only work while <t underline='true'>MCC medical</t> system is enabled<\t>"] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 _enableBleeding = _resualt select 0;

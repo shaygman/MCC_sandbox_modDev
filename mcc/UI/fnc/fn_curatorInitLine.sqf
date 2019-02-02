@@ -11,12 +11,12 @@
 =======================================================================================================================================================================*/
 #include "..\..\script_component.hpp"
 
-private ["_time","_target","_avtiveControls","_curator","_idc","_control","_display","_controlPos","_posY","_ctrlBackground","_ctrlTitle","_ctrlContent","_ctrlButtonOK","_ctrlButtonCancel","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlContentPos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlTitleOffsetY","_ctrlContentOffsetY","_name","_ctrlButtonCustom","_ctrlButtonCustomPos","_comboBox","_displayname","_ctrlButtonCustom2","_ctrlButtonCustom2Pos","_ctrlButtonCustom3","_ctrlButtonCustom3Pos","_cargEnabled","_loadOutEnabled","_presetType","_preset","_targetData","_targetCategory","_targetType","_class","_cfgControl","_keyUp","_keyDown"];
+private ["_time","_target","_avtiveControls","_curator","_idc","_control","_display","_controlPos","_posY","_ctrlBackground","_ctrlTitle","_ctrlContent","_ctrlButtonOK","_ctrlButtonCancel","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlContentPos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlTitleOffsetY","_ctrlContentOffsetY","_name","_ctrlButtonCustom","_ctrlButtonCustomPos","_comboBox","_displayname","_ctrlButtonCustom2","_ctrlButtonCustom2Pos","_ctrlButtonCustom3","_ctrlButtonCustom3Pos","_cargEnabled","_loadOutEnabled","_presetType","_preset","_targetData","_targetCategory","_targetType","_class","_cfgControl","_keyUp","_keyDown","_garageEnabled"];
 disableSerialization;
 
 #define MCCCuratorInit_IDD 10000
 #define MCC_NAMEBOX 8003
-#define MCC_INITBOX 8004
+#define MCC_INITBOX 13766
 #define MCC_PRESETS 8005
 
 #define MCC_3DCargoGen 8018
@@ -65,6 +65,7 @@ switch (_targetCategory) do {
 	case ("Soldier"): {
 		_class = "MCC_RscDisplayAttributesMan";
 		_cargEnabled	= false;
+		_garageEnabled = false;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","unit"];
 	};
 
@@ -75,12 +76,14 @@ switch (_targetCategory) do {
 			_class = "MCC_RscDisplayAttributesVehicle";
 		};
 		_cargEnabled = true;
+		_garageEnabled = true;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","vehicle"];
 	};
 
 	case ("VehicleAutonomous"):	{
 		_class = "MCC_RscDisplayAttributesVehicle";
-		_cargEnabled	= false;
+		_cargEnabled	= true;
+		_garageEnabled = true;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","vehicle"];
 	};
 
@@ -122,14 +125,8 @@ _ctrlContentOffsetY = (_ctrlContentPos select 1) - (_ctrlBackgroundPos select 1)
 
 _posY = (_ctrlContentPos select 1) - (_ctrlBackgroundPos select 1);
 
-_avtiveControls = if (MCC_isMode) then
-						{
-							configfile >> _class >> "Controls" >> "Content" >> "Controls";
-						}
-						else
-						{
-							missionconfigfile >> _class >> "Controls" >> "Content" >> "Controls";
-						};
+_avtiveControls = configfile >> _class >> "Controls" >> "Content" >> "Controls";
+
 //Set the control groups
 for "_i" from 0 to (count _avtiveControls - 1) do
 {
@@ -220,14 +217,49 @@ _ctrlButtonOK ctrladdeventhandler [
 		"setFocus",
 		{
 			MCC_unitName = ctrlText 8003;
-			MCC_unitInit = ctrlText 8004;
+			MCC_unitInit = ctrlText 13766;
 		}
 	];
 
-//Add
-_ctrlButtonCustom ctrladdeventhandler [
-		"ButtonDown",
-		{
+//Hide preset controls - we don't need them anymore
+{_x ctrlShow false} forEach [_ctrlButtonCustom, _ctrlButtonCustom2,_ctrlButtonCustom3];
+
+//Build custom controls
+private ["_ctrlPos","_lastCtrl","_baseCtrlPos","_counter"];
+_lastCtrl = _ctrlButtonOK;
+_baseCtrlPos = ctrlPosition _ctrlButtonOK;
+_counter = 0;
+{
+	_x params ["_condition","_text","_code"];
+
+	if (_condition) then {
+
+
+		//Get down one line when mod 3
+		if (_counter mod 3 == 0 && _counter != 0) then {
+			_baseCtrlPos set [1, (_baseCtrlPos select 1) + (_baseCtrlPos select 3)*1.2];
+			_ctrlPos = _baseCtrlPos;
+		} else {
+			_ctrlPos = ctrlPosition _lastCtrl;
+		};
+
+		_ctrlPos set [0, (_ctrlPos select 0) - ((_ctrlPos select 2)*1.1)];
+		_ctrl = (ctrlParent _lastCtrl) ctrlCreate ["RscButtonMenuOK", -1];
+		_ctrl ctrlSetPosition _ctrlPos;
+		_ctrl ctrlsetText _text;
+		_ctrl ctrlSetBackgroundColor [(profilenamespace getvariable ['GUI_BCG_RGB_R',0.69]),(profilenamespace getvariable ['GUI_BCG_RGB_G',0.75]),(profilenamespace getvariable ['GUI_BCG_RGB_B',0.5]),(profilenamespace getvariable ['GUI_BCG_RGB_A',0.8])];
+		_ctrl ctrlcommit 0;
+
+		_ctrl ctrladdeventhandler ["ButtonDown",_code];
+
+		_lastCtrl = _ctrl;
+		_counter = _counter + 1;
+	};
+
+} forEach [
+	[true ,"Add Preset",{
+			params ["_ctrl"];
+			_display = ctrlParent _ctrl;
 			_presetType = missionnamespace getvariable ["MCC_CuratorInitLine_presettype",""];
 			_preset = switch (_presetType) do
 						{
@@ -236,51 +268,15 @@ _ctrlButtonCustom ctrladdeventhandler [
 							case ("unit"): {mccPresetsUnits};
 							case ("object"): {mccPresetsObjects};
 						};
-
-			_tempText = ctrlText MCC_INITBOX;
-			_presetText = (_preset select(lbCurSel MCC_PRESETS)) select 1;
-			ctrlSetText [MCC_INITBOX,format ["%1 %2",_tempText,_presetText]];
-		}
-	];
-
-//Cargo
-if (_cargEnabled) then
-{
-	_ctrlButtonCustom2Pos set [1,0.5 + _posH + _ctrlTitleOffsetY];
-	_ctrlButtonCustom2 ctrlsetposition _ctrlButtonCustom2Pos;
-	_ctrlButtonCustom2 ctrlsetText "Cargo";
-	_ctrlButtonCustom2 ctrlcommit 0;
-
-	_ctrlButtonCustom2 ctrladdeventhandler [
-			"ButtonDown",
-			{
-				createdialog "RscDisplayAttributesInventory";
-			}
-		];
-}
-else
-{
-	_ctrlButtonCustom2 ctrlShow false
-};
-
-if (_loadOutEnabled) then
-{
-	_ctrlButtonCustom3Pos set [1,0.5 + _posH + _ctrlTitleOffsetY];
-	_ctrlButtonCustom3 ctrlsetposition _ctrlButtonCustom3Pos;
-	_ctrlButtonCustom3 ctrlsetText "Loadout";
-	_ctrlButtonCustom3 ctrlcommit 0;
-
-	_ctrlButtonCustom3 ctrladdeventhandler [
-			"ButtonDown",
-			{
-				[true,[]] spawn MCC_fnc_pylonsChange;
-			}
-		];
-}
-else
-{
-	_ctrlButtonCustom3 ctrlShow false
-};
+			_ctrl = (_display displayCtrl 13766);
+			_tempText = ctrlText 13766;
+			_presetText = (_preset select (lbCurSel MCC_PRESETS)) select 1;
+			ctrlSetText [13766,format ["%1 %2",_tempText,_presetText]];
+		}],
+	[_cargEnabled ,"Cargo",{createdialog "RscDisplayAttributesInventory";}],
+	[_garageEnabled ,"Garage",{closeDialog 0;["Open", [false, BIS_fnc_initCuratorAttributes_target]] call BIS_fnc_garage;}],
+	[_loadOutEnabled ,"Payload",{[true,[]] spawn MCC_fnc_pylonsChange;}]
+];
 
 //--- Close the display when entity is altered
 [_display] spawn

@@ -61,11 +61,14 @@ _ctrlTitle ctrlSetText _title;
 _ctrlTitle ctrlCommit 0;
 
 //Set the control groups
-private ["_question","_options","_controlTittle","_control","_index","_ctrls"];
+private ["_controlTittle","_control","_index","_ctrls"];
 _ctrls = [];
 {
-    _question = _x select 0;
-    _options = _x select 1;
+    _x params [
+        ["_question","",[""]],
+        ["_options","",[[],true,0,""]],
+        ["_tooltip","",[""]]
+    ];
 
     //tittle
     _controlTittle = _display ctrlCreate ["RscText", -1,_ctrlContent];
@@ -121,6 +124,7 @@ _ctrls = [];
         _control ctrlCommit 0;
     };
 
+    _control ctrlSetTooltip _tooltip;
     _ctrls pushBack _control;
     _posY = _posY + DEFAULT_HEIGHT*1.2;
 } forEach _array;
@@ -158,17 +162,18 @@ _ctrlButtonCustom ctrlShow false;
 
 //Set info text
 if (_infoText != "") then {
+    private _sizeH = ((count toArray _infoText)/50)* ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25);
     _ctrlInfoTextBckgPos = ctrlPosition _ctrlBackground;
     _ctrlInfoTextBckgPos set [1,0.6 + _posH + _ctrlTitleOffsetY];
+    _ctrlInfoTextBckgPos set [3,_sizeH];
     _controlTittle = _display ctrlCreate ["RscText", -1];
     _controlTittle ctrlSetPosition _ctrlInfoTextBckgPos;
     _controlTittle ctrlSetBackgroundColor [0,0,0,0.7];
     _controlTittle ctrlCommit 0;
 
-    _ctrlInfoTextPos = ctrlPosition  _controlTittle;
-    _ctrlInfoText = _display ctrlCreate ["RscText", -1];
-    _ctrlInfoText ctrlSetPosition _ctrlInfoTextPos;
-    _ctrlInfoText ctrlSetText _infoText;
+    _ctrlInfoText = _display ctrlCreate ["RscStructuredText", -1];
+    _ctrlInfoText ctrlSetPosition _ctrlInfoTextBckgPos;
+    _ctrlInfoText ctrlSetStructuredText parsetext _infoText;
     _ctrlInfoText ctrlCommit 0;
 };
 
