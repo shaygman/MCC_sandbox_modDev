@@ -44,4 +44,37 @@
       </Key>
     </Container>
   </Package>
+  <Package name="pylonChange">
+    <Container name="display">
+      <Key ID="STR_DISP_VEHICLESPYLON_MIRROR">
+        <Original>Mirror</Original>
+        <English>Mirror</English>
+      </Key>
+      <Key ID="STR_DISP_VEHICLESPYLON_REARM">
+        <Original>Rearm</Original>
+        <English>Rearm</English>
+      </Key>
+      <Key ID="STR_DISP_VEHICLESPYLON_REFUEL">
+        <Original>Refuel</Original>
+        <English>Refuel</English>
+      </Key>
+      <Key ID="STR_DISP_VEHICLESPYLON_HEADER">
+        <Original>Loadout Manager</Original>
+        <English>Loadout Manager</English>
+      </Key>
+      <Key ID="STR_DISP_VEHICLESPYLON_CANCEL">
+        <Original>Cancel</Original>
+        <English>Cancel</English>
+      </Key>
+      <Key ID="STR_DISP_VEHICLESPYLON_CONFIRM">
+        <Original>Confirm</Original>
+        <English>Confirm</English>
+        <Czech />
+      </Key>
+      <Key ID="STR_DISP_VEHICLESPYLON_REPAIR">
+        <Original>Repair</Original>
+        <English>Repair</English>
+      </Key>
+    </Container>
+  </Package>
 </Project>

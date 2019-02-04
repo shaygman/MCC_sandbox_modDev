@@ -3,7 +3,7 @@
 
 ================================================================================================================================================*/
 
-private ["_vehicle","_pylonsDialog","_pylonsAvailable","_mag","_resualt","_magType","_zeus","_exit","_turrets","_success","_weapon","_fnc_rearm"];
+private ["_vehicle","_pylonsDialog","_pylonsAvailable","_mag","_resualt","_magType","_zeus","_exit","_turrets","_success","_weapon","_fnc_rearm","_config","_pylonComponent"];
 _zeus = param [0,true,[true,objNull]];
 
 //If we initilize the loadouts are
@@ -85,10 +85,75 @@ _fnc_rearm = {
 	};
 };
 
-
-
-_pylonsAvailable = (configFile >> "cfgVehicles" >> typeof _vehicle >> "Components" >> "TransportPylonsComponent" >> "pylons") call BIS_fnc_returnChildren;
+_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
+_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
+_pylonsAvailable = (_pylonComponent >> "pylons") call BIS_fnc_returnChildren;
 _turrets= (configProperties [configFile >> "CfgVehicles" >> typeOf _vehicle >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+
+//No pylons just rearm
+if (count _pylonsAvailable == 0) exitWith {[_vehicle,true,true,true] spawn _fnc_rearm};
+
+
+while {dialog} do {closeDialog 0};
+createDialog "MCC_displayPylonChange";
+waitUntil {dialog};
+
+#define	IDD_DISPLAY_PYLONCHANGE	1031981
+#define	ID_PICTURE_UI	1200
+#define	ID_PRESETCOMBO	2100
+
+
+private ["_ctrl","_display","_picPos","_uiPos","_index","_pylon","_currentMag"];
+
+_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
+ctrlSetText [ID_PICTURE_UI, getText (_pylonComponent >> "uiPicture")];
+_picPos = ctrlPosition (_display displayCtrl ID_PICTURE_UI);
+
+//----Loadouts
+_ctrl = _display displayCtrl ID_PRESETCOMBO;
+_index = _ctrl lbadd "Custom";
+_ctrl lbSetData [_index,""];
+
+{
+	_index = _ctrl lbadd getText (_x >> "displayName");
+    _ctrl lbSetData [_index,configName _x];
+} forEach ("true" configClasses (_pylonComponent >> "Presets"));
+ _ctrl lbSetCurSel 0;
+
+//---Pylons
+{
+	_pylon = _x;
+	_currentMag = (GetPylonMagazines _vehicle) select _forEachIndex;
+
+	_ctrl = _display ctrlCreate ["MCC_RscCombo", -1];
+    _uiPos = getArray (_pylon >> "UIposition");
+    _ctrl ctrlSetPosition [
+        (_picPos select 0) + (_uiPos select 0),
+        (_picPos select 1) + (_uiPos select 1),
+        0.08 * safezoneW,
+        0.025 * safezoneH
+    ];
+    _ctrl ctrlCommit 0;
+    _index = _ctrl lbadd "None";
+    _ctrl lbSetData [_index,""];
+
+    _index = 0;
+    {
+    	_ctrl lbadd ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
+    	_ctrl lbSetData [(_forEachIndex+1),_x];
+
+    	if (_currentMag == _x) then {_index = (_foreachIndex +1)};
+    } forEach (_vehicle getCompatiblePylonMagazines (_forEachIndex + 1));
+
+    _ctrl lbSetCurSel _index;
+} forEach _pylonsAvailable;
+/*
+_mag = ["None"];
+	//_turrets pushBack (getArray(_x >> "turret"));
+
+	{
+		_mag pushBack ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
+	} forEach (_vehicle getCompatiblePylonMagazines (_forEachIndex + 1));
 
 _pylonsDialog = [
 		["Change Pylons",true],
@@ -125,11 +190,6 @@ _pylonsDialog = [
 	_pylonsDialog pushBack [_text,_mag];
 } forEach _pylonsAvailable;
 
-
-//No pylons just rearm
-if (count _pylonsAvailable == 0) exitWith {[_vehicle,true,true,true] spawn _fnc_rearm};
-
-
 _resualt = ["Change Loadout",_pylonsDialog] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {};
@@ -140,16 +200,6 @@ _resualt params [
 	["_refuel",true,[true]],
 	["_repair",true,[true]]
 ];
-
-/*
-//If not Zeus lets create a progress bar
-if !(_zeus) then {
-	(count _resualt) spawn {
-		missionNamespace setVariable ["MCC_fnc_pylonsChangeStoped",false];
-		missionNamespace setVariable ["MCC_fnc_pylonsChangeStoped",["Rearming...",_this*3,objNull,false] call MCC_fnc_interactProgress];
-	};
-};
-*/
 
 //Rearm
 _exit = false;
@@ -163,15 +213,6 @@ if (_changePylons) then {
 	private _pylonsWeapons = [];
 	{ _pylonsWeapons append getArray (_x >> "weapons") } forEach ([_vehicle, configNull] call BIS_fnc_getTurrets);
 	{ [_vehicle,_x] remoteexec ["removeWeaponGlobal",0] } forEach ((weapons _vehicle) - _pylonsWeapons);
-
-	//Remove all prevoius turrets
-
-	/*
-	{
-		[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[-1]]] remoteExecCall ["removeWeaponTurret", 0];
-		[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[0,0]]] remoteExecCall ["removeWeaponTurret", 0];
-	} forEach (_vehicle getCompatiblePylonMagazines _forEachIndex + 1);
-	*/
 
 	{
 		if (_exit) exitWith {};
@@ -201,3 +242,12 @@ if (_changePylons) then {
 };
 
 [_vehicle,_rearm,_refuel,_repair] spawn _fnc_rearm;
+
+//Remove all prevoius turrets
+
+	/*
+	{
+		[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[-1]]] remoteExecCall ["removeWeaponTurret", 0];
+		[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[0,0]]] remoteExecCall ["removeWeaponTurret", 0];
+	} forEach (_vehicle getCompatiblePylonMagazines _forEachIndex + 1);
+	*/
