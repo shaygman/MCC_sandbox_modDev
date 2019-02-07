@@ -37,7 +37,9 @@ if (typeName _zeus isEqualTo typeName objNull) exitWith {
 
 
 _vehicle = if (_zeus) then {missionNamespace getVariable ["BIS_fnc_initCuratorAttributes_target",objNull]} else {param [1,objNull,[objNull]]};
+
 if (isNull _vehicle) exitWith {};
+missionNamespace setVariable ["MCC_fnc_pylonsChangeVehicle",_vehicle];
 
 //Rearm Function
 _fnc_rearm = {
@@ -101,52 +103,122 @@ waitUntil {dialog};
 #define	IDD_DISPLAY_PYLONCHANGE	1031981
 #define	ID_PICTURE_UI	1200
 #define	ID_PRESETCOMBO	2100
+#define	ID_MIROR 2800
 
 
-private ["_ctrl","_display","_picPos","_uiPos","_index","_pylon","_currentMag"];
+
+private ["_ctrl","_display","_picPos","_index"];
 
 _display = findDisplay IDD_DISPLAY_PYLONCHANGE;
 ctrlSetText [ID_PICTURE_UI, getText (_pylonComponent >> "uiPicture")];
-_picPos = ctrlPosition (_display displayCtrl ID_PICTURE_UI);
+
+MCC_fnc_pylonUpdate ={
+	#define	IDD_DISPLAY_PYLONCHANGE	1031981
+	#define	ID_PICTURE_UI	1200
+	#define	ID_MIROR 2800
+
+	params [
+		["_vehicle",objNull,[objNull]],
+		["_selectedPrest",[],[[]]]
+	];
+
+	private ["_ctrl","_display","_picPos","_uiPos","_index","_pylon","_currentMag","_config","_pylonComponent","_pylonsAvailable","_currentPylonMag","_mirror"];
+
+
+	_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
+	_mirror = cbChecked (_display displayCtrl ID_MIROR);
+	_picPos = ctrlPosition (_display displayCtrl ID_PICTURE_UI);
+
+	_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
+	_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
+	_pylonsAvailable = (_pylonComponent >> "pylons") call BIS_fnc_returnChildren;
+
+	{
+		_pylon = _x;
+
+		_currentMag = (GetPylonMagazines _vehicle) select _forEachIndex;
+
+		_ctrl = _display displayCtrl (28000 + _foreachIndex);
+
+		if (isNull _ctrl) then {
+			_ctrl = _display ctrlCreate ["MCC_RscCombo", (28000 + _foreachIndex)];
+		    _uiPos = getArray (_pylon >> "UIposition");
+		    _ctrl ctrlSetPosition [
+		        (_picPos select 0) + (_uiPos select 0),
+		        (_picPos select 1) + (_uiPos select 1),
+		        0.12 * safezoneW,
+		        0.02 * safezoneH
+		    ];
+		    _ctrl ctrlCommit 0;
+		};
+
+	    _index = _ctrl lbadd "None";
+	    _ctrl lbSetData [_index,""];
+
+	    _currentPylonMag = _vehicle getCompatiblePylonMagazines (_forEachIndex + 1);
+	    _index = 0;
+	   	{
+	    	_ctrl lbadd ( format ["(%2) %1",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
+	    	_ctrl lbSetData [(_forEachIndex+1),_x];
+
+	    	if (_currentMag == _x) then {_index = (_foreachIndex +1)};
+
+	    } forEach _currentPylonMag;
+
+	    _ctrl lbSetCurSel (if (count _selectedPrest > 0) then {_currentPylonMag find (_selectedPrest select _foreachIndex)} else {_index});
+
+	    _ctrl ctrlAddEventHandler ["LBSelChanged",{
+	    	#define	IDD_DISPLAY_PYLONCHANGE	1031981
+	    	#define	ID_MIROR 2800
+
+	    	params ["_ctrl","_selected"];
+	    	private ["_display","_mirror","_mirroredPylon","_vehicle","_config","_pylonComponent","_selectedPylon"];
+
+	    	_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
+	    	_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
+			_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
+			_selectedPylon = ((_pylonComponent >> "pylons") call BIS_fnc_returnChildren) select _selected;
+
+	    	_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
+			_mirror = cbChecked (_display displayCtrl ID_MIROR);
+			_mirroredPylon = getNumber ((_selectedPylon >> "mirroredMissilePos"))-1;
+
+			if (_mirror && _mirroredPylon >=0) then {
+				_ctrl = _display displayCtrl (28000 + _mirroredPylon);
+				_ctrl lbSetCurSel _selected;
+			};
+	    }];
+	} forEach _pylonsAvailable;
+};
 
 //----Loadouts
 _ctrl = _display displayCtrl ID_PRESETCOMBO;
-_index = _ctrl lbadd "Custom";
-_ctrl lbSetData [_index,""];
-
 {
 	_index = _ctrl lbadd getText (_x >> "displayName");
     _ctrl lbSetData [_index,configName _x];
 } forEach ("true" configClasses (_pylonComponent >> "Presets"));
  _ctrl lbSetCurSel 0;
 
+_ctrl ctrlAddEventHandler ["LBSelChanged", {
+	params ["_ctrl","_selected"];
+	private ["_preSets","_selectedPrest","_config","_pylonComponent","_vehicle"];
+
+	_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
+	if (isNull _vehicle) exitWith {};
+
+	_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
+	_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
+
+	_preSets = "true" configClasses (_pylonComponent >> "Presets");
+	_selectedPrest = getArray ((_preSets select _selected) >> "attachment");
+
+	[_vehicle,_selectedPrest] call MCC_fnc_pylonUpdate;
+}];
+
+[_vehicle] call MCC_fnc_pylonUpdate;
+
 //---Pylons
-{
-	_pylon = _x;
-	_currentMag = (GetPylonMagazines _vehicle) select _forEachIndex;
 
-	_ctrl = _display ctrlCreate ["MCC_RscCombo", -1];
-    _uiPos = getArray (_pylon >> "UIposition");
-    _ctrl ctrlSetPosition [
-        (_picPos select 0) + (_uiPos select 0),
-        (_picPos select 1) + (_uiPos select 1),
-        0.08 * safezoneW,
-        0.025 * safezoneH
-    ];
-    _ctrl ctrlCommit 0;
-    _index = _ctrl lbadd "None";
-    _ctrl lbSetData [_index,""];
-
-    _index = 0;
-    {
-    	_ctrl lbadd ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
-    	_ctrl lbSetData [(_forEachIndex+1),_x];
-
-    	if (_currentMag == _x) then {_index = (_foreachIndex +1)};
-    } forEach (_vehicle getCompatiblePylonMagazines (_forEachIndex + 1));
-
-    _ctrl lbSetCurSel _index;
-} forEach _pylonsAvailable;
 /*
 _mag = ["None"];
 	//_turrets pushBack (getArray(_x >> "turret"));
