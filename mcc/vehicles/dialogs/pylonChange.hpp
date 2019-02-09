@@ -23,23 +23,23 @@ class MCC_displayPylonChange
 			h = 0.583 * safezoneH;
 		};
 
-		class pictureUI: MCC_RscPicture
-		{
-			idc = 1200;
-			x = 0.304062 * safezoneW + safezoneX;
-			y = 0.26 * safezoneH + safezoneY;
-			w = 0.391875 * safezoneW;
-			h = 0.35 * safezoneH;
-		};
-
 		class pictureUIBckg: MCC_RscText
 		{
 			idc = -1;
 			x = 0.304062 * safezoneW + safezoneX;
-			y = 0.26 * safezoneH + safezoneY;
+			y = 0.27 * safezoneH + safezoneY;
 			w = 0.391875 * safezoneW;
 			h = 0.35 * safezoneH;
 			colorBackground[] = {0.4,0.4,0.4,0.8};
+		};
+
+		class pictureUI: MCC_RscPicture
+		{
+			idc = 1200;
+			x = 0.304062 * safezoneW + safezoneX;
+			y = 0.27 * safezoneH + safezoneY;
+			w = 0.391875 * safezoneW;
+			h = 0.35 * safezoneH;
 		};
 
 		class mirrorText: MCC_RscText

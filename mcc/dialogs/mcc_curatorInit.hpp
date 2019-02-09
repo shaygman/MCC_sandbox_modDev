@@ -182,6 +182,7 @@ class MCC_RscDisplayAttributesVehicle: MCCCuratorInit_Dialog
 			class Controls: controls
 			{
 				class name : RscAttributeName{};
+				class InitNameBox: MCC_RscInitNameBox{};
 				class Rank: RscAttributeRank{};
 				class Damage: RscAttributeDamage{};
 				class Fuel: RscAttributeFuel{};
@@ -193,8 +194,8 @@ class MCC_RscDisplayAttributesVehicle: MCCCuratorInit_Dialog
 				class RespawnVehicle: RscAttributeRespawnVehicle{};
 				class RespawnPosition: RscAttributeRespawnPosition{};
 				class behav : RscAttributeBehaviour{};
+				class cargoVirtual: MCC_RscAttributeVehicleCargo{};
 				class Presets: MCC_RscInitPresets{};
-				class InitNameBox: MCC_RscInitNameBox{};
 				class exec : RscAttributeExec{};
 			};
 		};
@@ -217,6 +218,7 @@ class MCC_RscDisplayAttributesVehicleEmpty: MCCCuratorInit_Dialog
 		{
 			class Controls: controls
 			{
+				class InitNameBox: MCC_RscInitNameBox{};
 				class Damage: RscAttributeDamage{};
 				class Fuel: RscAttributeFuel{};
 				class ammo: MCC_RscAttributeAmmo{};
@@ -225,8 +227,8 @@ class MCC_RscDisplayAttributesVehicleEmpty: MCCCuratorInit_Dialog
 				class engine: MCC_RscAttributeEngine{};
 				class RespawnVehicle: RscAttributeRespawnVehicle{};
 				class RespawnPosition: RscAttributeRespawnPosition{};
+				class cargoVirtual: MCC_RscAttributeVehicleCargo{};
 				class Presets: MCC_RscInitPresets{};
-				class InitNameBox: MCC_RscInitNameBox{};
 				class exec : RscAttributeExec{};
 			};
 		};

@@ -13,6 +13,7 @@ Changed Zeus:
 		- Added vehicles's turn lights on/off
 		- Added vehicles's turn engine on/off
 		- Added BI Garage to vehicles - customized components and colors.
+		- Reworked - Payload interface, change aircragt pylons and armaments.
 
 TODO
 check name tags on server

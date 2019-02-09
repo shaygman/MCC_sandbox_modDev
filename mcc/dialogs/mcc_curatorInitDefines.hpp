@@ -1,8 +1,3 @@
-/*
-	RscAttributeRank_rank
-	RscAttributeUnitPos_selected
-	RscAttributeRespawnPosition_selected
-*/
 #define MCC_NAMEBOX 8003
 #define MCC_INITBOX 8004
 #define MCC_PRESETS 8005
@@ -233,6 +228,48 @@ class MCC_RscAttributeAmmo: MCC_RscControlsGroupNoScrollbars
 	};
 };
 
+//Cargo
+class MCC_RscAttributeVehicleCargo: MCC_RscControlsGroupNoScrollbars
+{
+	onSetFocus = "[""onLoad"",[ctrlParent (_this select 0)],missionnamespace getvariable [""BIS_fnc_initCuratorAttributes_target"",objnull]] call MCC_fnc_RscAttributeVehicleCargo;";
+	idc = 23750;
+	x = "7 * 					(			((safezoneW / safezoneH) min 1.2) / 40) + 		(safezoneX + (safezoneW - 					((safezoneW / safezoneH) min 1.2))/2)";
+	y = "10 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25) + 		(safezoneY + (safezoneH - 					(			((safezoneW / safezoneH) min 1.2) / 1.2))/2)";
+	w = "26 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+	h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+	class controls
+	{
+		class Title: MCC_RscText
+		{
+			idc = 23751;
+			text = "$STR_DISP_CURATOR_VEHICLECARGO";
+			x = "0 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {0,0,0,0.5};
+		};
+		class Background: MCC_RscText
+		{
+			idc = 23752;
+			x = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			colorBackground[] = {1,1,1,0.1};
+			tooltip = "$STR_DISP_CURATOR_VEHICLECARGOLIST";
+		};
+		class list: MCC_RscListBox
+		{
+			idc = 23753;
+			x = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+			tooltip = "$STR_DISP_CURATOR_VEHICLECARGOLIST";
+		};
+	};
+};
 class MCC_RscAttributeUnitPos: MCC_RscControlsGroupNoScrollbars
 {
 	onSetFocus = "[_this,""RscAttributeUnitPos"",'CuratorCommon'] call (uinamespace getvariable ""BIS_fnc_initCuratorAttribute"")";

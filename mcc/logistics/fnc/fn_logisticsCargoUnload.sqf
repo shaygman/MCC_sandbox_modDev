@@ -24,6 +24,8 @@ _objectMass = _object getVariable ["MCC_logisticsObjectMass",_object call MCC_fn
 if (isNull _object || isNull _ctrl || _index <0) exitWith {};
 
 _cargoItems = _object getVariable ["MCC_logisticsCargo",[]];
+if (count _cargoItems < _index) exitWith {};
+
 _item = _cargoItems select _index;
 
 //Verify it is the right item
@@ -32,6 +34,9 @@ if ((_item select 0) == (_ctrl lbData _index)) then {
 	_class = _item select 0;
 
 	_dummy = createVehicle [_class, position player, [], 1, "NONE"];
+
+	//Add to curator
+	{_x addCuratorEditableObjects [[_dummy],true]} forEach allCurators;
 
 	_pos = position player findEmptyPosition [1, 8,_class];
 	if (count _pos> 0) then {_dummy setPos _pos};

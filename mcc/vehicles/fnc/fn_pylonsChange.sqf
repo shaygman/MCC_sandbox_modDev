@@ -2,8 +2,18 @@
 	Change pylons loadouts in available planes
 
 ================================================================================================================================================*/
+#define	IDD_DISPLAY_PYLONCHANGE	1031981
+#define	ID_PICTURE_UI	1200
+#define	ID_PRESETCOMBO	2100
+#define	ID_MIROR 2800
+#define	ID_REARM 2801
+#define	ID_REFUEL 2802
+#define	ID_REPAIR 2803
+#define	ID_CANCEL 2400
+#define	ID_APPLY 2401
 
-private ["_vehicle","_pylonsDialog","_pylonsAvailable","_mag","_resualt","_magType","_zeus","_exit","_turrets","_success","_weapon","_fnc_rearm","_config","_pylonComponent"];
+
+private ["_vehicle","_pylonsDialog","_pylonsAvailable","_zeus","_turrets","_config","_pylonComponent"];
 _zeus = param [0,true,[true,objNull]];
 
 //If we initilize the loadouts are
@@ -41,76 +51,10 @@ _vehicle = if (_zeus) then {missionNamespace getVariable ["BIS_fnc_initCuratorAt
 if (isNull _vehicle) exitWith {};
 missionNamespace setVariable ["MCC_fnc_pylonsChangeVehicle",_vehicle];
 
-//Rearm Function
-_fnc_rearm = {
-	params [
-		["_vehicle",objNull,[objNull]],
-		["_rearm",true,[true]],
-		["_refuel",true,[true]],
-		["_repair",true,[true]]
-	];
-
-	private _success = true;
-
-	//Rearm
-	if (_rearm) then {
-		_success = ["Rearming...",10,objNull,false] call MCC_fnc_interactProgress;
-
-		if (_success && alive _vehicle && speed _vehicle < 5) then {
-			[_vehicle, 1] remoteExec ["setVehicleAmmo", _vehicle];
-			playSound "gunReload";
-		};
-	};
-
-	if (!_success) exitWith {};
-
-	//Refuel
-	if (_refuel) then {
-		_success = ["Refuelling...",(1 - fuel _vehicle) * 30,objNull,false] call MCC_fnc_interactProgress;
-
-		if (_success && alive _vehicle && speed _vehicle < 5) then {
-			[_vehicle, 1] remoteExec ["setFuel", _vehicle];
-			playSound "gunReload";
-		};
-	};
-
-	if (!_success) exitWith {};
-
-	//Repair
-	if (_repair) then {
-		_success = ["Reparing...",(damage _vehicle) * 60,objNull,false] call MCC_fnc_interactProgress;
-
-		if (_success && alive _vehicle && speed _vehicle < 5) then {
-			[_vehicle, 0] remoteExec ["setDamage", _vehicle];
-			playSound "gunReload";
-		};
-	};
-};
-
 _config = configFile >> "CfgVehicles" >> typeOf _vehicle;
 _pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
 _pylonsAvailable = (_pylonComponent >> "pylons") call BIS_fnc_returnChildren;
 _turrets= (configProperties [configFile >> "CfgVehicles" >> typeOf _vehicle >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
-
-//No pylons just rearm
-if (count _pylonsAvailable == 0) exitWith {[_vehicle,true,true,true] spawn _fnc_rearm};
-
-
-while {dialog} do {closeDialog 0};
-createDialog "MCC_displayPylonChange";
-waitUntil {dialog};
-
-#define	IDD_DISPLAY_PYLONCHANGE	1031981
-#define	ID_PICTURE_UI	1200
-#define	ID_PRESETCOMBO	2100
-#define	ID_MIROR 2800
-
-
-
-private ["_ctrl","_display","_picPos","_index"];
-
-_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
-ctrlSetText [ID_PICTURE_UI, getText (_pylonComponent >> "uiPicture")];
 
 MCC_fnc_pylonUpdate ={
 	#define	IDD_DISPLAY_PYLONCHANGE	1031981
@@ -118,12 +62,15 @@ MCC_fnc_pylonUpdate ={
 	#define	ID_MIROR 2800
 
 	params [
-		["_vehicle",objNull,[objNull]],
-		["_selectedPrest",[],[[]]]
+		["_selectedPrest",nil,[[],nil]]
 	];
 
-	private ["_ctrl","_display","_picPos","_uiPos","_index","_pylon","_currentMag","_config","_pylonComponent","_pylonsAvailable","_currentPylonMag","_mirror"];
+	private ["_vehicle","_ctrl","_display","_picPos","_uiPos","_index","_pylon","_currentMag","_config","_pylonComponent","_pylonsAvailable","_currentPylonMag","_mirror"];
 
+
+	_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
+
+	if (isNull _vehicle) exitWith {};
 
 	_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
 	_mirror = cbChecked (_display displayCtrl ID_MIROR);
@@ -132,6 +79,7 @@ MCC_fnc_pylonUpdate ={
 	_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
 	_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
 	_pylonsAvailable = (_pylonComponent >> "pylons") call BIS_fnc_returnChildren;
+
 
 	{
 		_pylon = _x;
@@ -143,43 +91,55 @@ MCC_fnc_pylonUpdate ={
 		if (isNull _ctrl) then {
 			_ctrl = _display ctrlCreate ["MCC_RscCombo", (28000 + _foreachIndex)];
 		    _uiPos = getArray (_pylon >> "UIposition");
+		    _uiPos apply {if (_x isEqualType 0) then {_x} else {call compile _x}};
 		    _ctrl ctrlSetPosition [
 		        (_picPos select 0) + (_uiPos select 0),
 		        (_picPos select 1) + (_uiPos select 1),
-		        0.12 * safezoneW,
+		        0.1 * safezoneW,
 		        0.02 * safezoneH
 		    ];
 		    _ctrl ctrlCommit 0;
+
+		    _index = _ctrl lbadd "None";
+		    _ctrl lbSetData [_index,""];
+
+		    _currentPylonMag = _vehicle getCompatiblePylonMagazines (_forEachIndex + 1);
+		    _index = 0;
+		   	{
+		    	_ctrl lbadd ( format ["(%2) %1",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
+		    	_ctrl lbSetData [(_forEachIndex+1),_x];
+
+		    	if (_currentMag == _x) then {_index = (_foreachIndex +1)};
+
+		    } forEach _currentPylonMag;
 		};
 
-	    _index = _ctrl lbadd "None";
-	    _ctrl lbSetData [_index,""];
+		//If mirrored then disable
+		_mirror = cbChecked (_display displayCtrl ID_MIROR);
+		_mirroredPylon = getNumber ((_x >> "mirroredMissilePos"))-1;
+		_ctrl ctrlEnable !(_mirroredPylon == -1 && _mirror);
 
-	    _currentPylonMag = _vehicle getCompatiblePylonMagazines (_forEachIndex + 1);
-	    _index = 0;
-	   	{
-	    	_ctrl lbadd ( format ["(%2) %1",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
-	    	_ctrl lbSetData [(_forEachIndex+1),_x];
+	    //If we have presets
+	    if (isNil "_selectedPrest") then {
+	    	_ctrl lbSetCurSel _index;
+	    	} else {
+	    		_ctrl lbSetCurSel (if (count _selectedPrest > 0) then {_currentPylonMag find (_selectedPrest select _foreachIndex)} else {0});
+	    	};
 
-	    	if (_currentMag == _x) then {_index = (_foreachIndex +1)};
-
-	    } forEach _currentPylonMag;
-
-	    _ctrl lbSetCurSel (if (count _selectedPrest > 0) then {_currentPylonMag find (_selectedPrest select _foreachIndex)} else {_index});
 
 	    _ctrl ctrlAddEventHandler ["LBSelChanged",{
-	    	#define	IDD_DISPLAY_PYLONCHANGE	1031981
-	    	#define	ID_MIROR 2800
+			#define	IDD_DISPLAY_PYLONCHANGE	1031981
+			#define	ID_MIROR 2800
 
-	    	params ["_ctrl","_selected"];
-	    	private ["_display","_mirror","_mirroredPylon","_vehicle","_config","_pylonComponent","_selectedPylon"];
+			params ["_ctrl","_selected"];
+			private ["_display","_mirror","_mirroredPylon","_vehicle","_config","_pylonComponent","_selectedPylon"];
 
-	    	_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
-	    	_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
+			_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
+			_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
 			_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
-			_selectedPylon = ((_pylonComponent >> "pylons") call BIS_fnc_returnChildren) select _selected;
+			_selectedPylon = ((_pylonComponent >> "pylons") call BIS_fnc_returnChildren) select (ctrlIDC _ctrl - 28000);
 
-	    	_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
+			_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
 			_mirror = cbChecked (_display displayCtrl ID_MIROR);
 			_mirroredPylon = getNumber ((_selectedPylon >> "mirroredMissilePos"))-1;
 
@@ -187,9 +147,106 @@ MCC_fnc_pylonUpdate ={
 				_ctrl = _display displayCtrl (28000 + _mirroredPylon);
 				_ctrl lbSetCurSel _selected;
 			};
-	    }];
+		}];
 	} forEach _pylonsAvailable;
 };
+
+MCC_fnc_pylonApply = {
+	#define	IDD_DISPLAY_PYLONCHANGE	1031981
+	#define	ID_REARM 2801
+	#define	ID_REFUEL 2802
+	#define	ID_REPAIR 2803
+
+
+	private ["_vehicle","_exit","_pylonsWeapons","_magType","_config","_pylonComponent","_pylonsAvailable","_ctrl","_success","_turrets","_display","_magData","_rearm","_refuel","_repair"];
+	_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
+	if (isNull _vehicle) exitWith {};
+
+	_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
+	_config = configFile >> "CfgVehicles" >> typeOf _vehicle;
+	_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
+	_pylonsAvailable = (_pylonComponent >> "pylons") call BIS_fnc_returnChildren;
+	_turrets= (configProperties [configFile >> "CfgVehicles" >> typeOf _vehicle >> "Components" >> "TransportPylonsComponent" >> "Pylons", "isClass _x"]) apply {getArray (_x >> "turret")};
+
+	//Get the selected turrets
+	_magData = [];
+	{
+		_ctrl = _display displayCtrl (28000 + _foreachIndex);
+		_magData pushBack (_ctrl lbData (lbCurSel _ctrl));
+	} forEach _pylonsAvailable;
+
+	_rearm = (cbChecked (_display displayCtrl ID_REARM));
+	_refuel = (cbChecked (_display displayCtrl ID_REFUEL));
+	_repair = (cbChecked (_display displayCtrl ID_REPAIR));
+
+	//Close dialog
+	missionNamespace setVariable ["MCC_fnc_pylonsChangeVehicle",nil];
+	closeDialog 2;
+
+	//Rearm
+	_exit = false;
+
+	{
+		[_vehicle,[_foreachIndex + 1,"",true]] remoteexec ["setPylonLoadOut",0];
+		[_vehicle,[_foreachIndex + 1,0]] remoteexec ["SetAmmoOnPylon",0];
+	} forEach GetPylonMagazines _vehicle;
+
+	_pylonsWeapons = [];
+	{ _pylonsWeapons append getArray (_x >> "weapons") } forEach ([_vehicle, configNull] call BIS_fnc_getTurrets);
+	{ [_vehicle,_x] remoteexec ["removeWeaponGlobal",0] } forEach ((weapons _vehicle) - _pylonsWeapons);
+
+
+	{
+		if (_exit) exitWith {};
+
+		_magType = _magData select _forEachIndex;
+		_weapon = configName _x;
+
+		//If manual and still running
+		playSound "gunReload";
+		_success = if !(isNull curatorCamera) then {true} else {
+			[format ["%1", getText (configFile >> "cfgMagazines" >> _magType >> "displayName")],5,objNull,false] call MCC_fnc_interactProgress};
+
+		if (_success &&
+		    alive _vehicle &&
+		    speed _vehicle < 5) then {
+
+			[_vehicle,[_weapon,"",true,(_turrets select _forEachIndex)]] remoteexec ["setPylonLoadOut",0];
+			[_vehicle,  [_weapon, _magType,true,(_turrets select _forEachIndex)]] remoteExecCall ["setPylonLoadOut", 0];
+
+		} else {
+			_exit = true;
+			missionNamespace setVariable ["MCC_fnc_interactProgress_running",false]
+		};
+
+		sleep 0.5;
+	} forEach _pylonsAvailable;
+
+	//Open rearm for non curatro
+	if (isNull curatorCamera) then {
+		[_vehicle,_repair,_rearm,_refuel] spawn MCC_fnc_vehicleService;
+	};
+};
+
+//No pylons just rearm
+if (count _pylonsAvailable == 0) exitWith {[_vehicle,true,true,true] spawn MCC_fnc_vehicleService};
+
+
+while {dialog} do {closeDialog 0};
+createDialog "MCC_displayPylonChange";
+waitUntil {dialog};
+
+private ["_ctrl","_display","_picPos","_index"];
+
+_display = findDisplay IDD_DISPLAY_PYLONCHANGE;
+
+//Disable refuel,rearm,repair for curator
+if !(isNull curatorCamera) then {
+	{
+		ctrlShow [_x,false];
+	} forEach [1001,1002,1003,ID_REARM,ID_REFUEL,ID_REPAIR];
+};
+ctrlSetText [ID_PICTURE_UI, getText (_pylonComponent >> "uiPicture")];
 
 //----Loadouts
 _ctrl = _display displayCtrl ID_PRESETCOMBO;
@@ -212,114 +269,23 @@ _ctrl ctrlAddEventHandler ["LBSelChanged", {
 	_preSets = "true" configClasses (_pylonComponent >> "Presets");
 	_selectedPrest = getArray ((_preSets select _selected) >> "attachment");
 
-	[_vehicle,_selectedPrest] call MCC_fnc_pylonUpdate;
+	[_selectedPrest] call MCC_fnc_pylonUpdate;
 }];
 
-[_vehicle] call MCC_fnc_pylonUpdate;
+//Update pylons
+[] call MCC_fnc_pylonUpdate;
 
-//---Pylons
+//Mirror checkbox
+_ctrl = _display displayCtrl ID_MIROR;
+_ctrl ctrlAddEventHandler ["CheckedChanged", {[] call MCC_fnc_pylonUpdate}];
 
-/*
-_mag = ["None"];
-	//_turrets pushBack (getArray(_x >> "turret"));
+//Cancel
+_ctrl = _display displayCtrl ID_CANCEL;
+_ctrl ctrlAddEventHandler ["ButtonClick", {
+	missionNamespace setVariable ["MCC_fnc_pylonsChangeVehicle",nil];
+	closeDialog 2;
+}];
 
-	{
-		_mag pushBack ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
-	} forEach (_vehicle getCompatiblePylonMagazines (_forEachIndex + 1));
-
-_pylonsDialog = [
-		["Change Pylons",true],
-		["Rearm",true],
-		["Refuel",true],
-		["Repair",true]
-	];
-
-{
-	_mag = ["None"];
-	//_turrets pushBack (getArray(_x >> "turret"));
-
-	{
-		_mag pushBack ( format ["%1(%2)",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
-	} forEach (_vehicle getCompatiblePylonMagazines (_forEachIndex + 1));
-
-	_text = format  ["Pylon %1:  ", _forEachIndex + 1];
-
-	if (_forEachIndex < (count _pylonsAvailable)/2) then {
-		for "_i" from 0 to _forEachIndex step 1 do
-		{
-			_text = _text + "-----";
-		};
-
-		_text = _text + "\";
-	} else {
-		for "_i" from (_forEachIndex +1) to (count _pylonsAvailable) step 1 do
-		{
-			_text = _text + "-----";
-		};
-		_text = _text + "/";
-	};
-
-	_pylonsDialog pushBack [_text,_mag];
-} forEach _pylonsAvailable;
-
-_resualt = ["Change Loadout",_pylonsDialog] call MCC_fnc_initDynamicDialog;
-
-if (count _resualt == 0) exitWith {};
-
-_resualt params [
-	["_changePylons",true,[true]],
-	["_rearm",true,[true]],
-	["_refuel",true,[true]],
-	["_repair",true,[true]]
-];
-
-//Rearm
-_exit = false;
-
-if (_changePylons) then {
-	{
-		[_vehicle,[_foreachIndex + 1,"",true]] remoteexec ["setPylonLoadOut",0];
-		[_vehicle,[_foreachIndex + 1,0]] remoteexec ["SetAmmoOnPylon",0];
-	} forEach GetPylonMagazines _vehicle;
-
-	private _pylonsWeapons = [];
-	{ _pylonsWeapons append getArray (_x >> "weapons") } forEach ([_vehicle, configNull] call BIS_fnc_getTurrets);
-	{ [_vehicle,_x] remoteexec ["removeWeaponGlobal",0] } forEach ((weapons _vehicle) - _pylonsWeapons);
-
-	{
-		if (_exit) exitWith {};
-
-		_magType = if ((_resualt select (_forEachIndex + 4)) == 0) then {""} else {(_vehicle getCompatiblePylonMagazines (_forEachIndex + 1)) select (_resualt select  (_forEachIndex + 4))-1};
-		_weapon = configName _x;
-
-		//If manual and still running
-		playSound "gunReload";
-		_success = if (_zeus) then {true} else {
-			[format ["%1", getText (configFile >> "cfgMagazines" >> _magType >> "displayName")],5,objNull,false] call MCC_fnc_interactProgress};
-
-		if (_success &&
-		    alive _vehicle &&
-		    speed _vehicle < 5) then {
-
-			[_vehicle,[_weapon,"",true,(_turrets select _forEachIndex)]] remoteexec ["setPylonLoadOut",0];
-			[_vehicle,  [_weapon, _magType,true,(_turrets select _forEachIndex)]] remoteExecCall ["setPylonLoadOut", 0];
-
-		} else {
-			_exit = true;
-			missionNamespace setVariable ["MCC_fnc_interactProgress_running",false]
-		};
-
-		sleep 0.5;
-	} forEach _pylonsAvailable;
-};
-
-[_vehicle,_rearm,_refuel,_repair] spawn _fnc_rearm;
-
-//Remove all prevoius turrets
-
-	/*
-	{
-		[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[-1]]] remoteExecCall ["removeWeaponTurret", 0];
-		[_vehicle, [getText (configFile >> "CfgMagazines" >> _x >> "pylonWeapon"),[0,0]]] remoteExecCall ["removeWeaponTurret", 0];
-	} forEach (_vehicle getCompatiblePylonMagazines _forEachIndex + 1);
-	*/
+//Apply
+_ctrl = _display displayCtrl ID_APPLY;
+_ctrl ctrlAddEventHandler ["ButtonClick", {[] spawn MCC_fnc_pylonApply}];

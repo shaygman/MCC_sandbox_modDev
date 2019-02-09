@@ -15,4 +15,5 @@ class vehicles
 	class vehicleTireChange {description = "Remove or install vehicle tire or truck";};
 	class vehicleEngine {description = "Turn vehicles engine on or off and force it with a loop thats ends when the vehicle is dead or set variable MCCunitEngine to 2";};
 	class vehicleLights {description = "Turn vehicles lights on or off and force it with a loop thats ends when the vehicle is dead or set variable MCCunitEngine to 2";};
+	class vehicleService {description = "Rearm repair and refuel given vehicel";};
 };

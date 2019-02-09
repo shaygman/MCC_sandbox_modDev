@@ -43,6 +43,16 @@
         <English>Ammo</English>
       </Key>
     </Container>
+    <Container name="VehicleCargo">
+      <Key ID="STR_DISP_CURATOR_VEHICLECARGO">
+        <Original>Cargo</Original>
+        <English>Cargo</English>
+      </Key>
+      <Key ID="STR_DISP_CURATOR_VEHICLECARGOLIST">
+        <Original>Double click to unload</Original>
+        <English>Double click to unload</English>
+      </Key>
+    </Container>
   </Package>
   <Package name="pylonChange">
     <Container name="display">

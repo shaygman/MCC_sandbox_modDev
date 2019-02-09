@@ -30,4 +30,5 @@ class curator
 	class curatorGAIARespawn {description = "Sets a group or unit to respawns certain number of times";};
 	class curatorRTSBuilding {description = "Instantly construct RTS Building";};
 	class curatorAddValor {description = "Add Valor/Credit to the selected units";};
+	class RscAttributeVehicleCargo {description = "handle the cargo RSC in curator - can't run in uinamespace";};
 };

@@ -11,7 +11,7 @@
 =======================================================================================================================================================================*/
 #include "..\..\script_component.hpp"
 
-private ["_time","_target","_avtiveControls","_curator","_idc","_control","_display","_controlPos","_posY","_ctrlBackground","_ctrlTitle","_ctrlContent","_ctrlButtonOK","_ctrlButtonCancel","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlContentPos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlTitleOffsetY","_ctrlContentOffsetY","_name","_ctrlButtonCustom","_ctrlButtonCustomPos","_comboBox","_displayname","_ctrlButtonCustom2","_ctrlButtonCustom2Pos","_ctrlButtonCustom3","_ctrlButtonCustom3Pos","_cargEnabled","_loadOutEnabled","_presetType","_preset","_targetData","_targetCategory","_targetType","_class","_cfgControl","_keyUp","_keyDown","_garageEnabled"];
+private ["_time","_target","_avtiveControls","_curator","_idc","_control","_display","_controlPos","_posY","_ctrlBackground","_ctrlTitle","_ctrlContent","_ctrlButtonOK","_ctrlButtonCancel","_ctrlBackgroundPos","_ctrlTitlePos","_ctrlContentPos","_ctrlButtonOKPos","_ctrlButtonCancelPos","_ctrlTitleOffsetY","_ctrlContentOffsetY","_name","_ctrlButtonCustom","_ctrlButtonCustomPos","_comboBox","_displayname","_ctrlButtonCustom2","_ctrlButtonCustom2Pos","_ctrlButtonCustom3","_ctrlButtonCustom3Pos","_cargoEnabled","_loadOutEnabled","_presetType","_preset","_targetData","_targetCategory","_targetType","_class","_cfgControl","_keyUp","_keyDown","_garageEnabled"];
 disableSerialization;
 
 #define MCCCuratorInit_IDD 10000
@@ -61,11 +61,12 @@ while {dialog} do {closeDialog 0};
 
 _loadOutEnabled = isClass (configFile >> "cfgVehicles" >> typeof _target >> "Components" >> "TransportPylonsComponent");
 
+_garageEnabled = false;
+_cargoEnabled	= false;
+
 switch (_targetCategory) do {
 	case ("Soldier"): {
 		_class = "MCC_RscDisplayAttributesMan";
-		_cargEnabled	= false;
-		_garageEnabled = false;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","unit"];
 	};
 
@@ -75,21 +76,22 @@ switch (_targetCategory) do {
 		} else {
 			_class = "MCC_RscDisplayAttributesVehicle";
 		};
-		_cargEnabled = true;
+		_cargoEnabled = true;
 		_garageEnabled = true;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","vehicle"];
 	};
 
 	case ("VehicleAutonomous"):	{
 		_class = "MCC_RscDisplayAttributesVehicle";
-		_cargEnabled	= true;
+		_cargoEnabled	= true;
 		_garageEnabled = true;
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","vehicle"];
 	};
 
 	case ("Object"): {
 		_class = "MCC_RscDisplayAttributesObject";
-		_cargEnabled	= if (_targetType == "AmmoBox") then {true} else {false};
+		_cargoEnabled	= if (_targetType == "AmmoBox") then {true} else {false};
+
 		missionnamespace setvariable ["MCC_CuratorInitLine_presettype","object"];
 	};
 };
@@ -273,7 +275,7 @@ _counter = 0;
 			_presetText = (_preset select (lbCurSel MCC_PRESETS)) select 1;
 			ctrlSetText [13766,format ["%1 %2",_tempText,_presetText]];
 		}],
-	[_cargEnabled ,"Cargo",{createdialog "RscDisplayAttributesInventory";}],
+	[_cargoEnabled ,"Cargo",{createdialog "RscDisplayAttributesInventory";}],
 	[_garageEnabled ,"Garage",{closeDialog 0;["Open", [false, BIS_fnc_initCuratorAttributes_target]] call BIS_fnc_garage;}],
 	[_loadOutEnabled ,"Payload",{[true,[]] spawn MCC_fnc_pylonsChange;}]
 ];
