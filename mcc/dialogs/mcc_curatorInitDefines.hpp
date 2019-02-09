@@ -257,7 +257,6 @@ class MCC_RscAttributeVehicleCargo: MCC_RscControlsGroupNoScrollbars
 			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			colorBackground[] = {1,1,1,0.1};
-			tooltip = "$STR_DISP_CURATOR_VEHICLECARGOLIST";
 		};
 		class list: MCC_RscListBox
 		{
@@ -266,7 +265,6 @@ class MCC_RscAttributeVehicleCargo: MCC_RscControlsGroupNoScrollbars
 			y = "0 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 			w = "16 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
 			h = "2.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
-			tooltip = "$STR_DISP_CURATOR_VEHICLECARGOLIST";
 		};
 	};
 };

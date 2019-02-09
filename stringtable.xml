@@ -52,6 +52,10 @@
         <Original>Double click to unload</Original>
         <English>Double click to unload</English>
       </Key>
+      <Key ID="STR_DISP_CURATOR_VEHICLECARGOLOAD">
+        <Original>Load vehicle</Original>
+        <English>Load vehicle</English>
+      </Key>
     </Container>
   </Package>
   <Package name="pylonChange">

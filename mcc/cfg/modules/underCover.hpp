@@ -3,7 +3,7 @@ class mcc_sandbox_moduleUndercover : Module_F
 	category = "MCC";
 	author = "shay_gman";
 	displayName = "Undercover Agents";
-	icon = "\mcc_sandbox_mod\data\mcc_sf.paa";
+	icon = "a3\ui_f\data\IGUI\Cfg\Actions\talk_ca.paa";
 	picture = "\mcc_sandbox_mod\data\mcc_sf.paa";
 	vehicleClass = "Modules";
 	function = "MCC_fnc_curatorUnderCover";

@@ -3,6 +3,8 @@ class MCC_Module_medicSetState : Module_F
 	category = "MCC";
 	author = "shay_gman";
 	displayName = "Set Unconscious";
+	icon = "a3\ui_f\data\IGUI\Cfg\Actions\bandage_ca.paa";
+	picture = "a3\ui_f\data\IGUI\Cfg\Actions\bandage_ca.paa";
 	vehicleClass = "Modules";
 	function = "MCC_fnc_setUnconscious";
 	scope = 2;

@@ -13,9 +13,11 @@ Changed Zeus:
 		- Added vehicles's turn lights on/off
 		- Added vehicles's turn engine on/off
 		- Added BI Garage to vehicles - customized components and colors.
+		- Added Load and unload ACE or MCC cargo from vehicles and objects.
 		- Reworked - Payload interface, change aircragt pylons and armaments.
 
 TODO
+Add to logistic parashute if dropped from the air
 check name tags on server
 check MW again
 side channel disappear

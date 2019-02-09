@@ -23,6 +23,7 @@ switch _mode do {
 			    private ["_cargoItems","_index","_class","_displayName"];
 			    _args params ["_vehicle", "_ctrl"];
 
+
 			    // Display closed or vehicle deleted
 			    if (isNull _ctrl || {isNull _vehicle || {!alive _vehicle}}) exitWith {
 			        [_handler] call CBA_fnc_removePerFrameHandler;
@@ -30,14 +31,14 @@ switch _mode do {
 
 			    // Update cargo list
 			   _cargoItems = _vehicle getVariable ["ACE_cargo_loaded", []];
-
 			    lbClear _ctrl;
 			    {
 			        _class = if (_x isEqualType "") then {_x} else {typeOf _x};
-			        _index = ctrl lbAdd (getText (configFile >> "CfgVehicles" >> _class >> "displayName"));
+			        _index = _ctrl lbAdd (getText (configFile >> "CfgVehicles" >> _class >> "displayName"));
 			        _ctrl lbSetPicture [_index, (getText (configFile >> "cfgVehicles" >> _class >> "editorPreview"))];
+			        _ctrl lbSetTooltip [_index,localize "STR_DISP_CURATOR_VEHICLECARGOLIST"];
 			    } forEach _cargoItems;
-			}, 0.25, [_entity, _ctrl]] spawn CBA_fnc_addPerFrameHandler;
+			}, 0.25, [_entity, _ctrl]] call CBA_fnc_addPerFrameHandler;
 		} else {
 			player setVariable ["interactWith",_entity];
 			//MCC Cargo EH
@@ -57,6 +58,7 @@ switch _mode do {
 			        _index = _ctrl lbAdd (getText (configFile >> "cfgVehicles" >> (_x select 0) >> "displayname"));
 					_ctrl lbSetPicture [_index, (getText (configFile >> "cfgVehicles" >> (_x select 0) >> "editorPreview"))];
 					_ctrl lbsetData [_index, (_x select 0)];
+					_ctrl lbSetTooltip [_index,localize "STR_DISP_CURATOR_VEHICLECARGOLIST"];
 			    } forEach _cargoItems;
 			}, 0.25, [_entity, _ctrl]] call CBA_fnc_addPerFrameHandler;
 		};
@@ -75,7 +77,14 @@ switch _mode do {
 			missionNamespace setVariable ["MCC_fnc_RscAttributeVehicleCargo_runing",true];
 
 			if (isClass (configFile >> "CfgPatches" >> "ace_cargo")) then {
+				private ["_object","_vehicle","_loadedObjects"];
+				_vehicle = missionnamespace getvariable ["BIS_fnc_initCuratorAttributes_target",objnull];
+				_loadedObjects = _vehicle getVariable ["ACE_cargo_loaded",[]];
 
+				if (_index < (count _loadedObjects)) then {
+					_object = _loadedObjects select _index;
+					[_object, _vehicle] call ace_cargo_fnc_unloadItem;
+				};
 			} else {
 				//MCC Cargo
 				[_control, _index] spawn MCC_fnc_logisticsCargoUnload;
@@ -86,17 +95,7 @@ switch _mode do {
 		};
 	};
 
-	case "confirmed": {
-		_display = _params select 0;
-		_selected = uinamespace getvariable ["MCC_RscAttributeLights_selected",0];
-		_entities = if (typename _entity == typename grpnull) then {vehicle leader _entity} else {[_entity]};
-
-		{
-			[_x, _selected] remoteExec ["MCC_fnc_vehicleLights", _x];
-		} foreach _entities;
-		false
-	};
 	case "onUnload": {
-		MCC_RscAttributeLights_selected = nil;
+		missionNamespace setVariable ["MCC_fnc_RscAttributeVehicleCargo_runing",false];
 	};
 };

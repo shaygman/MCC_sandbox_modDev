@@ -15,4 +15,5 @@ class logistics
 	class logisticsCargoLoad {description = "Load an object to vehicle";};
 	class logisticsWithdrawBox {description = "withdraw a resource box from HQ and reduce the resources";};
 	class logisticsBoxDeposit {description = "Deposit a resource box from HQ and add the resources";};
+	class cargoLoadModule {description = "Load object from 3den or curator to MCC/ACE logistic system";};
 };

@@ -4,4 +4,5 @@ class MCC_Module_createShopCurator : MCC_Module_Base
 	category = "MCC_RTS";
 	displayName = "Weapon Shop";
 	function = "MCC_fnc_weaponShopInit";
+	portrait = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\whiteboard_ca.paa";
 };

@@ -33,12 +33,12 @@ if ((_item select 0) == (_ctrl lbData _index)) then {
 	_cargoItems deleteAt _index;
 	_class = _item select 0;
 
-	_dummy = createVehicle [_class, position player, [], 1, "NONE"];
+	_dummy = createVehicle [_class, position _object, [], 1, "NONE"];
 
 	//Add to curator
 	{_x addCuratorEditableObjects [[_dummy],true]} forEach allCurators;
 
-	_pos = position player findEmptyPosition [1, 8,_class];
+	_pos = position _object findEmptyPosition [1, 8,_class];
 	if (count _pos> 0) then {_dummy setPos _pos};
 
 
