@@ -9,8 +9,8 @@ private ["_object","_vehicle","_objectMass","_cargoItems","_vehicleMass"];
 _object = (param [0,"",["",objNull]]);
 _vehicle = (param [1,"",["",objNull]]);
 
-if (_object isEqualType "") then {_object call BIS_fnc_objectFromNetId;};
-if (_vehicle isEqualType "") then {_vehicle call BIS_fnc_objectFromNetId;};
+if (_object isEqualType "") then {_object = _object call BIS_fnc_objectFromNetId;};
+if (_vehicle isEqualType "") then {_vehicle = _vehicle call BIS_fnc_objectFromNetId;};
 
 if (isNull _object || isNull _vehicle) exitWith {};
 

@@ -10,9 +10,13 @@
 ====================================================================================================================================================================
 */
 
-private ["_cargoItems","_sparePart","_display","_ctrl","_index","_object"];
+private ["_cargoItems","_sparePart","_display","_ctrl","_index"];
+params [
+    ["_object",objNull,[objNull]]
+];
 
-_object =  player getVariable ["interactWith",objNull];
+if (isNull _object) then {_object =  player getVariable ["interactWith",objNull]};
+
 _cargoItems = _object getVariable ["MCC_logisticsCargo",[]];
 
 //First time make sure we have at least one spare tire or track

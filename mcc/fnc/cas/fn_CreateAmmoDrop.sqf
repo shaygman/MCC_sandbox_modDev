@@ -1,10 +1,11 @@
-//==================================================================MCC_fnc_CreateAmmoDrop===============================================================================================
+/*==========================================================MCC_fnc_CreateAmmoDrop===============================================================================================
 // drop an object from a plane and attach paracute to it, thanks to BIS
 // Example:[_planepos, _spawnkind, _pilot] spawn MCC_fnc_CreateAmmoDrop;
 // _planepos = position,  plane position
 // _spawnkind = string, vehiclecClass to drop
 // _pilot = plane's pilot
-//==================================================================================================================================================================================
+*/
+
 private ["_pos","_spawnkind","_pilot","_para", "_drop","_dir","_time","_smoke","_class","_paras","_objectData","_velocity","_spawnCrew"];
 _pos = _this select 0;
 _spawnkind = _this select 1;

@@ -8,28 +8,51 @@ private ["_module","_object"];
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {};
 
-//TODO EDEN
-if (_module isKindOf "MCC_Module_addValor") exitWith {
+//3den
+if (isNull curatorCamera) exitWith {
 
 	if (!isServer) exitWith {};
 
-	_valor = _module getVariable ["valor",100];
-
-	//Find all units
+	//Find all objects
+    private _synced = [];
 	{
-		if (_x isKindOf "CAMANBASE") then {
-			_x setVariable ["MCC_valorPoints",_valor,true];
-		};
+        //Find the vehicle
+		if (_x isKindOf "logic") then {
+            {
+                if !(_x isKindOf "logic") then {_synced pushBack _x};
+            } forEach (synchronizedObjects _x);
+
+		} else {
+             if !(_x isKindOf "MiscUnlock_F") then {_object = _x};
+        };
 	} forEach (synchronizedObjects _module);
 
+    if (isNil "_object") exitWith {diag_log "Error MCC_fnc_cargoLoadModule: can't find cargo vehicle"};
+
+    [_synced,_object] spawn {
+        params ["_synced","_object"];
+
+        waitUntil {time>0};
+        {
+            if (isClass (configFile >> "CfgPatches" >> "ace_cargo")) then {
+                //ACE
+                [_x, _object, true] call ACE_cargo_fnc_loadItem;
+            } else {
+                [_x, _object, true] call MCC_fnc_logisticsCargoLoad;
+            };
+
+        } forEach _synced;
+    };
+
+    diag_log format ["MCC_fnc_cargoLoadModule: %1 %2", _object , _synced];
 };
 
 //Not curator exit
 if (!(local _module) || isnull curatorcamera) exitWith {};
 
+deleteVehicle _module;
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
-//if no object selected run it on all players
 if (count _object <2) exitWith {};
 _object = _object select 1;
 
@@ -54,7 +77,7 @@ _object = _object select 1;
 
         if (isClass (configFile >> "CfgPatches" >> "ace_cargo")) then {
         	//ACE
-        	[_object, _availableVehicle, true] call ACE_fnc_cargo_loadItem;
+        	[_object, _availableVehicle, true] call ACE_cargo_fnc_loadItem;
         } else {
         	[_object, _availableVehicle, true] call MCC_fnc_logisticsCargoLoad;
         };
@@ -63,4 +86,3 @@ _object = _object select 1;
     "a3\ui_f\data\IGUI\Cfg\Actions\loadVehicle_ca.paa"
 ] call MCC_fnc_curatorDrawLine;
 
-deleteVehicle _module;

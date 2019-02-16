@@ -33,16 +33,41 @@ if ((_item select 0) == (_ctrl lbData _index)) then {
 	_cargoItems deleteAt _index;
 	_class = _item select 0;
 
-	_dummy = createVehicle [_class, position _object, [], 1, "NONE"];
+	//If we are flying spawn parachute
+	if (((getpos _object) select 2)>20) then {
+		private _pos = (_object modelToWorld [0,-10,-10]);
+		_dummy = createVehicle [_class, _pos, [], 1, "NONE"];
+		_dummy setPos _pos;
+
+		[_dummy,_object] spawn {
+			params ["_dummy","_vehicle"];
+
+			private ["_class","_para","_velocity"];
+			_class = "I_parachute_02_F";
+			_para = createVehicle [_class, getpos _dummy,[],0,"CAN_COLLIDE"];
+			_para attachTo [_dummy, [0,0,0]];
+			_velocity = velocity _vehicle;
+			_velocity set [2,-22];
+			detach _para;
+
+			_para setVelocity _velocity;
+			_dummy attachto [_para,[0,0,1]];
+
+			waitUntil {getPos _dummy select 2 < 4 || !alive _dummy};
+			detach _para;
+			sleep 1;
+			deleteVehicle _para;
+		};
+
+	} else {
+		_dummy = createVehicle [_class, position _object, [], 1, "NONE"];
+		_pos = position _object findEmptyPosition [1, 8,_class];
+		if (count _pos> 0) then {_dummy setPos _pos};
+	};
 
 	//Add to curator
 	{_x addCuratorEditableObjects [[_dummy],true]} forEach allCurators;
 
-	_pos = position _object findEmptyPosition [1, 8,_class];
-	if (count _pos> 0) then {_dummy setPos _pos};
-
-
-	//_dummy setPos (player modelToworld [-2,0,1]);
 
 
 	//If it is an ammobox

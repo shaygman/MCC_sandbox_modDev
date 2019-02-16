@@ -170,7 +170,7 @@ if (vehicle player == player) then {
 		switch (true) do {
 			case (_ctrlData in ["commander","driver"]) : {player action [format ["moveTo%1",_ctrlData], _object]};
 			case (_ctrlData == "cargo") : {player action ["MoveToCargo", _object, (_object emptyPositions "cargo")-1]};
-			case (_ctrlData == "load") : {[player] call MCC_fnc_loadTruckUI};
+			case (_ctrlData == "load") : {player setVariable ["interactWith",_object]; [_object] spawn MCC_fnc_logisticsCargoInit;}; //[player] call MCC_fnc_loadTruckUI
 			case (_ctrlData == "dropOff") : {[] call MCC_fnc_requestDropOff};
 			case (["gunner",_ctrlData] call BIS_fnc_inString) : 	{
 				call compile format ["player action ['MoveToTurret',vehicle player,%1]",([_ctrlData,"[01234567890]"] call BIS_fnc_filterString)];
@@ -249,7 +249,7 @@ if (vehicle player == player) then {
 	};
 
 	//Logistics
-	if ((typeof _vehiclePlayer in MCC_supplyTracks || (_vehiclePlayer isKindOf "helicopter" && ((getpos _vehiclePlayer) select 2) > 15)) && (player == driver _vehiclePlayer) && (speed _vehiclePlayer < 10) && (missionNamespace getVariable ["MCC_allowlogistics",true])) then
+	if (((_vehiclePlayer call MCC_fnc_logisticsCargoGetMass)>10) && (missionNamespace getVariable ["MCC_allowlogistics",true])) then
 	{
 		_array pushBack ["['load'] spawn MCC_fnc_vehicleCargoMenuClicked","Logistics",_pic];
 	};

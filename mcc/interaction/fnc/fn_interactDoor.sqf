@@ -333,7 +333,7 @@ switch (true) do {
 			};
 
 			//Logistic
-			if (_object isKindOf "LandVehicle" && (missionNamespace getVariable ["MCC_allowlogistics",false])) then {
+			if (((_object call MCC_fnc_logisticsCargoGetMass)>10) && (missionNamespace getVariable ["MCC_allowlogistics",false])) then {
 				_array pushBack ["[] spawn MCC_fnc_logisticsCargoInit","Logistics",(getText (configfile >> "CfgVehicles" >> typeof _object >> "picture"))];
 			};
 

@@ -1,5 +1,8 @@
 
 Changelog R31:
+- Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
+- Added: MCC logistics to helicopters and planes, can now loda vehicles and objects to them.
+- Added: Automatically spawn parachute when unloading objects using helicopters or planes.
 Fixed - Ambient Civilians module: Civilians spawn infron of players
 Fixed - Advance and secure resistance faction didn't bleed tickets on death
 Fixed - UAV icon always shown on map
@@ -13,8 +16,12 @@ Changed Zeus:
 		- Added vehicles's turn lights on/off
 		- Added vehicles's turn engine on/off
 		- Added BI Garage to vehicles - customized components and colors.
-		- Added Load and unload ACE or MCC cargo from vehicles and objects.
+		- Added Unload ACE or MCC cargo from vehicles and objects.
 		- Reworked - Payload interface, change aircragt pylons and armaments.
+
+	Modules:
+		- Reworked icons, description and categories.
+		- Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
 
 TODO
 Add to logistic parashute if dropped from the air
