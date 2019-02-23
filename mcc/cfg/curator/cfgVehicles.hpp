@@ -37,3 +37,4 @@
 #include "MCC_Module_addValorCurator.hpp"
 #include "MCC_Module_Objective_FCurator.hpp"
 #include "MCC_Module_cargoLoad.hpp"
+#include "MCC_Module_AI_assignToZone.hpp"

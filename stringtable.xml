@@ -57,6 +57,22 @@
         <English>Load vehicle</English>
       </Key>
     </Container>
+    <Container name="Create Zone">
+      <Key ID="STR_DISP_CURATOR_ERROR_CREATEZONE_ZONECREATED">
+        <Original>Zone created/updated</Original>
+        <English>Zone created/updated</English>
+      </Key>
+    </Container>
+    <Container name="AssigenToZone">
+      <Key ID="STR_DISP_CURATOR_ERROR_CREATEZONE_NOUNIT">
+        <Original>No AI unit or group found</Original>
+        <English>No AI unit or group found</English>
+      </Key>
+      <Key ID="STR_DISP_CURATOR_ERROR_ASSIGNTOZONE_SUCCESS">
+        <Original>Zone updated - will be effective in the next waypoint</Original>
+        <English>Zone updated - effect will be shown in a few minutes</English>
+      </Key>
+    </Container>
   </Package>
   <Package name="pylonChange">
     <Container name="display">

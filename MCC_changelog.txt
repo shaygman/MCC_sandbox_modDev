@@ -3,6 +3,8 @@ Changelog R31:
 - Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
 - Added: MCC logistics to helicopters and planes, can now loda vehicles and objects to them.
 - Added: Automatically spawn parachute when unloading objects using helicopters or planes.
+- Added: Module Assign to MCC zone to 3den and Zeus - allow assigning AI groups to zones from 3den (combine with create zone module) or from Zeus.
+- Added: Module Create/Update zone to Zeus.
 Fixed - Ambient Civilians module: Civilians spawn infron of players
 Fixed - Advance and secure resistance faction didn't bleed tickets on death
 Fixed - UAV icon always shown on map

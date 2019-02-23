@@ -93,6 +93,7 @@ class CfgFunctions
 		#include "\mcc_sandbox_mod\mcc\UI\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\medic\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\roads\cfgFunctions.hpp"
+		#include "\mcc_sandbox_mod\mcc\ai\cfgFunctions.hpp"
 	};
 };
 
