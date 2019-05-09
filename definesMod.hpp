@@ -2,7 +2,22 @@
 #define MCCVersion "(r31)"
 #define MCCMODE true
 
-
+class RscMapControl;
+class RscText;
+class RscControlsGroup;
+class RscControlsGroupNoScrollbars;
+//class RscButtonMenu;
+class RscShortcutButton;
+class RscAttributeText;
+class RscCombo;
+class RscCheckBox;
+class TabSide;
+class BLUFOR;
+class OPFOR;
+class Independent;
+class Civilian;
+class GroupList;
+class UnitList;
 
 //--------------------------Dialogs----------------------------------------------------
 #include "\mcc_sandbox_mod\mcc\dialogs\mcc_dialogs.hpp"
@@ -192,24 +207,6 @@ class CfgMarkers
 {
 	#include "\mcc_sandbox_mod\mcc\cfg\CfgMarkers.hpp"
 };
-
-class RscMapControl;
-class RscText;
-class RscControlsGroup;
-class RscControlsGroupNoScrollbars;
-//class RscButtonMenu;
-class RscShortcutButton;
-class RscAttributeText;
-class RscCombo;
-class RscCheckBox;
-
-class TabSide;
-class BLUFOR;
-class OPFOR;
-class Independent;
-class Civilian;
-class GroupList;
-class UnitList;
 
 //Extend Main menu
 #include "\mcc_sandbox_mod\mcc\cfg\menuExt.hpp"

@@ -744,7 +744,7 @@ class MCC_RscStructuredText
 			};
 	};
 
-class MCC_RscMapControl
+class MCC_RscMapControl : RscMapControl
 	{
 	access = 0;
 	alphaFadeEndScale = 0.4;

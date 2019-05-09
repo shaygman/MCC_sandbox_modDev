@@ -4,7 +4,7 @@ class CfgPatches
 
 	class mcc_sandbox
 	{
-		units[] = {"mcc_sandbox_module","mcc_sandbox_moduleSF","mcc_sandbox_moduleRestrictedZone","mcc_sandbox_moduleUndercover","MCC_Module_AAS","mcc_Module_createZones","MCC_Module_settingsMechanics","MCC_Module_settings","MCC_Module_settingsMedicSystem","MCC_Module_settingsRS","MCC_Module_ambientBirds","MCC_module_ambientFire","MCC_Module_createIntel","MCC_Module_LHDSpawn","MCC_Module_GAIARespawns","MCC_Module_RTSBuildings","MCC_Module_medicSetState","MCC_Module_createShop","MCC_Module_addValor","MCC_Module_settingsMissionWizard","MCC_Module_AI_assignToZone"};
+		units[] = {"mcc_sandbox_module","mcc_sandbox_moduleSF","mcc_sandbox_moduleRestrictedZone","MCC_Module_AAS","mcc_Module_createZones","MCC_Module_settingsMechanics","MCC_Module_settings","MCC_Module_settingsMedicSystem","MCC_Module_settingsRS","MCC_Module_ambientBirds","MCC_module_ambientFire","MCC_Module_createIntel","MCC_Module_LHDSpawn","MCC_Module_GAIARespawns","MCC_Module_RTSBuildings","MCC_Module_createShop","MCC_Module_addValor","MCC_Module_settingsMissionWizard","MCC_Module_AI_assignToZone"};
 		weapons[] = {};
 		requiredVersion = 1.00;
 		requiredAddons[] = {"A3_Modules_F",
