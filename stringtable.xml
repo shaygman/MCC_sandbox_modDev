@@ -1,0 +1,793 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+	<Project name="MCC">
+		<Package name="Main">
+			<Key ID="STR_MCC_Zeus_Fuel">
+				<Original>Set Empty [Fuel]</Original>
+				<Russian>Убрать Топливо</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Ammo">
+				<Original>Set Empty [Ammo]</Original>
+				<Russian>Убрать Патроны</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Cargo">
+				<Original>Set Empty (Cargo)</Original>
+				<Russian>Удалить Груз</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Locked">
+				<Original>Set Locked</Original>
+				<Russian>Закрыть технику</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Cargo_Local">
+				<Original>Clear Cargo</Original>
+				<Russian>Удалить Груз (локально)</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_UAV">
+				<Original>Add Crew (UAV)</Original>
+				<Russian>Добавить ИИ для БПЛА</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Units">
+				<Original>Add Cargo Units</Original>
+				<Russian>Добавить пассажиров</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_ECM">
+				<Original>ECM - can jamm IED</Original>
+				<Russian>ECM - глушилка для IED</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_FOB">
+				<Original>Logistic Vehicle - create FOB</Original>
+				<Russian>Мобильный штаб</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Sim">
+				<Original>Disable Simulation</Original>
+				<Russian>Выключить симуляцию</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Control">
+				<Original>Can be controled using MCC Console</Original>
+				<Russian>Может управляться через КОМЛОГ</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Recruit">
+				<Original>Recruitable</Original>
+				<Russian>Нанять бота</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Join">
+				<Original>Join player</Original>
+				<Russian>Присоединиться к игроку</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Enemy">
+				<Original>Set Renegade</Original>
+				<Russian>Сделать противником</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Moile_West">
+				<Original>Set Mobile Respawn(West)</Original>
+				<Russian>Мобильный респавн(Синие)</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Moile_East">
+				<Original>Set Mobile Respawn(East)</Original>
+				<Russian>Мобильный респавн(Красные)</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Moile_Guer">
+				<Original>Set Mobile Respawn(Guer)</Original>
+				<Russian>Мобильный респавн(Зеленые)</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Arti">
+				<Original>======= Artillery =======</Original>
+				<Russian>======= Артилерия =======</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Arti_Cannon">
+				<Original>Ambient Artillery - Cannon</Original>
+				<Russian>Динамическая артилерия - Пушка</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Arti_Rocket">
+				<Original>Ambient Artillery - Rockets</Original>
+				<Russian>Динамическая артилерия - Ракеты</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_AA_Cannon">
+				<Original>Ambient AA - Cannon/Rockets</Original>
+				<Russian>Динамическое ПВО - Пушка/Ракеты</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_AA_Light">
+				<Original>Ambient AA - Search Light</Original>
+				<Russian>Динамическое ПВО - Прожектор</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_General">
+				<Original>======= General =======</Original>
+				<Russian>======= Главное =======</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Destroy_Veh">
+				<Original>Destroy Vehicles</Original>
+				<Russian>Уничтожить транспорт</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Flip_Veh">
+				<Original>Flip Vehicles</Original>
+				<Russian>Перевернуть транспорт</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Arsenal">
+				<Original>Virtual Arsenal (BIS)</Original>
+				<Russian>Виртуальный арсенал (BIS)</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Satchels">
+				<Original>Destroyable by satchels only</Original>
+				<Russian>Уничтожается взрыв-пакетом</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_God">
+				<Original>God mod</Original>
+				<Russian>Неуязвимость</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Carrier">
+				<Original>Aircraft Carrier Console</Original>
+				<Russian>Консоль Корабля</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Effects">
+				<Original>======= Effects =======</Original>
+				<Russian>======= Эффекты =======</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Sand">
+				<Original>Sandstorm</Original>
+				<Russian>Песочная буря</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Flies">
+				<Original>Flies</Original>
+				<Russian>Мухи</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Smoke">
+				<Original>Smoke</Original>
+				<Russian>Дым</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Fire">
+				<Original>Fire</Original>
+				<Russian>Огонь</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Misk">
+				<Original>======= Misc =======</Original>
+				<Russian>======= Разное =======</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Marker">
+				<Original>Create Local Marker</Original>
+				<Russian>Создать локальный маркер</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Hostage">
+				<Original>Make Hostage</Original>
+				<Russian>Сделать заложником</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Stand">
+				<Original>Stand Up</Original>
+				<Russian>Встать</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Kneel">
+				<Original>Kneel</Original>
+				<Russian>На Колено</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Prone">
+				<Original>Prone</Original>
+				<Russian>Лечь</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Remove_Weap">
+				<Original>Remove All Weapons</Original>
+				<Russian>Удалить Все Оружие</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Remove_Items">
+				<Original>Remove All Items</Original>
+				<Russian>Удалить Все Вещи</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Unconsciou">
+				<Original>Unconscious (MCC medic system)</Original>
+				<Russian>Без сознания (Мед. система MCC)</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Kill_Unit">
+				<Original>Kill Unit</Original>
+				<Russian>Уничтожить Юнита</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Flip_Unit">
+				<Original>Flip Unit</Original>
+				<Russian>Повернуть Юнита</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Pick">
+				<Original>Pickable Object</Original>
+				<Russian>Можно Подобрать</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Destroy_Obj">
+				<Original>Destroy Object</Original>
+				<Russian>Уничтожить Объект</Russian>
+			</Key>
+			<Key ID="STR_MCC_Zeus_Flip_Obj">
+				<Original>Flip Object</Original>
+				<Russian>Перевернуть Объект</Russian>
+			</Key>
+			<Key ID="STR_Create_Fob">
+				<Original>Create FOB</Original>
+				<Russian>Создать Фортпост</Russian>
+			</Key>
+			<Key ID="STR_Recruit">
+				<Original>Recruit %1</Original>
+				<Russian>Нанять %1</Russian>
+			</Key>
+			<Key ID="STR_Close">
+				<Original>Close</Original>
+				<Russian>Закрыть</Russian>
+			</Key>
+			<Key ID="STR_MCC_Maker">
+				<Original>Mission Maker</Original>
+				<Russian>Игровой Мастер</Russian>
+			</Key>
+			<Key ID="STR_MCC_Login_Text">
+				<Original>MCC Login</Original>
+				<Russian>MCC Вход</Russian>
+			</Key>
+			<Key ID="STR_View">
+				<Original>View:</Original>
+				<Russian>Дальность:</Russian>
+			</Key>
+			<Key ID="STR_Grass">
+				<Original>Grass:</Original>
+				<Russian>Трава:</Russian>
+			</Key>
+			<Key ID="STR_Client_FPS">
+				<Original>Client FPS:</Original>
+				<Russian>FPS Клиента:</Russian>
+			</Key>
+			<Key ID="STR_Server_FPS">
+				<Original>Server FPS:</Original>
+				<Russian>FPS Сервера:</Russian>
+			</Key>
+			<Key ID="STR_MCC_Login">
+				<Original>Login</Original>
+				<Russian>Войти</Russian>
+			</Key>
+			<Key ID="STR_MCC_Login_Tip">
+				<Original>Login as the mission maker</Original>
+				<Russian>Зайти как Игровой Мастер</Russian>
+			</Key>
+			<Key ID="STR_MCC_Browser">
+				<Original>Click to open a link on your default browser</Original>
+				<Russian>Нажмите чтобы открыть ссылку в браузере</Russian>
+			</Key>
+			<Key ID="STR_MCC_Mission_Maker">
+				<Original>Not Assigned</Original>
+				<Russian>Не выбран</Russian>
+			</Key>
+			<Key ID="STR_Open_MCC">
+				<Original>Open MCC:</Original>
+				<Russian>Откр MCC:</Russian>
+			</Key>
+			<Key ID="STR_Comm_Console">
+				<Original>Comander Console:</Original>
+				<Russian>КОМЛОГ:</Russian>
+			</Key>
+			<Key ID="STR_TTT">
+				<Original>Teleport to team:</Original>
+				<Russian>Телепорт к команде:</Russian>
+			</Key>
+			<Key ID="STR_SQ_DIAL">
+				<Original>Squad Dialog:</Original>
+				<Russian>Диалог Отряд:</Russian>
+			</Key>
+			<Key ID="STR_PDA">
+				<Original>Squad leader PDA:</Original>
+				<Russian>PDA Лидера:</Russian>
+			</Key>
+			<Key ID="STR_Interact">
+				<Original>Interaction Key:</Original>
+				<Russian>Взаимодействие:</Russian>
+			</Key>
+			<Key ID="STR_Interact_Self">
+				<Original>Interaction Self:</Original>
+				<Russian>Взаим с Собой:</Russian>
+			</Key>
+			<Key ID="STR_Cover">
+				<Original>Cover System:</Original>
+				<Russian>Система Укрытий:</Russian>
+			</Key>
+			<Key ID="STR_MCC_CHANGE">
+				<Original>Click to change</Original>
+				<Russian>Нажмите чтобы изменить</Russian>
+			</Key>
+			<Key ID="STR_MCC_DISABLED">
+				<Original>Disabled</Original>
+				<Russian>Выключено</Russian>
+			</Key>
+			<Key ID="STR_Disable_Client">
+				<Original>Click to disable client side</Original>
+				<Russian>Нажмите чтобы выключить сторону клиента</Russian>
+			</Key>
+			<Key ID="STR_Trigger_Stop">
+				<Original>Stop Capturing</Original>
+				<Russian>Остановить Захв</Russian>
+			</Key>
+			<Key ID="STR_Trigger_Stop_Tip">
+				<Original>Once a trigger has been generated all the action done by MCC won't execute but will be saved to the trigger until this button is pressed</Original>
+				<Russian>Когда триггер был создать, все действия MCC не будут выполняться, до тех пор пока эта кнопка не будет нажата</Russian>
+			</Key>
+			<Key ID="STR_Cache">
+				<Original>Cache Group</Original>
+				<Russian>Закэшировать группу</Russian>
+			</Key>
+			<Key ID="STR_Cache_Tip">
+				<Original>Give the selected groups to caching system</Original>
+				<Russian>Отдать данную группу Системе Кэша</Russian>
+			</Key>
+			<Key ID="STR_Occupy">
+				<Original>Occupy Zone</Original>
+				<Russian>Оккупировать зону</Russian>
+			</Key>
+			<Key ID="STR_Occupy_Tip">
+				<Original>Occupy current selected zone with the selected faction's units</Original>
+				<Russian>Оккупация данной зоны выбранной фракцией</Russian>
+			</Key>
+			<Key ID="STR_Warzone_Off">
+				<Original>Ambient Warzone(off)</Original>
+				<Russian>Динамический Бой (Выкл)</Russian>
+			</Key>
+			<Key ID="STR_Warzone_On">
+				<Original>Ambient Warzone(on)</Original>
+				<Russian>Динамический Бой (Вкл)</Russian>
+			</Key>
+			<Key ID="STR_Warzone_Tip">
+				<Original>Spawn random ambient battlefield around the player</Original>
+				<Russian>Создает Динамичное поле боя вокруг игрока</Russian>
+			</Key>
+			<Key ID="STR_Save_Load">
+				<Original>Save/Load</Original>
+				<Russian>Сохр/Загр</Russian>
+			</Key>
+			<Key ID="STR_Logout">
+				<Original>Logout</Original>
+				<Russian>Выйти</Russian>
+			</Key>
+			<Key ID="STR_Logout_Tip">
+				<Original>Login or logout as the mission maker</Original>
+				<Russian>Войдите или выйдите как Игровой Мастер</Russian>
+			</Key>
+			<Key ID="STR_Ghost">
+				<Original>Ghost Mode</Original>
+				<Russian>Режим Призрака</Russian>
+			</Key>
+			<Key ID="STR_Ghost_Tip">
+				<Original>Make the mission maker invisible to enemies</Original>
+				<Russian>Сделайте Мастера Игры невидимым для врагов</Russian>
+			</Key>
+			<Key ID="STR_Ghost_On">
+				<Original>Mission maker is cheating</Original>
+				<Russian>Мастер Игры невидим для врагов</Russian>
+			</Key>
+			<Key ID="STR_Ghost_Off">
+				<Original>Mission maker is no longer cheating</Original>
+				<Russian>Мастер Игры видим для врагов</Russian>
+			</Key>
+			<Key ID="STR_Spectator">
+				<Original>Spectator</Original>
+				<Russian>Режим Наблюдения</Russian>
+			</Key>
+			<Key ID="STR_Spectator_Tip">
+				<Original>Open Spectator Mode</Original>
+				<Russian>Открыть Режим Наблюдения</Russian>
+			</Key>
+			<Key ID="STR_Teleport">
+				<Original>Teleport</Original>
+				<Russian>Телепорт</Russian>
+			</Key>
+			<Key ID="STR_Teleport_Tip">
+				<Original>Teleport the mission maker and any vehicle he is in to a new location</Original>
+				<Russian>Телепортирует Мастера Игры и любою технику в которой он на точку</Russian>
+			</Key>
+			<Key ID="STR_Mission_Won">
+				<Original>Mission Won</Original>
+				<Russian>Миссия выиграна</Russian>
+			</Key>
+			<Key ID="STR_Mission_Won_Tip">
+				<Original>End mission with - Mission Accomplished</Original>
+				<Russian>Конец Миссии - Миссия выполнена</Russian>
+			</Key>
+			<Key ID="STR_Mission_Fail">
+				<Original>Mission Failed</Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="STR_Mission_Fail_Tip">
+				<Original>End mission with - Mission Failed</Original>
+				<Russian>Конец Миссии - Миссия провалена</Russian>
+			</Key>
+			<Key ID="STR_MW_Button">
+				<Original>Mission Generator</Original>
+				<Russian>Генератор Миссий</Russian>
+			</Key>
+			<Key ID="STR_MW_Button_Tip">
+				<Original>Open mission wizard</Original>
+				<Russian>Открыть Генератор Миссий</Russian>
+			</Key>
+			<Key ID="STR_Faction">
+				<Original>Faction:</Original>
+				<Russian>Фракция:</Russian>
+			</Key>
+			<Key ID="STR_Faction_West">
+				<Original>West</Original>
+				<Russian>Запад</Russian>
+			</Key>
+			<Key ID="STR_Faction_West_Tip">
+				<Original>Show only West's side units</Original>
+				<Russian>Показать только юниты Запада</Russian>
+			</Key>
+			<Key ID="STR_Faction_East">
+				<Original>East</Original>
+				<Russian>Восток</Russian>
+			</Key>
+			<Key ID="STR_Faction_East_Tip">
+				<Original>Show only East's side units</Original>
+				<Russian>Показать только юниты Востока</Russian>
+			</Key>
+			<Key ID="STR_Faction_Guer">
+				<Original>Guer</Original>
+				<Russian>Партизаны</Russian>
+			</Key>
+			<Key ID="STR_Faction_Guer_Tip">
+				<Original>Show only Guer's side units</Original>
+				<Russian>Показать только юниты Партизан</Russian>
+			</Key>
+			<Key ID="STR_Faction_Civ">
+				<Original>Civ</Original>
+				<Russian>Гражд</Russian>
+			</Key>
+			<Key ID="STR_Faction_Civ_Tip">
+				<Original>Show only civilian's side units</Original>
+				<Russian>Показать только юниты Гражданских</Russian>
+			</Key>
+			<Key ID="STR_Faction_Players">
+				<Original>Players</Original>
+				<Russian>Игроки</Russian>
+			</Key>
+			<Key ID="STR_Faction_Players_Tip">
+				<Original>Show players only</Original>
+				<Russian>Показать только Игроков</Russian>
+			</Key>
+			<Key ID="STR_Faction_All">
+				<Original>All</Original>
+				<Russian>Все</Russian>
+			</Key>
+			<Key ID="STR_Faction_All_Tip">
+				<Original>Show all units</Original>
+				<Russian>Показать Всех Юнитов</Russian>
+			</Key>
+			<Key ID="STR_LEFT_SPAWN">
+				<Original>Spawn</Original>
+				<Russian>Спавн</Russian>
+			</Key>
+			<Key ID="STR_LEFT_CAS">
+				<Original>CAS</Original>
+				<Russian>Авиаподдержка</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Supply_Drop">
+				<Original>Supply Drop</Original>
+				<Russian>Сброс Припасов</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Artillery">
+				<Original>Artillery</Original>
+				<Russian>Артилерия</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Evac">
+				<Original>Evac</Original>
+				<Russian>Эвакуация</Russian>
+			</Key>
+			<Key ID="STR_LEFT_IED">
+				<Original>IED</Original>
+				<Russian>СВУ</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Convoy">
+				<Original>Convoy</Original>
+				<Russian>Конвой</Russian>
+			</Key>
+			<Key ID="STR_LEFT_AC130">
+				<Original>AC-130</Original>
+				<Russian>AC-130</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Brushes">
+				<Original>Brushes</Original>
+				<Russian>Кисти</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Role_Tip">
+				<Original>Enable/Disable Role Selection</Original>
+				<Russian>Включить/Выключить Выбор Ролей</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Zeus">
+				<Original>Zeus</Original>
+				<Russian>Зевс</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Arsenal">
+				<Original>Arsenal</Original>
+				<Russian>Арсенал</Russian>
+			</Key>
+			<Key ID="STR_LEFT_SPAWN_Tip">
+				<Original>Spawn units or groups</Original>
+				<Russian>Спавн Юнитов или Групп</Russian>
+			</Key>
+			<Key ID="STR_LEFT_CAS_Tip">
+				<Original>Open Close Air Support Menu</Original>
+				<Russian>Откыть Меню Поддержки с Воздуха</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Supply_Drop_Tip">
+				<Original>Open Supply Drop Menu</Original>
+				<Russian>Открыть меню Сброса Припасов</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Artillery_Tip">
+				<Original>Open artillery Menu</Original>
+				<Russian>Открыть меню вызова Артилерии</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Evac_Tip">
+				<Original>Open Evac Menu</Original>
+				<Russian>Открыть меню Эвакуации</Russian>
+			</Key>
+			<Key ID="STR_LEFT_IED_Tip">
+				<Original>Open IEDs Menu</Original>
+				<Russian>Открыть меню СВУ</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Convoy_Tip">
+				<Original>Open Convoy Menu</Original>
+				<Russian>Открыть меню Конвоя</Russian>
+			</Key>
+			<Key ID="STR_LEFT_AC130_Tip">
+				<Original>Spawn AC-130 (use MCC console to control it)</Original>
+				<Russian>Спавн AC-130 (Используйте КОМЛОГ чтобы контролировать его)</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Brushes_Tip">
+				<Original>Brushes Menu</Original>
+				<Russian>Меню Кистей</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Zeus_Tip">
+				<Original>Click on map to open BIS Zeus</Original>
+				<Russian>Нажмите на карте чтобы открыть Зевса</Russian>
+			</Key>
+			<Key ID="STR_LEFT_Arsenal">
+				<Original>Click to open BIS arsenal</Original>
+				<Russian>Нажмите чтобы открыть Виртуальный Арсенал</Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			
+

@@ -1,0 +1,12 @@
+allowedFilePatching = 1;
+allowFunctionsRecompile = 1;
+
+class CfgSettings {
+    class CBA {
+        class Caching {
+            compile = 0;
+            xeh = 0;
+            functions = 0;
+        };
+    };
+};
