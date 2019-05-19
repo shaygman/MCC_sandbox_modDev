@@ -392,7 +392,7 @@ class mcc_groupGen
 			onButtonClick = __EVAL("[6] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
 			text = $STR_Mission_Fail; //--- ToDo: Localize;
 			colorText[] = {1,0,0,0.8};
-			tooltip = STR_Mission_Fail_Tip; //--- ToDo: Localize;
+			tooltip = $STR_Mission_Fail_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.6375 * safezoneW + safezoneX;

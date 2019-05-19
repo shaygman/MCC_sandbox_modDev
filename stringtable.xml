@@ -379,7 +379,7 @@
 			</Key>
 			<Key ID="STR_Mission_Fail">
 				<Original>Mission Failed</Original>
-				<Russian></Russian>
+				<Russian>Миссия Провалена</Russian>
 			</Key>
 			<Key ID="STR_Mission_Fail_Tip">
 				<Original>End mission with - Mission Failed</Original>
@@ -537,101 +537,101 @@
 				<Original>Click to open BIS arsenal</Original>
 				<Russian>Нажмите чтобы открыть Виртуальный Арсенал</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Settings">
+				<Original>Mission Settings</Original>
+				<Russian>Настройки Миссии</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Respawn">
+				<Original>Disable Respawn</Original>
+				<Russian>Выкл Респавн</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Weather">
+				<Original>Set Weather</Original>
+				<Russian>Погода</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Time">
+				<Original>Set Time/Original>
+				<Russian>Время</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Start">
+				<Original>Start Locations</Original>
+				<Russian>Стартовая Поз</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Debug">
+				<Original>Debug</Original>
+				<Russian>Отладка</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Markers">
+				<Original>Markers</Original>
+				<Russian>Маркеры</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Briefing">
+				<Original>Briefing</Original>
+				<Russian>Брифинг</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Task">
+				<Original>Tasks</Original>
+				<Russian>Задачи</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Triggers">
+				<Original>Triggers</Original>
+				<Russian>Триггеры</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Jukebox">
+				<Original>Jukebox</Original>
+				<Russian>Музыка</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Client">
+				<Original>Client Side</Original>
+				<Russian>Настройки Клиента</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Settings_Tip">
+				<Original>Open Mission Settings Menu</Original>
+				<Russian>Открыть Настройки Миссии</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Respawn_Tip">
+				<Original>Disable respawn to all players</Original>
+				<Russian>Выключить Респавн Всем Игрокам</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Weather_Tip">
+				<Original>Open Weather Menu</Original>
+				<Russian>Открыть Меню Погоды</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Time_Tip">
+				<Original>Open Time Menu</Original>
+				<Russian>Открыть Меню Времени</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Start_Tip">
+				<Original>Open Locations Menu</Original>
+				<Russian>Открыть Меню Стартовой Позиции</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Debug_Tip">
+				<Original>Open Debug Menu</Original>
+				<Russian>Открыть Меню Отладки</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Markers_Tip">
+				<Original>Open Markers Menu</Original>
+				<Russian>Открыть Меню Маркеров</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Briefing_Tip">
+				<Original>Open Briefing Menu</Original>
+				<Russian>Открыть Меню Брифинга</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Task_Tip">
+				<Original>Open Tasks Menu</Original>
+				<Russian>Открыть Меню Заданий</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Jukebox_Tip">
+				<Original>Open Jukebox Menu</Original>
+				<Russian>Открыть Меню Музыки</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Client_Tip">
+				<Original>Open Client Side Menu</Original>
+				<Russian>Открыть Настройки Клиента</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_RIGHT_Triggers_Tip">
+				<Original>Open Triggers Menu</Original>
+				<Russian>Открыть Меню Триггеров</Russian>
 			</Key>
 			<Key ID="">
 				<Original></Original>
