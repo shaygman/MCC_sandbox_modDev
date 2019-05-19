@@ -1,1 +1,0 @@
-["supply"] call MCC_fnc_rtsloadResources;

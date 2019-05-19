@@ -1,1 +1,0 @@
-["ammo"] call MCC_fnc_rtsloadResources;

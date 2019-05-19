@@ -1,1 +1,0 @@
-["fuel"] call MCC_fnc_rtsloadResources;
