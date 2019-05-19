@@ -2,9 +2,14 @@ class MCC_Module_captureZone : Module_F
 {
 	scope = 2;
 	isGlobal = 0;
-	category = "MCC";
-	displayName = "(PvP)Capture Zone";
+	category = "MCC_PvP";
+	displayName = "Capture Point";
 	function = "MCC_fnc_moduleCapturePoint";
+
+	portrait = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\defend_ca.paa";
+	icon = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\defend_ca.paa";
+	picture = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\defend_ca.paa";
+
 
 	class Attributes: AttributesBase
 	{

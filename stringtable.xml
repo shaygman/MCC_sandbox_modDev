@@ -107,4 +107,266 @@
       </Key>
     </Container>
   </Package>
+  <Package name="modules">
+    <Container name="AI_assignToZone">
+      <Key ID="STR_CURATOR_Module_AI_assignToZoneText">
+        <Original>Assign AI to zone</Original>
+        <English>Assign AI to zone</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_AI_assignToZoneDescription1">
+        <Original>sync with groups or units and one Create Zone module.</Original>
+        <English>sync with groups or units and one Create Zone module.</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_AI_assignToZoneDescription3">
+        <Original>Create Zone module</Original>
+        <English>Create Zone module</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_AI_assignToZoneDescription2">
+        <Original>units will automatically will be assigned to the MCC zone</Original>
+        <English>units will automatically will be assigned to the MCC zone</English>
+      </Key>
+    </Container>
+    <Container name="ambientBirdsCurator">
+      <Key ID="STR_CURATOR_Module_AI_ambientBirdsCurator_displayName">
+        <Original>Ambient Birds</Original>
+        <English>Ambient Birds</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientBirdsCurator_description">
+        <Original>Enables spawning random flocks of birds when units get close to trees</Original>
+        <English>Enables spawning random flocks of birds when units get close to trees</English>
+      </Key>
+    </Container>
+    <Container name="ambientCiviliansCurator">
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_displayName">
+        <Original>Ambient Unis</Original>
+        <English>Ambient Unis</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isCiv_displayName">
+        <Original>Ambient Patrols</Original>
+        <English>Ambient Patrols</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isCar_displayName">
+        <Original>Ambient Cars</Original>
+        <English>Ambient Cars</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isCiv_description">
+        <Original>Units will move between buildings</Original>
+        <English>Units will move between buildings</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isCar_description">
+        <Original>Cars will spawn and drive around</Original>
+        <English>Cars will spawn and drive around</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isParkedCar_displayName">
+        <Original>Parked Cars</Original>
+        <English>Parked Cars</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isLocked_displayName">
+        <Original>Parked Cars Locked</Original>
+        <English>Parked Cars Locked</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isLocked_description">
+        <Original>Parked cars will always be locked</Original>
+        <English>Parked cars will always be locked</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_isParkedCar_description">
+        <Original>Empty cars will spawn on the road's sides</Original>
+        <English>Empty cars will spawn on the road's sides</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_factionCiv_displayName">
+        <Original>Faction</Original>
+        <English>Faction</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_factionCivCar_displayName">
+        <Original>Car's Faction</Original>
+        <English>Car's Faction</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_factionCiv_description">
+        <Original>Config name</Original>
+        <English>Config name</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_civRelations_displayName">
+        <Original>Civilians attitude</Original>
+        <English>Civilians attitude</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_civRelations_bad">
+        <Original>Bad (IED &amp; Suicide Bombers)</Original>
+        <English>Bad (IED &amp; Suicide Bombers)</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_civRelations_average">
+        <Original>Average</Original>
+        <English>Average</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_civRelations_aboveAverage">
+        <Original>Above Average</Original>
+        <English>Above Average</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_civRelations_good">
+        <Original>Good</Original>
+        <English>Good</English>
+      </Key>
+      <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_civRelations_Very Good">
+        <Original>Very Good</Original>
+        <English>Very Good</English>
+      </Key>
+    </Container>
+    <Container name="moduleILS">
+      <Key ID="STR_Module__moduleILS_displayName">
+        <Original>"(ILS) Instrument Landing System</Original>
+        <English>"(ILS) Instrument Landing System</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayName_displayName">
+        <Original>Runway Name</Original>
+        <English>Runway Name</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayName_description">
+        <Original>Runway Name display in ILS</Original>
+        <English>Runway Name display in ILS</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayDis_displayName">
+        <Original>Runway Length</Original>
+        <English>Runway Length</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayDis_description">
+        <Original>Runway length in meters</Original>
+        <English>Runway length in meters</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwaySide_displayName">
+        <Original>Allowed Sides</Original>
+        <English>Allowed Sides</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwaySide_description">
+        <Original>Only specific sides can use this airfield</Original>
+        <English>Only specific sides can use this airfield</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayCircles_displayName">
+        <Original>Arcade Mode</Original>
+        <English>Arcade Mode</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayCircles_description">
+        <Original>Create circles guides to following the landing path</Original>
+        <English>Create circles guides to following the landing path</English>
+      </Key>
+      <Key ID="STR_Module__moduleILS_runwayCircles_ModuleDescription">
+        <Original>Place ILS module on each runway's start facing the same diraction as the runway</Original>
+        <English>Place ILS module on each runway's start facing the same diraction as the runway</English>
+      </Key>
+    </Container>
+    <Container name="AASSpawnAI">
+      <Key ID="STR_Module__AASSpawnAI_displayName">
+        <Original>AAS Spawn AI</Original>
+        <English>AAS Spawn AI</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_faction1_displayName">
+        <Original>Spawn Faction</Original>
+        <English>Spawn Faction</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_faction1_description">
+        <Original>As defined in cfgFaction</Original>
+        <English>As defined in cfgFaction</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_enemySide_displayName">
+        <Original>Enemy Side</Original>
+        <English>Enemy Side</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_autoBalance_displayName">
+        <Original>Auto balance AI</Original>
+        <English>Auto balance AI</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_autoBalance_description">
+        <Original>Auto balance the number of AI to players</Original>
+        <English>Auto balance the number of AI to players</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_minAI_displayName">
+        <Original>Minimum number of AI per side</Original>
+        <English>Minimum number of AI per side</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_minAI_description">
+        <Original>Minimum number of AI no matter how many players</Original>
+        <English>Minimum number of AI no matter how many players</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_spawnAIDefensive_displayName">
+        <Original>Spawn at Sectors</Original>
+        <English>Spawn at Sectors</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_spawnAIDefensive_description">
+        <Original>Spawn AI on captured sectors or just at start location</Original>
+        <English>Spawn AI on captured sectors or just at start location</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_searchRadius_displayName">
+        <Original>Search Vehicles Radius</Original>
+        <English>Search Vehicles Radius</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_searchRadius_description">
+        <Original>How far AI will look for empty vehicles around the spawn point</Original>
+        <English>How far AI will look for empty vehicles around the spawn point</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_useRoles_displayName">
+        <Original>Use MCC roles gear</Original>
+        <English>Use MCC roles gear</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_useRoles_description">
+        <Original>AI will use roles kits as defined in MCC_loadouts</Original>
+        <English>AI will use roles kits as defined in MCC_loadouts</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_spawnVehicles_displayName">
+        <Original>Spawn Vehicles</Original>
+        <English>Spawn Vehicles</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_spawnVehicles_description">
+        <Original>AI will spawn vehicles equals to the enemy vehicels</Original>
+        <English>AI will spawn vehicles equals to the enemy vehicels</English>
+      </Key>
+      <Key ID="STR_Module__AASSpawnAI_ModuleDescription_description">
+        <Original>Spawn AI that will try to conquer enemy sectors in MCC AAS</Original>
+        <English>Spawn AI that will try to conquer enemy sectors in MCC AAS</English>
+      </Key>
+    </Container>
+    <Container name="AAS">
+      <Key ID="STR_Module__AAS_displayName">
+        <Original>Advance And Secure init</Original>
+        <English>Advance And Secure init</English>
+      </Key>
+      <Key ID="STR_Module__AAS_side1_displayName">
+        <Original>side1</Original>
+        <English>side1</English>
+      </Key>
+      <Key ID="STR_Module__AAS_side2_displayName">
+        <Original>side2</Original>
+        <English>side2</English>
+      </Key>
+      <Key ID="STR_Module__AAS_bleedTickets_displayName">
+        <Original>Tickets Bleed</Original>
+        <English>Tickets Bleed</English>
+      </Key>
+      <Key ID="STR_Module__AAS_bleedTickets_description">
+        <Original>How many tickets lost every 5 seconds to the loosing side</Original>
+        <English>How many tickets lost every 5 seconds to the loosing side</English>
+      </Key>
+      <Key ID="STR_Module__AAS_ModuleDescription_description">
+        <Original>Creates an Advance And Secure mission where objectives can only be captured in a specific order, Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission</Original>
+        <English>Creates an Advance And Secure mission where objectives can only be captured in a specific order, Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission</English>
+      </Key>
+      <Key ID="STR_Module__AAS_ModuleDescription_description2">
+        <Original>Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission</Original>
+        <English>Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission</English>
+      </Key>
+    </Container>
+  </Package>
+  <Package name="general">
+    <Container name="common">
+      <Key ID="STR_GENERAL_ENABLE">
+        <Original>Enable</Original>
+        <English>Enable</English>
+      </Key>
+      <Key ID="STR_GENERAL_DISABLE">
+        <Original>Disable</Original>
+        <English>Disable</English>
+      </Key>
+      <Key ID="STR_GENERAL_ALL">
+        <Original>All</Original>
+        <English>All</English>
+      </Key>
+    </Container>
+  </Package>
 </Project>

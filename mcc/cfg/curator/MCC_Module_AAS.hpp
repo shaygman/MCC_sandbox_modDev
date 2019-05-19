@@ -1,16 +1,20 @@
-class MCC_Module_AAS : Module_F
+class MCC_Module_AAS : MCC_Module_Base
 {
-	category = "MCC";
-	displayName = "(PvP)Advance And Secure";
-	function = "MCC_fnc_aasInit";
 	scope = 2;
 	isGlobal = 0;
+	scopeCurator = 1;
+	category = "MCC_PvP";
+	displayName = "$STR_Module__AAS_displayName";
+	function = "MCC_fnc_aasInit";
+	portrait = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\attack_ca.paa";
+	icon = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\attack_ca.paa";
+	picture = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\attack_ca.paa";
 
 	class Attributes: AttributesBase
 	{
 		class side1 : Combo
 		{
-			displayName = "side1";
+			displayName = "$STR_Module__AAS_side1_displayName";
 			typeName = "NUMBER";
 			property = "side1";
 			defaultValue = "1";
@@ -37,7 +41,7 @@ class MCC_Module_AAS : Module_F
 
 		class side2 : Combo
 		{
-			displayName = "side2";
+			displayName = "$STR_Module__AAS_side2_displayName";
 			typeName = "NUMBER";
 			property = "side2";
 			class values
@@ -63,8 +67,8 @@ class MCC_Module_AAS : Module_F
 
 		class bleedTickets : Edit
 		{
-			displayName = "Tickets Bleed";
-			description = "How many tickets lost every 5 seconds to the loosing side";
+			displayName = "$STR_Module__AAS_bleedTickets_displayName";
+			description = "$STR_Module__AAS_bleedTickets_description";
 			typeName = "NUMBER";
 			defaultValue = 2;
 			property = "bleedTickets";
@@ -75,14 +79,14 @@ class MCC_Module_AAS : Module_F
 
 	class ModuleDescription: ModuleDescription
 	{
-		description = "Creates an Advance And Secure mission where objectives can only be captured in a specific order, Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission";
+		description = "$STR_Module__AAS_ModuleDescription_description";
 		optional = 0;
 		sync[] = {"MCC_Module_captureZone"};
 
 		class MCC_Module_captureZone
 		{
 			description[] = {
-				"Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission"
+				"$STR_Module__AAS_ModuleDescription_description2"
 			};
 			position = 0;
 			direction = 0;

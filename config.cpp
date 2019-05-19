@@ -4,7 +4,7 @@ class CfgPatches
 
 	class mcc_sandbox
 	{
-		units[] = {"mcc_sandbox_module","mcc_sandbox_moduleSF","mcc_sandbox_moduleRestrictedZone","MCC_Module_AAS","mcc_Module_createZones","MCC_Module_settingsMechanics","MCC_Module_settings","MCC_Module_settingsMedicSystem","MCC_Module_settingsRS","MCC_Module_ambientBirds","MCC_module_ambientFire","MCC_Module_createIntel","MCC_Module_LHDSpawn","MCC_Module_GAIARespawns","MCC_Module_RTSBuildings","MCC_Module_createShop","MCC_Module_addValor","MCC_Module_settingsMissionWizard","MCC_Module_AI_assignToZone"};
+		units[] = {"mcc_sandbox_module","mcc_sandbox_moduleSF","mcc_sandbox_moduleRestrictedZone","MCC_Module_AAS","mcc_Module_createZones","MCC_Module_settingsMechanics","MCC_Module_settings","MCC_Module_settingsMedicSystem","MCC_Module_settingsRS","MCC_module_ambientFire","MCC_Module_createIntel","MCC_Module_GAIARespawns","MCC_Module_RTSBuildings","MCC_Module_addValor","MCC_Module_settingsMissionWizard","MCC_Module_AI_assignToZone"};
 		weapons[] = {};
 		requiredVersion = 1.00;
 		requiredAddons[] = {"A3_Modules_F",
@@ -21,7 +21,7 @@ class CfgPatches
 
 	class mcc_sandbox_curatorExp
 	{
-		units[] = {"MCC_Module_Base","MCC_Module_addUnitsToZeusCurator","MCC_Module_ambientCiviliansCurator","MCC_Module_MCCCASCurator","MCC_Module_createEvacCurator","MCC_Module_createIEDCurator","MCC_Module_createArmedCivilianCurator","MCC_Module_nightEffectsCurator","MCC_Module_lockDoorsCurator","MCC_Module_atmosphereCurator","MCC_Module_warZoneCurator","MCC_Module_garrisonBuildingsCurator","MCC_Module_damagePartCurator","MCC_Module_vehicleSpawnerCurator","MCC_Module_campaignInitCurator","MCC_Module_setResourcesCurator","MCC_Module_underCoverCurator","MCC_Module_settingsInGameUICurator","MCC_Module_settingsMedicSystemCurator","MCC_Module_settingsCurator","MCC_Module_settingsMechanicsCurator","MCC_Module_settingsRSCurator","MCC_Module_ambientBirdsCurator","MCC_module_ambientFireCurator","MCC_module_survivalSpawnCratesCurator","MCC_Module_settingsGAIACurator","MCC_Module_createIntelCurator","MCC_Module_LHDSpawnCurator","MCC_Module_LHDSpawnMenuCurator","MCC_Module_GAIARespawnsCurator","MCC_Module_RTSBuildingsCurator","MCC_Module_PylonsChange","MCC_moduleCapturePoint","MCC_Module_medicSetStateCurator","MCC_Module_createShopCurator","‏‏MCC_Module_addValorCurator","MCC_ModuleObjective_FCurator","MCC_ammoBox","MCC_crateAmmo","MCC_crateSupply","MCC_crateFuel","MCC_Module_cargoLoad","MCC_Module_AI_assignToZone"};
+		units[] = {"MCC_Module_Base","MCC_Module_addUnitsToZeusCurator","MCC_Module_ambientCiviliansCurator","MCC_Module_MCCCASCurator","MCC_Module_createEvacCurator","MCC_Module_createIEDCurator","MCC_Module_createArmedCivilianCurator","MCC_Module_nightEffectsCurator","MCC_Module_lockDoorsCurator","MCC_Module_atmosphereCurator","MCC_Module_warZoneCurator","MCC_Module_garrisonBuildingsCurator","MCC_Module_damagePartCurator","MCC_Module_vehicleSpawnerCurator","MCC_Module_campaignInitCurator","MCC_Module_setResourcesCurator","MCC_Module_underCoverCurator","MCC_Module_settingsInGameUICurator","MCC_Module_settingsMedicSystemCurator","MCC_Module_settingsCurator","MCC_Module_settingsMechanicsCurator","MCC_Module_settingsRSCurator","MCC_Module_ambientBirdsCurator","MCC_module_ambientFireCurator","MCC_module_survivalSpawnCratesCurator","MCC_Module_settingsGAIACurator","MCC_Module_createIntelCurator","MCC_Module_LHDSpawnCurator","MCC_Module_LHDSpawnMenuCurator","MCC_Module_GAIARespawnsCurator","MCC_Module_RTSBuildingsCurator","MCC_Module_PylonsChange","MCC_moduleCapturePoint","MCC_Module_medicSetStateCurator","MCC_Module_createShopCurator","‏‏MCC_Module_addValorCurator","MCC_ModuleObjective_FCurator","MCC_ammoBox","MCC_crateAmmo","MCC_crateSupply","MCC_crateFuel","MCC_Module_cargoLoad","MCC_Module_AI_assignToZone","MCC_Module_ambientCiviliansCuratorDenied","MCC_Module_AASSpawnAI"};
 		weapons[] = {};
 		requiredVersion = 1.00;
 		author = "shay_gman";
@@ -98,6 +98,20 @@ class CfgFactionClasses
 	class MCC_RTS
 	{
 		displayName = "(MCC) RTS";
+		priority = 8;
+		side = 7;
+	};
+
+	class MCC_Environment
+	{
+		displayName = "(MCC) Environment";
+		priority = 8;
+		side = 7;
+	};
+
+	class MCC_PvP
+	{
+		displayName = "(MCC) PvP";
 		priority = 8;
 		side = 7;
 	};

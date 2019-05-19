@@ -30,23 +30,71 @@ if (typeName (_this select 0) != typeName objNull) then {
 } else {
     _module = param [0, objNull, [objNull]];
     if (isNull _module)  exitWith {diag_log "MCC MCC_fnc_aas_AIspawn: No module found"};
-    _faction =  _module getVariable ["faction1",""];
-	_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
-	_enemySide = [_module getVariable ["enemySide",0]] call BIS_fnc_sideType;
-	_autoBalance = _module getVariable ["autoBalance",false];
-	_minPerSide = _module getVariable ["minAI",0];
-	_spawnInDefensive = _module getVariable ["spawnAIDefensive",true];
-	_searchRadius = _module getVariable ["searchRadius",100];
-	_useDefaultGear = if (_module getVariable ["useRoles",false]) then {["at","ar","corpsman","rifleman"]} else {[]};
-	_startPos = getpos _module;
-	_spawnVehicles = _module getVariable ["spawnVehicles",true];
+
+    //Curator
+    if ((_module isKindOf "MCC_module_AASSpawnAI") && !(isnull curatorcamera) && (local _module)) then {
+    	private ["_factionArray","_resualt"];
+
+    	_factionArray = [];
+		{
+			_factionArray pushBack (format ["%1 (%2)",(_x select 0), (_x select 1)]);
+		} forEach U_FACTIONS;
+
+		/*
+		_faction = ((U_FACTIONS select ((_resualt select 5)-1)) select 2);
+		_module setvariable ["owner",([(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType),true];
+		_module setvariable ["faction",_faction,true];
+		*/
+    	_resualt = [localize "STR_Module__AASSpawnAI_displayName",[
+    			[localize "STR_Module__AASSpawnAI_faction1_displayName",_factionArray,"Faction units will spawn next to the module location"],
+				[localize "STR_Module__AASSpawnAI_enemySide_displayName",["East","West","Resistance"],"The selected faction will try to capture points from this side"],
+				[localize "STR_Module__AASSpawnAI_searchRadius_displayName",500,"How far AI will look for empty vehicles around spawn point"],
+				[localize "STR_Module__AASSpawnAI_minAI_displayName",50,"Minimun number of AI for the selected faction on every given moment"],
+				[localize "STR_Module__AASSpawnAI_autoBalance_description",true,"Auto balance the number of AI to meet the rival factions"],
+				[localize "STR_Module__AASSpawnAI_spawnAIDefensive_displayName",true,"Spawn AI in captured points own by the faction"],
+				[localize "STR_Module__AASSpawnAI_useRoles_displayName",true,"Use defined roles from the MCC roles selection system"],
+				[localize "STR_Module__AASSpawnAI_spawnVehicles_displayName",true,"Automatically spawn vehicles to match the number and the strength of the opposite side"]
+			  ],format ["<t align='center'> %1</t>",localize "STR_Module__AASSpawnAI_ModuleDescription_description"]] call MCC_fnc_initDynamicDialog;
+
+		if (count _resualt == 0) then {deleteVehicle _module} else {
+			_faction = ((U_FACTIONS select (_resualt select 0)) select 2);
+			_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
+			_enemySide = [(_resualt select 1)] call BIS_fnc_sideType;
+			_searchRadius = (_resualt select 2);
+			_minPerSide = (_resualt select 3);
+			_autoBalance = (_resualt select 4);
+			_spawnInDefensive = (_resualt select 5);
+			_useDefaultGear = if (_resualt select 6) then {["at","ar","corpsman","rifleman"]} else {[]};
+			_spawnVehicles = (_resualt select 7);
+			_startPos = getpos _module;
+		};
+
+	} else {
+		//3den
+		_faction =  _module getVariable ["faction1",""];
+		_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
+		_enemySide = [_module getVariable ["enemySide",0]] call BIS_fnc_sideType;
+		_autoBalance = _module getVariable ["autoBalance",false];
+		_minPerSide = _module getVariable ["minAI",0];
+		_spawnInDefensive = _module getVariable ["spawnAIDefensive",true];
+		_searchRadius = _module getVariable ["searchRadius",100];
+		_useDefaultGear = if (_module getVariable ["useRoles",false]) then {["at","ar","corpsman","rifleman"]} else {[]};
+		_startPos = getpos _module;
+		_spawnVehicles = _module getVariable ["spawnVehicles",true];
+	};
+
 };
 
 
 _groupSize = 5;
 
 //If not server or already initilize exit
-if (!isServer) exitWith {};
+if (isNil "_faction") exitWith {};
+
+private _varName = format ["MCC_fnc_aas_AIspawnActive_%1", _faction];
+if (!isServer || (missionNamespace getVariable [_varName,false])) exitWith {systemChat "Faction AAS already initilized"};
+missionNamespace setVariable [_varName,true];
+publicVariable _varName;
 
 [_side] spawn MCC_fnc_aas_AIControl;
 

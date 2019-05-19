@@ -1,10 +1,11 @@
 class mcc_sandbox_modulevehicleSpawner : Module_F
 {
-	category = "MCC";
+	category = "MCC_RTS";
 	author = "shay_gman";
 	displayName = "Vehicle Shop";
-	icon = "\mcc_sandbox_mod\data\mccModule.paa";
-	picture = "\mcc_sandbox_mod\data\mccModule.paa";
+	icon = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\car_ca.paa";
+	portrait = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\car_ca.paa";
+	picture = "a3\ui_f\data\IGUI\Cfg\simpleTasks\types\car_ca.paa";
 	vehicleClass = "Modules";
 	function = "MCC_fnc_vehicleSpawnerInit";
 	scope = 2;

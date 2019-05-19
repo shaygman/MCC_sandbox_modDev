@@ -4,7 +4,7 @@ class MCC_Module_AI_assignToZone : MCC_Module_Base
 	isGlobal = 0;
 	scopeCurator = 2;
 	category = "MCC_AI";
-	displayName = "Assign to MCC zone";
+	displayName = "$STR_CURATOR_Module_AI_assignToZoneText";
 	function = "MCC_fnc_AI_assignToZone";
 	portrait = "a3\ui_f\data\GUI\Cfg\CommunicationMenu\transport_ca.paa";
 	icon = "a3\ui_f\data\GUI\Cfg\CommunicationMenu\transport_ca.paa";
@@ -44,14 +44,14 @@ class MCC_Module_AI_assignToZone : MCC_Module_Base
 
 	class ModuleDescription: ModuleDescription
 	{
-		description[] = {"sync with groups or units and one Create Zone module.",
-						"units will automatically will be assigned to the MCC zone"};
+		description[] = {"$STR_CURATOR_Module_AI_assignToZoneDescription1",
+						"$STR_CURATOR_Module_AI_assignToZoneDescription2"};
 		sync[] = {"mcc_Module_createZones"};
 
 		class mcc_Module_createZones
 		{
-			description = "Create Zone module";
-			displayName = "Create Zone module";
+			description = "$STR_CURATOR_Module_AI_assignToZoneDescription3";
+			displayName = "$STR_CURATOR_Module_AI_assignToZoneDescription3";
 			side = 4;
 			position = 1;
 			direction = 1;

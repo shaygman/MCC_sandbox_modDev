@@ -351,7 +351,7 @@ class CP_RscStructuredText
 			};
 	};
 
-class CP_RscMapControl
+class CP_RscMapControl : RscMapControl
 	{
 	access = 0;
 	alphaFadeEndScale = 0.4;

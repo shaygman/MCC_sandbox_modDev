@@ -1,8 +1,8 @@
 class mcc_sandbox_moduleILS : Module_F
 {
-	category = "MCC";
+	category = "MCC_Environment";
 	author = "shay_gman";
-	displayName = "(ILS)Instrument Landing System";
+	displayName = "$STR_Module__moduleILS_displayName";
 	icon = "\mcc_sandbox_mod\data\mcc_ils.paa";
 	picture = "\mcc_sandbox_mod\data\mcc_ils.paa";
 	vehicleClass = "Modules";
@@ -15,16 +15,16 @@ class mcc_sandbox_moduleILS : Module_F
 		class MCC_runwayName : Edit
 		{
 			control = "Edit";
-			displayName = "Runway Name";
-			description = "Runway Name display in ILS";
+			displayName = "$STR_Module__moduleILS_runwayName_displayName";
+			description = "$STR_Module__moduleILS_runwayName_description";
 			defaultValue = """Runway""";
 			property = "MCC_runwayName";
 		};
 
 		class MCC_runwayDis : Combo
 		{
-			displayName = "Runway Length";
-			description = "Runway length in meters";
+			displayName = "$STR_Module__moduleILS_runwayDis_displayName";
+			description = "$STR_Module__moduleILS_runwayDis_description";
 			typeName = "NUMBER";
 			property = "MCC_runwayDis";
 			class values
@@ -50,15 +50,15 @@ class mcc_sandbox_moduleILS : Module_F
 
 		class MCC_runwaySide : Combo
 		{
-			displayName = "Allowed Sides";
-			description = "Only specific sides can use this airfield";
+			displayName = "$STR_Module__moduleILS_runwaySide_displayName";
+			description = "$STR_Module__moduleILS_runwaySide_description";
 			typeName = "NUMBER";
 			property = "MCC_runwaySide";
 			class values
 			{
 				class All
 				{
-					name = "All";
+					name = "$STR_GENERAL_ALL";
 					value = -1;
 					default = 1;
 				};
@@ -87,8 +87,8 @@ class mcc_sandbox_moduleILS : Module_F
 
 		class MCC_runwayCircles : Checkbox
 		{
-			displayName = "Circles Helpers";
-			description = "Allow virtual circles to show the landing path";
+			displayName = "$STR_Module__moduleILS_runwayCircles_displayName";
+			description = "$STR_Module__moduleILS_runwayCircles_description";
 			property = "MCC_runwayCircles";
 		};
 
@@ -97,7 +97,7 @@ class mcc_sandbox_moduleILS : Module_F
 
 	class ModuleDescription: ModuleDescription
 	{
-		description = "Place ILS module on each runway's start facing the same diraction as the runway";
+		description = "$STR_Module__moduleILS_runwayCircles_ModuleDescription";
 		position = 1;
 		direction = 1;
 	};

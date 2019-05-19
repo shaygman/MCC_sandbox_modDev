@@ -96,7 +96,6 @@ if (typeName (_this select 0) == typeName []) then {
     _x spawn {
         waitUntil {time > 5};
         while {([_this] call BIS_fnc_respawnTickets)>0} do {sleep 1};
-        systemChat "end missions";
         ["sidetickets"] call  BIS_fnc_endMissionServer;
     };
 } forEach _sides;

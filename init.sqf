@@ -52,9 +52,11 @@ if (isnil "CP_defaultGroups") then {CP_defaultGroups = ["Alpha","Bravo","Charlie
 
 //--------------------logistics -------------------------------------------------------
 //Default resources
-if (isnil "MCC_resWest") then {MCC_resWest = [1000,1000,1000,200,200]};
-if (isnil "MCC_resEast") then {MCC_resEast = [1000,1000,1000,200,200]};
-if (isnil "MCC_resGUER") then {MCC_resGUER = [1000,1000,1000,200,200]};
+{
+	if (isnil format ["MCC_res%1",_x]) then {
+		missionNamespace setVariable [format ["MCC_res%1",_x],[1000,1000,1000,200,200]]
+	};
+} forEach [west,east,resistance,civilian];
 
 //--------------------Screens -------------------------------------------------------
 //Teleport 2 Team
