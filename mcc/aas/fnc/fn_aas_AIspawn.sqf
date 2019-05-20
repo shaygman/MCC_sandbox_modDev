@@ -40,11 +40,6 @@ if (typeName (_this select 0) != typeName objNull) then {
 			_factionArray pushBack (format ["%1 (%2)",(_x select 0), (_x select 1)]);
 		} forEach U_FACTIONS;
 
-		/*
-		_faction = ((U_FACTIONS select ((_resualt select 5)-1)) select 2);
-		_module setvariable ["owner",([(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType),true];
-		_module setvariable ["faction",_faction,true];
-		*/
     	_resualt = [localize "STR_Module__AASSpawnAI_displayName",[
     			[localize "STR_Module__AASSpawnAI_faction1_displayName",_factionArray,"Faction units will spawn next to the module location"],
 				[localize "STR_Module__AASSpawnAI_enemySide_displayName",["East","West","Resistance"],"The selected faction will try to capture points from this side"],
@@ -56,7 +51,7 @@ if (typeName (_this select 0) != typeName objNull) then {
 				[localize "STR_Module__AASSpawnAI_spawnVehicles_displayName",true,"Automatically spawn vehicles to match the number and the strength of the opposite side"]
 			  ],format ["<t align='center'> %1</t>",localize "STR_Module__AASSpawnAI_ModuleDescription_description"]] call MCC_fnc_initDynamicDialog;
 
-		if (count _resualt == 0) then {deleteVehicle _module} else {
+		if (count _resualt == 0) then {deleteVehicle _module} exitWith {
 			_faction = ((U_FACTIONS select (_resualt select 0)) select 2);
 			_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
 			_enemySide = [(_resualt select 1)] call BIS_fnc_sideType;
@@ -67,6 +62,9 @@ if (typeName (_this select 0) != typeName objNull) then {
 			_useDefaultGear = if (_resualt select 6) then {["at","ar","corpsman","rifleman"]} else {[]};
 			_spawnVehicles = (_resualt select 7);
 			_startPos = getpos _module;
+
+			[_faction, _enemySide, _autoBalance, _minPerSide, _spawnInDefensive, _searchRadius, _useDefaultGear, _startPos, _spawnVehicles] remoteExec ["MCC_fnc_aas_AIspawn", 2];
+			_faction = nil;
 		};
 
 	} else {
