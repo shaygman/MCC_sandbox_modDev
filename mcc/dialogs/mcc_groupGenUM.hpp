@@ -74,12 +74,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[2] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Hijack"; //--- ToDo: Localize;
+			text = $STR_Hijack; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
 			y = 0.0989618 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Hijack selected unit, can only work on non-player units "; //--- ToDo: Localize;
+			tooltip = $STR_Hijack_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMMark: MCC_RscButton
@@ -87,12 +87,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[3] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Track units"; //--- ToDo: Localize;
+			text = $STR_Track; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
 			y = 0.131949 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Toggle on and off tracking all units on mission maker map"; //--- ToDo: Localize;
+			tooltip = $STR_Track_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMbroadcast: MCC_RscButton
@@ -100,12 +100,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[11] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Broadcast"; //--- ToDo: Localize;
+			text = $STR_Broadcast; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
 			y = 0.0659738 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Broadcast the live feed to all players for 15 seconds"; //--- ToDo: Localize;
+			tooltip = $STR_Broadcast_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMDelete: MCC_RscButton
@@ -113,12 +113,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[12] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Delete"; //--- ToDo: Localize;
+			text = $STR_Delete; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
 			y = 0.0659738 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Delete the selected unit or group"; //--- ToDo: Localize;
+			tooltip = $STR_Delete_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMJoin: MCC_RscButton
@@ -126,12 +126,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[13] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Join"; //--- ToDo: Localize;
+			text = $STR_Join; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
 			y = 0.0329868 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Join group or unit with another group or unit"; //--- ToDo: Localize;
+			tooltip = $STR_Join_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMHALO: MCC_RscButton
@@ -139,12 +139,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[9] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "H.A.L.O"; //--- ToDo: Localize;
+			text = $STR_HALO; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
 			y = 0.131949 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "HALO the current selected units"; //--- ToDo: Localize;
+			tooltip = $STR_HALO_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMParachute: MCC_RscButton
@@ -152,12 +152,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[10] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Parachute"; //--- ToDo: Localize;
+			text = $STR_Parachute; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
 			y = 0.0989618 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Parachute the currently selected units"; //--- ToDo: Localize;
+			tooltip = $STR_Parachute_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMKick: MCC_RscButton
@@ -165,12 +165,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = MCC_UM_KICK;
 			onButtonClick = __EVAL ("[15] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Kick"; //--- ToDo: Localize;
+			text = $STR_Kick; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
 			y = 1.63913e-008 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Kick selected player from the server"; //--- ToDo: Localize;
+			tooltip = $STR_Kick_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMBan: MCC_RscButton
@@ -178,12 +178,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = MCC_UM_BAN;
 			onButtonClick = __EVAL ("[16] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Ban"; //--- ToDo: Localize;
+			text = $STR_Ban; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
 			y = 1.63913e-008 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Ban selected player from the server"; //--- ToDo: Localize;
+			tooltip = $STR_Ban_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMListFrame: MCC_RscFrame
@@ -199,7 +199,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "*Ctrl/Shift for multi-selection"; //--- ToDo: Localize;
+			text = $STR_Group_Tip; //--- ToDo: Localize;
 			x = 0.0791667 * safezoneW;
 			y = 0.0109958 * safezoneH;
 			w = 0.0916667 * safezoneW;
@@ -229,7 +229,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_PIPviewMod: MCC_RscToolbox
 		{
 			idc = -1;
-			strings[] = {"Regular","Night Vision","Thermal"};
+			strings[] = {$STR_Vision_Regular,$STR_Vision_NV,$STR_Vision_Thermal};
 			rows = 1;
 			columns = 3;
 			values[] = {0,1,3};

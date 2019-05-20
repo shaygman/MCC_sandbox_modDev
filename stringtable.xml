@@ -681,93 +681,93 @@
 				<Original>Teleport selected units</Original>
 				<Russian>Телепортировать выбранного юнита</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Hijack">
+				<Original>Hijack</Original>
+				<Russian>Управление</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Hijack_Tip">
+				<Original>Hijack selected unit, can only work on non-player units</Original>
+				<Russian>Возьмите управление юнитом, работает только на ботах</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Track">
+				<Original>Track units</Original>
+				<Russian>Отслеживать</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Track_Tip">
+				<Original>Toggle on and off tracking all units on mission maker map</Original>
+				<Russian>Включите или выключите отслеживание всех юнитов на карте Игрового Мастера</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Broadcast">
+				<Original>Broadcast</Original>
+				<Russian>Наблюдение</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Broadcast_Tip">
+				<Original>Broadcast the live feed to all players for 15 seconds</Original>
+				<Russian>Наблюдение за юнитом в реальном времени для всех игроков на 15 секунд</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Delete">
+				<Original>Delete</Original>
+				<Russian>Удалить</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Delete_Tip">
+				<Original>Delete the selected unit or group</Original>
+				<Russian>Удалить выбранный юнит или группу</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Join">
+				<Original>Join</Original>
+				<Russian>Присоединить</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Join_Tip">
+				<Original>Join group or unit with another group or unit</Original>
+				<Russian>Присоединить юнита или группу к другому юниту или группе</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_HALO">
+				<Original>H.A.L.O</Original>
+				<Russian>H.A.L.O</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_HALO_Tip">
+				<Original>HALO the current selected units</Original>
+				<Russian>HALO выбранного юнита</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Parachute">
+				<Original>Parachute</Original>
+				<Russian>Парашут</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Parachute_Tip">
+				<Original>Parachute the currently selected units</Original>
+				<Russian>Прыжок с парашутом выбранного юнита</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Kick">
+				<Original>Kick</Original>
+				<Russian>Кик</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Kick_Tip">
+				<Original>Kick selected player from the server</Original>
+				<Russian>Кикнуть выбранного игрока с сервера</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Ban">
+				<Original>Ban</Original>
+				<Russian>Бан</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Ban_Tip">
+				<Original>Ban selected player from the server</Original>
+				<Russian>Забанить выбранного игрока с сервера</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Group_Tip">
+				<Original>*Ctrl/Shift for multi-selection</Original>
+				<Russian>*Ctrl/Shft для выбора нескольких</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Vision_Regular">
+				<Original>Regular</Original>
+				<Russian>Обычное</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Vision_NV">
+				<Original>Night Vision</Original>
+				<Russian>NV</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Vision_Thermal">
+				<Original>Thermal</Original>
+				<Russian>T/I</Russian>
 			</Key>
 			<Key ID="">
 				<Original></Original>
