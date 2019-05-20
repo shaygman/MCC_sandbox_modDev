@@ -769,9 +769,9 @@
 				<Original>Thermal</Original>
 				<Russian>T/I</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_MCC_Edit">
+				<Original>Hold Alt to disable MCC edit</Original>
+				<Russian>Удерживайте Shift чтобы выключить редактирование MCC</Russian>
 			</Key>
 			<Key ID="">
 				<Original></Original>

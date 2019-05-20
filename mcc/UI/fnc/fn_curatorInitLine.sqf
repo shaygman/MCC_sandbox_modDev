@@ -32,14 +32,14 @@ MCC_unitName 	= "";
 
 
 //Recognize shift key so we can disable MCC custom Zeus if we want to
-_keyUp = (findDisplay 312) displayAddEventHandler  ["KeyUp", "if (_this select 4) then {missionNamespace setvariable ['MCC_ctrlPressed',false]}"];
-_keyDown = (findDisplay 312) displayAddEventHandler  ["KeyDown", "if ((_this select 4) && !(missionNamespace getvariable ['MCC_ctrlPressed',false])) then {missionNamespace setvariable ['MCC_ctrlPressed',true]}"];
+_keyUp = (findDisplay 312) displayAddEventHandler  ["KeyUp", "if (_this select 2) then {missionNamespace setvariable ['MCC_ctrlPressed',false]}"];
+_keyDown = (findDisplay 312) displayAddEventHandler  ["KeyDown", "if ((_this select 2) && !(missionNamespace getvariable ['MCC_ctrlPressed',false])) then {missionNamespace setvariable ['MCC_ctrlPressed',true]}"];
 
 if (!alive _target || isNull _target || (_target isKindof "Module_F") || (missionNamespace getVariable ["MCC_ctrlPressed",false]) || (missionNamespace getVariable ["MCC_CuratorEditDisabled",false])) exitWith {};
 
 //_target call bis_fnc_showCuratorAttributes;
 
-_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Hold Alt to disable MCC edit" + "</t>";
+_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + localize "STR_MCC_Edit" + "</t>";
 _null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
 
 //What are we dealing here
