@@ -1,4 +1,49 @@
+
+Changelog R31:
+- Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
+- Added: MCC logistics to helicopters and planes, can now loda vehicles and objects to them.
+- Added: Automatically spawn parachute when unloading objects using helicopters or planes.
+
+Fixed - Ambient Civilians module: Civilians spawn infron of players
+Fixed - Advance and secure resistance faction didn't bleed tickets on death
+Fixed - UAV icon always shown on map
+Fixed - Name tags shown when using MCC medical HUD
+
+Changed Zeus:
+
+	Object editing:
+		- Added change unit behavior
+		- Added Edit unit names
+		- Added vehicles's turn lights on/off
+		- Added vehicles's turn engine on/off
+		- Added BI Garage to vehicles - customized components and colors.
+		- Added Unload ACE or MCC cargo from vehicles and objects.
+		- Reworked - Payload interface, change aircragt pylons and armaments.
+
+	Modules:
+		- Reworked icons, description and categories.
+		- Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
+		- Added Create Zone module to Zeus & 3den - creates MCC zone from Zeus or 3den
+		- Added Assign to MCC zone - assign units/groups to MCC zones from Zeus or 3den
+
+TODO
+Add to logistic parashute if dropped from the air
+check name tags on server
+check MW again
+side channel disappear
+ADD earplugs to mission templates
+recon units to MW
+rework rearm module
+Add modules to Zeus: mission maker, evac drop point, reinforcmnet
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
+under water objectives?
+ADD surrender to AI in campaign
+
+
+
 Changelog r30:
+
+Change log
 - Fixed: Mission Generator to a specific zone
 - Fixed: Conflict with CBA addon settings and MCC modules settings caused unpredictable behavior
 - Fixed: Role's icon didn't show on template missions
@@ -7,12 +52,7 @@ Changelog r30:
 - Added: 3 MCC campaigns to CUP Chernarus winter
 - Changed: Generate mission to a zone will work much better and allows the selection of a specific zone.
 
-TODO
-ADD earplugs to mission templates
-recon units to MW
-Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-under water objectives?
-ADD surrender to AI in campaign
+
 
 Changelog r29:
 - Fix: Spawning artillery was called on each client and not only on the server
