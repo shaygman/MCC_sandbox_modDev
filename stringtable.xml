@@ -633,61 +633,53 @@
 				<Original>Open Triggers Menu</Original>
 				<Russian>Открыть Меню Триггеров</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone">
+				<Original>Zone:</Original>
+				<Russian>Зона:</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone_Create">
+				<Original>Create Zone</Original>
+				<Russian>Создать Зону</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone_Create_Tip">
+				<Original>Click and drag on the minimap to make a zone</Original>
+				<Russian>Нажмите и проведетите по карте чтобы создать зону</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone_Behavior">
+				<Original>Behavior:</Original>
+				<Russian>Поведение:</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone_Give_Gaia">
+				<Original>Give to Gaia</Original>
+				<Russian>Отдать Gaia</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone_Give_Player">
+				<Original>Give to Player</Original>
+				<Russian>Отп в КОМЛОГ</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Zone_Give_Gaia_Tip">
+				<Original>Give the selected groups to GAIA control with the selected zone and behavior</Original>
+				<Russian>Отдать выбранную группу ИИ в выбранную зону и поведением</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Give_Player_Tip">
+				<Original>Give the selected groups to player's control with the commander console</Original>
+				<Russian>Отдать выбранную группу игроку с КОМЛОГОМ</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Units">
+				<Original>Units</Original>
+				<Russian>Юниты</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Groups">
+				<Original>Groups</Original>
+				<Russian>Группы</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Units_Tip">
+				<Original>Switch dispaly between units and groups from the given side</Original>
+				<Russian>Переключить отображение юнитов или групп</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Menu_Teleport_Tip">
+				<Original>Teleport selected units</Original>
+				<Russian>Телепортировать выбранного юнита</Russian>
 			</Key>
 			<Key ID="">
 				<Original></Original>

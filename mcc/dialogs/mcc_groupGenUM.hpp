@@ -43,7 +43,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMUnits: MCC_RscToolbox
 		{
 			idc = -1;
-			strings[] = {"Units","Groups"};
+			strings[] = {$STR_Units,$STR_Groups};
 			rows = 1;
 			columns = 2;
 			values[] = {0,1};
@@ -53,7 +53,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			y = 0.0109958 * safezoneH;
 			w = 0.06875 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Switch dispaly between units and groups from the given side"; //--- ToDo: Localize;
+			tooltip = $STR_Units_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMTeleport: MCC_RscButton
@@ -61,12 +61,12 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL ("[0] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
 
-			text = "Teleport"; //--- ToDo: Localize;
+			text = $STR_Teleport; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
 			y = 0.0329868 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Teleport selected units"; //--- ToDo: Localize;
+			tooltip = $STR_Menu_Teleport_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_UMHijak: MCC_RscButton

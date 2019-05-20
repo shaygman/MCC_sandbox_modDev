@@ -30,144 +30,71 @@ if (typeName (_this select 0) != typeName objNull) then {
 } else {
     _module = param [0, objNull, [objNull]];
     if (isNull _module)  exitWith {diag_log "MCC MCC_fnc_aas_AIspawn: No module found"};
-    _faction =  _module getVariable ["faction1",""];
-	_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
-	_enemySide = [_module getVariable ["enemySide",0]] call BIS_fnc_sideType;
-	_autoBalance = _module getVariable ["autoBalance",false];
-	_minPerSide = _module getVariable ["minAI",0];
-	_spawnInDefensive = _module getVariable ["spawnAIDefensive",true];
-	_searchRadius = _module getVariable ["searchRadius",100];
-	_useDefaultGear = if (_module getVariable ["useRoles",false]) then {["at","ar","corpsman","rifleman"]} else {[]};
-	_startPos = getpos _module;
-	_spawnVehicles = _module getVariable ["spawnVehicles",true];
+
+    //Curator
+    if ((_module isKindOf "MCC_module_AASSpawnAI") && !(isnull curatorcamera) && (local _module)) then {
+    	private ["_factionArray","_resualt"];
+
+    	_factionArray = [];
+		{
+			_factionArray pushBack (format ["%1 (%2)",(_x select 0), (_x select 1)]);
+		} forEach U_FACTIONS;
+
+    	_resualt = [localize "STR_Module__AASSpawnAI_displayName",[
+    			[localize "STR_Module__AASSpawnAI_faction1_displayName",_factionArray,"Faction units will spawn next to the module location"],
+				[localize "STR_Module__AASSpawnAI_enemySide_displayName",["East","West","Resistance"],"The selected faction will try to capture points from this side"],
+				[localize "STR_Module__AASSpawnAI_searchRadius_displayName",500,"How far AI will look for empty vehicles around spawn point"],
+				[localize "STR_Module__AASSpawnAI_minAI_displayName",50,"Minimun number of AI for the selected faction on every given moment"],
+				[localize "STR_Module__AASSpawnAI_autoBalance_description",true,"Auto balance the number of AI to meet the rival factions"],
+				[localize "STR_Module__AASSpawnAI_spawnAIDefensive_displayName",true,"Spawn AI in captured points own by the faction"],
+				[localize "STR_Module__AASSpawnAI_useRoles_displayName",true,"Use defined roles from the MCC roles selection system"],
+				[localize "STR_Module__AASSpawnAI_spawnVehicles_displayName",true,"Automatically spawn vehicles to match the number and the strength of the opposite side"]
+			  ],format ["<t align='center'> %1</t>",localize "STR_Module__AASSpawnAI_ModuleDescription_description"]] call MCC_fnc_initDynamicDialog;
+
+		if (count _resualt == 0) then {deleteVehicle _module} exitWith {
+			_faction = ((U_FACTIONS select (_resualt select 0)) select 2);
+			_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
+			_enemySide = [(_resualt select 1)] call BIS_fnc_sideType;
+			_searchRadius = (_resualt select 2);
+			_minPerSide = (_resualt select 3);
+			_autoBalance = (_resualt select 4);
+			_spawnInDefensive = (_resualt select 5);
+			_useDefaultGear = if (_resualt select 6) then {["at","ar","corpsman","rifleman"]} else {[]};
+			_spawnVehicles = (_resualt select 7);
+			_startPos = getpos _module;
+
+			[_faction, _enemySide, _autoBalance, _minPerSide, _spawnInDefensive, _searchRadius, _useDefaultGear, _startPos, _spawnVehicles] remoteExec ["MCC_fnc_aas_AIspawn", 2];
+			_faction = nil;
+		};
+
+	} else {
+		//3den
+		_faction =  _module getVariable ["faction1",""];
+		_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
+		_enemySide = [_module getVariable ["enemySide",0]] call BIS_fnc_sideType;
+		_autoBalance = _module getVariable ["autoBalance",false];
+		_minPerSide = _module getVariable ["minAI",0];
+		_spawnInDefensive = _module getVariable ["spawnAIDefensive",true];
+		_searchRadius = _module getVariable ["searchRadius",100];
+		_useDefaultGear = if (_module getVariable ["useRoles",false]) then {["at","ar","corpsman","rifleman"]} else {[]};
+		_startPos = getpos _module;
+		_spawnVehicles = _module getVariable ["spawnVehicles",true];
+	};
+
 };
 
 
 _groupSize = 5;
 
 //If not server or already initilize exit
-if (!isServer) exitWith {};
+if (isNil "_faction") exitWith {};
+
+private _varName = format ["MCC_fnc_aas_AIspawnActive_%1", _faction];
+if (!isServer || (missionNamespace getVariable [_varName,false])) exitWith {systemChat "Faction AAS already initilized"};
+missionNamespace setVariable [_varName,true];
+publicVariable _varName;
 
 [_side] spawn MCC_fnc_aas_AIControl;
-
-//group spawn
-MCC_fnc_AASgroupSpawn  = {
-	private ["_unitNumber","_groupSize","_useDefaultGear","_groupArray","_defaultGroups","_group","_tempGroup","_unit","_selectedRole","_side","_unitsArray","_spawnPos","_i","_p","_t"];
-	_unitNumber = param [0,4];
-	_groupSize = param [1,6];
-	_useDefaultGear = param [2,[]];
-	_vehicle = param [3,objNull];
-	_side = param [4,sideUnknown];
-	_unitsArray = param [5,[]];
-	_spawnPos = param [6,[]];
-
-	_groupArray = [];
-	for "_p" from 1 to _unitNumber step 1 do {
-		_groupArray pushBack ((_unitsArray call bis_fnc_selectRandom) select 0);
-	};
-
-	//find group
-	_defaultGroups = missionNamespace getVariable [format ["CP_%1Groups",_side],[]];
-	_group = grpNull;
-
-	for "_p" from 0 to (count _defaultGroups -1) step 1 do {
-		_tempGroup = (_defaultGroups select _p) select 0;
-
-		//vehicles put in a seperated group
-		if (isNull _vehicle) then {
-			if (!(_tempGroup getVariable ["locked",false]) && (!isPlayer leader _tempGroup) && ((count units _tempGroup)+_unitNumber) <= _groupSize  && ({vehicle _x != _x} count units _tempGroup == 0)) then {
-    			_group = _tempGroup;
-    		};
-		} else {
-    		if (!(_tempGroup getVariable ["locked",false]) && count units _tempGroup == 0) then {
-    			_group = _tempGroup;
-    		};
-		};
-
-		if (!isNull _group) exitWith {};
-	};
-
-	if (isNull _group) then {
-		_group = createGroup _side;
-		waituntil {!isnil "_group"};
-		_name = ["Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliett","Kilo","Lima","Mike","November","Oscar","Papa"] select (count _defaultGroups min 15);
-		_group setVariable ["MCC_CPGroup",true,true];
-		_group setVariable ["name",_name,true];
-		_defaultGroups pushBack [_group,_name];
-		missionNamespace setVariable [format ["CP_%1Groups",_side],_defaultGroups];
-		publicVariable format ["CP_%1Groups",_side];
-	};
-
-
-	_group setVariable ["MCC_canbecontrolled",true,true];
-
-	//spawn unit
-	if (isNull _vehicle) then {
-		{
-			_unit =_group createUnit [(_groupArray call bis_fnc_selectRandom), _spawnPos, [], 0, "FORM"];
-			waitUntil {alive _unit};
-
-			_unit addEventHandler ["killed",format ["[%1, -1] call BIS_fnc_respawnTickets", _side]];
-
-			//set gear
-			if (count _useDefaultGear > 0) then {
-				{
-					_selectedRole = _x;
-					if ({(_x getVariable ["CP_role",""]) == _selectedRole} count (units _group) == 0) exitWith {};
-				} forEach _useDefaultGear;
-				[_selectedRole,_unit] call MCC_fnc_gearAI;
-			};
-
-			{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
-		} forEach _groupArray;
-	} else {
-		private ["_cfg","_turrets","_path","_index","_isCargo","_t"];
-		_cfg = configFile >> "CfgVehicles" >> typeOf _vehicle;
-		_turrets = [_cfg >> "turrets"] call BIS_fnc_returnVehicleTurrets;			//All turrets were found, now spawn crew for them
-		_path = [];
-		_t = 0;
-		_index = 0;
-
-		//driver
-		_unit = _group createUnit [getText(_cfg >> "crew"), position _vehicle, [], 0, "NONE"];
-		_unit assignAsDriver _vehicle;
-		_unit moveindriver _vehicle;
-		_unit addEventHandler ["killed",format ["[%1, -1] call BIS_fnc_respawnTickets", _side]];
-
-		//set gear
-		if (count _useDefaultGear > 0) then {
-			[(_useDefaultGear) call bis_fnc_selectRandomWeighted,_unit] spawn MCC_fnc_gearAI;
-		};
-		{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
-
-		while {_t < (count _turrets)} do {
-			private ["_turretIndex", "_thisTurret"];
-			_turretIndex = _turrets select _t;
-			_thisTurret = _path + [_turretIndex];
-			_turretPath = configName ((configFile >> "CfgVehicles" >> typeOf _vehicle >> "turrets") Select _index);
-
-			_isCargo = ["cargo",tolower _turretPath] call BIS_fnc_inString;
-			if (isNull (_vehicle turretUnit _thisTurret) && !_isCargo) then {
-				_unit = _group createUnit [getText(_cfg >> "crew"), position _vehicle, [], 0, "NONE"];
-				_unit moveInTurret [_vehicle, _thisTurret];
-
-				//set gear
-				if (count _useDefaultGear > 0) then {
-					[(_useDefaultGear) call bis_fnc_selectRandomWeighted,_unit] spawn MCC_fnc_gearAI;
-				};
-
-				_unit addEventHandler ["killed",format ["[%1, -1] call BIS_fnc_respawnTickets", _side]];
-				{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
-			};
-
-			_t = _t + 2;
-			_index = _index + 1;
-		};
-	};
-
-	_group
-};
-
 
 //Spawn AI
 _unitsArray 	= [_faction,"soldier","men",false] call MCC_fnc_makeUnitsArray;
