@@ -84,7 +84,7 @@ _resualt = ["Add Atmosphere",[
  						["Rain",10],
  						["Lightnings",10],
  						["Fog",10]
- 					  ]] call MCC_fnc_initDynamicDialog;
+ 					  ],format ["<t align='center'> %1</t>",localize "STR_Module__atmosphere_description"]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 private ["_effect","_dust","_snow","_papers","_mist","_fog","_leaves","_wind","_color","_grain","_weather","_preDefinedWeather"];

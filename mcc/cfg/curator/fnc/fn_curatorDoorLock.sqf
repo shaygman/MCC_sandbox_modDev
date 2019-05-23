@@ -13,7 +13,7 @@ _pos = getpos _module;
 _resualt = ["Lock/Unlock Doors",[
  						["Radius",500],
  						["Lock Doors",["Lock All","Lock Random","Unlock All"]]
- 					  ]] call MCC_fnc_initDynamicDialog;
+ 					  ],format ["<t align='center'> %1</t>",localize "STR_Module__lockDoors_description"]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 

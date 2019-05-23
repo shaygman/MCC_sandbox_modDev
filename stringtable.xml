@@ -352,6 +352,46 @@
         <English>Sync with a MCC capture zone or a dummy sector module in order they supposed to be captured. Follow the sector description to set up the AAS mission</English>
       </Key>
     </Container>
+    <Container name="ambientFire">
+      <Key ID="STR_Module__ambientFire_displayName">
+        <Original>Ambient Fire</Original>
+        <English>Ambient Fire</English>
+      </Key>
+      <Key ID="STR_Module__ambientFire_description">
+        <Original>Random fires will ignite from explosives and fire fights, the fire will spread according to wind strength and direction</Original>
+        <English>Random fires will ignite from explosives and fire fights, the fire will spread according to wind strength and direction</English>
+      </Key>
+    </Container>
+    <Container name="atmosphere">
+      <Key ID="STR_Module__atmosphere_displayName">
+        <Original>Atmosphere</Original>
+        <English>Atmosphere</English>
+      </Key>
+      <Key ID="STR_Module__atmosphere_description">
+        <Original>Create pre set or custom atmospheres</Original>
+        <English>Create pre set or custom atmospheres</English>
+      </Key>
+    </Container>
+    <Container name="lockDoors">
+      <Key ID="STR_Module__lockDoors_displayName">
+        <Original>Doors Lock/Unlock</Original>
+        <English>Doors Lock/Unlock</English>
+      </Key>
+      <Key ID="STR_Module__lockDoors_description">
+        <Original>Loock or unlock buildings doors in the given radius, locked door can be opened with breaching charges or lockpicking using MCC interaction</Original>
+        <English>Loock or unlock buildings doors in the given radius, locked door can be opened with breaching charges or lockpicking using MCC interaction</English>
+      </Key>
+    </Container>
+    <Container name="warZone">
+      <Key ID="STR_Module__warZone_displayName">
+        <Original>War Zone Atmosphere</Original>
+        <English>War Zone Atmosphere</English>
+      </Key>
+      <Key ID="STR_Module_warzone_description">
+        <Original>Destroy buildings, create random fires and wreck in the given radius</Original>
+        <English>Destroy buildings, create random fires and wreck in the given radius</English>
+      </Key>
+    </Container>
   </Package>
   <Package name="general">
     <Container name="common">
