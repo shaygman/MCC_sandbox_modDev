@@ -853,80 +853,80 @@
 				<Original>Units will not spawn until players are nearby</Original>
 				<Russian>Юниты не будут спавниться пока рядом нет игроков</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
+			<Key ID="STR_CAS">
+				<Original>Close Air Support:</Original>
+				<Russian>Поддержка с Воздуха:</Russian>
+			</Key>
+			<Key ID="STR_Plane">
+				<Original>Plane:</Original>
+				<Russian>Самолет:</Russian>
+			</Key>
+			<Key ID="STR_Call">
+				<Original>Call</Original>
+				<Russian>Вызвать</Russian>
+			</Key>
+			<Key ID="STR_Add">
+				<Original>Add</Original>
+				<Russian>КОМЛОГ</Russian>
+			</Key>
+			<Key ID="STR_Call_Tip">
+				<Original>Call CAS - drag and draw a line on the minimap to call CAS</Original>
+				<Russian>Вызвать Поддержку - проведите или кликните по карте для вызова Поддержки</Russian>
+			</Key>
+			<Key ID="STR_Add_Tip">
+				<Original>Add CAS to MCC Console</Original>
+				<Russian>Добавить в КОМЛОГ</Russian>
+			</Key>
+			<Key ID="STR_Car1">
+				<Original>Car1:</Original>
+				<Russian>Маш1:</Russian>
+			</Key>
+			<Key ID="STR_Car2">
+				<Original>Car2:</Original>
+				<Russian>Маш2:</Russian>
+			</Key>
+			<Key ID="STR_Car3">
+				<Original>Car3:</Original>
+				<Russian>Маш3:</Russian>
+			</Key>
+			<Key ID="STR_Car4">
+				<Original>Car4:</Original>
+				<Russian>Маш4:</Russian>
+			</Key>
+			<Key ID="STR_Car5">
+				<Original>Car5:</Original>
+				<Russian>Маш5:</Russian>
+			</Key>
+			<Key ID="STR_HVT">
+				<Original>HVT:</Original>
+				<Russian>ВИП:</Russian>
+			</Key>
+			<Key ID="STR_HVT_CAR">
+				<Original>HVT Car:</Original>
+				<Russian>Маш ВИПа:</Russian>
+			</Key>
+			<Key ID="STR_Convoy_Spawn_Tip">
+				<Original>Spawn convoy and set WP</Original>
 				<Russian></Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
+			<Key ID="STR_Convoy_Spawn">
+				<Original>Spawn</Original>
+				<Russian>Создать</Russian>
+			</Key>
+			<Key ID="STR_Convoy_Reset">
+				<Original>Reset</Original>
 				<Russian></Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
+			<Key ID="STR_Convoy_Reset_Tip">
+				<Original>Reset convoy's waypoints</Original>
 				<Russian></Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
+			<Key ID="STR_Convoy_Start">
+				<Original>Start</Original>
 				<Russian></Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
-			</Key>
-			<Key ID="">
-				<Original></Original>
+			<Key ID="STR_Convoy_Start_Tip">
+				<Original>Start convoy movement</Original>
 				<Russian></Russian>
 			</Key>
 			<Key ID="">

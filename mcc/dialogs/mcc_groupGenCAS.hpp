@@ -21,7 +21,7 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Close Air Support:"; //--- ToDo: Localize;
+			text = $STR_CAS; //--- ToDo: Localize;
 			x = 0.0401046 * safezoneW;
 			y = 0.0109958 * safezoneH;
 			w = 0.160417 * safezoneW;
@@ -33,7 +33,7 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Plane:"; //--- ToDo: Localize;
+			text = $STR_Plane; //--- ToDo: Localize;
 			x = 0.00572967 * safezoneW;
 			y = 0.0549786 * safezoneH;
 			w = 0.06875 * safezoneW;
@@ -52,7 +52,7 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Type:"; //--- ToDo: Localize;
+			text = $STR_Type; //--- ToDo: Localize;
 			x = 0.00572967 * safezoneW;
 			y = 0.0879657 * safezoneH;
 			w = 0.06875 * safezoneW;
@@ -72,24 +72,24 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\cas\cas_request.sqf'");
 
-			text = "Call"; //--- ToDo: Localize;
+			text = $STR_Call; //--- ToDo: Localize;
 			x = 0.00572967 * safezoneW;
 			y = 0.120953 * safezoneH;
 			w = 0.0802083 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Call CAS - drag and draw a line on the minimap to call CAS"; //--- ToDo: Localize;
+			tooltip = $STR_Call_Tip; //--- ToDo: Localize;
 		};
 		class MCC_CASAdd: MCC_RscButton
 		{
 			idc = 27; // idc set to allow hiding button when no mcc_console available
 			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\cas\cas_request.sqf'");
 
-			text = "Add"; //--- ToDo: Localize;
+			text = $STR_Add; //--- ToDo: Localize;
 			x = 0.148959 * safezoneW;
 			y = 0.120953 * safezoneH;
 			w = 0.0802083 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Add CAS to MCC Console"; //--- ToDo: Localize;
+			tooltip = $STR_Add_Tip; //--- ToDo: Localize;
 		};
 
 		class MCC_CASClose: MCC_RscButtonMenu
@@ -102,7 +102,6 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 			y = 0.164936 * safezoneH;
 			w = 0.0802083 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Call CAS - drag and draw a line on the minimap to call CAS"; //--- ToDo: Localize;
 		};
 	};
 };

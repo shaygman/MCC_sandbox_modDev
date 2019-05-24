@@ -20,7 +20,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Convoy:"; //--- ToDo: Localize;
+			text = $STR_LEFT_Convoy; //--- ToDo: Localize;
 			x = 0.103125 * safezoneW;
 			y = 0.0109958 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -31,7 +31,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Car1:"; //--- ToDo: Localize;
+			text = $STR_Car1; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
 			y = 0.0549788 * safezoneH;
 			w = 0.039375 * safezoneW;
@@ -42,7 +42,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Car2:"; //--- ToDo: Localize;
+			text = $STR_Car2; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
 			y = 0.0879658 * safezoneH;
 			w = 0.039375 * safezoneW;
@@ -53,7 +53,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Car3:"; //--- ToDo: Localize;
+			text = $STR_Car3; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
 			y = 0.120953 * safezoneH;
 			w = 0.039375 * safezoneW;
@@ -64,7 +64,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Car4:"; //--- ToDo: Localize;
+			text = $STR_Car4; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
 			y = 0.15394 * safezoneH;
 			w = 0.039375 * safezoneW;
@@ -75,7 +75,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Car5:"; //--- ToDo: Localize;
+			text = $STR_Car5; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
 			y = 0.186927 * safezoneH;
 			w = 0.039375 * safezoneW;
@@ -136,7 +136,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "HVT:"; //--- ToDo: Localize;
+			text = $STR_HVT; //--- ToDo: Localize;
 			x = 0.154688 * safezoneW;
 			y = 0.0549788 * safezoneH;
 			w = 0.039375 * safezoneW;
@@ -147,7 +147,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "HVT Car:"; //--- ToDo: Localize;
+			text = $STR_HVT_CAR; //--- ToDo: Localize;
 			x = 0.154688 * safezoneW;
 			y = 0.0879658 * safezoneH;
 			w = 0.0401042 * safezoneW;
@@ -179,12 +179,12 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\convoy\make_convoy_WP.sqf'");
 
-			text = "Spawn"; //--- ToDo: Localize;
+			text = $STR_Convoy_Spawn; //--- ToDo: Localize;
 			x = 0.189063 * safezoneW;
 			y = 0.131949 * safezoneH;
 			w = 0.0630208 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Spawn convoy and set WP"; //--- ToDo: Localize;
+			tooltip = $STR_Convoy_Spawn_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_convoyReset: MCC_RscButton
@@ -192,12 +192,12 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\convoy\reset_convoy_WP.sqf'");
 
-			text = "Reset"; //--- ToDo: Localize;
+			text = $STR_Convoy_Reset; //--- ToDo: Localize;
 			x = 0.154688 * safezoneW;
 			y = 0.175932 * safezoneH;
 			w = 0.0572917 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Reset convoy's waypoints"; //--- ToDo: Localize;
+			tooltip = $STR_Convoy_Reset_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_convoyStart: MCC_RscButton
@@ -205,12 +205,12 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 			idc = -1;
 			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\convoy\start_convoy.sqf'");
 
-			text = "Start"; //--- ToDo: Localize;
+			text = $STR_Convoy_Start; //--- ToDo: Localize;
 			x = 0.229167 * safezoneW;
 			y = 0.175932 * safezoneH;
 			w = 0.0572917 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Start convoy movement"; //--- ToDo: Localize;
+			tooltip = $STR_Convoy_Start_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_convoyClose: MCC_RscButtonMenu
