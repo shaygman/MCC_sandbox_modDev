@@ -367,7 +367,7 @@
 			</Key>
 			<Key ID="STR_Teleport_Tip">
 				<Original>Teleport the mission maker and any vehicle he is in to a new location</Original>
-				<Russian>Телепортирует Мастера Игры и любою технику в которой он на точку</Russian>
+				<Russian>Телепортирует Мастера Игры в любою точку на карте</Russian>
 			</Key>
 			<Key ID="STR_Mission_Won">
 				<Original>Mission Won</Original>
@@ -772,6 +772,998 @@
 			<Key ID="STR_MCC_Edit">
 				<Original>Hold Alt to disable MCC edit</Original>
 				<Russian>Удерживайте Shift чтобы выключить редактирование MCC</Russian>
+			</Key>
+			<Key ID="STR_Type">
+				<Original>Type:</Original>
+				<Russian>Тип:</Russian>
+			</Key>
+			<Key ID="STR_Branch">
+				<Original>Branch:</Original>
+				<Russian>Ветка:</Russian>
+			</Key>
+			<Key ID="STR_Class">
+				<Original>Class:</Original>
+				<Russian>Класс:</Russian>
+			</Key>
+			<Key ID="STR_Empty">
+				<Original>Empty:</Original>
+				<Russian>Пусто:</Russian>
+			</Key>
+			<Key ID="STR_Name">
+				<Original>Name:</Original>
+				<Russian>Имя:</Russian>
+			</Key>
+			<Key ID="STR_Add_List">
+				<Original>Add to List</Original>
+				<Russian>В список</Russian>
+			</Key>
+			<Key ID="STR_Clear_List">
+				<Original>Clear List</Original>
+				<Russian>Отчистить</Russian>
+			</Key>
+			<Key ID="STR_Add_List_Tip">
+				<Original>Add the selected unit to the list</Original>
+				<Russian>Добавить выбранного юнита в список</Russian>
+			</Key>
+			<Key ID="STR_Clear_List_Tip">
+				<Original>Remove all units from the list</Original>
+				<Russian>Отчистить полностью весь список</Russian>
+			</Key>
+			<Key ID="STR_Save_Custom">
+				<Original>Save as Custom</Original>
+				<Russian>Сохранить</Russian>
+			</Key>
+			<Key ID="STR_Save_Custom_Tip">
+				<Original>Save the group as a custom group</Original>
+				<Russian>Сохранить группу</Russian>
+			</Key>
+			<Key ID="STR_Create">
+				<Original>Create</Original>
+				<Russian>Создать</Russian>
+			</Key>
+			<Key ID="STR_Create_Tip">
+				<Original>Mouse click on the map to create the group/unit - Hold Ctrl for multi spawn</Original>
+				<Russian>Нажмите на карте для создания юнита/группы - Удерживайте Ctrl для нескольких</Russian>
+			</Key>
+			<Key ID="STR_Spawn_Zone">
+				<Original>Spawn in zone</Original>
+				<Russian>Создать в зоне</Russian>
+			</Key>
+			<Key ID="STR_Spawn_Zone_Tip">
+				<Original>Create the group in the selected zone</Original>
+				<Russian>Создает группу в выбранной зоне</Russian>
+			</Key>
+			<Key ID="STR_Location">
+				<Original>Location:</Original>
+				<Russian>Локация:</Russian>
+			</Key>
+			<Key ID="STR_Delayed">
+				<Original>Delayed:</Original>
+				<Russian>Отложено:</Russian>
+			</Key>
+			<Key ID="STR_Cache_Spawn">
+				<Original>Cache:</Original>
+				<Russian>Кэш:</Russian>
+			</Key>
+			<Key ID="STR_Cache_Spawn_Tip">
+				<Original>Units will spawn and cache automatically</Original>
+				<Russian>Юниты будут спавниться и кэшироваться автоматически</Russian>
+			</Key>
+			<Key ID="STR_Delayed_Tip">
+				<Original>Units will not spawn until players are nearby</Original>
+				<Russian>Юниты не будут спавниться пока рядом нет игроков</Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
+			</Key>
+			<Key ID="">
+				<Original></Original>
+				<Russian></Russian>
 			</Key>
 			<Key ID="">
 				<Original></Original>
