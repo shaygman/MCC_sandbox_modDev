@@ -907,7 +907,7 @@
 			</Key>
 			<Key ID="STR_Convoy_Spawn_Tip">
 				<Original>Spawn convoy and set WP</Original>
-				<Russian></Russian>
+				<Russian>Создать конвой и задать точки</Russian>
 			</Key>
 			<Key ID="STR_Convoy_Spawn">
 				<Original>Spawn</Original>
@@ -915,51 +915,51 @@
 			</Key>
 			<Key ID="STR_Convoy_Reset">
 				<Original>Reset</Original>
-				<Russian></Russian>
+				<Russian>Сбросить</Russian>
 			</Key>
 			<Key ID="STR_Convoy_Reset_Tip">
 				<Original>Reset convoy's waypoints</Original>
-				<Russian></Russian>
+				<Russian>Сбросить точки движения конвоя</Russian>
 			</Key>
 			<Key ID="STR_Convoy_Start">
 				<Original>Start</Original>
-				<Russian></Russian>
+				<Russian>Старт</Russian>
 			</Key>
 			<Key ID="STR_Convoy_Start_Tip">
 				<Original>Start convoy movement</Original>
-				<Russian></Russian>
+				<Russian>Конвой начнет движение</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Supply">
+				<Original>Supply Drop:</Original>
+				<Russian>Сброс Припасов:</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Slingload">
+				<Original>Slingload</Original>
+				<Russian>Трос</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Current_air">
+				<Original>Current Airdrop:</Original>
+				<Russian>Текущий список:</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Add_Air">
+				<Original>Add</Original>
+				<Russian>Добавить</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Add_Air_Tip">
+				<Original>Add this item to the current airdrop list</Original>
+				<Russian>Добавляет объект в список для сброса</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Air_Clear_Tip">
+				<Original>Clear the current airdrop list</Original>
+				<Russian>Отчищает список</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Call_Air_Tip">
+				<Original>Call the current airdrop</Original>
+				<Russian>Вызвать поддержку</Russian>
 			</Key>
-			<Key ID="">
-				<Original></Original>
-				<Russian></Russian>
+			<Key ID="STR_Add_Air_Tip">
+				<Original>Add the current airdrop to the player's console</Original>
+				<Russian>Добавляет список в КОМЛОГ</Russian>
 			</Key>
 			<Key ID="">
 				<Original></Original>

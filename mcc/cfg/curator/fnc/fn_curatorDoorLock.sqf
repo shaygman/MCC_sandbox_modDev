@@ -13,7 +13,7 @@ _pos = getpos _module;
 _resualt = ["Lock/Unlock Doors",[
  						["Radius",500],
  						["Lock Doors",["Lock All","Lock Random","Unlock All"]]
- 					  ]] call MCC_fnc_initDynamicDialog;
+ 					  ],format ["<t align='center'> %1</t>","Lock or unlock buildings doors in the given radius, locked door can be opened with breaching charges or lockpicking using MCC interaction"]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 

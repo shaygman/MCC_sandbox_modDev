@@ -24,7 +24,7 @@ class MCC_airdropDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Supply Drop:"; //--- ToDo: Localize;
+			text = $STR_Supply; //--- ToDo: Localize;
 			x = 0.0687495 * safezoneW;
 			y = 0.0109958 * safezoneH;
 			w = 0.120313 * safezoneW;
@@ -36,7 +36,7 @@ class MCC_airdropDialogControls:MCC_RscControlsGroup
 		class MCC_airdropInsertionType: MCC_RscToolbox
 		{
 			idc = 1037;
-			strings[] = {" Parachute "," Slingload "};
+			strings[] = {$STR_Parachute,$STR_Slingload};
 			rows = 1;
 			columns = 2;
 			values[] = {0,1};
@@ -78,7 +78,7 @@ class MCC_airdropDialogControls:MCC_RscControlsGroup
 		{
 			idc = 1034;
 
-			text = "Current Airdrop:"; //--- ToDo: Localize;
+			text = $STR_Current_air; //--- ToDo: Localize;
 			x = 0.00572967 * safezoneW;
 			y = 0.0879657 * safezoneH;
 			w = 0.0802083 * safezoneW;
@@ -89,36 +89,36 @@ class MCC_airdropDialogControls:MCC_RscControlsGroup
 		class MCC_airdropAdd: MCC_RscButton
 		{
 			idc = 1035; // idc set to allow hiding button when no mcc_console available
-			text = "Add"; //--- ToDo: Localize;
+			text = $STR_Add_Air; //--- ToDo: Localize;
 			x = 0.217709 * safezoneW;
 			y = 0.0549786 * safezoneH;
 			w = 0.0572917 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Add this item to the current airdrop list"; //--- ToDo: Localize;
+			tooltip = $STR_Add_Air_Tip; //--- ToDo: Localize;
 			onButtonClick = __EVAL ("[1] execVM '"+MCCPATH+"mcc\general_scripts\cas\airdropReq.sqf'");
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_airdropClear: MCC_RscButton
 		{
 			idc = 1036;
-			text = "Clear"; //--- ToDo: Localize;
+			text = $STR_Clear_List; //--- ToDo: Localize;
 			x = 0.217709 * safezoneW;
 			y = 0.0879657 * safezoneH;
 			w = 0.0572917 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			tooltip = "Clear the current airdrop list"; //--- ToDo: Localize;
+			tooltip = $STR_Air_Clear_Tip; //--- ToDo: Localize;
 			onButtonClick = __EVAL ("[2] execVM '"+MCCPATH+"mcc\general_scripts\cas\airdropReq.sqf'");
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_airdropCall: MCC_RscButton
 		{
 			idc = -1;
-			text = "Call"; //--- ToDo: Localize;
+			text = $STR_Call; //--- ToDo: Localize;
 			x = 0.217709 * safezoneW;
 			y = 0.120953 * safezoneH;
 			w = 0.0572917 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			tooltip = "Call the current airdrop"; //--- ToDo: Localize;
+			tooltip = $STR_Call_Air_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\cas\cas_request.sqf'");
 		};
@@ -126,13 +126,13 @@ class MCC_airdropDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Add Console"; //--- ToDo: Localize;
+			text = $STR_Add; //--- ToDo: Localize;
 			x = 0.154688 * safezoneW;
 			y = 0.120953 * safezoneH;
 			w = 0.0572917 * safezoneW;
 			h = 0.0329871 * safezoneH;
 			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\cas\cas_request.sqf'");
-			tooltip = "Add the current airdrop to the player's console"; //--- ToDo: Localize;
+			tooltip = $STR_Add_Air_Tip; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};
 		class MCC_CSClose: MCC_RscButtonMenu
