@@ -50,8 +50,7 @@ _fakeIed setVariable ["isIED",true,true];
 _fakeIed setvariable ["vehicleinit",format ["_null =[[_this,'%1',%2,%3,%4,%5,%6,'%7'], 'MCC_fnc_createIED', false, false] spawn BIS_fnc_MP;",_trapvolume,_IEDExplosionType,_IEDDisarmTime,_IEDJammable,_IEDTriggerType,_trapdistance,_iedside]];
 {_x addCuratorEditableObjects [[_fakeIed],false]} forEach allCurators;
 
-[[_fakeIed,_trapvolume,_IEDExplosionType,_IEDDisarmTime,_IEDJammable,_IEDTriggerType,_trapdistance,_iedside], "MCC_fnc_createIED", false, false] spawn BIS_fnc_MP;
-
+[_fakeIed,_trapvolume,_IEDExplosionType,_IEDDisarmTime,_IEDJammable,_IEDTriggerType,_trapdistance,_iedside] remoteExec ["MCC_fnc_createIED",2];
 
 //Spawn AMBUSH
 if (_groupArray) then {

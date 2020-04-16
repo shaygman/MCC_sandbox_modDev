@@ -18,17 +18,30 @@ _pos = getpos _module;
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",objNull];
 
  _resualt = ["Add Units/Objects in radius to Zeus",[
- 						["Radius",100]
+ 						["Radius",100],
+ 						["Action",["Add to Zeus","Remove from Zeus"]]
  					  ]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 
-{
-	if !(_x isKindOf "Animal") then {
-		_unit = _x;
-		{[[_x,_unit],{(_this select 0) addCuratorEditableObjects [[_this select 1],true];}] remoteExec ["BIS_fnc_spawn",_x]} forEach allCurators;
-	};
+private _action = (_resualt select 1);
 
-} forEach (nearestObjects [_pos, [], (_resualt select 0)]);
+{
+	_unit = _x;
+	switch _action do
+	{
+		//Add
+		case 0:
+		{
+			{[_x,[[_unit],true]] remoteExec ["addCuratorEditableObjects",2]} foreach allCurators;
+		};
+
+		//Remove
+		case 1:
+		{
+			{[_x,[[_unit],true]] remoteExec ["removeCuratorEditableObjects",2]} foreach allCurators;
+		};
+	};
+} forEach (nearestObjects [_pos, ["All"], (_resualt select 0)]);
 
 deleteVehicle _module;

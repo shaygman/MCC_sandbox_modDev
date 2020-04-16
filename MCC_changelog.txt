@@ -1,10 +1,44 @@
+Changelog R32:
+Fixed:
+	- Getting Error "MCC_MODULE_LHD SPAWN" when load template missions.
+	- Getting Error "MCC_MODULE_RESOURCES" when load campaign missions.
+	- Ambient Birds module didn't work from Zeus.
+	- Spawn Ship module didn't work from Zeus.
+
+Added:
+	- Appropriate loadouts to CUP template missions
+	- Ambient fire modules to Zeus and 3den
+	- Pressing Esc in Squad Menu or Role Selection will close the dialog
+
+TODO:
+- check ships spawn
+- add ace self interaction open Squad dialog
+- add ambient fire, birds, AI to settings
+- cinematic focuse on units in buildings
+- remove ace and ambient modules dependency in missions: No entry 'bin/config.bin/CfgPatches.ace_common.'
+- Weapon shop is broken
+- Fix conflict with BI respawn
+
+
+Add to logistic parashute if dropped from the air
+check name tags on server
+check MW again
+side channel disappear
+ADD earplugs to mission templates
+recon units to MW
+rework rearm module
+Add modules to Zeus: mission maker, evac drop point, reinforcmnet
+Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
+under water objectives?
+ADD surrender to AI in campaign
+
 
 Changelog R31:
 - Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
 - Added: MCC logistics to helicopters and planes, can now loda vehicles and objects to them.
 - Added: Automatically spawn parachute when unloading objects using helicopters or planes.
 
-Fixed - Ambient Civilians module: Civilians spawn infron of players
+Fixed - Ambient Civilians module: Civilians spawn infront of players
 Fixed - Advance and secure resistance faction didn't bleed tickets on death
 Fixed - UAV icon always shown on map
 Fixed - Name tags shown when using MCC medical HUD
@@ -25,21 +59,6 @@ Changed Zeus:
 		- Added Load to cargo module to 3den: load objects to vehicles using ACE or MCC cargo system.
 		- Added Create Zone module to Zeus & 3den - creates MCC zone from Zeus or 3den
 		- Added Assign to MCC zone - assign units/groups to MCC zones from Zeus or 3den
-
-TODO
-Add to logistic parashute if dropped from the air
-check name tags on server
-check MW again
-side channel disappear
-ADD earplugs to mission templates
-recon units to MW
-rework rearm module
-Add modules to Zeus: mission maker, evac drop point, reinforcmnet
-Change the cinmeatic https://www.youtube.com/watch?v=YcrrHF6bRfg
-under water objectives?
-ADD surrender to AI in campaign
-
-
 
 Changelog r30:
 

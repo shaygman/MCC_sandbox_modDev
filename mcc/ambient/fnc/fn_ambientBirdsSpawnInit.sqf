@@ -25,8 +25,8 @@ while {(missionNamespace getVariable ["MCC_fnc_ambientBirdsSpawnInitRuning",fals
 				if ((_unit getVariable ["MCC_fnc_ambientBirdsNextTime",time]) <= time &&
 				    !(vehicle _unit isKindOf "air")) then {
 
-					if ((random (speed _unit) min 9) > 4.3) then {
-						_unit setVariable ["MCC_fnc_ambientBirdsNextTime",time+(random 200)];
+					if ((random (speed _unit) min 9) > 2) then {
+						_unit setVariable ["MCC_fnc_ambientBirdsNextTime",time+(random 120)];
 						[vehicle _unit] spawn MCC_fnc_ambientBirdsSpawn;
 					};
 				};
@@ -34,5 +34,5 @@ while {(missionNamespace getVariable ["MCC_fnc_ambientBirdsSpawnInitRuning",fals
 		};
 	} forEach allGroups;
 
-	sleep (random 200);
+	sleep (random 120);
 };

@@ -23,6 +23,7 @@
 #include "MCC_Module_settingsMechanicsCurator.hpp"
 #include "MCC_Module_settingsRSCurator.hpp"
 #include "MCC_Module_ambientBirds.hpp"
+#include "MCC_module_ambientFire.hpp"
 #include "MCC_module_survivalSpawnCratesCurator.hpp"
 #include "MCC_Module_settingsGAIACurator.hpp"
 #include "MCC_Module_createIntelCurator.hpp"

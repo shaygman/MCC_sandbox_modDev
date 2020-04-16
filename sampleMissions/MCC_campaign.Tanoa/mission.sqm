@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=168;
+		nextID=171;
 	};
 	class Camera
 	{
@@ -23,6 +23,9 @@ addons[]=
 {
 	"A3_Ui_F",
 	"A3_Soft_F_Beta_Truck_01",
+	"A3_Soft_F_Exp_Truck_01",
+	"ace_realisticnames",
+	"ace_cargo",
 	"A3_Structures_F_Mil_Fortification",
 	"A3_Air_F_Beta_Heli_Transport_01",
 	"A3_Structures_F_Mil_Helipads",
@@ -31,13 +34,14 @@ addons[]=
 	"A3_Modules_F_Curator_Intel",
 	"mcc_sandbox",
 	"A3_Soft_F_Exp_LSV_01",
-	"A3_Soft_F_Exp_Quadbike_01"
+	"A3_Soft_F_Exp_Quadbike_01",
+	"mcc_sandbox_curatorExp"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=9;
+		items=12;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -54,51 +58,71 @@ class AddonsMetaData
 		};
 		class Item2
 		{
+			className="A3_Soft_F_Exp";
+			name="Arma 3 Apex - Unarmored Land Vehicles";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item3
+		{
+			className="A3_Characters_F";
+			name="Arma 3 Alpha - Characters and Clothing";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item4
+		{
+			className="ace_cargo";
+			name="ACE3 - Cargo";
+			author="ACE-Team";
+			url="http://ace3mod.com/";
+		};
+		class Item5
+		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item3
+		class Item6
 		{
 			className="A3_Air_F_Beta";
 			name="Arma 3 Beta - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item4
+		class Item7
 		{
 			className="A3_Air_F";
 			name="Arma 3 Alpha - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item5
+		class Item8
 		{
 			className="A3_Characters_F_Exp";
 			name="Arma 3 Apex - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item6
+		class Item9
 		{
 			className="A3_Modules_F_Curator";
 			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item7
+		class Item10
 		{
 			className="mcc_sandbox";
 			name="MCC Sandbox";
 			author="shay_gman";
 		};
-		class Item8
+		class Item11
 		{
-			className="A3_Soft_F_Exp";
-			name="Arma 3 Apex - Unarmored Land Vehicles";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
+			className="mcc_sandbox_curatorExp";
+			name="mcc_sandbox_curatorExp";
+			author="shay_gman";
 		};
 	};
 };
@@ -421,7 +445,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=56;
+		items=53;
 		class Item0
 		{
 			dataType="Marker";
@@ -3733,16 +3757,72 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={7143.3901,2.6600001,7196.4141};
-				angles[]={0,0,6.2485328};
+				position[]={7055.2676,2.6600001,7212.1978};
 			};
-			id=162;
-			type="MCC_Module_setResources";
+			id=168;
+			type="MCC_Module_setResourcesCurator";
 			class CustomAttributes
 			{
 				class Attribute0
 				{
-					property="MCC_Module_setResources_meds";
+					property="MCC_Module_setResourcesCurator_fuel";
+					expression="_this setVariable ['fuel',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=500;
+						};
+					};
+				};
+				class Attribute1
+				{
+					property="MCC_Module_setResourcesCurator_food";
+					expression="_this setVariable ['food',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=100;
+						};
+					};
+				};
+				class Attribute2
+				{
+					property="MCC_Module_setResourcesCurator_repair";
+					expression="_this setVariable ['repair',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=500;
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="MCC_Module_setResourcesCurator_meds";
 					expression="_this setVariable ['meds',_value,true];";
 					class Value
 					{
@@ -3755,13 +3835,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=200;
+							value=100;
 						};
 					};
 				};
-				class Attribute1
+				class Attribute4
 				{
-					property="MCC_Module_setResources_ammo";
+					property="MCC_Module_setResourcesCurator_ammo";
 					expression="_this setVariable ['ammo',_value,true];";
 					class Value
 					{
@@ -3774,13 +3854,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=1000;
+							value=500;
 						};
 					};
 				};
-				class Attribute2
+				class Attribute5
 				{
-					property="MCC_Module_setResources_side";
+					property="MCC_Module_setResourcesCurator_side";
 					expression="_this setVariable ['side',_value,true];";
 					class Value
 					{
@@ -3797,28 +3877,23 @@ class Mission
 						};
 					};
 				};
-				class Attribute3
+				nAttributes=6;
+			};
+		};
+		class Item51
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={7091.2852,2.6600001,7212.1978};
+			};
+			id=169;
+			type="MCC_Module_setResourcesCurator";
+			class CustomAttributes
+			{
+				class Attribute0
 				{
-					property="MCC_Module_setResources_repair";
-					expression="_this setVariable ['repair',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=1000;
-						};
-					};
-				};
-				class Attribute4
-				{
-					property="MCC_Module_setResources_fuel";
+					property="MCC_Module_setResourcesCurator_fuel";
 					expression="_this setVariable ['fuel',_value,true];";
 					class Value
 					{
@@ -3831,13 +3906,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=1000;
+							value=500;
 						};
 					};
 				};
-				class Attribute5
+				class Attribute1
 				{
-					property="MCC_Module_setResources_food";
+					property="MCC_Module_setResourcesCurator_food";
 					expression="_this setVariable ['food',_value,true];";
 					class Value
 					{
@@ -3850,28 +3925,32 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=200;
+							value=100;
 						};
 					};
 				};
-				nAttributes=6;
-			};
-		};
-		class Item51
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={7167.1821,2.6600001,7197.7871};
-				angles[]={0.033318337,0,0.013334315};
-			};
-			id=163;
-			type="MCC_Module_setResources";
-			class CustomAttributes
-			{
-				class Attribute0
+				class Attribute2
 				{
-					property="MCC_Module_setResources_meds";
+					property="MCC_Module_setResourcesCurator_repair";
+					expression="_this setVariable ['repair',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=500;
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="MCC_Module_setResourcesCurator_meds";
 					expression="_this setVariable ['meds',_value,true];";
 					class Value
 					{
@@ -3884,13 +3963,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=200;
+							value=100;
 						};
 					};
 				};
-				class Attribute1
+				class Attribute4
 				{
-					property="MCC_Module_setResources_ammo";
+					property="MCC_Module_setResourcesCurator_ammo";
 					expression="_this setVariable ['ammo',_value,true];";
 					class Value
 					{
@@ -3903,13 +3982,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=1000;
+							value=500;
 						};
 					};
 				};
-				class Attribute2
+				class Attribute5
 				{
-					property="MCC_Module_setResources_side";
+					property="MCC_Module_setResourcesCurator_side";
 					expression="_this setVariable ['side',_value,true];";
 					class Value
 					{
@@ -3926,28 +4005,23 @@ class Mission
 						};
 					};
 				};
-				class Attribute3
+				nAttributes=6;
+			};
+		};
+		class Item52
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={7125.3735,2.6600001,7212.1978};
+			};
+			id=170;
+			type="MCC_Module_setResourcesCurator";
+			class CustomAttributes
+			{
+				class Attribute0
 				{
-					property="MCC_Module_setResources_repair";
-					expression="_this setVariable ['repair',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=1000;
-						};
-					};
-				};
-				class Attribute4
-				{
-					property="MCC_Module_setResources_fuel";
+					property="MCC_Module_setResourcesCurator_fuel";
 					expression="_this setVariable ['fuel',_value,true];";
 					class Value
 					{
@@ -3960,13 +4034,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=1000;
+							value=500;
 						};
 					};
 				};
-				class Attribute5
+				class Attribute1
 				{
-					property="MCC_Module_setResources_food";
+					property="MCC_Module_setResourcesCurator_food";
 					expression="_this setVariable ['food',_value,true];";
 					class Value
 					{
@@ -3979,29 +4053,32 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=200;
+							value=100;
 						};
 					};
 				};
-				nAttributes=6;
-			};
-		};
-		class Item52
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={7190.5171,2.6599982,7198.2441};
-				angles[]={0,0,0.0026529003};
-			};
-			id=164;
-			type="MCC_Module_setResources";
-			atlOffset=-1.9073486e-006;
-			class CustomAttributes
-			{
-				class Attribute0
+				class Attribute2
 				{
-					property="MCC_Module_setResources_meds";
+					property="MCC_Module_setResourcesCurator_repair";
+					expression="_this setVariable ['repair',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=500;
+						};
+					};
+				};
+				class Attribute3
+				{
+					property="MCC_Module_setResourcesCurator_meds";
 					expression="_this setVariable ['meds',_value,true];";
 					class Value
 					{
@@ -4014,13 +4091,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=200;
+							value=100;
 						};
 					};
 				};
-				class Attribute1
+				class Attribute4
 				{
-					property="MCC_Module_setResources_ammo";
+					property="MCC_Module_setResourcesCurator_ammo";
 					expression="_this setVariable ['ammo',_value,true];";
 					class Value
 					{
@@ -4033,13 +4110,13 @@ class Mission
 									"SCALAR"
 								};
 							};
-							value=1000;
+							value=500;
 						};
 					};
 				};
-				class Attribute2
+				class Attribute5
 				{
-					property="MCC_Module_setResources_side";
+					property="MCC_Module_setResourcesCurator_side";
 					expression="_this setVariable ['side',_value,true];";
 					class Value
 					{
@@ -4056,309 +4133,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute3
-				{
-					property="MCC_Module_setResources_repair";
-					expression="_this setVariable ['repair',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=1000;
-						};
-					};
-				};
-				class Attribute4
-				{
-					property="MCC_Module_setResources_fuel";
-					expression="_this setVariable ['fuel',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=1000;
-						};
-					};
-				};
-				class Attribute5
-				{
-					property="MCC_Module_setResources_food";
-					expression="_this setVariable ['food',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=200;
-						};
-					};
-				};
 				nAttributes=6;
-			};
-		};
-		class Item53
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={7152.9985,2.6600001,7230.7285};
-			};
-			id=165;
-			type="MCC_Module_ambientBirds";
-		};
-		class Item54
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={7175.8755,2.6599982,7230.2695};
-			};
-			id=166;
-			type="MCC_module_ambientFire";
-			atlOffset=-1.9073486e-006;
-		};
-		class Item55
-		{
-			dataType="Logic";
-			class PositionInfo
-			{
-				position[]={7196.9233,2.6600001,7228.8984};
-				angles[]={6.2818937,0,0};
-			};
-			id=167;
-			type="MCC_Module_atmosphere";
-			class CustomAttributes
-			{
-				class Attribute0
-				{
-					property="MCC_Module_atmosphere_windsounds";
-					expression="_this setVariable ['windsounds',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute1
-				{
-					property="MCC_Module_atmosphere_changeTime";
-					expression="_this setVariable ['changeTime',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute2
-				{
-					property="MCC_Module_atmosphere_newspapers";
-					expression="_this setVariable ['newspapers',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute3
-				{
-					property="MCC_Module_atmosphere_mist";
-					expression="_this setVariable ['mist',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute4
-				{
-					property="MCC_Module_atmosphere_snow";
-					expression="_this setVariable ['snow',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute5
-				{
-					property="MCC_Module_atmosphere_leaves";
-					expression="_this setVariable ['leaves',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute6
-				{
-					property="MCC_Module_atmosphere_fog";
-					expression="_this setVariable ['fog',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute7
-				{
-					property="MCC_Module_atmosphere_atmosphere";
-					expression="_this setVariable ['atmosphere',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=1;
-						};
-					};
-				};
-				class Attribute8
-				{
-					property="MCC_Module_atmosphere_dust";
-					expression="_this setVariable ['dust',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"BOOL"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute9
-				{
-					property="MCC_Module_atmosphere_filtergrain";
-					expression="_this setVariable ['filtergrain',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				class Attribute10
-				{
-					property="MCC_Module_atmosphere_filtercolor";
-					expression="_this setVariable ['filtercolor',_value,true];";
-					class Value
-					{
-						class data
-						{
-							class type
-							{
-								type[]=
-								{
-									"SCALAR"
-								};
-							};
-							value=0;
-						};
-					};
-				};
-				nAttributes=11;
 			};
 		};
 	};

@@ -11,20 +11,21 @@ _dir = getDir _module;
 //did we get here from the 2d editor?
 if (typeName (_module getVariable ["side",""]) == typeName 0) exitWith {
 
-	_side = [(_module getVariable ["side",1])] call BIS_fnc_sideType;
-	_hq = _module getVariable ["hq",true];
-	_lhdType = _module getVariable ["lhdType",2];
-	_displayName = _module getVariable ["displayName",""];
-	_store = _module getVariable ["store",true];
-	_rearm = _module getVariable ["rearm",true];
-	_pos set [2,0];
-
-	//Start LHD
 	if (isServer) then {
-		[_pos,_dir,_side,_hq,_lhdType,_displayName, _store, _rearm] spawn MCC_fnc_LHDspawn;
-	};
 
-	deleteVehicle _module;
+		_side = [(_module getVariable ["side",1])] call BIS_fnc_sideType;
+		_hq = _module getVariable ["hq",true];
+		_lhdType = _module getVariable ["lhdType",2];
+		_displayName = _module getVariable ["displayName",""];
+		_store = _module getVariable ["store",true];
+		_rearm = _module getVariable ["rearm",true];
+		_pos set [2,0];
+
+		//Start LHD
+		[_pos,_dir,_side,_hq,_lhdType,_displayName, _store, _rearm] spawn MCC_fnc_LHDspawn;
+
+		deleteVehicle _module;
+	};
 };
 
 //Not curator exit

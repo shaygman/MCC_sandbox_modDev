@@ -19,6 +19,5 @@
 #include "mcc_Module_createZones.hpp"
 #include "MCC_Module_settingsRS.hpp"
 #include "MCC_Module_createIntel.hpp"
-#include "MCC_Module_GAIARespawns.hpp"
 #include "MCC_Module_addValor.hpp"
 #include "MCC_Module_settingsMissionWizard.hpp"

@@ -30,10 +30,9 @@ if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext
 _object = _object select 1;
 
 
-
- _resualt = ["GAIA Respawns",[
- 						["Number of Respawns",10]
- 					  ]] call MCC_fnc_initDynamicDialog;
+ _resualt = [localize "STR_Module__groupRespawns_displayName",[
+ 						[localize "STR_Module__groupRespawns_Respawns_displayName",10,localize "STR_Module__groupRespawns_Respawns_description"]
+ 					  ],format ["<t align='center'> %1</t>",localize "STR_Module__groupRespawns_Respawns_description"]] call MCC_fnc_initDynamicDialog;
 
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 

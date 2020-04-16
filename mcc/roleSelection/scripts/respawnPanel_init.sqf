@@ -46,11 +46,16 @@ missionNamespace setVariable ["CP_respawnPanelOpen",true];
 
 //If we did not got here after respawn
 if (player getVariable ["cpReady",true]) then {
+	//Esc will close dialog
+	CP_disableEsc = CP_RESPAWNPANEL_IDD displayAddEventHandler ["KeyDown", "if ((_this select 1) == 1) then { closeDialog 0}"];
 	{
 		(_disp displayCtrl _x) ctrlShow false;
 	} forEach [28,29,4,32,44,1006];
 } else {
 	CP_deployPanelMiniMap ctrlAddEventHandler ["Draw","_this call MCC_fnc_mapDrawPlayersWPConsole"];
+
+	//Esc will exit mission
+	CP_disableEsc = CP_RESPAWNPANEL_IDD displayAddEventHandler ["KeyDown", 'if ((_this select 1) == 1) then {["LOSER", false, 0.1,false,false] call BIS_fnc_endMission;}'];
 };
 
 //Roles enables or just after regular respawn
@@ -169,9 +174,6 @@ _map ctrladdeventhandler ["draw","_this call MCC_fnc_CPMapOpen_draw;"];
 _map ctrladdeventhandler ["mousemoving","_this call MCC_CPMap_mouseMoving;"];
 _map ctrladdeventhandler ["mouseholding","_this call MCC_CPMap_mouseMoving;"];
 _map ctrladdeventhandler ["MouseButtonUp","_this call MCC_CPMap_mouseUp;"];
-
-//Disable Esc while respawn is on
-CP_disableEsc = CP_RESPAWNPANEL_IDD displayAddEventHandler ["KeyDown", "if ((_this select 1) == 1) then { true }"];
 
 //Find relevent spawn points
 missionNamespace setVariable ["MCCActiveSpawnPosArray",[player] call BIS_fnc_getRespawnPositions];

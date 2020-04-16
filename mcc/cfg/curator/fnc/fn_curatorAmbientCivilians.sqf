@@ -7,22 +7,25 @@ if (isNull _module) exitWith {deleteVehicle _module};
 
 //did we get here from the 2d editor?
 if (typeName (_module getVariable ["isCiv",true]) == typeName 0) exitWith {
-	private ["_isCiv","_isCar","_isParkedCar","_isLocked","_civSpawnDistance","_maxCivSpawn","_factionCiv","_factionCivCar"];
 
-	_isCiv = (_module getVariable ["isCiv",1])==1;
-	_isCar = (_module getVariable ["isCar",1])==1;
-	_isParkedCar = (_module getVariable ["isParkedCar",1])==1;
-	_isLocked  = (_module getVariable ["isLocked",1])==1;
-	_civSpawnDistance = 250;
-	_maxCivSpawn = 4;
-	_factionCiv	= _module getVariable ["factionCiv","CIV_F"];
-	_factionCivCar = _module getVariable ["factionCivCar","CIV_F"];
-	_civRelations = _module getVariable ["civRelations",0.5];
-	_civRelationsIgnore = missionNamespace setVariable ["MCC_civRelationsIgnore",((_module getVariable ["civRelationsIgnore",0])==1)];
-	publicVariable "MCC_civRelationsIgnore";
+	if (isServer) then {
+		private ["_isCiv","_isCar","_isParkedCar","_isLocked","_civSpawnDistance","_maxCivSpawn","_factionCiv","_factionCivCar"];
 
-	//Start ambient civilians
-	[[_isCiv,_isCar,_isParkedCar,_isLocked,_civSpawnDistance,_maxCivSpawn,_factionCiv,_factionCivCar,_civRelations],"MCC_fnc_ambientInit",false,false] spawn BIS_fnc_MP;
+		_isCiv = (_module getVariable ["isCiv",1])==1;
+		_isCar = (_module getVariable ["isCar",1])==1;
+		_isParkedCar = (_module getVariable ["isParkedCar",1])==1;
+		_isLocked  = (_module getVariable ["isLocked",1])==1;
+		_civSpawnDistance = 250;
+		_maxCivSpawn = 4;
+		_factionCiv	= _module getVariable ["factionCiv","CIV_F"];
+		_factionCivCar = _module getVariable ["factionCivCar","CIV_F"];
+		_civRelations = _module getVariable ["civRelations",0.5];
+		_civRelationsIgnore = missionNamespace setVariable ["MCC_civRelationsIgnore",((_module getVariable ["civRelationsIgnore",0])==1)];
+		publicVariable "MCC_civRelationsIgnore";
+
+		//Start ambient civilians
+		[_isCiv,_isCar,_isParkedCar,_isLocked,_civSpawnDistance,_maxCivSpawn,_factionCiv,_factionCivCar,_civRelations] spawn MCC_fnc_ambientInit;
+	};
 };
 
 //Not curator exit
@@ -58,5 +61,5 @@ missionNamespace setVariable ["MCC_civRelationsIgnore",(_resualt select 9)];
 publicVariable "MCC_civRelationsIgnore";
 
 //Start ambient civilians
-[_resualt,"MCC_fnc_ambientInit",false,false] spawn BIS_fnc_MP;
+_resualt remoteExec ["MCC_fnc_ambientInit",2];
 deleteVehicle _module;

@@ -592,7 +592,7 @@ _objectives = [];
 						_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
 						_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
 
-						[[_pos,_objectType,_sidePlayer,"Armed Civilian",random 360],"MCC_fnc_ACSingle",false,false] spawn BIS_fnc_MP;
+						[_pos,_objectType,_sidePlayer,"Armed Civilian",random 360] remoteExec ["MCC_fnc_ACSingle", 2];
 
 						//Debug
 						if (MCC_debug) then {

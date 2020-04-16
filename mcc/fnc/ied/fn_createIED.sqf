@@ -1,15 +1,23 @@
-//===================================================================MCC_fnc_createIED=================================================================================
-// Create an IED mechnic (should run on server only).
-//Example:[_this,_trapvolume,_IEDExplosionType,_IEDDisarmTime,_IEDJammable,_IEDTriggerType,_trapdistance,_iedside] spawn MCC_fnc_createIED
-// Params:
-// 	IEDVolume: stirng, explosion radius - "small","medium","large"
-//	IEDExplosionType: number, explosion type: 0-deadly, 1 - disabling (will cripple vehicles and soldiers but will not kill) 2 - Fake, will not or lightly wound soldiers.
-//	IEDDisarmTime: number, time in second it will take to disarm the IED
-//	IEDJammable: boolean, true - if jammer vheicle (defined in MCC_IEDJammerVehicles) can jame this IED false if not
-//	IEDTriggerType: number, 0- Proximity, will explode if unit from the targer side will move faster then a slow crouch, 1- radio will explode if unit from the targer side will get close to it, if assigned to spotter the spotter must be alive, 2- manual detontion, only mission maker
-//	IEDdistance: number, minimum distance which target unit have to get close to the IED to set it off
-//	IEDside: side, [west, east, resistance, civilian]
-//=================================================================================================================================================================
+/*===================================================================MCC_fnc_createIED=================================================================================
+ Create an IED mechnic (should run on server only).
+	Example:
+
+	[_this,_trapvolume,_IEDExplosionType,_IEDDisarmTime,_IEDJammable,_IEDTriggerType,_trapdistance,_iedside] spawn MCC_fnc_createIED
+
+ Params:
+ 	_this:				OBJECT - the object that serve as the visual IED
+ 	_trapvolume:		STRING - explosion radius - "small","medium","large"
+ 	_IEDExplosionType:	INTEGER - explosion type:
+ 										0-deadly
+ 										1 - disabling (will cripple vehicles and soldiers but will not kill) 2 - Fake, will not or lightly wound soldiers.
+ 	_IEDDisarmTime		INTEGER - Time in second it will take to disarm the IED
+ 	_IEDJammable		BOOLEAN - true - if jammer vheicle (defined in MCC_IEDJammerVehicles) can jame this IED false if not
+ 	_IEDTriggerType		INTEGER - 	0- Proximity, will explode if unit from the targer side will move faster then a slow crouch,
+ 									1- radio will explode if unit from the targer side will get close to it, if assigned to spotter the spotter must be alive,
+ 									2- manual detontion, only mission maker
+ 	_trapdistance		INTEGER - Distance were target unit have to get close to the IED to set it off
+ 	_iedside			ARRAY - Array contains all the sides that will activate the IED [west, east, resistance, civilian]
+=================================================================================================================================================================*/
 
 //Made by Shay_Gman (c) 06.14
 private ["_pos", "_IEDJammable", "_IEDTriggerType", "_IEDAmbushGroup", "_trapdistance", "_iedside", "_dummy","_ok","_iedDir","_init","_helper","_fnc_iedHandle","_time"];

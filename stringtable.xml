@@ -392,6 +392,24 @@
         <English>Destroy buildings, create random fires and wreck in the given radius</English>
       </Key>
     </Container>
+    <Container name="GroupRespawns">
+      <Key ID="STR_Module__groupRespawns_displayName">
+        <Original>Respawn Group</Original>
+        <English>Respawn Group</English>
+      </Key>
+      <Key ID="STR_Module__groupRespawns_ModuleDescription_description">
+        <Original>Sync it with any unit or group to respawn the group when all units in the group dead</Original>
+        <English>Sync it with any unit or group to respawn the group when all units in the group dead</English>
+      </Key>
+      <Key ID="STR_Module__groupRespawns_Respawns_displayName">
+        <Original>Respawns</Original>
+        <English>Respawns</English>
+      </Key>
+      <Key ID="STR_Module__groupRespawns_Respawns_description">
+        <Original>How many time can the group respawn</Original>
+        <English>How many time can the group respawn</English>
+      </Key>
+    </Container>
   </Package>
   <Package name="general">
     <Container name="common">
