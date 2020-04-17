@@ -67,7 +67,6 @@ MCC_fnc_pylonUpdate ={
 
 	private ["_vehicle","_ctrl","_display","_picPos","_uiPos","_index","_pylon","_currentMag","_config","_pylonComponent","_pylonsAvailable","_currentPylonMag","_mirror"];
 
-
 	_vehicle = missionNamespace getVariable ["MCC_fnc_pylonsChangeVehicle",objNull];
 
 	if (isNull _vehicle) exitWith {};
@@ -80,7 +79,6 @@ MCC_fnc_pylonUpdate ={
 	_pylonComponent = _config >> "Components" >> "TransportPylonsComponent";
 	_pylonsAvailable = (_pylonComponent >> "pylons") call BIS_fnc_returnChildren;
 
-
 	{
 		_pylon = _x;
 
@@ -88,13 +86,21 @@ MCC_fnc_pylonUpdate ={
 
 		_ctrl = _display displayCtrl (28000 + _foreachIndex);
 
+		_currentPylonMag = _vehicle getCompatiblePylonMagazines (_forEachIndex + 1);
+
 		if (isNull _ctrl) then {
 			_ctrl = _display ctrlCreate ["MCC_RscCombo", (28000 + _foreachIndex)];
 		    _uiPos = getArray (_pylon >> "UIposition");
+
 		    _uiPos apply {if (_x isEqualType 0) then {_x} else {call compile _x}};
+
+		    private ["_uiPosX","_uiPosY"];
+		    _uiPosX = if ((_uiPos select 0) isEqualType 0) then {(_uiPos select 0)} else {call compile (_uiPos select 0)};
+		    _uiPosY = if ((_uiPos select 1) isEqualType 0) then {(_uiPos select 1)} else {call compile (_uiPos select 1)};
+
 		    _ctrl ctrlSetPosition [
-		        (_picPos select 0) + (_uiPos select 0),
-		        (_picPos select 1) + (_uiPos select 1),
+		        (_picPos select 0) + _uiPosX,
+		        (_picPos select 1) + _uiPosY,
 		        0.1 * safezoneW,
 		        0.02 * safezoneH
 		    ];
@@ -103,7 +109,6 @@ MCC_fnc_pylonUpdate ={
 		    _index = _ctrl lbadd "None";
 		    _ctrl lbSetData [_index,""];
 
-		    _currentPylonMag = _vehicle getCompatiblePylonMagazines (_forEachIndex + 1);
 		    _index = 0;
 		   	{
 		    	_ctrl lbadd ( format ["(%2) %1",getText (configFile >> "cfgMagazines" >> _x >> "displayName"),getText (configFile >> "cfgMagazines" >> _x >> "displayNameShort")]);
@@ -248,6 +253,24 @@ if !(isNull curatorCamera) then {
 };
 ctrlSetText [ID_PICTURE_UI, getText (_pylonComponent >> "uiPicture")];
 
+//Update pylons
+[] call MCC_fnc_pylonUpdate;
+
+//Mirror checkbox
+_ctrl = _display displayCtrl ID_MIROR;
+_ctrl ctrlAddEventHandler ["CheckedChanged", {[] call MCC_fnc_pylonUpdate}];
+
+//Cancel
+_ctrl = _display displayCtrl ID_CANCEL;
+_ctrl ctrlAddEventHandler ["ButtonClick", {
+	missionNamespace setVariable ["MCC_fnc_pylonsChangeVehicle",nil];
+	closeDialog 2;
+}];
+
+//Apply
+_ctrl = _display displayCtrl ID_APPLY;
+_ctrl ctrlAddEventHandler ["ButtonClick", {[] spawn MCC_fnc_pylonApply}];
+
 //----Loadouts
 _ctrl = _display displayCtrl ID_PRESETCOMBO;
 {
@@ -271,21 +294,3 @@ _ctrl ctrlAddEventHandler ["LBSelChanged", {
 
 	[_selectedPrest] call MCC_fnc_pylonUpdate;
 }];
-
-//Update pylons
-[] call MCC_fnc_pylonUpdate;
-
-//Mirror checkbox
-_ctrl = _display displayCtrl ID_MIROR;
-_ctrl ctrlAddEventHandler ["CheckedChanged", {[] call MCC_fnc_pylonUpdate}];
-
-//Cancel
-_ctrl = _display displayCtrl ID_CANCEL;
-_ctrl ctrlAddEventHandler ["ButtonClick", {
-	missionNamespace setVariable ["MCC_fnc_pylonsChangeVehicle",nil];
-	closeDialog 2;
-}];
-
-//Apply
-_ctrl = _display displayCtrl ID_APPLY;
-_ctrl ctrlAddEventHandler ["ButtonClick", {[] spawn MCC_fnc_pylonApply}];

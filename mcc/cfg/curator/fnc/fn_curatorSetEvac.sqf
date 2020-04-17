@@ -25,8 +25,11 @@ if (!(local _module) || isnull curatorcamera) exitWith {};
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 //if no object selected or not a vehicle
-_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No vehicle selected" + "</t>";
-if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
+if (count _object <2) exitWith {
+	[objNull, localize "STR_GENERAL_ERROR_NOVEHICLESELECTED"] call bis_fnc_showCuratorFeedbackMessage;
+	 deleteVehicle _module;
+};
+
 _object = _object select 1;
 
 //if no empty positions
@@ -41,11 +44,13 @@ _resualt = ["Add the vehicle as MCC evac vehicle",[
  						["Campaign Evac",false]
  					  ]] call MCC_fnc_initDynamicDialog;
 
+if (count _resualt == 0) exitWith {deleteVehicle _module};
+
 _side = (_resualt select 0) call BIS_fnc_sideType;
 _gunners = _resualt select 1;
 _campaign = _resualt select 2;
 
-if (count _resualt == 0) exitWith {deleteVehicle _module};
+
 
 [_object, _side, _gunners, _campaign] remoteExec ["MCC_fnc_setEvac",2];
 

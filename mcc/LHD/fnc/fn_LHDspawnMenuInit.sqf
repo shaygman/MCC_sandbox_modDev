@@ -7,11 +7,14 @@
 		None
 ==================================================================================================================================================================*/
 params [
-	["_deck", 0, [0,objNull,[]]],
-	["_lhdIndex", 0, [0,"",objNull,[]]],
-	["_operator", 0, [0,objNull,[]]],
+	["_deck", 0, [0,objNull,[],false]],
+	["_lhdIndex", 0, [0,"",objNull,[],false]],
+	["_operator", 0, [0,objNull,[],false]],
 	["_changeShip", true, [true]]
 ];
+
+//Start loading screen
+["rsc_loadingScreen", "Loading Ship assets"] call BIS_fnc_startLoadingScreen;
 
 //We came here from curator
 if (typeName _deck == typeName objNull) exitWith {
@@ -58,6 +61,14 @@ _side = _ship getVariable ["MCC_side",sideLogic];
 _shipClass = _ship getVariable ["MCC_ShipType",0];
 
 missionNamespace setVariable ["MCC_interatedLHD",_ship];
+
+//init assets
+{
+	[_x, _side, "", true] call MCC_fnc_vehicleSpawnerBuildCostTable
+} forEach ["vehicle","tank","heli","jet","ship"];
+
+//End loading screen
+"rsc_loadingScreen" call BIS_fnc_endLoadingScreen;
 
 //Close all dialogs
 while {dialog} do {
@@ -269,8 +280,8 @@ _ctrl ctrlSetPosition [0.85*safezoneW+safezoneX, 0.85*safezoneH+safezoneY,0.1*sa
 _ctrl ctrlsetText "Exit";
 _ctrl ctrlAddEventHandler ["MouseButtonUp","closeDialog 0"];
 _ctrl ctrlCommit 0;
-
 sleep 0.1;
+
 //Build SpawnPos
 _objects = [];
 {

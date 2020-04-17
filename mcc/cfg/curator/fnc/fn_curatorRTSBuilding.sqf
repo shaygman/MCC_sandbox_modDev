@@ -45,7 +45,7 @@ _resualt = ["(RTS)Buildings",[
 						["Side", ["East","West","Eesistance"]]
 					  ]] call MCC_fnc_initDynamicDialog;
 
-if (count _resualt == 0) exitWith {deleteVehicle _module};
+if (count _resualt == 0) exitWith {};
 
 _index = _resualt select 0;
 

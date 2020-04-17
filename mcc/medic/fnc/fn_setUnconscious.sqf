@@ -8,22 +8,26 @@ if (isNull _module) exitWith {};
 //did we get here from the 2d editor?
 if (typeName (_module getVariable ["enableBleeding",0]) == typeName true) exitWith {
 
-	_enableBleeding = (_module getVariable ["enableBleeding",false]);
-	_forceUnconscious = (_module getVariable ["forceUnconscious",false]);
+	if (isServer) then {
+		_enableBleeding = (_module getVariable ["enableBleeding",false]);
+		_forceUnconscious = (_module getVariable ["forceUnconscious",false]);
 
-	//Who synced with the module
-	{
-		if (_x isKindOf "Man") then {
-			[_x,objnull,_enableBleeding,_forceUnconscious] remoteExec ["MCC_fnc_unconscious",_x];
-		};
-	} forEach (synchronizedobjects _module);
+		//Who synced with the module
+		{
+			if (_x isKindOf "Man") then {
+				[_x,objnull,_enableBleeding,_forceUnconscious] remoteExec ["MCC_fnc_unconscious",_x];
+			};
+		} forEach (synchronizedobjects _module);
+	};
 };
 
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 //if no object selected or not a vehicle
-_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No unit selected" + "</t>";
-if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
+if (count _object <2) exitWith {
+	[objNull, localize "STR_GENERAL_ERROR_NOUNITSELECTED"] call bis_fnc_showCuratorFeedbackMessage;
+	deleteVehicle _module;
+};
 _object = _object select 1;
 
 if !(_object isKindOf "Man") exitWith {systemchat "No unit selected"; deleteVehicle _module};

@@ -1,7 +1,7 @@
 class MCC_Module_createShopCurator : MCC_Module_Base
 {
 	scope = 2;
-	isGlobal = 0;
+	isGlobal = 1;
 	scopeCurator = 2;
 	category = "MCC_RTS";
 	displayName = "Weapon Shop";

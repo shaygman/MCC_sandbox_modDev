@@ -24,7 +24,7 @@ params [
 
 if (_fireDistance <=0) exitWith {};
 
-private ["_pos","_fire","_fireSpread","_posTree","_dummy","_effect"];
+private ["_pos","_fire","_fireSpread","_posTree","_dummy","_effect","_object"];
 _fireSpread = 7;
 
 _pos = [_startPos,_fireSpread,_dir] call BIS_fnc_relPos;
@@ -37,10 +37,11 @@ _pos set [2, (_pos select 2) + 0.3];
 //If rain then the fire will most likely die
 if (random 1 < rain) exitWith {};
 
-//Burn trees
+//Propagation to trees and houses
 {
-	_posTree = getPosATL _x;
-	if (damage _x < 0.5 &&
+	_object = _x;
+	_posTree = getPosATL _object;
+	if (damage _object < 0.5 &&
 	    ({typeOf _x in [PLACE_HOLDER,FIRE_OBJECTBIG]} count (_posTree nearObjects 5) <= 0) &&
 	     ({typeOf _x in [PLACE_HOLDER,FIRE_OBJECTBIG]} count (_posTree nearObjects 50) < MAX_FIRES)
 	   ) then {
@@ -58,10 +59,10 @@ if (random 1 < rain) exitWith {};
 		};
 
 		//Put fire out after sometime
-		[_effect, _dummy, _x] spawn {
-			params ["_effect","_dummy","_tree"];
+		[_effect, _dummy, _object] spawn {
+			params ["_effect","_dummy","_object"];
 			sleep 180 + random 120;
-			_tree setdamage 1;
+			_object setdamage 1;
 			sleep 60 + random 60;
 			while {!isnull (attachedTo _effect)} do {detach _effect};
 			_nearObjects =  (getpos _effect) nearObjects 5;
@@ -72,7 +73,7 @@ if (random 1 < rain) exitWith {};
 
 		sleep random 10;
 	};
-} foreach (nearestTerrainObjects [_pos, ["Tree","Bush","SMALL TREE"], 8]);
+} foreach ((nearestTerrainObjects [_pos, ["Tree","Bush","SMALL TREE"], 8]) + (nearestObjects [_pos, ["House", "Building"], 15]));
 
 //Propagation on land
 if (["grass", tolower (surfaceType _pos)] call BIS_fnc_inString ||

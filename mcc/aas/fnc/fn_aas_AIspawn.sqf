@@ -17,16 +17,19 @@ private ["_sectors","_autoBalance","_minPerSide","_spawnInDefensive","_AIUnits",
 
 //Module or function call
 if (typeName (_this select 0) != typeName objNull) then {
-	_faction =  param [0, "BLU_F"];
-	_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
-	_enemySide = param [1, east];
-	_autoBalance = param [2, true];
-	_minPerSide = param [3, 20];
-	_spawnInDefensive = param [4, true];
-	_searchRadius = param [5, 200];
-	_useDefaultGear = param [6, []];
-	_startPos = param [7, [0,0,0]];
-	_spawnVehicles = param [8, true,[true]];
+
+	if (isServer) then {
+		_faction =  param [0, "BLU_F"];
+		_side = [(getNumber (configfile >> "CfgFactionClasses" >> _faction >> "side"))] call BIS_fnc_sideType;
+		_enemySide = param [1, east];
+		_autoBalance = param [2, true];
+		_minPerSide = param [3, 20];
+		_spawnInDefensive = param [4, true];
+		_searchRadius = param [5, 200];
+		_useDefaultGear = param [6, []];
+		_startPos = param [7, [0,0,0]];
+		_spawnVehicles = param [8, true,[true]];
+	};
 } else {
     _module = param [0, objNull, [objNull]];
     if (isNull _module)  exitWith {diag_log "MCC MCC_fnc_aas_AIspawn: No module found"};

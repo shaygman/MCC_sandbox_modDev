@@ -17,7 +17,7 @@ _resualt = ["Create a cpature point",[["Type",[["Ammo",format ["%1data\IconAmmo.
 				["Owner",["None","East","West","Resistance","Civilian"]]
 			  ]] call MCC_fnc_initDynamicDialog;
 
-if (count _resualt == 0) exitWith {deleteVehicle _module};
+if (count _resualt == 0) exitWith {};
 
 _type = _resualt select 0;
 _radius = _resualt select 1;
@@ -36,4 +36,5 @@ _module setvariable ["flag",_flag,true];
 _module setvariable ["radius",_radius,true];
 _module setvariable ["enableHUD",_enableHUD,true];
 
-_null = [[_module],"MCC_fnc_moduleCapturePoint",false] call bis_fnc_mp;
+sleep 1;
+[_module] remoteExec ["MCC_fnc_moduleCapturePoint",2];

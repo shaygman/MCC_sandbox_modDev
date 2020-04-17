@@ -3,15 +3,29 @@ Fixed:
 	- Getting Error "MCC_MODULE_LHD SPAWN" when load template missions.
 	- Getting Error "MCC_MODULE_RESOURCES" when load campaign missions.
 	- Ambient Birds module didn't work from Zeus.
+	- Ambient Civilians module didn't work from Zeus.
+	- Ambient Civilians Restrict module didn't work from Zeus.
 	- Spawn Ship module didn't work from Zeus.
+	- Open Ship Dialog module didn't work from Zeus.
+	- Weapon Shop Dialog module didn't work from Zeus.
+	- Cargo Load module didn't work from Zeus.
+	- Atmosphere module didn't work from Zeus.
+	- Assign AI module didn't work from Zeus.
+	- AAS Capture Point module didn't work from Zeus.
+	- AAS Spawn AI module didn't work from Zeus.
+	- Set Unconscious module didn't work from Zeus.
+	- Set Group Respawn module didn't work from Zeus.
+	- Change Pylon/Rearm module didn't work from Zeus or on CUP vehicles.
+
 
 Added:
 	- Appropriate loadouts to CUP template missions
 	- Ambient fire modules to Zeus and 3den
+	- Add credit to players module to Zeus
 	- Pressing Esc in Squad Menu or Role Selection will close the dialog
 
 TODO:
-- check ships spawn
+- check ships spawn disable damage for a few seconds, give ships names
 - add ace self interaction open Squad dialog
 - add ambient fire, birds, AI to settings
 - cinematic focuse on units in buildings

@@ -7,8 +7,7 @@ _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {};
 
 //did we get here from the 2d editor?
-if (_module isKindOf "MCC_Module_addValor") then {
-
+if (typeName (_module getVariable ["valor",true]) isEqualTo typeName 100) then {
 	if (!isServer) exitWith {};
 
 	_valor = _module getVariable ["valor",100];
@@ -62,8 +61,7 @@ if (_module isKindOf "MCC_Module_addValor") then {
 		if (isPlayer _object) then {
 			_object setVariable ["MCC_valorPoints",(_object getVariable ["MCC_valorPoints",50]) + _valor,true];
 		} else {
-			_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No player selected" + "</t>";
-			0 = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
+			[objNull, localize "STR_GENERAL_ERROR_NOUNITSELECTED"] call bis_fnc_showCuratorFeedbackMessage;
 		};
 	};
 };

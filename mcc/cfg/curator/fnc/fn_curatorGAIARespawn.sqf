@@ -8,15 +8,18 @@ if (isNull _module) exitWith {deleteVehicle _module};
 //did we get here from the 2d editor?
 if (typeName (_module getVariable ["Respawns",true]) == typeName 0) exitWith {
 
-	_respawns = _module getVariable ["respawns",1];
+	if (isServer) then {
 
-	{
-		if (typeName _x == typeName grpNull) then {
-			[_x,_respawns] spawn GAIA_fnc_respawnSet;
-		} else {
-			[group _x,_respawns] spawn GAIA_fnc_respawnSet;
-		};
-	} forEach (synchronizedObjects _module);
+		_respawns = _module getVariable ["respawns",1];
+
+		{
+			if (typeName _x == typeName grpNull) then {
+				[_x,_respawns] spawn GAIA_fnc_respawnSet;
+			} else {
+				[group _x,_respawns] spawn GAIA_fnc_respawnSet;
+			};
+		} forEach (synchronizedObjects _module);
+	};
 };
 
 //Not curator exit
@@ -25,8 +28,10 @@ if (!(local _module) || isnull curatorcamera) exitWith {};
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 //if no object selected or not a vehicle
-_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No group selected" + "</t>";
-if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
+if (count _object <2) exitWith {
+	[objNull, localize "STR_GENERAL_ERROR_NOGROUPSELECTED"] call bis_fnc_showCuratorFeedbackMessage;
+	deleteVehicle _module
+};
 _object = _object select 1;
 
 

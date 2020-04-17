@@ -72,6 +72,13 @@ _colorOutside = if (isarray _colorOutside) then {
 	[0,0,0,1]
 };
 
+MCC_fnc_isUnitInBuilsing = {
+	params [
+		["_unit",objNull,[objNull]]
+	];
+
+	!(count(lineIntersectsObjs [(getposASL _unit), [(getposASL _unit select 0),(getposASL _unit select 1),((getposASL _unit select 2) + 20)]]) == 0)
+};
 
 //Cinematic
 if (_playMusic == 0) then {
@@ -82,7 +89,10 @@ if (_playMusic == 0) then {
 		//Do we have a sky intro
 		_units = (getpos _object) nearEntities [["Man", "Air", "Car", "Tank"], 1000];
 		for "_i" from 0 to (count _units)-1 step 1 do {
-			if (side (_units select _i) in [side player, sideLogic, civilian]) then {
+			_unit = (_units select _i);
+			if (side _unit in [side player, sideLogic, civilian] &&
+			    ((vehicle _unit != _unit) || !(_unit call MCC_fnc_isUnitInBuilsing))
+			    ) then {
 				_units set [_i,-1];
 			}
 		};

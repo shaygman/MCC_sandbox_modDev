@@ -1,10 +1,11 @@
 class MCC_Module_addValor : Module_F
 {
-	category = "MCC";
-	displayName = "Add Credits/Valor Points";
+	category = "MCC_RTS";
+	displayName = "Add Credits To Players";
 	function = "MCC_fnc_curatorAddValor";
 	scope = 2;
-	isGlobal = 0;
+	isGlobal = 1;
+	scopeCurator = 2;
 
 	class Attributes : AttributesBase
 	{

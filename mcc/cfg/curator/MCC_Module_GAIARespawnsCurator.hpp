@@ -5,7 +5,7 @@ class MCC_Module_GAIARespawnsCurator : MCC_Module_Base
 	displayName = "$STR_Module__groupRespawns_displayName";
 	function = "MCC_fnc_curatorGAIARespawn";
 	scope = 2;
-	isGlobal = 0;
+	isGlobal = 1;
 
 	class Attributes : AttributesBase
 	{

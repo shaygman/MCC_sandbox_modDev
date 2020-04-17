@@ -10,8 +10,7 @@ _module = param [0, objNull, [objNull]];
 
 //If we came here from Zeus run on the server
 if (!isnull curatorcamera  && (local _module)) then {
-	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "Ambient Fire Enabled" + "</t>";
-	_null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
+	[objNull, localize "STR_DISP_CURATOR_AMBIENTFIRE_SUCCESS"] call bis_fnc_showCuratorFeedbackMessage;
 	if (!isServer) then {[] remoteExec ["MCC_fnc_ambientFireInit", 2]};
 	deleteVehicle (param [0,objNull,[objNull]]);
 };

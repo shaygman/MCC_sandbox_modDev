@@ -8,7 +8,7 @@ class MCC_Module_medicSetStateCurator : MCC_Module_Base
 	portrait = "a3\ui_f\data\IGUI\Cfg\Actions\bandage_ca.paa";
 	displayName = "Set Unconscious";
 	function = "MCC_fnc_setUnconscious";
-	isGlobal = 0;
+	isGlobal = 1;
 
 	class Attributes: AttributesBase
 	{

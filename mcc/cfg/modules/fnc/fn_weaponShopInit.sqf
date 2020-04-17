@@ -12,57 +12,58 @@ _pos = getpos _module;
 //did we get here from the 2d editor?
 if (_module isKindOf "MCC_Module_createShop") then {
 
-	if (!isServer) exitWith {};
+	if (isServer) then {
 
-	_text = _module getVariable ["tittle","Open Shop"];
-	_prices = _module getVariable ["prices",0.5];
-	_persistent = _module getVariable ["persistent",false];
-	_persistentName =  _module getVariable ["persistentName","testShop"];
+		_text = _module getVariable ["tittle","Open Shop"];
+		_prices = _module getVariable ["prices",0.5];
+		_persistent = _module getVariable ["persistent",false];
+		_persistentName =  _module getVariable ["persistentName","testShop"];
 
-	//Find all the boxes and place holders
-	_objects = [];
-	{
-		if (_x isKindOf "ReammoBox_F" || _x isKindOf "ReammoBox") then {
-			_box = _x;
-		} else {
-			_objects pushBack _x;
+		//Find all the boxes and place holders
+		_objects = [];
+		{
+			if (_x isKindOf "ReammoBox_F" || _x isKindOf "ReammoBox") then {
+				_box = _x;
+			} else {
+				_objects pushBack _x;
+			};
+		} forEach (synchronizedObjects _module);
+
+		if (isNil "_box") exitWith {};
+
+		_box enableSimulation false;
+		_box allowDamage false;
+		_box hideObjectGlobal true;
+
+		//If persistent DB
+		if (_persistent) then {
+			_box setVariable ["MCC_virtualBox",true,true];
+			_box setVariable ["MCC_virtualBoxSaveName",_persistentName,true];
 		};
-	} forEach (synchronizedObjects _module);
 
-	if (isNil "_box") exitWith {};
+		//add objects actions
+		{
+			_object = _x;
 
-	_box enableSimulation false;
-	_box allowDamage false;
-	_box hideObjectGlobal true;
-
-	//If persistent DB
-	if (_persistent) then {
-		_box setVariable ["MCC_virtualBox",true,true];
-		_box setVariable ["MCC_virtualBoxSaveName",_persistentName,true];
+			[
+				 _object,
+				 _text,
+				 MCC_SHOP_ICON,
+				 MCC_SHOP_ICON,
+				 "(alive _target) && (_target distance _this < 5)",
+				 "(alive _target) && (_target distance _this < 5)",
+				 {},
+				 {},
+				 {_arguments spawn MCC_fnc_mainBoxInit},
+				 {},
+				 [_box,_prices],
+				 1,
+				 100,
+				 false,
+				 false
+			] remoteExec ["BIS_fnc_holdActionAdd", 0, _object];
+		} forEach _objects;
 	};
-
-	//add objects actions
-	{
-		_object = _x;
-
-		[
-			 _object,
-			 _text,
-			 MCC_SHOP_ICON,
-			 MCC_SHOP_ICON,
-			 "(alive _target) && (_target distance _this < 5)",
-			 "(alive _target) && (_target distance _this < 5)",
-			 {},
-			 {},
-			 {_arguments spawn MCC_fnc_mainBoxInit},
-			 {},
-			 [_box,_prices],
-			 1,
-			 100,
-			 false,
-			 false
-		] remoteExec ["BIS_fnc_holdActionAdd", 0, _object];
-	} forEach _objects;
 } else {
 
 	//Not curator exit
@@ -71,8 +72,10 @@ if (_module isKindOf "MCC_Module_createShop") then {
 	_object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 	//if no object selected or not a vehicle
-	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No ammo box selected" + "</t>";
-	if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
+	if (count _object <2) exitWith {
+		[objNull, localize "STR_GENERAL_ERROR_NOAMMOBOXSELECTED"] call bis_fnc_showCuratorFeedbackMessage;
+		deleteVehicle _module
+	};
 	_object = _object select 1;
 
 	if !(_object isKindOf "ReammoBox_F" || _object isKindOf "ReammoBox") exitWith {systemchat "No ammo box selected"; deleteVehicle _module};
@@ -87,7 +90,7 @@ if (_module isKindOf "MCC_Module_createShop") then {
 
 	_object enableSimulation false;
 	_object allowDamage false;
-	_object hideObjectGlobal true;
+	[_object, true] remoteExec ["hideObjectGlobal",2];
 
 	_box = (typeOf _object) createVehicle _pos;
 	_box setPos _pos;

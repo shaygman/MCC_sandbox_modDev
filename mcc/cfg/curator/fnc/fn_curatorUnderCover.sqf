@@ -21,8 +21,10 @@ if (typeName (_module getVariable ["removeGear",true]) == typeName 0) exitWith {
 _object = missionNamespace getVariable ["MCC_curatorMouseOver",[]];
 
 //if no object selected or not a vehicle
-_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "No vehicle selected" + "</t>";
-if (count _object <2) exitWith {[_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext; deleteVehicle _module};
+if (count _object <2) exitWith {
+	[objNull, localize "STR_GENERAL_ERROR_NOVEHICLESELECTED"] call bis_fnc_showCuratorFeedbackMessage;
+	deleteVehicle _module;
+};
 _object = _object select 1;
 
 //Not curator exit
