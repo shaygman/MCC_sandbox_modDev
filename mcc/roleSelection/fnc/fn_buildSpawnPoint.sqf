@@ -32,7 +32,7 @@ if ((typeName (_this select 0)) == "OBJECT") then {
 	_dir			= _this select 1;
 	_side 			= _this select 2;
 	_size 			= toupper (_this select 3);
-	_destructable	= _this select 4;
+	_destructable	= param [4,false,[false]];
 	_animate		= param [5,false,[false]];
 	_construct 		= param [6, false, [false]];
 	_teleport 		= param [7, 1, [0]];
@@ -48,7 +48,6 @@ if (isnil "CP_flagGUER") then {CP_flagGUER = "\a3\Data_f\Flags\flag_AAF_co.paa"}
 #define REQUIRE_MEMBERS 3
 #define	MCC_HQ_BaseItem	"UserTexture10m_F"
 #define	MCC_FOB_BaseItem	"Land_TBox_F"
-
 
 if (typeName _side == "STRING") then {
 	_side = switch (toupper _side) do

@@ -557,11 +557,6 @@ MCC_MWMissions			= []; 	//Store all the mission objectives = (MCC_MWMissions sel
 
 //====================================================================================MCC Engine Init============================================================================================================================
 
-if (!isDedicated && !MCC_isLocalHC) then {
-	// Disable Respawn & Organise start on death location
-	_null=[] execVM MCC_path + "mcc\general_scripts\mcc_player_disableRespawn.sqf";
-};
-
 // Initialize and load the pop up menu
 _null=[] execVM MCC_path + "mcc\pop_menu\mcc_init_menu.sqf";
 
@@ -956,35 +951,62 @@ if (hasInterface) then {
 		// Teleport to team on Alt + T
 		if (isnil "MCC_teleportToTeam") then {MCC_teleportToTeam = true};
 
-		//Save gear EH
-		if(local player) then {player addEventHandler ["killed",{[player] execVM MCC_path + "mcc\general_scripts\save_gear.sqf";}];};
 
-		//Handle Heal
-		if(local player) then {player addEventHandler ["HandleHeal",{_this spawn {
-																			params ["_unit","_healer"];
-																			if ((_unit != _healer) && (missionNamespace getVariable ["CP_activated",false])) then {
-																				[[getPlayerUID _healer,200,"For Healing"], "MCC_fnc_addRating", _healer, false] spawn BIS_fnc_MP;
-																			};
+		if (local player) then {
+			//Save gear EH
+			_eh = player addEventHandler ["killed",{[player] execVM MCC_path + "mcc\general_scripts\save_gear.sqf";}];
+			player setVariable ["MCC_EH_Killed",_eh];
 
-																			if (missionNamespace getVariable ["MCC_medicSystemEnabled",false]) then {
-																				_unit setVariable ["MCC_medicBleeding",0,true];
-																				if (!isplayer _healer) then {
-																					_unit setVariable ["MCC_medicUnconscious",false,true];
-																				};
-																			};
-																		};
+			//Handle Heal
+			_eh = player addEventHandler ["HandleHeal",{_this spawn {
+											params ["_unit","_healer"];
+											if ((_unit != _healer) && (missionNamespace getVariable ["CP_activated",false])) then {
+												[[getPlayerUID _healer,200,"For Healing"], "MCC_fnc_addRating", _healer, false] spawn BIS_fnc_MP;
+											};
 
-																		if (missionNamespace getVariable ["MCC_medicSystemEnabled",false]) then {0} else {false};
-																	}]
+											if (missionNamespace getVariable ["MCC_medicSystemEnabled",false]) then {
+												_unit setVariable ["MCC_medicBleeding",0,true];
+												if (!isplayer _healer) then {
+													_unit setVariable ["MCC_medicUnconscious",false,true];
+												};
+											};
+										};
+
+										if (missionNamespace getVariable ["MCC_medicSystemEnabled",false]) then {0} else {false};
+									}];
+			player setVariable ["MCC_EH_HandleHeal",_eh];
+
+			//Handle repsawn
+		  	_eh = player addEventHandler ["Respawn", {
+			              params ["_unit", "_corpse"];
+
+			              //If repsawn in on
+			              if (missionNameSpace getVariable ["MCC_TRAINING",true]) then {
+			                [] spawn MCC_fnc_startLocations;
+			              } else {
+			                //If repsawn in off
+			                  cutText ["You Died...","BLACK OUT",2];
+			                  player setCaptive true;
+			                  if (isnil "MCC_deadGroup") then {MCC_deadGroup = createGroup civilian; publicVariable "MCC_deadGroup"};
+			                  [player] join MCC_deadGroup;
+			                  player attachto [MCC_respawnAnchor,[2,2,2]];
+			                  [] execVM MCC_path + "spectator\specta.sqf";
+			              };
+			            }];
+
+			player setVariable ["MCC_EH_Respawn",_eh];
+
+			//Handle rating for role selection
+			_eh = player addEventHandler ["HandleRating",{_this spawn MCC_fnc_handleRating}];
+			player setVariable ["MCC_EH_HandleRating",_eh];
+
+			//Curator
+			if(isMultiplayer) then {
+				[compile format ["MCC_curator addCuratorEditableObjects [[objectFromNetID '%1'],true]", netID player], "BIS_fnc_spawn", false, false] call BIS_fnc_MP;
+			};
 		};
 
-		//Handle rating for role selection
-		if (local player) then {player addEventHandler ["HandleRating",{_this spawn MCC_fnc_handleRating}]};
 
-		//Curator
-		if(local player && (isMultiplayer)) then {
-			[compile format ["MCC_curator addCuratorEditableObjects [[objectFromNetID '%1'],true]", netID player], "BIS_fnc_spawn", false, false] call BIS_fnc_MP;
-		};
 
 		//Handle add - action
 		[] spawn MCC_fnc_handleAddaction;
@@ -994,7 +1016,7 @@ if (hasInterface) then {
 		[] spawn MCC_CPplayerLoop;
 
 		//Add start locations script
-		[]  spawn MCC_fnc_startLocations;
+		//[] spawn MCC_fnc_startLocations;  --> moved to an option in MCC
 
 		//Add beanbag ammo for shouguns
 		0 spawn {

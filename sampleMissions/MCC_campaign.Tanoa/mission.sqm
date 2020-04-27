@@ -8,14 +8,14 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=171;
+		nextID=172;
 	};
 	class Camera
 	{
-		pos[]={7302.6216,90.892014,7171.2178};
-		dir[]={-0.30686209,-0.51077634,0.80312836};
-		up[]={-0.18230836,0.85970199,0.47714609};
-		aside[]={0.93417048,2.655579e-007,0.35693225};
+		pos[]={7216.2842,27.66,7014.0093};
+		dir[]={0,-0.70710683,0.70710683};
+		up[]={0,0.70710677,0.70710677};
+		aside[]={0.99999994,0,-0};
 	};
 };
 binarizationWanted=0;
@@ -24,8 +24,6 @@ addons[]=
 	"A3_Ui_F",
 	"A3_Soft_F_Beta_Truck_01",
 	"A3_Soft_F_Exp_Truck_01",
-	"ace_realisticnames",
-	"ace_cargo",
 	"A3_Structures_F_Mil_Fortification",
 	"A3_Air_F_Beta_Heli_Transport_01",
 	"A3_Structures_F_Mil_Helipads",
@@ -41,7 +39,7 @@ class AddonsMetaData
 {
 	class List
 	{
-		items=12;
+		items=10;
 		class Item0
 		{
 			className="A3_Ui_F";
@@ -65,60 +63,46 @@ class AddonsMetaData
 		};
 		class Item3
 		{
-			className="A3_Characters_F";
-			name="Arma 3 Alpha - Characters and Clothing";
-			author="Bohemia Interactive";
-			url="https://www.arma3.com";
-		};
-		class Item4
-		{
-			className="ace_cargo";
-			name="ACE3 - Cargo";
-			author="ACE-Team";
-			url="http://ace3mod.com/";
-		};
-		class Item5
-		{
 			className="A3_Structures_F_Mil";
 			name="Arma 3 - Military Buildings and Structures";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item6
+		class Item4
 		{
 			className="A3_Air_F_Beta";
 			name="Arma 3 Beta - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item7
+		class Item5
 		{
 			className="A3_Air_F";
 			name="Arma 3 Alpha - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item8
+		class Item6
 		{
 			className="A3_Characters_F_Exp";
 			name="Arma 3 Apex - Characters and Clothing";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item9
+		class Item7
 		{
 			className="A3_Modules_F_Curator";
 			name="Arma 3 Zeus Update - Scripted Modules";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
-		class Item10
+		class Item8
 		{
 			className="mcc_sandbox";
 			name="MCC Sandbox";
 			author="shay_gman";
 		};
-		class Item11
+		class Item9
 		{
 			className="mcc_sandbox_curatorExp";
 			name="mcc_sandbox_curatorExp";
@@ -445,7 +429,7 @@ class Mission
 	};
 	class Entities
 	{
-		items=53;
+		items=54;
 		class Item0
 		{
 			dataType="Marker";
@@ -1921,8 +1905,8 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={7216.2842,2.6600001,7039.0093};
-				angles[]={0,6.0520902,0};
+				position[]={7216.2842,2.6600001,7039.0088};
+				angles[]={0,6.0520864,0};
 			};
 			id=73;
 			type="mcc_sandbox_moduleILS";
@@ -1962,7 +1946,7 @@ class Mission
 									"STRING"
 								};
 							};
-							value="Runway";
+							value="Runway Base";
 						};
 					};
 				};
@@ -1978,10 +1962,10 @@ class Mission
 							{
 								type[]=
 								{
-									"STRING"
+									"SCALAR"
 								};
 							};
-							value="";
+							value=-1;
 						};
 					};
 				};
@@ -1997,10 +1981,10 @@ class Mission
 							{
 								type[]=
 								{
-									"STRING"
+									"SCALAR"
 								};
 							};
-							value="";
+							value=200;
 						};
 					};
 				};
@@ -3757,7 +3741,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={7055.2676,2.6600001,7212.1978};
+				position[]={7134.5918,2.6600001,7338.4272};
 			};
 			id=168;
 			type="MCC_Module_setResourcesCurator";
@@ -3885,7 +3869,7 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={7091.2852,2.6600001,7212.1978};
+				position[]={7158.2002,2.6600001,7339.7397};
 			};
 			id=169;
 			type="MCC_Module_setResourcesCurator";
@@ -4013,7 +3997,8 @@ class Mission
 			dataType="Logic";
 			class PositionInfo
 			{
-				position[]={7125.3735,2.6600001,7212.1978};
+				position[]={7177.7373,2.7217774,7339.6538};
+				angles[]={6.2805333,0,6.2805333};
 			};
 			id=170;
 			type="MCC_Module_setResourcesCurator";
@@ -4134,6 +4119,39 @@ class Mission
 					};
 				};
 				nAttributes=6;
+			};
+		};
+		class Item53
+		{
+			dataType="Logic";
+			class PositionInfo
+			{
+				position[]={7155.5781,2.6600001,7311.5396};
+			};
+			id=171;
+			type="MCC_Module_ambientCiviliansCuratorDenied";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="radius";
+					expression="_this setVariable ['radius',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"SCALAR"
+								};
+							};
+							value=500;
+						};
+					};
+				};
+				nAttributes=1;
 			};
 		};
 	};

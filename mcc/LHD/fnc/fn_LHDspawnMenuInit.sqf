@@ -13,8 +13,6 @@ params [
 	["_changeShip", true, [true]]
 ];
 
-//Start loading screen
-["rsc_loadingScreen", "Loading Ship assets"] call BIS_fnc_startLoadingScreen;
 
 //We came here from curator
 if (typeName _deck == typeName objNull) exitWith {
@@ -25,6 +23,9 @@ if (typeName _deck == typeName objNull) exitWith {
 		[0,"",0] spawn MCC_fnc_LHDspawnMenuInit;
 	};
 };
+
+//Start loading screen
+["rsc_loadingScreen", "Loading Ship assets"] call BIS_fnc_startLoadingScreen;
 
 private ["_ship","_camera","_display","_spawnPos","_pos","_dummy","_objects","_displayname","_index","_decks","_shipClass","_availableLHD","_vehicleType","_side"];
 

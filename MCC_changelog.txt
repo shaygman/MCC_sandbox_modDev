@@ -1,3 +1,22 @@
+Changelog R33 hot fix:
+Fixed:
+	- Ambient fire can't disable in settings
+	- RHS campaign bug
+	- Chance for vehicle to start a fire reduced by 50%, burning crew members will not create new fires.
+
+
+Changelog R33:
+Fixed:
+	- When opening Ship's Spawn Menu all clients stuck on loading screen
+	- Disable respawn and spectator script didn't work
+
+Added:
+	- Main Box to all ships spawned with MCC
+	- Force respawn dialog from MCC - under Start Location
+	- Enable/Disable MCC respawn dialog from CBA settings
+	- Ambient Fire to CBA settings
+	- Ambient Birds to CBA settings
+
 Changelog R32:
 Fixed:
 	- Getting Error "MCC_MODULE_LHD SPAWN" when load template missions.

@@ -113,7 +113,7 @@ if !mcc_isloading then {
 		{
 			MCC_TRAINING = FALSE;
 			publicVariable "MCC_TRAINING";
-			[["Mission started, respawn is off"],'MCC_fnc_globalHint',true,true] spawn BIS_fnc_MP;
+			["Mission started, respawn is off"] remoteExec ["MCC_fnc_globalHint",0,true];
 			MCC_enable_respawn=false;
 		};
 

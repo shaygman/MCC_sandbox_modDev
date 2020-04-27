@@ -9,10 +9,16 @@
 #define    MCC_billboard    "Land_Noticeboard_F"
 #define    MCC_helipad    "Land_HelipadEmpty_F"
 
-private ["_object","_arguments","_null","_syncItems","_syncedObjects","_billboard","_helipad","_type"];
+private ["_object","_vars","_null","_syncItems","_syncedObjects","_billboard","_helipad","_type"];
 
-_object = param [0, objNull, [objNull]];
+params [
+    ["_object",objNull],
+    ["_vars",[]],
+    ["_action","init"]
+];
+
 waitUntil {time > 1};
+
 //We came here from a moudle
 if (_object isKindOf "mcc_sandbox_modulevehicleSpawner" || _object isKindOf "MCC_Module_vehicleSpawnerCurator") exitWith {
     _syncedObjects = synchronizedObjects _object;
@@ -36,8 +42,8 @@ if (_object isKindOf "mcc_sandbox_modulevehicleSpawner" || _object isKindOf "MCC
         _helipad = _this select 1;
         _type = _this select 2;
 
-        //[_billboard,[_type,_helipad]] call MCC_fnc_vehicleSpawnerInit;
-       [[_billboard,[_type,_helipad]], "MCC_fnc_vehicleSpawnerInit", true, true] spawn BIS_fnc_MP;
+        [_billboard,[_type,_helipad],"init"] remoteExec ["MCC_fnc_vehicleSpawnerInit",0,_billboard];
+        /*[[_billboard,[_type,_helipad]], "MCC_fnc_vehicleSpawnerInit", true, true] spawn BIS_fnc_MP; */
 
         waitUntil {!isNil "MCC_curator"};
         {
@@ -46,32 +52,57 @@ if (_object isKindOf "mcc_sandbox_modulevehicleSpawner" || _object isKindOf "MCC
     };
 };
 
-if (count _this <=3) then {
-    //We got here from the object
-    _arguments = [_this, 1, [], [[]]] call BIS_fnc_param;
+switch (_action) do
+{
+    case "init":
+    {
+        //We got here from the object
+        _vars = [_this, 1, [], [[]]] call BIS_fnc_param;
 
-    if (local _object) then {_object allowDamage false; _object enableSimulation false};
-    _object setObjectTexture (switch (tolower (_arguments select 0)) do {
-                                case "vehicle": {[0,"\A3\Soft_F\MRAP_01\Data\UI\MRAP_01_Base_ca.paa"]};
-                                case "tank": {[0,"\A3\armor_f_gamma\MBT_01\Data\UI\Slammer_M2A1_Base_ca.paa"]};
-                                case "heli": {[0,"\A3\Air_F_Beta\Heli_Attack_01\Data\UI\Heli_Attack_01_CA.paa"]};
-                                case "jet": {[0,"\A3\Air_F_EPC\Plane_CAS_01\Data\UI\Plane_CAS_01_CA.paa"]};
-                                case "ship": {[0,"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"]};
-                                case "units": {[0,format ["%1data\IconMen.paa",MCC_path]]};
-                                default {[0,"\A3\Soft_F\MRAP_01\Data\UI\MRAP_01_Base_ca.paa"]};
-                            });
-    _object setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-    _object setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
-    _null = _object addAction [format ["<t color=""#ff1111"">Purchase %1</t>",_arguments select 0], {call MCC_fnc_vehicleSpawnerInit}, _arguments,10,true,true];
-} else {
-    private ["_caller","_arguments"];
+        if (local _object) then {_object allowDamage false; _object enableSimulation false};
+        _textue =  switch (tolower (_vars select 0)) do {
+                                    case "vehicle": {"\A3\Soft_F\MRAP_01\Data\UI\MRAP_01_Base_ca.paa"};
+                                    case "tank": {"\A3\armor_f_gamma\MBT_01\Data\UI\Slammer_M2A1_Base_ca.paa"};
+                                    case "heli": {"\A3\Air_F_Beta\Heli_Attack_01\Data\UI\Heli_Attack_01_CA.paa"};
+                                    case "jet": {"\A3\Air_F_EPC\Plane_CAS_01\Data\UI\Plane_CAS_01_CA.paa"};
+                                    case "ship": {"\A3\boat_f\Boat_Armed_01\data\ui\Boat_Armed_01_minigun.paa"};
+                                    case "units": {format ["%1data\IconMen.paa",MCC_path]};
+                                    default {"\A3\Soft_F\MRAP_01\Data\UI\MRAP_01_Base_ca.paa"};
+                                };
 
-    //We got here from the addaction
-    _caller = [_this, 1, objNull, [objNull]] call BIS_fnc_param;
-    _arguments = [_this, 3, [], [[]]] call BIS_fnc_param;
+        _object setObjectTexture [0,_textue];
+        _object setObjectTexture [1,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+        _object setObjectTexture [2,'#(rgb,8,8,3)color(0.5,0.5,0.5,0.1)'];
+        //_null = _object addAction [format ["<t color=""#ff1111"">Purchase %1</t>",_vars select 0], {call MCC_fnc_vehicleSpawnerInit}, _vars,10,true,true];
 
-    if (isNull _caller) exitWith {};
+        _action = [
+                _object,
+                format ["Purchase %1",_vars select 0],
+                _textue,
+                _textue,
+                "(alive _target) && (_target distance _this < 5)",
+                "(alive _target) && (_target distance _this < 5)",
+                {},
+                {},
+                {[player, (_this select 3),"dialog"] spawn MCC_fnc_vehicleSpawnerInit},
+                {},
+                _vars,
+                1,
+                3,
+                false,
+                false
+                ] call bis_fnc_holdActionAdd;
+    };
 
+    case "dialog":
+    {
+        //We got here from the addaction
+        params [
+            ["_caller",objNull],
+            ["_vars",[]]
+        ];
 
-    [_caller, _arguments] spawn MCC_fnc_vehicleSpawnerInitDialog;
+        if (isNull _caller) exitWith {};
+        [_caller, _vars] spawn MCC_fnc_vehicleSpawnerInitDialog;
+    };
 };

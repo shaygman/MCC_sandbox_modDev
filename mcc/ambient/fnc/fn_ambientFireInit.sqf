@@ -28,6 +28,8 @@ MCC_fnc_ambientFireEntityKilled = {
 	private ["_vehicle","_crewBurning"];
 	_vehicle = param [0,objNull,[objNull]];
 
+	if (random 1 < 0.5) exitWith {};
+
 	if ((_vehicle isKindOf "Landvehicle") or (_vehicle isKindOf "Air")) then {
 
 		//Get vehicle crew
@@ -82,7 +84,7 @@ MCC_fnc_ambientFireEntityKilled = {
 				deleteGroup _group;
 
 				//Start a new fire center
-				[_unit] spawn MCC_fnc_ambientFireStart;
+				//[_unit] spawn MCC_fnc_ambientFireStart;
 
 
 				//Delte fire

@@ -105,6 +105,19 @@ class MCC_respawnDialogControls:MCC_RscControlsGroup
 			tooltip = "If role selection is on then the position can be set as FOB (Optional respawn location)"; //--- ToDo: Localize;
 		};
 
+		class MCC_respawnDialogStartRespawnMenu: MCC_RscButtonMenu
+		{
+			idc = -1;
+			onButtonClick = "closedialog 0;[] remoteExec ['MCC_fnc_startLocations',0]";
+
+			text = "Activate Respawn"; //--- ToDo: Localize;
+			tooltip = "Enable respawn and force dialog on all players if enabled in MCC settings";
+			x = 0.1 * safezoneW;
+			y = 0.186927 * safezoneH;
+			w = 0.1 * safezoneW;
+			h = 0.0329871 * safezoneH;
+		};
+
 		class MCC_respawnDialogClose: MCC_RscButtonMenu
 		{
 			idc = -1;

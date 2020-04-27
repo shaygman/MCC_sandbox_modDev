@@ -23,6 +23,7 @@ private ["_shipParts","_dir","_shipPos","_objects","_parts","_heliPads","_cargoP
 #define	MCC_AA_CANON 	"B_Ship_Gun_01_F"
 #define	MCC_BOAT_RACK 	"Land_Destroyer_01_Boat_Rack_01_F"
 #define	MCC_HELIPAD		"Land_HelipadSquare_F"
+#define	MCC_ANCHOR	"Box_FIA_Support_F"
 
 
 params [
@@ -52,7 +53,7 @@ if (typeName _pos isEqualTo typeName objNull) then {
 };
 
 
-if (!(isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) && (_LHDType == 2)) exitWith {
+if (!(isClass (configFile >> "CfgVehicles" >> "CUP_LHD_BASE")) && (_LHDType == 3)) exitWith {
 	private ["_str","_null"];
 	_str = "<t size='0.8' t font = 'puristaLight' color='#FFFFFF'>" + "CUP Addon is required" + "</t>";
 	_null = [_str,0,1.1,2,0.1,0.0] spawn bis_fnc_dynamictext;
@@ -409,9 +410,6 @@ _ship setVariable ["teleport",1,true];
 _ship setVariable ["MCC_side",_side,true];
 _ship setVariable ["MCC_LHDDisplayName",if (_displayName isEqualTo "") then {_defualtName} else {_displayName}];
 
-//Create start location
-[_side,_ship] call BIS_fnc_addRespawnPosition;
-
 //Open dialog
 if (_hq) then {
 	_pos = getposasl _ship;
@@ -438,6 +436,25 @@ if (_store) then {
 	[_dummy, ["<t color=""#ff1111"">Ship Control</t>", format ["[0,%1,2] spawn MCC_fnc_LHDspawnMenuInit", _ships find _ship]]] remoteExec ["addAction",0,true];
 	//{_x addCuratorEditableObjects [[_dummy],false]} forEach allCurators;
 };
+
+//Create box
+_storePos set [1, (_storePos select 1) + 2] ;
+_storePos set [2, (_storePos select 2) + 1] ;
+_dummy = MCC_ANCHOR createvehicle (_ship modelToWorld [0,0,100]);
+_dummy allowDamage false;
+_dummy setVariable ["mcc_delete",false,true];
+_dummy setVariable ["mcc_mainBoxSide",_side,true];
+_dummy setVariable ["MCC_kitSelect",["all"],true];
+_dummy attachTo [_ship,_storePos];
+0 = [_side, _dummy] spawn MCC_fnc_makeObjectVirtualBox;
+
+sleep 1;
+
+//Create start location
+//[_ship, direction _ship, _side, "FOB",false,false] spawn MCC_fnc_buildSpawnPoint;
+[_side,_ship] call BIS_fnc_addRespawnPosition;
+
+
 
 _ship
 

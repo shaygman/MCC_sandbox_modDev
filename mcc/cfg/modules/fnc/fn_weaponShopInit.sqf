@@ -2,7 +2,7 @@
 // Sync with triggers to create MCC zones
 //==============================================================================================================================================================
 private ["_module","_text","_objects","_object","_box","_prices","_persistent","_persistentName","_pos","_resualt"];
-#define MCC_SHOP_ICON	"\a3\ui_f\data\IGUI\Cfg\holdactions\holdAction_search_ca.paa"
+#define MCC_SHOP_ICON	"\a3\ui_f\data\IGUI\Cfg\Actions\reammo_ca.paa"
 
 _module = param [0, objNull, [objNull]];
 if (isNull _module) exitWith {};
@@ -54,7 +54,7 @@ if (_module isKindOf "MCC_Module_createShop") then {
 				 "(alive _target) && (_target distance _this < 5)",
 				 {},
 				 {},
-				 {_arguments spawn MCC_fnc_mainBoxInit},
+				 {(_this select 3) spawn MCC_fnc_mainBoxInit},
 				 {},
 				 [_box,_prices],
 				 1,

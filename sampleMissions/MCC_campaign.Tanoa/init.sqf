@@ -69,6 +69,8 @@ if (isServer || isDedicated) then {
 
 
 if (!isDedicated && hasInterface) then {
+	[] spawn MCC_fnc_startLocations;
+
 	waituntil {!(IsNull (findDisplay 46))};
 	cutText ["","BLACK OUT",0.1];
 	sleep 1;
