@@ -316,7 +316,7 @@
             <Key ID="STR_Module__AASSpawnAI_displayName">
                 <Original>AAS Spawn AI</Original>
                 <English>AAS Spawn AI</English>
-                <Italian>Spawn AAS</Italian>
+                <Italian>Spawn AI AAS</Italian>
             </Key>
             <Key ID="STR_Module__AASSpawnAI_faction1_displayName">
                 <Original>Spawn Faction</Original>
@@ -474,7 +474,7 @@
             <Key ID="STR_Module__lockDoors_description">
                 <Original>Lock or unlock buildings doors in the given radius, locked door can be opened with breaching charges or lockpicking using MCC interaction</Original>
                 <English>Lock or unlock buildings doors in the given radius, locked door can be opened with breaching charges or lockpicking using MCC interaction</English>
-                <Italian>Blocco o sblocca le porte degli edifici nel raggio dato, le porte bloccate possono essere aperte con cariche esplosive oppure scassinate usando le interazioni MCC</Italian>
+                <Italian>Blocca o sblocca le porte degli edifici nel raggio dato, le porte bloccate possono essere aperte con cariche esplosive oppure scassinate usando le interazioni MCC</Italian>
             </Key>
         </Container>
         <Container name="warZone">
