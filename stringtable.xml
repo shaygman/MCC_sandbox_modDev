@@ -162,6 +162,11 @@
                 <English>Enables spawning random flocks of birds when units get close to trees</English>
                 <Italian>Abilita spawn di stormo di uccelli casuali quanto le unità si avvicinano agli alberi</Italian>
             </Key>
+            <Key ID="STR_DISP_CURATOR_AMBIENTBIRDSSPAWN_SUCCESS">
+                <Original>Ambient Birds Enabled</Original>
+                <English>Ambient Birds Enabled</English>
+                <Italian>Uccelli d'ambiente abilitati</Italian>
+            </Key>
         </Container>
         <Container name="ambientCiviliansCurator">
             <Key ID="STR_CURATOR_Module_ambientCiviliansCurator_displayName">
@@ -442,6 +447,11 @@
                 <English>Random fires will ignite from explosives and fire fights, the fire will spread according to wind strength and direction</English>
                 <Italian>Fuochi casuali si accenderanno da combattimenti a fuoco e esplosioni, questo si espanderà a dipendenza della forza e direzione del vento</Italian>
             </Key>
+            <Key ID="STR_DISP_CURATOR_AMBIENTFIRE_SUCCESS">
+                <Original>Ambient Fire Enabled</Original>
+                <English>Ambient Fire Enabled</English>
+                <Italian>Fuoco Ambientale abilitato</Italian>
+            </Key>
         </Container>
         <Container name="atmosphere">
             <Key ID="STR_Module__atmosphere_displayName">
@@ -479,6 +489,42 @@
                 <Italian>Distruggi edifici, crea fuochi e rottami casuali nel raggio dato</Italian>
             </Key>
         </Container>
+        <Container name="GroupRespawns">
+            <Key ID="STR_Module__groupRespawns_displayName">
+                <Original>Respawn Group</Original>
+                <English>Respawn Group</English>
+                <Italian>Respawn Gruppo</Italian>
+            </Key>
+            <Key ID="STR_Module__groupRespawns_ModuleDescription_description">
+                <Original>Sync it with any unit or group to respawn the group when all units in the group dead</Original>
+                <English>Sync it with any unit or group to respawn the group when all units in the group dead</English>
+                <Italian>Sincronizza con unità o gruppo per respawnare il gruppo quando tutte le unità sono morte</Italian>
+            </Key>
+            <Key ID="STR_Module__groupRespawns_Respawns_displayName">
+                <Original>Respawns</Original>
+                <English>Respawns</English>
+                <Italian>Respawna</Italian>
+            </Key>
+            <Key ID="STR_Module__groupRespawns_Respawns_description">
+                <Original>How many time can the group respawn</Original>
+                <English>How many time can the group respawn</English>
+                <Italian>Quante volte può respawnare il gruppo</Italian>
+            </Key>
+        </Container>
+        <Container name="CapturePoint">
+            <Key ID="STR_CURATOR_Module_capturePoint_displayName">
+                <Original>Capture Point</Original>
+                <English>Capture Point</English>
+                <Italian>Cattura Punto</Italian>
+            </Key>
+        </Container>
+        <Container name="curatorSetEvac">
+            <Key ID="STR_DISP_CURATOR_ERROR_CURATORSETEVAC_NOVEHICLE">
+                <Original>No vehicle selected</Original>
+                <English>No vehicle selected</English>
+                <Italian>Nessun veicolo selezionato</Italian>
+            </Key>
+        </Container>
     </Package>
     <Package name="general">
         <Container name="common">
@@ -496,6 +542,31 @@
                 <Original>All</Original>
                 <English>All</English>
                 <Italian>Tutto</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_ERROR_NOUNITSELECTED">
+                <Original>No unit selected</Original>
+                <English>No unit selected</English>
+                <Italian>Nessun unità selezionata</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_ERROR_NOVEHICLESELECTED">
+                <Original>No vehicle selected</Original>
+                <English>No vehicle selected</English>
+                <Italian>Nessun veicolo selezionato</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_ERROR_NOGROUPSELECTED">
+                <Original>No group selected</Original>
+                <English>No group selected</English>
+                <Italian>Nessun gruppo selezionato</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_ERROR_NOOBJECTSELECTED">
+                <Original>No object selected</Original>
+                <English>No object selected</English>
+                <Italian>Nessun oggetto selezionato</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_ERROR_NOAMMOBOXSELECTED">
+                <Original>No ammobox selected</Original>
+                <English>No ammobox selected</English>
+                <Italian>Nessun ammobox selezioanto</Italian>
             </Key>
         </Container>
     </Package>
