@@ -1,5 +1,5 @@
 #define MCCPATH "\mcc_sandbox_mod\"
-#define MCCVersion "(r31)"
+#define MCCVersion "(r33)"
 #define MCCMODE true
 
 class RscMapControl;
@@ -26,6 +26,7 @@ class UnitList;
 #include "\mcc_sandbox_mod\mcc\Dialogs\mcc_boxGen.hpp"
 #include "\mcc_sandbox_mod\mcc\Dialogs\mcc_groupsGen.hpp"
 #include "\mcc_sandbox_mod\mcc\Dialogs\mcc_MWMainDialog.hpp"
+#include "\mcc_sandbox_mod\mcc\Dialogs\MCC_FrontLineDialog.hpp"
 
 //----Console-----------------
 #include "\mcc_sandbox_mod\mcc\Dialogs\mcc_playerConsole.hpp"

@@ -28,14 +28,14 @@ MCC_fnc_ambientFireEntityKilled = {
 	private ["_vehicle","_crewBurning"];
 	_vehicle = param [0,objNull,[objNull]];
 
-	if (random 1 < 0.5) exitWith {};
+	if (random 100 < (missionNamespace getVariable ["MCC_fnc_ambientFireInitVehicleBurnChance",50]) || !(missionNamespace getVariable ["MCC_ambientFireSettingIndex",true])) exitWith {};
 
 	if ((_vehicle isKindOf "Landvehicle") or (_vehicle isKindOf "Air")) then {
 
 		//Get vehicle crew
 		_crewBurning = [];
 		{
-			if (random 1 < 0.2 && !isPlayer _x) then {
+			if ((random 100 < (missionNamespace getVariable ["MCC_fnc_ambientFireInitCrewBurnChance",50])) && !isPlayer _x) then {
 				_crewBurning pushBack (typeof _x);
 				deleteVehicle _x;
 			};
@@ -84,7 +84,9 @@ MCC_fnc_ambientFireEntityKilled = {
 				deleteGroup _group;
 
 				//Start a new fire center
-				//[_unit] spawn MCC_fnc_ambientFireStart;
+				if (random 100 < (missionNamespace getVariable ["MCC_fnc_ambientFireInitCrewNewFireChance",50])) then {
+					[_unit] spawn MCC_fnc_ambientFireStart;
+				};
 
 
 				//Delte fire

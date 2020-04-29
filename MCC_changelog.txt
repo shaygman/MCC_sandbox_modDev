@@ -1,3 +1,15 @@
+Changelog R33:
+Added:
+	- Ambient fire options to "Addon Options"
+		- Vehicle fire chance - Chance a destroyed vehicle will start a fire
+		- Explosives fire chance - Chance an explosive ammunation start a new fire also effect the chance of non explosive ammunation to start a fire
+		- Crew fire chance - Chance of each crew member in a destroyed vehicle's to catch on fire escaping out of the vehicle
+		- Burning crew new fire chance - Chance a burnet crew member will start a new fire
+
+Fixed:
+	- Vhicle repsawn module error
+
+
 Changelog R33 hot fix:
 Fixed:
 	- Ambient fire can't disable in settings

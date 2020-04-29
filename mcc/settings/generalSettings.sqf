@@ -37,7 +37,7 @@
     "MCC_ambientBirdsSettingIndex",
     "CHECKBOX",
     ["Ambient Birds","Random flocks of birds will take flight when units are near"],
-    ["MCC General", "Ambient"],
+    ["MCC General", "Ambient Birds"],
     true,
     true,
     {
@@ -53,7 +53,7 @@
     "MCC_ambientFireSettingIndex",
     "CHECKBOX",
     ["Ambient Fire","Explosive may cause sporadic fires that will spread with the wind need a restart to disable"],
-    ["MCC General", "Ambient"],
+    ["MCC General", "Ambient Fire"],
     true,
     true,
     {
@@ -63,6 +63,55 @@
         };
     },
     true
+] call CBA_Settings_fnc_init;
+
+//Ambient Fire vehicle burn chance
+[
+    "MCC_fnc_ambientFireInitVehicleBurnChance",
+    "SLIDER",
+    ["Vehicle fire chance","Chance a destroyed vehicle will start a fire"],
+    ["MCC General", "Ambient Fire"],
+    [0,100,50,0],
+    true,
+    {},
+    false
+] call CBA_Settings_fnc_init;
+
+//Ambient Fire explosives burn chance
+[
+    "MCC_fnc_ambientFireInitExplosivesBurnChance",
+    "SLIDER",
+    ["Explosives rounds fire chance","Chance an explosive ammunation start a new fire also effect the chance of non explosive ammunation to start a fire"],
+    ["MCC General", "Ambient Fire"],
+    [0,100,3,0],
+    true,
+    {},
+    false
+] call CBA_Settings_fnc_init;
+
+
+//Ambient Fire crew burn chance
+[
+    "MCC_fnc_ambientFireInitCrewBurnChance",
+    "SLIDER",
+    ["Burning crew escape chance","Chance of each crew member in a destroyed vehicle's to catch on fire runing out of the vehicle"],
+    ["MCC General", "Ambient Fire"],
+    [0,100,50,0],
+    true,
+    {},
+    false
+] call CBA_Settings_fnc_init;
+
+//Ambient Fire burnt crew member will start a new fire
+[
+    "MCC_fnc_ambientFireInitCrewNewFireChance",
+    "SLIDER",
+    ["Burning crew new fire chance","Chance a burnet crew member will start a new fire"],
+    ["MCC General", "Ambient Fire"],
+    [0,100,10,0],
+    true,
+    {},
+    false
 ] call CBA_Settings_fnc_init;
 
 //Artillery computer

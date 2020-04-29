@@ -30,16 +30,6 @@ class MCCMWDialog
 			h = 0.76 * safezoneH;
 		};
 
-		class MCCMWDialoglogo: MCC_RscPicture
-		{
-			idc = -1;
-			text = __EVAL(MCCPATH +"data\mcc_loadingScreen.paa");
-
-			x = 0.230729 * safezoneW + safezoneX;
-			y = 0.126146 * safezoneH + safezoneY;
-			w = 0.3 * safezoneW;
-			h = 0.318876 * safezoneH;
-		};
 		class MCCMWDialoghelptext: MCC_RscStructuredText
 		{
 			idc = 0;
@@ -83,9 +73,9 @@ class MCCMWDialog
 		{
 			idc = -1;
 
-			x = 0.53 * safezoneW + safezoneX;
+			x = 0.230729 * safezoneW + safezoneX;
 			y = 0.126146 * safezoneH + safezoneY;
-			w = 0.240625 * safezoneW;
+			w = 0.540625 * safezoneW;
 			h = 0.318876 * safezoneH;
 
 			colorBackground[] = { 1, 1, 1, 1};
@@ -97,9 +87,9 @@ class MCCMWDialog
 		{
 			idc = MCC_MINIMAP;
 
-			x = 0.53 * safezoneW + safezoneX;
+			x = 0.230729 * safezoneW + safezoneX;
 			y = 0.126146 * safezoneH + safezoneY;
-			w = 0.240625 * safezoneW;
+			w = 0.540625 * safezoneW;
 			h = 0.318876 * safezoneH;
 
 			text = "";

@@ -9,7 +9,7 @@
 if (!hasInterface) exitWith {};
 
 player addEventHandler ["firedMan", {
-							if (missionNamespace getVariable ["MCC_ambientFire",false]) then {
+							if ((missionNamespace getVariable ["MCC_ambientFire",false]) && (missionNamespace getVariable ["MCC_ambientFireSettingIndex",true])) then {
 								_this spawn {
 									params [
 										        "_unit",
@@ -23,9 +23,9 @@ player addEventHandler ["firedMan", {
 									private ["_exChance","_pos"];
 
 									if (isNull _projectile) exitWith {};
-									_exChance = (getNumber (configFile >> "CfgAmmo" >> _ammo >> "explosive")) min 0.5;
+									_exChance = ((getNumber (configFile >> "CfgAmmo" >> _ammo >> "explosive")) max 0.01)* (missionNamespace getVariable ["MCC_fnc_ambientFireInitExplosivesBurnChance",2]);
 
-									if (random 10 < _exChance) then {
+									if (random 100 < _exChance) then {
 										while {!isNull _projectile} do {
 											_pos = getPosATL _projectile;
 											sleep 0.01;

@@ -42,13 +42,12 @@ if (_object isKindOf "mcc_sandbox_modulevehicleSpawner" || _object isKindOf "MCC
         _helipad = _this select 1;
         _type = _this select 2;
 
-        [_billboard,[_type,_helipad],"init"] remoteExec ["MCC_fnc_vehicleSpawnerInit",0,_billboard];
-        /*[[_billboard,[_type,_helipad]], "MCC_fnc_vehicleSpawnerInit", true, true] spawn BIS_fnc_MP; */
-
         waitUntil {!isNil "MCC_curator"};
         {
             [[[_x], {MCC_curator addCuratorEditableObjects [[_this select 0],false];}], "BIS_fnc_spawn", false, false, false] call BIS_fnc_MP;
         } forEach [_billboard,_helipad];
+
+        [_billboard,[_type,_helipad],"init"] remoteExec ["MCC_fnc_vehicleSpawnerInit",0,_billboard];
     };
 };
 
@@ -56,9 +55,11 @@ switch (_action) do
 {
     case "init":
     {
-        //We got here from the object
-        _vars = [_this, 1, [], [[]]] call BIS_fnc_param;
+        //If already initilize just quiet
+        if (_object getVariable ["MCC_fnc_vehicleSpawnerInit",false]) exitWith {};
+        _object setVariable ["MCC_fnc_vehicleSpawnerInit",true];
 
+        //We got here from the object
         if (local _object) then {_object allowDamage false; _object enableSimulation false};
         _textue =  switch (tolower (_vars select 0)) do {
                                     case "vehicle": {"\A3\Soft_F\MRAP_01\Data\UI\MRAP_01_Base_ca.paa"};

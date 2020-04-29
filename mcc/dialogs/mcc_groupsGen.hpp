@@ -408,9 +408,23 @@ class mcc_groupGen
 			text = "Mission Generator";
 			tooltip = "Open mission wizard";
 
-			x = 0.43125 * safezoneW + safezoneX;
+			x = 0.39 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
-			w = 0.103125 * safezoneW;
+			w = 0.09 * safezoneW;
+			h = 0.0329871 * safezoneH;
+
+		};
+
+		class MCC_openFrontLineButton: MCC_RscButton
+		{
+			idc = -1;
+			onButtonClick = "createDialog 'MCCFrontLineDialog'";
+			text = "Front Lines";
+			tooltip = "Open Front Lines Generator";
+
+			x = 0.485 * safezoneW + safezoneX;
+			y = 0.565974 * safezoneH + safezoneY;
+			w = 0.06 * safezoneW;
 			h = 0.0329871 * safezoneH;
 
 		};
