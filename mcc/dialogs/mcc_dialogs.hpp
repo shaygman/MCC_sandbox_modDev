@@ -1250,7 +1250,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Open MCC:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_OPENMCC";
 			x = 0.00515597 * safezoneW;
 			y = 0.044 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1260,7 +1260,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Comander Console:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_COMMCONSOLE";
 			x = 0.00515625 * safezoneW;
 			y = 0.077 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1270,7 +1270,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Teleport to team:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_TPTEAM";
 			x = 0.00515597 * safezoneW;
 			y = 0.143 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1280,7 +1280,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Squad Dialog:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_SQUADDIAL";
 			x = 0.00515597 * safezoneW;
 			y = 0.176 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1290,7 +1290,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Squad leader PDA:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_SQUADPDA";
 			x = 0.00515597 * safezoneW;
 			y = 0.11 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1300,7 +1300,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Interaction Key:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_INTERKEY";
 			x = 0.00515597 * safezoneW;
 			y = 0.209 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1310,7 +1310,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Interaction Self:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_INTERSELF";
 			x = 0.00515597 * safezoneW;
 			y = 0.242 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1320,7 +1320,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		{
 			idc = -1;
 
-			text = "Cover System:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_COVERSYS";
 			x = 0.00515597 * safezoneW;
 			y = 0.275 * safezoneH;
 			w = 0.0973958 * safezoneW;
@@ -1329,7 +1329,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindsOpenMCCButton: MCC_RscButton
 		{
 			idc = 8415;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this, 0] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1341,7 +1341,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindsOpenConsoleButton: MCC_RscButton
 		{
 			idc = 8416;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this,1] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1353,7 +1353,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindsT2TButton: MCC_RscButton
 		{
 			idc = 8417;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this,2] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1365,7 +1365,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindsGroupsButton: MCC_RscButton
 		{
 			idc = 8418;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this,3] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1378,7 +1378,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindsMCCinteractionButton: MCC_RscButton
 		{
 			idc = 8419;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this,4] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1390,7 +1390,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindssSQLPDAButton: MCC_RscButton
 		{
 			idc = 8420;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this,5] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1402,7 +1402,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_keyBindsMCCinteractionSelfButton: MCC_RscButton
 		{
 			idc = 8421;
-			tooltip = "Click to change";
+			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onMouseButtonUp =  __EVAL("[_this,6] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
 
@@ -1414,7 +1414,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 		class MCC_coverSystemClientButton: MCC_RscButton
 		{
 			idc = 8499;
-			tooltip = "Click to disable client side";
+			tooltip = "$STR_LOGIN_CLICKCLIENTDISABLE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			text = "Disabled"; //--- ToDo: Localize;
 			onMouseButtonUp =  __EVAL("[_this,7] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");

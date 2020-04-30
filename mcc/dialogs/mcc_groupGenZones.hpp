@@ -42,7 +42,7 @@ class MCC_zoneControls: MCC_RscControlsGroup
 		class MCC_zoneUpdate: MCC_RscButton
 		{
 			idc = -1;
-			text = "Create Zone";
+			text = "$STR_UI_CREATEZONE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 			tooltip = "Click and drag on the minimap to make a zone";
 			onButtonClick = "if (mcc_missionmaker == (name player)) then {MCC_zone_drawing= true;} else {player globalchat 'Access Denied'};";

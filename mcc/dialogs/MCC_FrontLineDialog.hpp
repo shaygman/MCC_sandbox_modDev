@@ -113,7 +113,7 @@ class MCCFrontLineDialog
 		class MCCMWZoneTittle: MCC_RscText
 		{
 			idc = -1;
-			text = "Zone:";
+			text = "$STR_UI_ZONE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 
 			x = 0.540104 * safezoneW + safezoneX;

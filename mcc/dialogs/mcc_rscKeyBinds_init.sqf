@@ -4,7 +4,7 @@ disableSerialization;
 for [{_x=8415},{_x<=8421},{_x=_x+1}]  do {
 	if (missionNamespace getVariable ["MCC_isCBA",false]) then {
 
-		_text = "Use CBA Controls";
+		_text = localize "STR_LOGIN_USECBA";
 		ctrlEnable [_x, false];
 		((findDisplay (_this select 0)) displayCtrl _x) ctrlSetTooltip "";
 

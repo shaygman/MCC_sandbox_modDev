@@ -1,7 +1,7 @@
 class mcc_Module_createZones : Module_F
 {
 	category = "MCC_AI";
-	displayName = "Create Zone";
+	displayName = "$STR_UI_CREATEZONE";
 	function = "MCC_fnc_createZonesInit";
 	scopeCurator = 2;
 	scope = 2;

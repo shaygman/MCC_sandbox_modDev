@@ -349,7 +349,7 @@ MCC_minutes_array =[00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,
 MCC_hours_array = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23];
 MCC_weather_array = [["Clear",[0, 0, 0, 0, 0]], ["Clouded",[0.5, 0.5, 0.5, 0.5, 0.5]],["Rainy",[0.8, 0.8, 0.8, 0.8, 0.8]],["Storm",[1, 1, 1,1,1]]];
 
-MCC_grass_array = [["No grass",50],["Low",25], ["Medium",12.5], ["High",6.25], ["Very High",3.125]];
+MCC_grass_array = [[localize "STR_GENERAL_NOGRASS",50],[localize "STR_GENERAL_LOW",25], [localize "STR_GENERAL_MEDIUM",12.5], [localize "STR_GENERAL_HIGH",6.25], [localize "STR_GENERAL_VERYHIGH",3.125]];
 MCC_view_array = [1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000,7500,8000,8500,9000,9500,10000,10500,11000,11500,12000];
 
 MCC_ied_proxArray = [3,5,10,15,20,25,30,35,45,50];

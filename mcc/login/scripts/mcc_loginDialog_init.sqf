@@ -16,7 +16,7 @@ MCC_GUI1initDone = false;
 
 //Mission Maker
 private ["_text","_key","_textKey","_mmName"];
-_mmName = if (mcc_missionmaker != "") then {mcc_missionmaker} else {"Not Assigned"};
+_mmName = if (mcc_missionmaker != "") then {mcc_missionmaker} else {localize "STR_LOGIN_MMNA"};
 ctrlSetText [MCCMISSIONMAKERNAME, format["%1",_mmName]];
 
 
@@ -52,7 +52,7 @@ _comboBox lbSetCurSel (MCC_terrainPref select 1); // set viewdistance index to c
 for [{_x=8415},{_x<=8421},{_x=_x+1}]  do
 {
 	if (MCC_isCBA) then {
-		_text = "Use CBA Controls";
+		_text = localize "STR_LOGIN_USECBA";
 		ctrlEnable [_x, false];
 		(_mccdialog displayCtrl _x) ctrlSetTooltip "";
 	} else {

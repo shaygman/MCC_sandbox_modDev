@@ -49,7 +49,7 @@ class missionSettings
 			idc = -1;
 			action = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
 
-			text = "Mission Settings";
+			text = "$STR_UI_MISSIONSETTINGS";
 			x = 0.3 * safezoneW + safezoneX;
 			y = 0.2 * safezoneH + safezoneY;
 			w = 0.25 * safezoneW;
