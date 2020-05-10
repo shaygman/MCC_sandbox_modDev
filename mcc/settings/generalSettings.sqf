@@ -2,9 +2,9 @@
 [
     "MCC_t2tIndex",
     "LIST",
-    ["Teleport to Team","Players can teleport to squad leader"],
-    "MCC General",
-    [[0,1,2,3],["Disabled","JIP Only","After Respawn","Always"],1],
+    [localize "STR_GENERAL_TELEPORTTOTEAM",localize "STR_GENERAL_TELEPORTONTL"],
+    localize "STR_GENERAL_MCCGENERAL",
+    [[0,1,2,3],[localize "STR_GENERAL_DISABLED",localize "STR_GENERAL_JIPONLY",localize "STR_GENERAL_AFTERRESPAWN",localize "STR_GENERAL_ALWAYS"],1],
     true,
     {
         params ["_value"];
@@ -17,7 +17,7 @@
     "MCC_MessagesIndex",
     "CHECKBOX",
     ["MCC Chat","Will show MCC chat"],
-    "MCC General",
+    localize "STR_GENERAL_MCCGENERAL",
     true,
     true
 ] call CBA_Settings_fnc_init;
@@ -27,7 +27,7 @@
     "MCC_syncOn",
     "CHECKBOX",
     ["Sync Jip","Jip players will sync with server"],
-    "MCC General",
+    localize "STR_GENERAL_MCCGENERAL",
     true,
     true
 ] call CBA_Settings_fnc_init;
@@ -37,7 +37,7 @@
     "MCC_ambientBirdsSettingIndex",
     "CHECKBOX",
     ["Ambient Birds","Random flocks of birds will take flight when units are near"],
-    ["MCC General", "Ambient Birds"],
+    [localize "STR_GENERAL_MCCGENERAL", "Ambient Birds"],
     true,
     true,
     {
@@ -53,7 +53,7 @@
     "MCC_ambientFireSettingIndex",
     "CHECKBOX",
     ["Ambient Fire","Explosive may cause sporadic fires that will spread with the wind need a restart to disable"],
-    ["MCC General", "Ambient Fire"],
+    [localize "STR_GENERAL_MCCGENERAL", "Ambient Fire"],
     true,
     true,
     {
@@ -70,7 +70,7 @@
     "MCC_fnc_ambientFireInitVehicleBurnChance",
     "SLIDER",
     ["Vehicle fire chance","Chance a destroyed vehicle will start a fire"],
-    ["MCC General", "Ambient Fire"],
+    [localize "STR_GENERAL_MCCGENERAL", "Ambient Fire"],
     [0,100,50,0],
     true,
     {},
@@ -82,7 +82,7 @@
     "MCC_fnc_ambientFireInitExplosivesBurnChance",
     "SLIDER",
     ["Explosives rounds fire chance","Chance an explosive ammunation start a new fire also effect the chance of non explosive ammunation to start a fire"],
-    ["MCC General", "Ambient Fire"],
+    [localize "STR_GENERAL_MCCGENERAL", "Ambient Fire"],
     [0,100,3,0],
     true,
     {},
@@ -95,7 +95,7 @@
     "MCC_fnc_ambientFireInitCrewBurnChance",
     "SLIDER",
     ["Burning crew escape chance","Chance of each crew member in a destroyed vehicle's to catch on fire runing out of the vehicle"],
-    ["MCC General", "Ambient Fire"],
+    [localize "STR_GENERAL_MCCGENERAL", "Ambient Fire"],
     [0,100,50,0],
     true,
     {},
@@ -107,7 +107,7 @@
     "MCC_fnc_ambientFireInitCrewNewFireChance",
     "SLIDER",
     ["Burning crew new fire chance","Chance a burnet crew member will start a new fire"],
-    ["MCC General", "Ambient Fire"],
+    [localize "STR_GENERAL_MCCGENERAL", "Ambient Fire"],
     [0,100,10,0],
     true,
     {},
@@ -119,7 +119,7 @@
     "MCC_artilleryComputerIndex",
     "CHECKBOX",
     ["Artillery Computer","Enable/disable BI artillery computer"],
-    ["MCC General", "Artillery"],
+    [localize "STR_GENERAL_MCCGENERAL", "Artillery"],
     true,
     true,
     {
@@ -134,7 +134,7 @@
     "MCC_artillerySpreadArray",
     "EDITBOX",
     ["Artillery spread","First element display name second spread in meters"],
-    ["MCC General", "Artillery"],
+    [localize "STR_GENERAL_MCCGENERAL", "Artillery"],
     '[["On-target",0], ["Precise",100], ["Tight",200], ["Wide",400]]',
     true,
     {
@@ -148,7 +148,7 @@
     "MCC_timeMultiplier_settings",
     "SLIDER",
     "Time Multiplier",
-    "MCC General",
+    localize "STR_GENERAL_MCCGENERAL",
     [0.5, 24, 1, 1],
     true,
     {
@@ -162,7 +162,7 @@
     "MCC_CuratorEditDisabled",
     "CHECKBOX",
     ["Disable MCC Zeus Edit","Disable the custom MCC interface when editing an object in Zeus"],
-    "MCC General",
+    localize "STR_GENERAL_MCCGENERAL",
     false,
     false
 ] call CBA_Settings_fnc_init;
@@ -172,7 +172,7 @@
     "MCC_allowlogistics",
     "CHECKBOX",
     ["Logistics System","Allows player to load equipment, vehicles, resources and items into vehicles"],
-    "MCC General",
+    localize "STR_GENERAL_MCCGENERAL",
     true,
     true
 ] call CBA_Settings_fnc_init;
@@ -182,7 +182,7 @@
     "MCC_armedCivilansWeapons",
     "EDITBOX",
     ["Armed Civilians Weapons","Armed Civilians default Weapons"],
-    "MCC General",
+    localize "STR_GENERAL_MCCGENERAL",
     '["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"]',
     true,
     {
@@ -198,7 +198,7 @@
     "MCC_allowsqlPDA",
     "CHECKBOX",
     ["SQL PDA Enabled","Any team leader will have access to a PDA that have a Blueforce tracker"],
-    ["MCC General","Squad Leader PDA"],
+    [localize "STR_GENERAL_MCCGENERAL","Squad Leader PDA"],
     true,
     true
 ] call CBA_Settings_fnc_init;

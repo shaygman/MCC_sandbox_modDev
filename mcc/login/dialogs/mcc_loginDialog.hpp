@@ -43,7 +43,7 @@ class mcc_loginDialog
 		{
 			idc = -1;
 
-			text = "MCC Login";
+			text = "$STR_LOGIN_MCCLOGIN";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.2)";
 
 			x = 0.459896 * safezoneW + safezoneX;
@@ -65,7 +65,7 @@ class mcc_loginDialog
 		{
 			idc = -1;
 
-			text = "View:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_VIEW";
 			x = 0.305208 * safezoneW + safezoneX;
 			y = 0.34606 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;
@@ -75,7 +75,7 @@ class mcc_loginDialog
 		{
 			idc = -1;
 
-			text = "Grass:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_GRASS";
 			x = 0.305208 * safezoneW + safezoneX;
 			y = 0.379047 * safezoneH + safezoneY;
 			w = 0.06 * safezoneW;
@@ -110,7 +110,7 @@ class mcc_loginDialog
 			idc = -1;
 			onButtonClick = "closeDialog 0";
 
-			text = "Close"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_CLOSE";
 			x = 0.305208 * safezoneW + safezoneX;
 			y = 0.564 * safezoneH + safezoneY;
 			w = 0.06875 * safezoneW;
@@ -121,7 +121,7 @@ class mcc_loginDialog
 		{
 			idc = -1;
 
-			text = "Mission Maker:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_MM";
 			x = 0.305208 * safezoneW + safezoneX;
 			y = 0.302077 * safezoneH + safezoneY;
 			w = 0.07 * safezoneW;
@@ -141,7 +141,7 @@ class mcc_loginDialog
 		{
 			idc = -1;
 
-			text = "Client FPS:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_CLIENTFPS";
 			x = 0.305208 * safezoneW + safezoneX;
 			y = 0.423 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
@@ -152,7 +152,7 @@ class mcc_loginDialog
 		{
 			idc = -1;
 
-			text = "Server FPS:"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_SERVERFPS";
 			x = 0.396875 * safezoneW + safezoneX;
 			y = 0.423 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
@@ -191,13 +191,13 @@ class mcc_loginDialog
 			idc = -1;
 			action = "_null = [] spawn MCC_fnc_loginDialog";
 
-			text = "Login"; //--- ToDo: Localize;
+			text = "$STR_LOGIN_LOGIN";
 			x = 0.6375 * safezoneW + safezoneX;
 			y = 0.564 * safezoneH + safezoneY;
 			w = 0.06875 * safezoneW;
 			h = 0.032987 * safezoneH;
 			colorBackground[] = {0.219,0.147,0.112,1};
-			tooltip = "Login as the mission maker"; //--- ToDo: Localize;
+			tooltip = "$STR_LOGIN_LOGINMM"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 		};
 
@@ -206,7 +206,7 @@ class mcc_loginDialog
 			idc = 1000;
 			text = "(?)";
 			colorBackground[] = { 1, 1, 1, 0.7};
-			tooltip = "Click to open a link on your default browser";
+			tooltip = "$STR_LOGIN_LINK";
 			//onMouseEnter = "[_this, true,[5,1],'mcclogin'] spawn MCC_fnc_help";
 
 				x = 0.309219 * safezoneW + safezoneX;

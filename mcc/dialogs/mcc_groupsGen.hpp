@@ -58,7 +58,7 @@ class mcc_groupGen
 		{
 			idc = -1;
 
-			text = "Faction:";
+			text = "$STR_UI_FACTION";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 
 			x = 0.184896 * safezoneW + safezoneX;
@@ -83,7 +83,7 @@ class mcc_groupGen
 		{
 			idc = -1;
 
-			text = "Close";
+			text = "$STR_LOGIN_CLOSE";
 			action = "closeDialog 0;";
 
 			x = 0.84375 * safezoneW + safezoneX;
@@ -96,8 +96,8 @@ class mcc_groupGen
 		class mcc_groupGen_WestButton: MCC_RscButton
 		{
 			idc = -1;
-			tooltip = "Show only West's side units";
-			text = "West";
+			tooltip = "$STR_UI_SHOWWESTDESC";
+			text = "$STR_UI_WEST";
 			colorText[] = {0,0,1,1};
 			onButtonClick = __EVAL("[west] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
 
@@ -110,8 +110,8 @@ class mcc_groupGen
 		class mcc_groupGen_EastButton: MCC_RscButton
 		{
 			idc = -1;
-			tooltip = "Show only East's side units";
-			text = "East";
+			tooltip = "$STR_UI_SHOWEASTDESC";
+			text = "$STR_UI_EAST";
 			colorText[] = {1,0,0,1};
 			onButtonClick = __EVAL("[east] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
 
@@ -124,8 +124,8 @@ class mcc_groupGen
 		class mcc_groupGen_GuerButton: MCC_RscButton
 		{
 			idc = -1;
-			tooltip = "Show only Guer's side units";
-			text = "Guer";
+			tooltip = "$STR_UI_SHOWGUERTDESC";
+			text = "$STR_UI_GUER";
 			colorText[] = {0,1,0,1};
 			onButtonClick = __EVAL("[resistance] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
 
@@ -138,8 +138,8 @@ class mcc_groupGen
 		class mcc_groupGen_CivButton: MCC_RscButton
 		{
 			idc = -1;
-			tooltip = "Show only civilian's side units";
-			text = "Civ";
+			tooltip = "$STR_UI_SHOWCIVDESC";
+			text = "$STR_UI_CIV";
 			onButtonClick = __EVAL("[civilian] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
 
 			x = 0.809375 * safezoneW + safezoneX;
@@ -151,10 +151,10 @@ class mcc_groupGen
 		class mcc_groupGen_PlayersButton: MCC_RscButton
 		{
 			idc = -1;
-			tooltip = "Show players only";
+			tooltip = "$STR_UI_SHOWPLAYERDESC";
 			onButtonClick = __EVAL("['players'] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
 
-			text = "Players"; //--- ToDo: Localize;
+			text = "$STR_UI_PLAYER"; //--- ToDo: Localize;
 			x = 0.603125 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
 			w = 0.0458333 * safezoneW;
@@ -164,10 +164,10 @@ class mcc_groupGen
 		class mcc_groupGen_AllButton: MCC_RscButton
 		{
 			idc = -1;
-			tooltip = "Show all units";
+			tooltip = "$STR_UI_SHOWUNITDESC";
 			onButtonClick = __EVAL("[west,east,resistance,civilian,'players'] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
 
-			text = "All"; //--- ToDo: Localize;
+			text = "$STR_UI_SHOWUNIT"; //--- ToDo: Localize;
 			x = 0.551562 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
 			w = 0.0458333 * safezoneW;
@@ -183,7 +183,7 @@ class mcc_groupGen
 		class MCC_MissionMakerTittle: MCC_RscText
 		{
 			idc = -1;
-			text = "Mission Maker:";
+			text = "$STR_LOGIN_MM";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.3625 * safezoneW + safezoneX;
@@ -206,7 +206,7 @@ class mcc_groupGen
 		class MCC_clientFPSTittle: MCC_RscText
 		{
 			idc = -1;
-			text = "Client FPS:";
+			text = "$STR_LOGIN_CLIENTFPS";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.488542 * safezoneW + safezoneX;
@@ -218,7 +218,7 @@ class mcc_groupGen
 		class MCC_ServerFPSTittle: MCC_RscText
 		{
 			idc = -1;
-			text = "Server FPS:";
+			text = "$STR_LOGIN_SERVERFPS";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.585938 * safezoneW + safezoneX;
@@ -253,8 +253,8 @@ class mcc_groupGen
 		class MCC_stopCapture: MCC_RscButton
 		{
 			idc = MCCSTOPCAPTURE;
-			text = "Stop Capturing";
-			tooltip = "Once a trigger has been generated all the action done by MCC won't execute but will be saved to the trigger until this button is pressed";
+			text = "$STR_UI_STOPCAT";
+			tooltip = "$STR_UI_STOPCATDESC";
 			onButtonClick = "ctrlEnable [1014,false];MCC_capture_state=false;";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 
@@ -268,8 +268,8 @@ class mcc_groupGen
 		{
 			idc = -1;
 			onButtonClick = "if (!isnil 'MCC_GroupGenGroupSelected') then {if (count MCC_GroupGenGroupSelected > 0) then {{_x setVariable ['mcc_gaia_cache', !(_x getVariable ['mcc_gaia_cache',false]),true];}foreach MCC_GroupGenGroupSelected}};";
-			tooltip = "Give the selected groups to caching system";
-			text = "Cache Group"; //--- ToDo: Localize;
+			tooltip = "$STR_UI_CACHEDESC";
+			text = "$STR_UI_CACHE"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.391146 * safezoneW + safezoneX;
@@ -282,8 +282,8 @@ class mcc_groupGen
 		{
 			idc = -1;
 			onButtonClick = "if (str (getmarkerpos str mcc_active_zone) != str [0,0,0]) then {[str mcc_active_zone] spawn GAIA_fnc_occupy} else {systemchat 'Create a zone first'}";
-			tooltip = "Occupy current selected zone with the selected faction's units";
-			text = "Occupy Zone"; //--- ToDo: Localize;
+			tooltip = "$STR_UI_OCCUPYDESC";
+			text = "$STR_UI_OCCUPY"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.391146 * safezoneW + safezoneX;
@@ -296,8 +296,8 @@ class mcc_groupGen
 		{
 			idc = 1015;
 			onButtonClick = "_ctrl = _this select 0; if (ctrlText _ctrl == 'Ambient Warzone(on)') then {_ctrl ctrlSetText 'Ambient Warzone(off)';MCC_GAIA_AC = false;} else {_ctrl ctrlSetText 'Ambient Warzone(on)';MCC_GAIA_AC = true}; publicVariable 'MCC_GAIA_AC';";
-			tooltip = "Spawn random ambient battlefield around the player";
-			text = "Ambient Warzone(off)"; //--- ToDo: Localize;
+			tooltip = "$STR_UI_WARZONEDESC";
+			text = "$STR_UI_WARZONEOFF"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.391146 * safezoneW + safezoneX;
@@ -309,7 +309,7 @@ class mcc_groupGen
 		class MCC_saveLoad: MCC_RscButtonMenu
 		{
 			idc = -1;
-			text = "Save/Load";
+			text = "$STR_UI_SAVELOAD";
 			x = 0.746354 * safezoneW + safezoneX;
 			y = 0.796884 * safezoneH + safezoneY;
 			w = 0.0916667 * safezoneW;
@@ -321,22 +321,22 @@ class mcc_groupGen
 		class MCC_login: MCC_RscButtonMenu
 		{
 			idc = -1;
-			text = "Logout";
+			text = "$STR_UI_LOGOUT";
 			x = 0.648958 * safezoneW + safezoneX;
 			y = 0.796884 * safezoneH + safezoneY;
 			w = 0.0916667 * safezoneW;
 			h = 0.0329871 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Login or logout as the mission maker";
+			tooltip = "$STR_UI_LOGOUTDESC";
 			onButtonClick = "_null = [] spawn MCC_fnc_loginDialog";
 		};
 
 		class MCC_ghostMode: MCC_RscButton
 		{
 			idc = -1;
-			text = "Ghost Mode";
+			text = "$STR_UI_GHOST";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Make the mission maker invisible to enemies";
+			tooltip = "$STR_UI_GHOSTDESC";
 			onButtonClick = "if (mcc_missionmaker == (name player)) then {if (captive player) then {player setcaptive false;if (MCC_Chat) then {[['Mission maker is no longer cheating'],'MCC_fnc_globalHint',true,false] call BIS_fnc_MP;};} else {player setcaptive true; if (MCC_Chat) then {[['Mission maker is cheating'],'MCC_fnc_globalHint',true,false] spawn BIS_fnc_MP;}};} else {player globalchat 'Access Denied'};";
 			x = 0.448438 * safezoneW + safezoneX;
 			y = 0.0491758 * safezoneH + safezoneY;
@@ -347,8 +347,8 @@ class mcc_groupGen
 		class MCC_spectator: MCC_RscButton
 		{
 			idc = -1;
-			text = "Spectator";
-			tooltip = "Open Spectator Mode";
+			text = "$STR_UI_SPEC";
+			tooltip = "$STR_UI_SPECDESC";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			onButtonClick = __EVAL("[4] execVM '"+MCCPATH+"mcc\Pop_menu\mission_settings.sqf'");
 
@@ -361,8 +361,8 @@ class mcc_groupGen
 		class MCC_Teleport: MCC_RscButton
 		{
 			idc = -1;
-			text = "Teleport";
-			tooltip = "Teleport the mission maker and any vehicle he is in to a new location";
+			text = "$STR_UI_TELEPORT";
+			tooltip = "$STR_UI_TELEPORTDESC";
 			onButtonClick = "if (mcc_missionmaker == (name player)) then {hint 'Click on the map';onMapSingleClick 'vehicle player setPos _pos;onMapSingleClick '''';true;'} else {player globalchat 'Access Denied'};";
 
 			x = 0.563021 * safezoneW + safezoneX;
@@ -375,9 +375,9 @@ class mcc_groupGen
 		{
 			idc = -1;
 			onButtonClick = __EVAL("[5] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
-			text = "Mission Won"; //--- ToDo: Localize;
+			text = "$STR_UI_MISSWON";
 			colorText[] = {0,1,0,0.8};
-			tooltip = "End mission with - Mission Accomplished"; //--- ToDo: Localize;
+			tooltip = "$STR_UI_MISSWONDESC";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.3625 * safezoneW + safezoneX;
@@ -390,9 +390,9 @@ class mcc_groupGen
 		{
 			idc = -1;
 			onButtonClick = __EVAL("[6] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
-			text = "Mission Failed"; //--- ToDo: Localize;
+			text = "$STR_UI_MISSFAIL"; //--- ToDo: Localize;
 			colorText[] = {1,0,0,0.8};
-			tooltip = "End mission with - Mission Failed"; //--- ToDo: Localize;
+			tooltip = "$STR_UI_MISSFAILDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.6375 * safezoneW + safezoneX;
@@ -405,9 +405,8 @@ class mcc_groupGen
 		{
 			idc = -1;
 			onButtonClick = "createDialog 'MCCMWDialog'";
-			text = "Mission Generator";
-			tooltip = "Open mission wizard";
-
+			text = "$STR_UI_MISSGEN";
+			tooltip = "$STR_UI_MISSGENDESC";
 			x = 0.39 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
 			w = 0.09 * safezoneW;
@@ -419,8 +418,8 @@ class mcc_groupGen
 		{
 			idc = -1;
 			onButtonClick = "createDialog 'MCCFrontLineDialog'";
-			text = "Front Lines";
-			tooltip = "Open Front Lines Generator";
+			text = "$STR_UI_FRONTLINES";
+			tooltip = "$STR_UI_FRONTLINESDESC";
 
 			x = 0.485 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;

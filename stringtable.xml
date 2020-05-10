@@ -533,6 +533,31 @@
                 <English>Enable</English>
                 <Italian>Abilita</Italian>
             </Key>
+            <Key ID="STR_GENERAL_NOGRASS">
+                <Original>No Grass</Original>
+                <English>No Grass</English>
+                <Italian>Disabilita Erba</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_LOW">
+                <Original>Low</Original>
+                <English>Low</English>
+                <Italian>Basso</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_MEDIUM">
+                <Original>Medium</Original>
+                <English>Medium</English>
+                <Italian>Medio</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_HIGH">
+                <Original>High</Original>
+                <English>High</English>
+                <Italian>Alto</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_VERYHIGH">
+                <Original>Very High</Original>
+                <English>Very High</English>
+                <Italian>Molto Alto</Italian>
+            </Key>
             <Key ID="STR_GENERAL_DISABLE">
                 <Original>Disable</Original>
                 <English>Disable</English>
@@ -567,6 +592,590 @@
                 <Original>No ammobox selected</Original>
                 <English>No ammobox selected</English>
                 <Italian>Nessun ammobox selezioanto</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_TELEPORTTOTEAM">
+                <Original>Teleport To Team</Original>
+                <English>Teleport to Team</English>
+                <Italian>Teletrasporta al Team</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_TELEPORTONTL">
+                <Original>Players can teleport to squad leader</Original>
+                <English>Players can teleport to squad leader</English>
+                <Italian>I giocatori possono essere teletrasportati sul caposquadra</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_DISABLED">
+                <Original>Disabled</Original>
+                <English>Disabled</English>
+                <Italian>Disabilitato</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_JIPONLY">
+                <Original>JIP Only</Original>
+                <English>JIP Only</English>
+                <Italian>Solo JIP</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_AFTERRESPAWN">
+                <Original>After Respawn</Original>
+                <English>After Respawn</English>
+                <Italian>Dopo Respawn</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_ALWAYS">
+                <Original>Always</Original>
+                <English>Always</English>
+                <Italian>Sempre</Italian>
+            </Key>
+            <Key ID="STR_GENERAL_MCCGENERAL">
+                <Original>MCC General</Original>
+                <English>MCC General</English>
+                <Italian>MCC Generale</Italian>
+            </Key>
+        </Container>
+        <Container name="login">
+            <Key ID="STR_LOGIN_MCCLOGIN">
+                <Original>MCC Login</Original>
+                <English>MCC Login</English>
+                <Italian>Login MCC</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_VIEW">
+                <Original>View:</Original>
+                <English>View:</English>
+                <Italian>Distanza visuale:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_GRASS">
+                <Original>Grass:</Original>
+                <English>Grass:</English>
+                <Italian>Erba:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_CLOSE">
+                <Original>Close</Original>
+                <English>Close</English>
+                <Italian>Chiudi</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_MM">
+                <Original>Mission Maker:</Original>
+                <English>Mission Maker:</English>
+                <Italian>Creatore Missione:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_CLIENTFPS">
+                <Original>Client FPS:</Original>
+                <English>Client FPS:</English>
+                <Italian>FPS Client:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_SERVERFPS">
+                <Original>Server FPS:</Original>
+                <English>Server FPS:</English>
+                <Italian>FPS Server:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_LOGIN">
+                <Original>Login</Original>
+                <English>Login</English>
+                <Italian>Login</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_LOGINMM">
+                <Original>Login as the mission maker</Original>
+                <English>Login as the mission maker</English>
+                <Italian>Accedi come creatore missione</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_LINK">
+                <Original>Click to open a link on your default browser</Original>
+                <English>Click to open a link on your default browser</English>
+                <Italian>Clicca per aprire un link nel tuo browser di default</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_MMNA">
+                <Original>Not Assigned</Original>
+                <English>Not Assigned</English>
+                <Italian>Non Assegnato</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_USECBA">
+                <Original>Use CBA Controls</Original>
+                <English>Use CBA Controls</English>
+                <Italian>Usa i controlli CBA</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_OPENMCC">
+                <Original>Open MCC:</Original>
+                <English>Open MCC:</English>
+                <Italian>Apri MCC:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_COMMCONSOLE">
+                <Original>Comander Console:</Original>
+                <English>Comander Console:</English>
+                <Italian>Console Comando:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_TPTEAM">
+                <Original>Teleport to team:</Original>
+                <English>Teleport to team:</English>
+                <Italian>Teletrasporta a squadra:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_SQUADDIAL">
+                <Original>Squad Dialog:</Original>
+                <English>Squad Dialog:</English>
+                <Italian>Menu Squadra:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_SQUADPDA">
+                <Original>Squad leader PDA:</Original>
+                <English>Squad leader PDA:</English>
+                <Italian>Caposquadra PDA:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_INTERKEY">
+                <Original>Interaction Key:</Original>
+                <English>Interaction Key:</English>
+                <Italian>Tasto Interazioni:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_INTERSELF">
+                <Original>Interaction Self:</Original>
+                <English>Interaction Self:</English>
+                <Italian>Interazioni Personali:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_COVERSYS">
+                <Original>Cover System:</Original>
+                <English>Cover System:</English>
+                <Italian>Sistema Copertura:</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_CLICKCHANGE">
+                <Original>Click to change</Original>
+                <English>Click to change</English>
+                <Italian>Clicca per cambiare</Italian>
+            </Key>
+            <Key ID="STR_LOGIN_CLICKCLIENTDISABLE">
+                <Original>Click to disable client side</Original>
+                <English>Click to disable client side</English>
+                <Italian>Clicca per disabilitare lato client</Italian>
+            </Key>
+        </Container>
+        <Container name="ui">
+            <Key ID="STR_UI_MISSIONSETTINGS">
+                <Original>Mission Settings</Original>
+                <English>Mission Settings</English>
+                <Italian>Impostazioni Missione</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSIONSETTINGSDESC">
+                <Original>Open Mission Settings Menu</Original>
+                <English>Open Mission Settings Menu</English>
+                <Italian>Apri Impostazioni Missione</Italian>
+            </Key>
+            <Key ID="STR_UI_DISRESPAWN">
+                <Original>Disable Respawn</Original>
+                <English>Disable Respawn</English>
+                <Italian>Disabilita Respawn</Italian>
+            </Key>
+            <Key ID="STR_UI_DISRESPAWNDESC">
+                <Original>Disable respawn to all players</Original>
+                <English>Disable respawn to all players</English>
+                <Italian>Disabilita respawn a tutti i player</Italian>
+            </Key>
+            <Key ID="STR_UI_SETWEATH">
+                <Original>Set Weather</Original>
+                <English>Set Weather</English>
+                <Italian>Imposta Meteo</Italian>
+            </Key>
+            <Key ID="STR_UI_SETWEATHDESC">
+                <Original>Open Weather Menu</Original>
+                <English>Open Weather Menu</English>
+                <Italian>Apri Menu Meteo</Italian>
+            </Key>
+            <Key ID="STR_UI_SETTIME">
+                <Original>Set Time</Original>
+                <English>Set Time</English>
+                <Italian>Imposta Tempo</Italian>
+            </Key>
+            <Key ID="STR_UI_SETTIMEDESC">
+                <Original>Open Time Menu</Original>
+                <English>Open Time Menu</English>
+                <Italian>Apri Menu Tempo</Italian>
+            </Key>
+            <Key ID="STR_UI_STARTLOC">
+                <Original>Start Location</Original>
+                <English>Start Location</English>
+                <Italian>Luogo Iniziale</Italian>
+            </Key>
+            <Key ID="STR_UI_STARTLOCDESC">
+                <Original>Open Locations Menu</Original>
+                <English>Open Locations Menu</English>
+                <Italian>Apri Menu Luoghi</Italian>
+            </Key>
+            <Key ID="STR_UI_DEBUG">
+                <Original>Debug</Original>
+                <English>Debug</English>
+                <Italian>Debug</Italian>
+            </Key>
+            <Key ID="STR_UI_DEBUGDESC">
+                <Original>Open Debug Menu</Original>
+                <English>Open Debug Menu</English>
+                <Italian>Apri Menu Debug</Italian>
+            </Key>
+            <Key ID="STR_UI_MARKERS">
+                <Original>Markers</Original>
+                <English>Markers</English>
+                <Italian>Marker</Italian>
+            </Key>
+            <Key ID="STR_UI_MARKERSDESC">
+                <Original>Open Markers Menu</Original>
+                <English>Open Markers Menu</English>
+                <Italian>Apri Menu Marker</Italian>
+            </Key>
+            <Key ID="STR_UI_BRIEFING">
+                <Original>Briefing</Original>
+                <English>Briefing</English>
+                <Italian>Briefing</Italian>
+            </Key>
+            <Key ID="STR_UI_BRIEFINGDESC">
+                <Original>Open Briefing Menu</Original>
+                <English>Open Briefing Menu</English>
+                <Italian>Apri Menu Briefing</Italian>
+            </Key>
+            <Key ID="STR_UI_TASKS">
+                <Original>Tasks</Original>
+                <English>Tasks</English>
+                <Italian>Task</Italian>
+            </Key>
+            <Key ID="STR_UI_TASKSDESC">
+                <Original>Open Tasks Menu</Original>
+                <English>Open Tasks Menu</English>
+                <Italian>Apri Menu Task</Italian>
+            </Key>
+            <Key ID="STR_UI_TRIGGERS">
+                <Original>Triggers</Original>
+                <English>Triggers</English>
+                <Italian>Attivatori</Italian>
+            </Key>
+            <Key ID="STR_UI_TRIGGERSDESC">
+                <Original>Open Triggers Menu</Original>
+                <English>Open Triggers Menu</English>
+                <Italian>Apri Menu Attivatori</Italian>
+            </Key>
+            <Key ID="STR_UI_JUKEBOX">
+                <Original>Jukebox</Original>
+                <English>Jukebox</English>
+                <Italian>Jukebox</Italian>
+            </Key>
+            <Key ID="STR_UI_JUKEBOXDESC">
+                <Original>Open Jukebox Menu</Original>
+                <English>Open Jukebox Menu</English>
+                <Italian>Apri Menu Jukebox</Italian>
+            </Key>
+            <Key ID="STR_UI_CLIENTSIDE">
+                <Original>Client Side</Original>
+                <English>Client Side</English>
+                <Italian>Lato Client</Italian>
+            </Key>
+            <Key ID="STR_UI_CLIENTSIDEDESC">
+                <Original>Open Client Side Menu</Original>
+                <English>Open Client Side Menu</English>
+                <Italian>Apri Menu Lato Client</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSWON">
+                <Original>Mission Won</Original>
+                <English>Mission Won</English>
+                <Italian>Missione Vinta</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSWONDESC">
+                <Original>End mission with - Mission Accomplished</Original>
+                <English>End mission with - Mission Accomplished</English>
+                <Italian>Termina missione con - Missione Completata</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSFAIL">
+                <Original>Mission Failed</Original>
+                <English>Mission Failed</English>
+                <Italian>Missione Fallita</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSFAILDESC">
+                <Original>End mission with - Mission Failed</Original>
+                <English>End mission with - Mission Failed</English>
+                <Italian>Termina missione con - Missione Fallita</Italian>
+            </Key>
+            <Key ID="STR_UI_FACTION">
+                <Original>Faction:</Original>
+                <English>Faction:</English>
+                <Italian>Fazione:</Italian>
+            </Key>
+            <Key ID="STR_UI_WEST">
+                <Original>West</Original>
+                <English>West</English>
+                <Italian>West</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWWESTDESC">
+                <Original>Show only West's side units</Original>
+                <English>Show only West's side units</English>
+                <Italian>Mostra solo unità lato West</Italian>
+            </Key>
+            <Key ID="STR_UI_EAST">
+                <Original>East</Original>
+                <English>East</English>
+                <Italian>East</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWEASTDESC">
+                <Original>Show only East's side units</Original>
+                <English>Show only East's side units</English>
+                <Italian>Mostra solo unità lato East</Italian>
+            </Key>
+            <Key ID="STR_UI_GUER">
+                <Original>Guer</Original>
+                <English>Guer</English>
+                <Italian>Guer</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWGUERTDESC">
+                <Original>Show only Guer's side units</Original>
+                <English>Show only Guer's side units</English>
+                <Italian>Mostra solo unità lato Guer</Italian>
+            </Key>
+            <Key ID="STR_UI_CIV">
+                <Original>Civ</Original>
+                <English>Civ</English>
+                <Italian>Civ</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWCIVDESC">
+                <Original>Show only civilian's side units</Original>
+                <English>Show only civilian's side units</English>
+                <Italian>Mostra solo unità lato Civ</Italian>
+            </Key>
+            <Key ID="STR_UI_PLAYER">
+                <Original>Players</Original>
+                <English>Players</English>
+                <Italian>Giocatori</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWPLAYERDESC">
+                <Original>Show players only</Original>
+                <English>Show players only</English>
+                <Italian>Mostra solo giocatori</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWUNIT">
+                <Original>All</Original>
+                <English>All</English>
+                <Italian>Tutti</Italian>
+            </Key>
+            <Key ID="STR_UI_SHOWUNITDESC">
+                <Original>Show all units</Original>
+                <English>Show all units</English>
+                <Italian>Mostra tutte le unità</Italian>
+            </Key>
+            <Key ID="STR_UI_STOPCAT">
+                <Original>Stop Capturing</Original>
+                <English>Stop Capturing</English>
+                <Italian>Stop Cattura</Italian>
+            </Key>
+            <Key ID="STR_UI_STOPCATDESC">
+                <Original>Once a trigger has been generated all the action done by MCC won't execute but will be saved to the trigger until this button is pressed</Original>
+                <English>Once a trigger has been generated all the action done by MCC won't execute but will be saved to the trigger until this button is pressed</English>
+                <Italian>Una volta che l'attivatore è stato generato, tutte le azioni di MCC non saranno eseguite, ma salvate nell'attivatore finchè questo pulsante è premuto</Italian>
+            </Key>
+            <Key ID="STR_UI_CACHE">
+                <Original>Cache Group</Original>
+                <English>Cache Group</English>
+                <Italian>Metti gruppo in Cache</Italian>
+            </Key>
+            <Key ID="STR_UI_CACHEDESC">
+                <Original>Give the selected groups to caching system</Original>
+                <English>Give the selected groups to caching system</English>
+                <Italian>Dai i gruppi selezionati al sistema di cache</Italian>
+            </Key>
+            <Key ID="STR_UI_OCCUPY">
+                <Original>Occupy Zone</Original>
+                <English>Occupy Zone</English>
+                <Italian>Occupa Zona</Italian>
+            </Key>
+            <Key ID="STR_UI_OCCUPYDESC">
+                <Original>Occupy current selected zone with the selected faction's units</Original>
+                <English>Occupy current selected zone with the selected faction's units</English>
+                <Italian>Occupa zona selezionata con le unità della fazione selezionata</Italian>
+            </Key>
+            <Key ID="STR_UI_WARZONEOFF">
+                <Original>Ambient Warzone(off)</Original>
+                <English>Ambient Warzone(off)</English>
+                <Italian>Zona di Guerra(off)</Italian>
+            </Key>
+            <Key ID="STR_UI_WARZONEDESC">
+                <Original>Spawn random ambient battlefield around the player</Original>
+                <English>Spawn random ambient battlefield around the player</English>
+                <Italian>Spawna campi di battaglia casuali attorno al player</Italian>
+            </Key>
+            <Key ID="STR_UI_SAVELOAD">
+                <Original>Save/Load</Original>
+                <English>Save/Load</English>
+                <Italian>Salva/Carica</Italian>
+            </Key>
+            <Key ID="STR_UI_LOGOUT">
+                <Original>Logout</Original>
+                <English>Logout</English>
+                <Italian>Logout</Italian>
+            </Key>
+            <Key ID="STR_UI_LOGOUTDESC">
+                <Original>Login or logout as the mission maker</Original>
+                <English>Login or logout as the mission maker</English>
+                <Italian>Login o logout come creatore missione</Italian>
+            </Key>
+            <Key ID="STR_UI_GHOST">
+                <Original>Ghost Mode</Original>
+                <English>Ghost Mode</English>
+                <Italian>Modalità Fantasma</Italian>
+            </Key>
+            <Key ID="STR_UI_GHOSTDESC">
+                <Original>Make the mission maker invisible to enemies</Original>
+                <English>Make the mission maker invisible to enemies</English>
+                <Italian>Rendi il creatore missione invisibile ai nemici</Italian>
+            </Key>
+            <Key ID="STR_UI_SPEC">
+                <Original>Spectator</Original>
+                <English>Spectator</English>
+                <Italian>Spettatore</Italian>
+            </Key>
+            <Key ID="STR_UI_SPECDESC">
+                <Original>Open Spectator Mode</Original>
+                <English>Open Spectator Mode</English>
+                <Italian>Apri Modalità Spettatore</Italian>
+            </Key>
+            <Key ID="STR_UI_TELEPORT">
+                <Original>Teleport</Original>
+                <English>Teleport</English>
+                <Italian>Teletrasporta</Italian>
+            </Key>
+            <Key ID="STR_UI_TELEPORTDESC">
+                <Original>Teleport the mission maker and any vehicle he is in to a new location</Original>
+                <English>Teleport the mission maker and any vehicle he is in to a new location</English>
+                <Italian>Teletrasporta il creatore missione e qualsiasi veicolo in cui lui è dentro in un nuovo luogo</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSGEN">
+                <Original>Mission Generator</Original>
+                <English>Mission Generator</English>
+                <Italian>Generatore Missione</Italian>
+            </Key>
+            <Key ID="STR_UI_MISSGENDESC">
+                <Original>Open mission wizard</Original>
+                <English>Open mission wizard</English>
+                <Italian>Apri wizard missione</Italian>
+            </Key>
+            <Key ID="STR_UI_FRONTLINES">
+                <Original>Front Lines</Original>
+                <English>Front Lines</English>
+                <Italian>Linee di Fronte</Italian>
+            </Key>
+            <Key ID="STR_UI_FRONTLINESDESC">
+                <Original>Open Front Lines Generator</Original>
+                <English>Open Front Lines Generator</English>
+                <Italian>Apri Generatore Linee di Fronte</Italian>
+            </Key>
+            <Key ID="STR_UI_SPAWN">
+                <Original>Spawn</Original>
+                <English>Spawn</English>
+                <Italian>Spawna unità</Italian>
+            </Key>
+            <Key ID="STR_UI_SPAWNDESC">
+                <Original>Spawn units or groups</Original>
+                <English>Spawn units or groups</English>
+                <Italian>Spawna unità o gruppi</Italian>
+            </Key>
+            <Key ID="STR_UI_CAS">
+                <Original>CAS</Original>
+                <English>CAS</English>
+                <Italian>CAS</Italian>
+            </Key>
+            <Key ID="STR_UI_CASDESC">
+                <Original>Open Close Air Support Menu</Original>
+                <English>Open Close Air Support Menu</English>
+                <Italian>Apri Menu CAS</Italian>
+            </Key>
+            <Key ID="STR_UI_DROP">
+                <Original>Supply Drop</Original>
+                <English>Supply Drop</English>
+                <Italian>Drop Rifornimento</Italian>
+            </Key>
+            <Key ID="STR_UI_DROPDESC">
+                <Original>Open Supply Drop Menu</Original>
+                <English>Open Supply Drop Menu</English>
+                <Italian>Apri Menu Drop Rifornimento</Italian>
+            </Key>
+            <Key ID="STR_UI_ARTILLERY">
+                <Original>Artillery</Original>
+                <English>Artillery</English>
+                <Italian>Artiglieria</Italian>
+            </Key>
+            <Key ID="STR_UI_ARTILLERYDESC">
+                <Original>Open artillery Menu</Original>
+                <English>Open artillery Menu</English>
+                <Italian>Apri Menu Artiglieria</Italian>
+            </Key>
+            <Key ID="STR_UI_EVAC">
+                <Original>Evac</Original>
+                <English>Evac</English>
+                <Italian>Evacuazione</Italian>
+            </Key>
+            <Key ID="STR_UI_EVACDESC">
+                <Original>Open Evac Menu</Original>
+                <English>Open Evac Menu</English>
+                <Italian>Apri Menu Evacuazione</Italian>
+            </Key>
+            <Key ID="STR_UI_IED">
+                <Original>IED</Original>
+                <English>IED</English>
+                <Italian>IED</Italian>
+            </Key>
+            <Key ID="STR_UI_IEDDESC">
+                <Original>Open IEDs Menu</Original>
+                <English>Open IEDs Menu</English>
+                <Italian>Apri Menu IED</Italian>
+            </Key>
+            <Key ID="STR_UI_CONVOY">
+                <Original>Convoy</Original>
+                <English>Convoy</English>
+                <Italian>Convoglio</Italian>
+            </Key>
+            <Key ID="STR_UI_CONVOYDESC">
+                <Original>Open Convoy Menu</Original>
+                <English>Open Convoy Menu</English>
+                <Italian>Apri Menu Convoglio</Italian>
+            </Key>
+            <Key ID="STR_UI_AC130">
+                <Original>AC-130</Original>
+                <English>AC-130</English>
+                <Italian>AC-130</Italian>
+            </Key>
+            <Key ID="STR_UI_AC130DESC">
+                <Original>Spawn AC-130 (use MCC console to control it)</Original>
+                <English>Spawn AC-130 (use MCC console to control it)</English>
+                <Italian>Spawna AC-130 (usa la console MCC per controllarlo)</Italian>
+            </Key>
+            <Key ID="STR_UI_BRUSHES">
+                <Original>Brushes</Original>
+                <English>Brushes</English>
+                <Italian>Pennelli</Italian>
+            </Key>
+            <Key ID="STR_UI_BRUSHESDESC">
+                <Original>Open Brushes Menu</Original>
+                <English>Open Brushes Menu</English>
+                <Italian>Apri Menu Pennelli</Italian>
+            </Key>
+            <Key ID="STR_UI_ZEUS">
+                <Original>Zeus</Original>
+                <English>Zeus</English>
+                <Italian>Zeus</Italian>
+            </Key>
+            <Key ID="STR_UI_ZEUSDESC">
+                <Original>Click on map to open BIS Zeus</Original>
+                <English>Click on map to open BIS Zeus</English>
+                <Italian>Clicca sulla mappa per aprire BIS Zeus</Italian>
+            </Key>
+            <Key ID="STR_UI_ROLEDESC">
+                <Original>Enable/Disable Role Selection</Original>
+                <English>Enable/Disable Role Selection</English>
+                <Italian>Abilita/Disabilita Selezione Ruolo</Italian>
+            </Key>
+            <Key ID="STR_UI_ARSENAL">
+                <Original>Arsenal</Original>
+                <English>Arsenal</English>
+                <Italian>Arsenale</Italian>
+            </Key>
+            <Key ID="STR_UI_ARSENALDESC">
+                <Original>Click on map to open BIS Arsenal</Original>
+                <English>Click on map to open BIS Arsenal</English>
+                <Italian>Clicca sulla mappa per aprire BIS Arsenal</Italian>
+            </Key>
+            <Key ID="STR_UI_CREATEZONE">
+                <Original>Create Zone</Original>
+                <English>Create Zone</English>
+                <Italian>Crea Zona</Italian>
+            </Key>
+            <Key ID="STR_UI_ZONE">
+                <Original>Zone:</Original>
+                <English>Zone:</English>
+                <Italian>Zona:</Italian>
             </Key>
         </Container>
     </Package>

@@ -3,7 +3,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
     [
         "MCC_Settings_ViewDistance",
         "SLIDER",
-        ["View Distance","Set the current player view distance"],
+        [localize "STR_UI_VIEWDISTANCE", localize "STR_UI_SETVIEWDISTANCE"],
         "MCC User Interface",
         [200, 15000, 5000, 0],
         false,
@@ -17,7 +17,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
     [
         "MCC_Settings_grassDetail",
         "SLIDER",
-        ["Grass Detail","Set the current player grass Detail"],
+        [localize "STR_UI_GRASSDETAIL",localize "STR_UI_SETGRASSDETAIL"],
         "MCC User Interface",
         [1, 50, 10, 0],
         false,

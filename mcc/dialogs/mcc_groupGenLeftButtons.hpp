@@ -22,9 +22,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_groupGenSpawnButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Spawn";
+			text = "$STR_UI_SPAWN";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Spawn units or groups";
+			tooltip = "$STR_UI_SPAWNDESC";
 			onButtonClick = __EVAL("[6] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -36,9 +36,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_callCASButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "CAS"; //--- ToDo: Localize;
+			text = "$STR_UI_CAS"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Open Close Air Support Menu";
+			tooltip = "$STR_UI_CASDESC";
 			onButtonClick = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -50,9 +50,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_airdropButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Supply Drop"; //--- ToDo: Localize;
+			text = "$STR_UI_DROP"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Open Supply Drop Menu";
+			tooltip = "$STR_UI_DROPDESC";
 			onButtonClick = __EVAL("[16] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -64,9 +64,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_callArtilleryButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Artillery"; //--- ToDo: Localize;
+			text = "$STR_UI_ARTILLERY"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Open artillery Menu";
+			tooltip = "$STR_UI_ARTILLERYDESC";
 			onButtonClick = __EVAL("[5] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -78,9 +78,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_callEvacButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Evac"; //--- ToDo: Localize;
+			text = "$STR_UI_EVAC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Open Evac Menu";
+			tooltip = "$STR_UI_EVACDESC";
 			onButtonClick = __EVAL("[7] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -92,9 +92,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_callIEDButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "IED"; //--- ToDo: Localize;
+			text = "$STR_UI_IED"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Open IEDs Menu";
+			tooltip = "$STR_UI_IEDDESC";
 			onButtonClick = __EVAL("[8] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -106,9 +106,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_callConvoyButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Convoy"; //--- ToDo: Localize;
+			text = "$STR_UI_CONVOY"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Open Convoy Menu";
+			tooltip = "$STR_UI_CONVOYDESC";
 			onButtonClick = __EVAL("[9] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -120,9 +120,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_AC130Button: MCC_RscButton
 		{
 			idc = 620; // idc set to allow hiding button when no mcc_console available
-			text = "AC-130"; //--- ToDo: Localize;
+			text = "$STR_UI_AC130"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Spawn AC-130 (use MCC console to control it)";
+			tooltip = "$STR_UI_AC130DESC";
 			onButtonClick = "MCC_CASrequestMarker = true;MCC_spawnkind = ['ac-130'];MCC_planeType = ['B_T_VTOL_01_armed_F']";
 
 			x = 0.0057 * safezoneW;
@@ -134,9 +134,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_DeleteButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Brushes"; //--- ToDo: Localize;
+			text = "$STR_UI_BRUSHES"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Brushes Menu";
+			tooltip = "$STR_UI_BRUSHESDESC";
 			onButtonClick = __EVAL("[17] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -150,7 +150,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			idc = 520;
 			text = ""; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Enable/Disable Role Selection";
+			tooltip = "$STR_UI_ROLEDESC";
 			onButtonClick =  __EVAL("[6] execVM '"+MCCPATH+"mcc\general_scripts\mcc_start_location.sqf'");
 
 			x = 0.0057 * safezoneW;
@@ -162,9 +162,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_curatorButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Zeus"; //--- ToDo: Localize;
+			text = "$STR_UI_ZEUS"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Click on map to open BIS Zeus";
+			tooltip = "$STR_UI_ZEUSDESC";
 			onButtonClick = "uiNameSpace setVariable ['MCC_ZeusOpen',true]";
 
 			x = 0.0057 * safezoneW;
@@ -176,9 +176,9 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 		class MCC_arsenalButton: MCC_RscButton
 		{
 			idc = -1;
-			text = "Arsenal"; //--- ToDo: Localize;
+			text = "$STR_UI_ARSENAL"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			tooltip = "Click to open BIS arsenal";
+			tooltip = "$STR_UI_ARSENALDESC";
 			onButtonClick = "closeDialog 0; ['Open',true] call BIS_fnc_arsenal;";
 
 			x = 0.0057 * safezoneW;
