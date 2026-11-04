@@ -2,7 +2,7 @@
 // Spawn selected units around the player
 // Example: [_spawnDistance,_maxSpawn,_faction] spawn MCC_fnc_campaignSpawnAIInit;
 // _spawnDistance		INTEGER - Spawn distance around the players
-// _maxSpawn			INTEGER - max groups spawned around the players
+// _maxSpawn			INTEGER - max groups spawned around the players (fallback, the CBA setting MCC_campaignAmbientCap wins)
 // _faction				STRING - the units' faction
 //==================================================================================================================================================================*/
 private ["_spawnCenters","_player","_spawnpos","_enemyFaction","_spawnDistance","_maxSpawn","_enemySide","_unitsArray","_spawnPos","_roads","_simu","_unit","_maxGroupAmount","_units","_grp","_tile"];
@@ -49,16 +49,17 @@ while {true} do {
 	};
 
 	_spawnCenters = _spawnCenters - [-1];
-	_maxGroupAmount = (((count _spawnCenters)max 1)*2) min _maxSpawn;
+
+	//Cap from the CBA setting MCC_campaignAmbientCap (read every cycle so it can be changed mid-campaign)
+	_maxGroupAmount = (((count _spawnCenters)max 1)*2) min (round (missionNamespace getVariable ["MCC_campaignAmbientCap",_maxSpawn]));
 
 	//Do we need to spawn more AI group?
 	if 	(
 	     	({(_x getVariable ["MCC_MW_AMBIENT",false])} count allgroups) < _maxGroupAmount &&
-	     	count _spawnCenters > 0 &&
-	     	(missionNamespace getvariable [format ["campaignRep_%1",side _player],50]) > random 100
+	     	{count _spawnCenters > 0} &&
+	     	{_player = _spawnCenters call BIS_fnc_selectRandom; (missionNamespace getvariable [format ["campaignRep_%1",side _player],50]) > random 100}
 	    ) then {
 
-		_player	= _spawnCenters call BIS_fnc_selectRandom;
 		_spawnPos = [getpos _player, _spawnDistance, random 360] call BIS_fnc_relPos;
 		_spawnPos =(_spawnPos) findEmptyPosition [10,150];
 		_tile = ([_spawnPos,600] call MCC_fnc_campaignGetNearestTile) select 0;

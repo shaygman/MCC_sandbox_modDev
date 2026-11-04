@@ -16,7 +16,8 @@ _side				= _this select 7;
 _unitPlaced = 0;
 if (count _arrayUnits > 0) then
 {
-	while {_unitPlaced < (_totalEnemyUnits)} do
+	//MCC_MWunitBudget: remaining units the mission being generated may spawn (nil = no cap)
+	while {_unitPlaced < (_totalEnemyUnits) && {(missionNamespace getVariable ["MCC_MWunitBudget",1e6]) > 0}} do
 	{
 		//Behavior
 		_spawnbehavior	= ["MOVE","NOFOLLOW"] call BIS_fnc_selectRandom;
@@ -32,6 +33,7 @@ if (count _arrayUnits > 0) then
 				if !(_price > _totalEnemyUnits) then
 				{
 					_unitPlaced = (_unitPlaced + (_group select 1))*_priceGroup;
+					if (!isNil "MCC_MWunitBudget") then {MCC_MWunitBudget = MCC_MWunitBudget - ((_group select 1) * 3)};
 
 					//Spawn them
 					[_zoneNumber,"GROUP",_simType,true,_group select 0,_group select 2,_spawnbehavior,_group select 0,_side] call MCC_fnc_MWSpawnInZone;
@@ -44,6 +46,7 @@ if (count _arrayUnits > 0) then
 					//Units
 					_group = _arrayUnits call BIS_fnc_selectRandom;
 					_unitPlaced = _unitPlaced + _priceUnit;
+					if (!isNil "MCC_MWunitBudget") then {MCC_MWunitBudget = MCC_MWunitBudget - 3};
 
 					//Spawn them
 					[_zoneNumber,"VEHICLE",_simType,true,_group select 1,_group select 2,_spawnbehavior,_group select 3,_side] call MCC_fnc_MWSpawnInZone;

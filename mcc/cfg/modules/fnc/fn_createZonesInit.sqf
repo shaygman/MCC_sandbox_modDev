@@ -34,7 +34,7 @@ if (isNull curatorCamera) exitWith {
 
 		if (count _triggers > 0) then {
 			//Create the zone
-			_zoneNumber = (count (missionNamespace getVariable ["MCC_zones_numbers",[]]))+1;
+			_zoneNumber = [] call MCC_fnc_MWnextZoneNumber;
 			[_zoneNumber ,position (_triggers select 0), triggerArea (_triggers select 0)] call MCC_fnc_MWUpdateZone;
 
 			//Find out all AI that need to be assigned to this zone
@@ -80,7 +80,7 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
 
 //New Zone
 _zoneNumber = if ((_resualt select 0) == 0) then {
-					(count (missionNamespace getVariable ["MCC_zones_numbers",[]]))+1;
+					[] call MCC_fnc_MWnextZoneNumber;
 				} else {
 					((_resualt select 0))
 				};

@@ -271,6 +271,8 @@ _group = group ((allMissionObjects "logic") select 0);
 
 //clear area mission
 private _missionName = missionNamespace getVariable ["MCC_fnc_MWinitMission_missionName",""];
+//Mission id of the mission being generated (campaign AOs), lets the campaign track each AO's objectives
+private _mwMissionId = missionNamespace getVariable ["MCC_MWcurrentMissionId",""];
 
 if (_task == "clear_area") then {
     _vehicle = _group createunit ["MCC_ModuleObjective_FCurator", _pos,[],0.5,"NONE"];
@@ -281,6 +283,7 @@ if (_task == "clear_area") then {
     _vehicle setvariable ["RscAttributeTaskState","created", true];
     _vehicle setvariable ["taskType",_taskType,true];
     _vehicle setvariable ["taskName",[_taskId,_missionName],true];
+    _vehicle setvariable ["MCC_MWmissionId",_mwMissionId,true];
     _vehicle setvariable ["RscAttributeTaskDescription",[_stringDescription,_stringName,_stringName],true];
 
     //turn the sides into strings so we can compile it
@@ -307,6 +310,7 @@ if (_task == "clear_area") then {
     _vehicle setvariable ["RscAttributeTaskState","created", true];
     _vehicle setvariable ["taskType",_taskType,true];
     _vehicle setvariable ["taskName",[_taskId,_missionName],true];
+    _vehicle setvariable ["MCC_MWmissionId",_mwMissionId,true];
     _vehicle setvariable ["RscAttributeTaskDescription",[_stringDescription,_stringName,_stringName],true];
 
     if (!(isNull _obj) && _preciseMarker) then {

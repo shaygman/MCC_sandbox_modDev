@@ -3,9 +3,10 @@
 //Example: [
 //			[_wholeMap, _totalEnemyUnits,  _minObjectivesDistance, _maxObjectivesDistance, _weatherChange, _preciseMarkers, _playMusic],
 //			[_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction],
-//			[_obj1, _obj2, _obj3],
+//			[_obj1, _obj2, _obj3, ...],
 //			[_isCQB, _isCiv, _armor, _vehicles, _stealth, _isIED, _isAS, _isSB, _isRoadblocks, _animals],
-//			[_reinforcement, _artillery]
+//			[_reinforcement, _artillery],
+//			_missionId (optional)
 //		] call MCC_fnc_MWinitMission;
 //
 //**********************************************************************************************************************
@@ -27,10 +28,10 @@
 //	_factionPlayer				String, the defending faction
 //	_civFaction				String, civilians faction
 //
-//				Array 2 - Objectives
-//	_obj1						String, an objective defined in _objArray or "None" or "Random"
-//	_obj2						String, an objective defined in _objArray or "None" or "Random"
-//	_obj3						String, an objective defined in _objArray or "None" or "Random"
+//				Array 2 - Objectives (any length, max 8)
+//	_objN						String, an objective defined in _objArray or "None" or "Random"
+//								For non-campaign missions the array is padded with "Random" (or cut) to the
+//								CBA setting MCC_MWmaxObjectives (default 3 = old behaviour).
 //
 //				Array 3 - Missions' Defines
 //	_isCQB:					Boolean, true - isCQB false- isn't CQB
@@ -47,6 +48,15 @@
 //				Array 4 - Missions' Assets
 //	_reinforcement			Integer, reinforcement 0 - no;	1- Aerial;	2 - Motorized;	3 - Random;
 //	_artillery					Integer, reinforcement 0 - no;	1- mortars;	2 - self propeled;	3 - Random;
+//
+//				5 - Mission id (optional)
+//	_missionId				String, "" (default) or an id. Every objective module of this mission gets
+//								setVariable ["MCC_MWmissionId",_missionId] and the mission publishes
+//								MCC_MWMissionRuning_<_missionId> (true while its objectives are open). Used by the campaign
+//								to run several AOs at once.
+//
+//	Scaling (CBA settings): _totalEnemyUnits is multiplied by MCC_MWmissionSize and capped so the estimated spawn
+//	stays under MCC_MWmaxSpawnedUnits (also enforced at spawn time through MCC_MWunitBudget).
 //================================================================================================================================================================*/
 #define	MWinitMissionMusic	["LeadTrack01a_F","LeadTrack02_F","LeadTrack03_F","LeadTrack04a_F","LeadTrack05_F","LeadTrack06_F","AmbientTrack03_F","BackgroundTrack03_F","BackgroundTrack01_F","BackgroundTrack01a_F","BackgroundTrack02_F","LeadTrack01_F_EPA","LeadTrack02_F_EPA","EventTrack01_F_EPA","EventTrack01a_F_EPA","EventTrack03_F_EPA"]
 
@@ -70,10 +80,7 @@ _sidePlayer 			= _arraySides select 2;
 _factionPlayer 			= _arraySides select 3;
 _civFaction 			= _arraySides select 4;
 
-_arrayObjectives	= _this select 2;
-_obj1 					= _arrayObjectives select 0;
-_obj2 					= _arrayObjectives select 1;
-_obj3 					= _arrayObjectives select 2;
+_arrayObjectives	= +(_this select 2);
 
 _arrayDefines		= _this select 3;
 _isCQB 					= _arrayDefines select 0;
@@ -90,6 +97,8 @@ _animals 				= _arrayDefines select 9;
 _arrayAssets		= _this select 4;
 _reinforcement 			= _arrayAssets select 0;
 _artillery 				= _arrayAssets select 1;
+
+private _missionId		= _this param [5,"",[""]];
 
 _objArray			 	= missionNamespace getVariable ["MCC_MWMissionType",["Secure HVT",
 																			   "Kill HVT",
@@ -111,6 +120,46 @@ _objArray			 	= missionNamespace getVariable ["MCC_MWMissionType",["Secure HVT",
 	_objArray = _objArray - [_x];
 } forEach ["None","Random"];
 
+//------------------------------------------------- Objectives count / mission size (Phase C) -------------------------------------------------
+private _isCampaignCall = !(_wholeMap isEqualType true);
+private _maxObjectives = (round (missionNamespace getVariable ["MCC_MWmaxObjectives",3])) max 1 min 8;
+
+//Pad with random objectives (manual MW only, the campaign builds its own list)
+if (!_isCampaignCall) then {
+	while {count _arrayObjectives < _maxObjectives} do {_arrayObjectives pushBack "Random"};
+	if (count _arrayObjectives > _maxObjectives) then {_arrayObjectives resize _maxObjectives};
+};
+if (count _arrayObjectives > 8) then {_arrayObjectives resize 8};
+
+private _objCount = {_x != "None" && _x != ""} count _arrayObjectives;
+private _sizeMul = missionNamespace getVariable ["MCC_MWmissionSize",1];
+if !(_sizeMul isEqualType 0) then {_sizeMul = 1};
+private _maxSpawnedUnits = (missionNamespace getVariable ["MCC_MWmaxSpawnedUnits",200]) max 10;
+
+_totalEnemyUnits = round (_totalEnemyUnits * _sizeMul);
+
+//Rough spawn estimate (same ratios as the spawners): 0.2 per objective zone + main zone infantry/vehicles/armor/statics
+private _spawnFactor = (0.2 * _objCount) + 0.2 + 0.15
+						+ (if (_vehicles) then {0.75} else {0})
+						+ (if (_armor) then {0.4} else {0})
+						+ (if (_artillery != 0) then {0.2} else {0});
+if (_totalEnemyUnits * _spawnFactor > _maxSpawnedUnits) then {
+	_totalEnemyUnits = floor (_maxSpawnedUnits / _spawnFactor);
+};
+_totalEnemyUnits = _totalEnemyUnits max 5;
+
+//Bigger missions need more room for the objectives (manual MW only, the campaign uses MCC_campaignAOSize)
+if (!_isCampaignCall) then {
+	_maxObjectivesDistance = _maxObjectivesDistance * (sqrt ((_objCount / 3) max 1)) * (sqrt (_sizeMul max 1));
+};
+
+diag_log format ["MCC Mission Wizard: objectives %1, size x%2, total enemy %3 (cap %4), id '%5'", _objCount, _sizeMul, _totalEnemyUnits, _maxSpawnedUnits, _missionId];
+
+//Only one mission is generated at a time (shared globals below)
+private _genLockToken = ["acquire"] call MCC_fnc_MWgenLock;
+MCC_MWcurrentMissionId = _missionId;
+MCC_MWunitBudget = _maxSpawnedUnits;
+
 //Lets find the mission maker owner and make sure he'll get the zone markers too.
 private ["_missionMaker"];
 {
@@ -129,6 +178,12 @@ MCC_MWCleanup =
 	//Clear up
 	MCC_MWisGenerating = false;
 	publicVariable "MCC_MWisGenerating";
+
+	if (!isNil "_genLockToken") then {
+		MCC_MWcurrentMissionId = "";
+		MCC_MWunitBudget = nil;
+		["release",_genLockToken] call MCC_fnc_MWgenLock;
+	};
 
 	if (!isnil "MCC_worldArea") then {deleteVehicle MCC_worldArea;	MCC_worldArea = nil};
 	if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = nil};
@@ -245,7 +300,11 @@ if (typeName _wholeMap == typeName true ) then {
 	_campaignMission = true;
 };
 
-if (isNil "_missionCenter") exitWith {};
+if (isNil "_missionCenter") exitWith {
+	MCC_MWcurrentMissionId = "";
+	MCC_MWunitBudget = nil;
+	["release",_genLockToken] call MCC_fnc_MWgenLock;
+};
 
 //Init the MW groups configs
 [_enemyfaction] call MCC_fnc_createConfigs;
@@ -338,7 +397,7 @@ _sounds set [count _sounds, _missionName2 select 1];
 private ["_missionObjective","_taskId","_missionName","_multipleObjectives"];
 
 //More then one objective
-_multipleObjectives = {_x != "None" && _x != ""} count [_obj1, _obj2, _obj3] > 1;
+_multipleObjectives = _objCount > 1;
 
 //If just one task no need to create parent
 if (_multipleObjectives) then {
@@ -355,6 +414,7 @@ if (_multipleObjectives) then {
 	_missionObjective setvariable ["show3d",false,true];
 	_missionObjective setvariable ["showMarker",[-2000,-2000,0],true];
 	_missionObjective setvariable ["taskType","parent",true];
+	_missionObjective setvariable ["MCC_MWmissionId",_missionId,true];
 	_missionObjective setvariable ["updated",true,true];
 } else {
 	_taskId = "";
@@ -366,16 +426,21 @@ publicvariable "MCC_fnc_MWinitMission_missionName";
 //---------------------------------------------------------------------------Let's build objectives----------------------------------------------------------------------
 
 _objectives = [];
+private _usedObjTypes = [];
 
 {
 	_objType = _x;
 
-	if (_objType != "None") then {
+	if (_objType != "None" && _objType != "") then {
 
 		MCC_MWObjectivesNames = nil;
 
-		//Random Mission
-		if (_objType == "Random") then {_objType = _objArray select (floor random count _objArray)};
+		//Random Mission - prefer a type that is not used yet in this mission
+		if (_objType == "Random") then {
+			private _freeTypes = _objArray - _usedObjTypes;
+			_objType = selectRandom ([_freeTypes, _objArray] select (count _freeTypes == 0));
+		};
+		_usedObjTypes pushBackUnique _objType;
 
 
 		_objPos = [];
@@ -533,11 +598,17 @@ _objectives = [];
 
 			sleep 1;
 
-			waituntil {!isnil "MCC_MWObjectivesNames"};
-			_objPos = MCC_MWObjectivesNames select 0;
+			//Wait for the objective (timeout: an objective that fails to build must not hang the generation/lock)
+			private _objTimeout = diag_tickTime + 90;
+			waituntil {sleep 0.2; !isnil "MCC_MWObjectivesNames" || {diag_tickTime > _objTimeout}};
+			if (isNil "MCC_MWObjectivesNames") then {
+				diag_log format ["MCC: Mission Wizard Error: objective '%1' was not created in time", _objType];
+				MCC_MWObjectivesNames = [];
+			};
+			if (count MCC_MWObjectivesNames > 0) then {_objPos = MCC_MWObjectivesNames select 0};
 
 			//Lets create a zone
-			_zoneNumber = (count (missionNamespace getVariable ["MCC_zones_numbers",[]])) + 1;
+			private _zoneNumber = [] call MCC_fnc_MWnextZoneNumber;
 			_script_handler = [_zoneNumber,_objPos,_maxObjectivesDistance*(if (_campaignMission) then {1} else {2})] call MCC_fnc_MWUpdateZone;
 			waituntil {_script_handler};
 
@@ -608,10 +679,10 @@ _objectives = [];
 				};
 			};
 
-			_objectives pushBack MCC_MWObjectivesNames;
+			if (count MCC_MWObjectivesNames > 0) then {_objectives pushBack MCC_MWObjectivesNames};
 		};
 	};
-} foreach [_obj1,_obj2,_obj3];
+} foreach _arrayObjectives;
 
 
 
@@ -885,25 +956,49 @@ publicVariable "MCC_MWisGenerating";
 if (!isnil "MCC_worldArea") then {deleteVehicle MCC_worldArea;	MCC_worldArea = nil};
 if (!isnil "MWMissionArea") then {deleteVehicle MWMissionArea;	MWMissionArea = nil};
 
+//Free the generator for the next mission / AO
+MCC_MWcurrentMissionId = "";
+MCC_MWunitBudget = nil;
+["release",_genLockToken] call MCC_fnc_MWgenLock;
+
 //Wait till mission end
-[_missionCenter,_maxObjectivesDistance,_markerName] spawn {
-	params ["_missionCenter","_maxObjectivesDistance","_markerName"];
+[_missionCenter,_maxObjectivesDistance,_markerName,_missionId] spawn {
+	params ["_missionCenter","_maxObjectivesDistance","_markerName",["_missionId","",[""]]];
+
+	//Count open MW objectives of a mission id ("" = every MW objective, the old behaviour)
+	private _fnc_openTasks = {
+		params [["_id","",[""]]];
+		{
+			(_x getvariable ["MCC_customTask",false]) &&
+			{(_id == "") || {(_x getVariable ["MCC_MWmissionId",""]) == _id}} &&
+			{(_x getvariable ["RscAttributeTaskState",""]) in ["created","assigned"]}
+		} count (allMissionObjects "MCC_ModuleObjective_FCurator")
+	};
 
 	missionNamespace setVariable ["MCC_MWMissionRuning",true];
 	publicvariable "MCC_MWMissionRuning";
 
-	while {{(_x getvariable ["MCC_customTask",false]) && ((_x getvariable ["RscAttributeTaskState",""]) in ["created","assigned"])} count (allMissionObjects "MCC_ModuleObjective_FCurator") > 0} do {
+	if (_missionId != "") then {
+		missionNamespace setVariable [format ["MCC_MWMissionRuning_%1",_missionId],true,true];
+
+		//Give the objective modules time to init (MCC_customTask is set by their init)
+		private _initTimeout = diag_tickTime + 60;
+		waitUntil {sleep 1; ([_missionId] call _fnc_openTasks) > 0 || {diag_tickTime > _initTimeout}};
+	};
+
+	while {([_missionId] call _fnc_openTasks) > 0} do {
 		sleep 1;
 	};
 
-	/*
-	while {{alive _x && !((_x getvariable ["taskType",""]) isEqualTo "parent")} count (allMissionObjects "MCC_ModuleObjective_FCurator") > 0} do {
-		sleep 1;
+	if (_missionId != "") then {
+		missionNamespace setVariable [format ["MCC_MWMissionRuning_%1",_missionId],false,true];
 	};
-	*/
 
-	missionNamespace setVariable ["MCC_MWMissionRuning",false];
-	publicvariable "MCC_MWMissionRuning";
+	//Other missions/AOs may still be open: only drop the global flag when nothing is left
+	if ((_missionId == "") || {([""] call _fnc_openTasks) == 0}) then {
+		missionNamespace setVariable ["MCC_MWMissionRuning",false];
+		publicvariable "MCC_MWMissionRuning";
+	};
 
 	//Global Radio message when done
 	(selectRandom ["cp_mission_accomplished_1", "cp_mission_accomplished_2", "cp_mission_accomplished_3"]) remoteExec ["playSound",0];

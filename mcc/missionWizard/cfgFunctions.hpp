@@ -46,4 +46,6 @@ class missionWizard
 	class MWGetStartLocation {description = "Find a start location based on MCC HQ if non present then BI respawn position if non present then players position";};
 	class buildRandomComposition {description = "Build random composotion in a given position if no empty space is found it will scan in a bigger radius until space is found";};
 	class hideTerrainObjectsArea {description = "Hide all terrain objects in given area";};
+	class MWnextZoneNumber {description = "Reserve the next free MCC zone number (no collisions)";};
+	class MWgenLock {description = "Acquire/release the server-side Mission Wizard generation lock";};
 };

@@ -44,7 +44,7 @@ _markers		= param [17, true,[true]];
 
 _missionRadius 	= (((triggerArea _missionCenterTrigger) select 0)+ ((triggerArea _missionCenterTrigger) select 1))/2;
 //Let'screate the main zone and placing units
-_zoneNumber = (count (missionNamespace getVariable ["MCC_zones_numbers",[]])) + 1;
+_zoneNumber = [] call MCC_fnc_MWnextZoneNumber;
 
 _debug = missionNamespace getVariable ["MCC_debug",false];
 

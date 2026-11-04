@@ -181,3 +181,98 @@
         MCC_MWSITESmilitary = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
 ] call CBA_fnc_addSetting;
+
+//==================================================== Phase C: bigger missions ====================================================
+//Mission Wizard: number of objectives per mission (dialog sends 3, extra ones are random picks)
+[
+    "MCC_MWmaxObjectives",
+    "SLIDER",
+    ["Max objectives","Objectives per Mission Wizard mission. The dialog sets the first 3, anything above 3 is a random objective type"],
+    ["MCC Mission Wizard","Mission size"],
+    [1, 8, 3, 0],
+    true,
+    {
+        params ["_value"];
+        MCC_MWmaxObjectives = (round _value) max 1 min 8;
+    }
+] call CBA_fnc_addSetting;
+
+//Mission Wizard: mission size multiplier on the enemy count
+[
+    "MCC_MWmissionSize",
+    "LIST",
+    ["Mission size","Multiplier on the number of enemies (and objective area for big missions)"],
+    ["MCC Mission Wizard","Mission size"],
+    [[0.5, 1, 1.75, 2.5], ["Small","Normal","Large","Huge"], 1],
+    true
+] call CBA_fnc_addSetting;
+
+//Mission Wizard: hard cap on spawned units per generated mission
+[
+    "MCC_MWmaxSpawnedUnits",
+    "SLIDER",
+    ["Max spawned units","Hard cap (performance) on the units one Mission Wizard mission or campaign AO may spawn"],
+    ["MCC Mission Wizard","Mission size"],
+    [30, 600, 200, 0],
+    true,
+    {
+        params ["_value"];
+        MCC_MWmaxSpawnedUnits = round _value;
+    }
+] call CBA_fnc_addSetting;
+
+//Mission Wizard: players slider range in the MW dialog (sets MCC_MWmaxPlayers)
+[
+    "MCC_MWmaxPlayersSetting",
+    "SLIDER",
+    ["Max players","Top of the players slider in the Mission Wizard dialog"],
+    ["MCC Mission Wizard","Mission size"],
+    [10, 150, 40, 0],
+    true,
+    {
+        params ["_value"];
+        MCC_MWmaxPlayers = round _value;
+    }
+] call CBA_fnc_addSetting;
+
+//Campaign: AO radius
+[
+    "MCC_campaignAOSize",
+    "SLIDER",
+    ["Campaign AO size","Objective radius (m) of every campaign AO"],
+    ["MCC Mission Wizard","Campaign"],
+    [150, 1500, 300, 0],
+    true,
+    {
+        params ["_value"];
+        MCC_campaignAOSize = round _value;
+    }
+] call CBA_fnc_addSetting;
+
+//Campaign: simultaneous AOs
+[
+    "MCC_campaignMaxAOs",
+    "SLIDER",
+    ["Campaign simultaneous AOs","How many campaign AOs can be active at the same time"],
+    ["MCC Mission Wizard","Campaign"],
+    [1, 3, 1, 0],
+    true,
+    {
+        params ["_value"];
+        MCC_campaignMaxAOs = (round _value) max 1 min 3;
+    }
+] call CBA_fnc_addSetting;
+
+//Campaign: ambient spawn cap
+[
+    "MCC_campaignAmbientCap",
+    "SLIDER",
+    ["Campaign ambient groups cap","Max ambient enemy groups the campaign keeps around players (2 per player up to this)"],
+    ["MCC Mission Wizard","Campaign"],
+    [0, 60, 18, 0],
+    true,
+    {
+        params ["_value"];
+        MCC_campaignAmbientCap = round _value;
+    }
+] call CBA_fnc_addSetting;

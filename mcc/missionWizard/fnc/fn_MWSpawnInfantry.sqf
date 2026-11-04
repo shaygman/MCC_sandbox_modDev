@@ -22,7 +22,8 @@ _unitsArray = MCC_MWGroupArrayMen + MCC_customGroupsSaveMW;
 if (count _unitsArray > 0) then
 {
 	//Infantry
-	while {_unitPlaced < _totalEnemyUnits} do
+	//MCC_MWunitBudget: remaining units the mission being generated may spawn (nil = no cap)
+	while {_unitPlaced < _totalEnemyUnits && {(missionNamespace getVariable ["MCC_MWunitBudget",1e6]) > 0}} do
 	{
 		//Regular or SF
 		if (random 1 < 0.2 && ((count _menArraySpecial)>0)) then
@@ -36,6 +37,7 @@ if (count _unitsArray > 0) then
 
 		//count units
 		_unitPlaced = _unitPlaced + (_group select 1);
+		if (!isNil "MCC_MWunitBudget") then {MCC_MWunitBudget = MCC_MWunitBudget - (_group select 1)};
 
 		//Spawn them
 		[_zoneNumber,"GROUP","LAND",true,_group select 0,_group select 2,_spawnbehavior,_group select 0,_side] call MCC_fnc_MWSpawnInZone;

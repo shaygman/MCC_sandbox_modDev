@@ -83,10 +83,13 @@ switch (lbCurSel MCC_MWCQBIDC) do
 		};
 	};
 
-//Objectives
-_obj1 				= MCC_MWMissionType select (lbCurSel MCC_MWObjective1IDC);
-_obj2 				= MCC_MWMissionType select (lbCurSel MCC_MWObjective2IDC);
-_obj3 				= MCC_MWMissionType select (lbCurSel MCC_MWObjective3IDC);
+//Objectives - the dialog sets the first 3; the server pads/cuts the list to the CBA setting MCC_MWmaxObjectives
+//(extra objectives are "Random" = random picks from the enabled objective types)
+private _objectivesList = [];
+{
+	private _sel = lbCurSel _x;
+	_objectivesList pushBack (if (_sel >= 0 && {_sel < count MCC_MWMissionType}) then {MCC_MWMissionType select _sel} else {"None"});
+} forEach [MCC_MWObjective1IDC, MCC_MWObjective2IDC, MCC_MWObjective3IDC];
 
 //Player depends parmas
 _sidePlayer 		= side player;
@@ -164,7 +167,7 @@ while {dialog} do {closedialog 0; sleep 0.2};
 [
 	[_wholeMap, _totalEnemyUnits,  _minObjectivesDistance, _maxObjectivesDistance, _weatherChange, _preciseMarkers, _playMusic,_markers],
 	[_enemySide, _enemyfaction, _sidePlayer, _factionPlayer, _civFaction],
-	[_obj1, _obj2, _obj3],
+	_objectivesList,
 	[_isCQB, _isCiv, _armor, _vehicles, _stealth, _isIED, _isAS, _isSB, _isRoadblocks, _animals],
 	[_reinforcement, _artillery]
 ] remoteExec ["MCC_fnc_MWinitMission",2];
