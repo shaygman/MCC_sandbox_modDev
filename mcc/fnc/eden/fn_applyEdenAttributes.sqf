@@ -1,6 +1,6 @@
 /*
 	MCC_fnc_applyEdenAttributes  (postInit, server)
-	Copies MCC scenario attributes set in Eden (Attributes > General > MCC) over the matching CBA settings.
+	Copies MCC scenario attributes set in Eden (the Eden top menu MCC 5 > MCC 5 Mission Settings) over the matching CBA settings.
 	An attribute left at -1 ("Use addon setting") keeps the CBA value.
 	MCC registers its CBA settings in PostInit, so this waits until the mission is running before applying,
 	otherwise the CBA initial value would overwrite the Eden value.

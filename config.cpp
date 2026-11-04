@@ -11,7 +11,8 @@ class CfgPatches
 								"A3_Data_F_Tank_Loadorder",
 					            "cba_ui",
 					            "cba_xeh",
-					            "cba_jr"
+					            "cba_jr",
+					            "3DEN"
 					        };
 		author = "shay_gman";
 		name = "MCC Sandbox";
@@ -420,20 +421,24 @@ class CfgMissions
 };
 
 #include "\mcc_sandbox_mod\definesMod.hpp"
-// Eden: Attributes > General > MCC. Read at runtime with getMissionConfigValue "MCC_networkSecurity".
+// Eden: top menu MCC 5 > MCC 5 Mission Settings. Read at runtime with getMissionConfigValue "MCC_networkSecurity".
 // Missions without the mod (mission version) can set MCC_networkSecurity = 1; in description.ext instead.
+#include "\mcc_sandbox_mod\mcc\cfg\eden\display3DEN.hpp"
+
 class Cfg3DEN
 {
 	class Mission
 	{
-		class Scenario
+		// Own window: Eden top menu "MCC 5" > "MCC 5 Mission Settings..." (edit3DENMissionAttributes "MCC5")
+		class MCC5
 		{
+			displayName = "MCC 5 Mission Settings";
 			class AttributeCategories
 			{
 				class MCC_Attributes
 				{
-					displayName = "MCC";
-					collapsed = 1;
+					displayName = "MCC 5";
+					collapsed = 0;
 					class Attributes
 					{
 						class MCC_logisticsMode

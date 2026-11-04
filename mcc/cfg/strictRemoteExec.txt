@@ -4,7 +4,7 @@ MCC - locking down remoteExec on a public server
 MCC has two layers of protection. You can use either or both.
 
 1) MCC Network Security (easy, no files to edit)
-   Eden Editor > Attributes > General > MCC > Network Security = Strict.
+   Eden Editor > the Eden top menu MCC 5 > MCC 5 Mission Settings > Network Security = Strict.
    In multiplayer, MCC then ignores code-running and spawning requests from players who are not
    allowed to use MCC. Who is allowed comes from the "MCC Access Rights" module (player UIDs or
    synced units, plus admins if the module allows them). Without that module everyone is allowed,
