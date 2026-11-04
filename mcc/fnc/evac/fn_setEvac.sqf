@@ -1,6 +1,6 @@
 //===================================================================MCC_fnc_setEvac======================================================================================
 //	Sets an empty ot AI vehicle into an ecav for a specific side
-// Example:[[_object, _side, _addGunners,_campaignEvac],"MCC_fnc_setEvac",false,false] spawn BIS_fnc_MP;
+// Example:[_object, _side, _addGunners,_campaignEvac] remoteExec ["MCC_fnc_setEvac",2];
 // Params:
 //	_object:		OBJECT the evac vehicle can be empty
 // 	_side: 			SIDE, Evac Side

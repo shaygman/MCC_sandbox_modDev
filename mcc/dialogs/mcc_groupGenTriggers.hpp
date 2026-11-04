@@ -155,7 +155,7 @@ class MCC_triggersDialogControls: MCC_RscControlsGroup
 			y = 0.197923 * safezoneH;
 			w = 0.06875 * safezoneW;
 			h = 0.0329871 * safezoneH;
-			onButtonClick = __EVAL ("[0] execVM '"+MCCPATH+"mcc\general_scripts\triggers\triggers.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_triggers";
 			tooltip = "Create trigger"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 		};
@@ -167,7 +167,7 @@ class MCC_triggersDialogControls: MCC_RscControlsGroup
 			y = 0.208919 * safezoneH;
 			w = 0.0515625 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			onButtonClick = __EVAL ("[2] execVM '"+MCCPATH+"mcc\general_scripts\triggers\triggers.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_triggers";
 			tooltip = "Move the selected trigger"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 		};

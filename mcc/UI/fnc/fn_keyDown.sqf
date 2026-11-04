@@ -65,17 +65,17 @@ if (tolower _ehType == "keyup") exitWith {
 
 	//keybinds
 	switch (_action) do {
-		case 0 : {_null = [nil,nil,nil,nil,0] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path]};	//MCC
-		case 1 : {_null = [nil,nil,nil,nil,1] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path]};	//Console
-		case 2 : {_null = [objNull] execVM format["%1mcc\general_scripts\mcc_SpawnToPosition.sqf",MCC_path]};	//t2t
-		case 3 : {_null = [nil,nil,nil,nil,2] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path]};	//Squad Dialog
+		case 0 : {_null = [nil,nil,nil,nil,0] spawn MCC_fnc_s_mcc_PopupMenu};	//MCC
+		case 1 : {_null = [nil,nil,nil,nil,1] spawn MCC_fnc_s_mcc_PopupMenu};	//Console
+		case 2 : {_null = [objNull] spawn MCC_fnc_s_mcc_SpawnToPosition};	//t2t
+		case 3 : {_null = [nil,nil,nil,nil,2] spawn MCC_fnc_s_mcc_PopupMenu};	//Squad Dialog
 		case 4 : {
 			(uiNamespace getVariable ["MCC_INTERACTION_MENU",displayNull]) closeDisplay 1;
 			MCC_interactionKey_down = false;
 			MCC_interactionKey_up = true;
 			(missionNamespace setVariable ["MCC_interactionOn",false])
 		};	//Interaction
-		case 5 : {_null = [nil,nil,nil,nil,3] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path]};	//Console
+		case 5 : {_null = [nil,nil,nil,nil,3] spawn MCC_fnc_s_mcc_PopupMenu};	//Console
 		case 6 : {(uiNamespace getVariable ["MCC_INTERACTION_MENU",displayNull]) closeDisplay 1; MCC_interactionKey_down = false; MCC_interactionKey_up = true;};	//Self Interaction
 	};
 };

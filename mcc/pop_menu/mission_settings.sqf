@@ -18,7 +18,7 @@ switch (_type) do
 		_time		= (sliderPosition ((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 11225))*600;	//Set over time
 
 		_weather	= [_overcast, _wind, _Waves, _rain, _overcast, _fogLevel,_time];
-		_nul=[_type, _weather] execVM MCC_path +"mcc\general_scripts\time.sqf";
+		_nul=[_type, _weather] spawn MCC_fnc_s_time;
 	};
 
 	//Set grass (CS)
@@ -50,7 +50,7 @@ switch (_type) do
 		_hour 	= MCC_hours_array select (lbCurSel ((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 18));
 		_minute = (MCC_minutes_array select (lbCurSel ((uiNamespace getVariable "MCC_groupGen_Dialog") displayCtrl 19)));
 
-		_nul=[_type,_month,_day,_year,_hour,_minute] execVM MCC_path +"mcc\general_scripts\time.sqf";
+		_nul=[_type,_month,_day,_year,_hour,_minute] spawn MCC_fnc_s_time;
 	};
 
 	//Spectator script
@@ -58,7 +58,7 @@ switch (_type) do
 	{
 		//[] call BIS_fnc_camera;
 		while {dialog} do {closeDialog 0; sleep 0.2};
-		[] execVM MCC_path + "spectator\specta.sqf";
+		[] spawn MCC_fnc_s_specta;
 	};
 
 	//Sunset Sunrise times

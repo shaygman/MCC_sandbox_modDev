@@ -12,7 +12,7 @@ class MCC_SQLPDA
 {
 	idd = MCC_SQLPDA_IDD;
 	movingEnable = 1;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\sqlPDA\mcc_sqlpda_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_sqlpda_init";
 
 	controlsBackground[] =
 	{
@@ -71,10 +71,10 @@ class MCC_SQLPDA
 		y = 0.533 * safezoneH + safezoneY;
 		w = 0.27 * safezoneW;
 		h = 0.341 * safezoneH;
-		onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseDown.sqf'");
-		onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseUp.sqf'");
-		onMouseButtonDblClick = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseDblClick.sqf'");
-		onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseMoving.sqf'");
+		onMouseButtonDown = "[_this] spawn MCC_fnc_s_pda_mouseDown";
+		onMouseButtonUp = "[_this] spawn MCC_fnc_s_pda_mouseUp";
+		onMouseButtonDblClick = "[_this] spawn MCC_fnc_s_pda_mouseDblClick";
+		onMouseMoving = "[_this] spawn MCC_fnc_s_pda_mouseMoving";
 	};
 
 	class MCC_ConsoleInfoLiveFeed: MCC_RscButton
@@ -85,7 +85,7 @@ class MCC_SQLPDA
 		y = 0.668037 * safezoneH + safezoneY;
 		w = 0.06 * safezoneW;
 		h = 0.03 * safezoneH;
-		onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\pda\liveFeed.sqf'");
+		onButtonClick = "[0] spawn MCC_fnc_s_pda_liveFeed";
 	};
 
 	class MCC_ConsoleInfoText: MCC_RscStructuredText
@@ -165,7 +165,7 @@ class MCC_SQLPDA
 		y = 0.885 * safezoneH + safezoneY;
 		w = 0.0328125 * safezoneW;
 		h = 0.0420094 * safezoneH;
-		action = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\pda\liveFeed.sqf'");
+		action = "[3] spawn MCC_fnc_s_pda_liveFeed";
 	};
 
 	class MCC_sqlpdaMove2BcgButton: MCC_RscActivePicture

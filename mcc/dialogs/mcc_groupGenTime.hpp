@@ -40,7 +40,7 @@ class MCC_TimeDialogControls:MCC_RscControlsGroup
 		class MCC_timeDialogConfirm: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\pop_menu\mission_settings.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_mission_settings";
 			text = "Confirm"; //--- ToDo: Localize;
 
 			x = 0.120313 * safezoneW;
@@ -62,7 +62,7 @@ class MCC_TimeDialogControls:MCC_RscControlsGroup
 		class MCC_timeMonthCombo: MCC_RscCombo
 		{
 			idc = 15;
-			onLBSelChanged=__EVAL ("[5] execVM '"+MCCPATH+"mcc\pop_menu\mission_settings.sqf'");
+			onLBSelChanged="[5] spawn MCC_fnc_s_mission_settings";
 			x = 0.00572965 * safezoneW;
 			y = 0.0549788 * safezoneH;
 			w = 0.0515625 * safezoneW;
@@ -71,7 +71,7 @@ class MCC_TimeDialogControls:MCC_RscControlsGroup
 		class MCC_timeDayCombo: MCC_RscCombo
 		{
 			idc = 16;
-			onLBSelChanged=__EVAL ("[5] execVM '"+MCCPATH+"mcc\pop_menu\mission_settings.sqf'");
+			onLBSelChanged="[5] spawn MCC_fnc_s_mission_settings";
 			x = 0.0687497 * safezoneW;
 			y = 0.0549788 * safezoneH;
 			w = 0.0515625 * safezoneW;
@@ -80,7 +80,7 @@ class MCC_TimeDialogControls:MCC_RscControlsGroup
 		class MCC_timeYearCombo: MCC_RscCombo
 		{
 			idc = 17;
-			onLBSelChanged=__EVAL ("[5] execVM '"+MCCPATH+"mcc\pop_menu\mission_settings.sqf'");
+			onLBSelChanged="[5] spawn MCC_fnc_s_mission_settings";
 			x = 0.131771 * safezoneW;
 			y = 0.0549788 * safezoneH;
 			w = 0.0515625 * safezoneW;

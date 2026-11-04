@@ -1,6 +1,6 @@
 //===================================================================MCC_fnc_artillery======================================================================================
 // Create an artillery shell above the location
-// Example:[[_pos, shelltype, shellspread, nshell,simulate],"MCC_fnc_artillery",true,false] spawn BIS_fnc_MP;
+// Example:[_pos, shelltype, shellspread, nshell,simulate] remoteExec ["MCC_fnc_artillery",0];
 // Params:
 // 	_pos: array, position
 // 	shelltype: string, vehicleClass ["GrenadeHand","Sh_120_HE","Cluster_120mm_AMOS","Mo_cluster_AP","Mine_120mm_AMOS_range","Sh_120mm_AMOS_LG","Sh_82mm_AMOS","Fire_82mm_AMOS","Smoke_120mm_AMOS_White","Smoke_82mm_AMOS_White","G_40mm_SmokeGreen","G_40mm_SmokeRed","F_40mm_White""F_40mm_Green","F_40mm_Red"];
@@ -53,7 +53,7 @@ switch (_simulate) do {
 			//Laser target lock on LT
 			if (!isnull (_lasertargets select 0)) then
 			{
-				_nul=[(_lasertargets select 0), [_pos select 0, _pos select 1, 200],_shelltype,100,true,""] execVM MCC_path + "mcc\general_scripts\CAS\missile_guide.sqf";
+				_nul=[(_lasertargets select 0), [_pos select 0, _pos select 1, 200],_shelltype,100,true,""] spawn MCC_fnc_s_missile_guide;
 			};
 
 			sleep _delay;

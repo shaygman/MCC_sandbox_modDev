@@ -31,7 +31,7 @@ class MCC_zoneControls: MCC_RscControlsGroup
 		{
 			idc = 1023;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged = __EVAL("[0,0,0] execVM '"+MCCPATH+"mcc\pop_menu\zones.sqf'");
+			onLBSelChanged = "[0,0,0] spawn MCC_fnc_s_zones";
 
 			x = 0.00572965 * safezoneW;
 			y = 0.0989618 * safezoneH;

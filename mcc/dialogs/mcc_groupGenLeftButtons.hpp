@@ -25,7 +25,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_SPAWN";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_SPAWNDESC";
-			onButtonClick = __EVAL("[6] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[6] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.0109958271253347 * safezoneH;
@@ -39,7 +39,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_CAS"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_CASDESC";
-			onButtonClick = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[4] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.054978585840815 * safezoneH;
@@ -53,7 +53,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_DROP"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_DROPDESC";
-			onButtonClick = __EVAL("[16] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[16] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.0989620042993254 * safezoneH;
@@ -67,7 +67,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_ARTILLERY"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_ARTILLERYDESC";
-			onButtonClick = __EVAL("[5] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[5] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.1429437734002606 * safezoneH;
@@ -81,7 +81,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_EVAC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_EVACDESC";
-			onButtonClick = __EVAL("[7] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[7] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.1869266420729126 * safezoneH;
@@ -95,7 +95,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_IED"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_IEDDESC";
-			onButtonClick = __EVAL("[8] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[8] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.2309084111738478 * safezoneH;
@@ -109,7 +109,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_CONVOY"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_CONVOYDESC";
-			onButtonClick = __EVAL("[9] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[9] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.274890180274783 * safezoneH;
@@ -137,7 +137,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = "$STR_UI_BRUSHES"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_BRUSHESDESC";
-			onButtonClick = __EVAL("[17] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[17] spawn MCC_fnc_s_controlsHandle";
 
 			x = 0.0057 * safezoneW;
 			y = 0.3628537184766534 * safezoneH;
@@ -151,7 +151,7 @@ class MCC_leftButtonsControls: MCC_RscControlsGroup
 			text = ""; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_ROLEDESC";
-			onButtonClick =  __EVAL("[6] execVM '"+MCCPATH+"mcc\general_scripts\mcc_start_location.sqf'");
+			onButtonClick =  "[6] spawn MCC_fnc_s_mcc_start_location";
 
 			x = 0.0057 * safezoneW;
 			y = 0.4068354875775886 * safezoneH;

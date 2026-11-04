@@ -19,7 +19,7 @@ class MCC_SaveLoadScreen
 {
 	idd = MCC_SaveLoadScreen_IDD;
 	movingEnable = true;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\MCC_SaveLoadScreenInit.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_MCC_SaveLoadScreenInit";
 
 	class controlsBackground 	{
 		class MCC_SaveLoadBackground: MCC_RscText
@@ -98,7 +98,7 @@ class MCC_SaveLoadScreen
 			w = 0.103125 * safezoneW;
 			h = 0.032987 * safezoneH;
 			tooltip = "Save current MCC configuration to ClipBoard";
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_mcc_loadConfig";
 		};
 
 		class MCC_LoadButton: MCC_RscButton		//Load from clipboard
@@ -111,7 +111,7 @@ class MCC_SaveLoadScreen
 			w = 0.108854 * safezoneW;
 			h = 0.032987 * safezoneH;
 			tooltip = "Paste MCC mission configuration code from clipboard (crtl-v) in text box first";
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_mcc_loadConfig";
 		};
 
 		class MCC_CancelButton: MCC_RscButton	//Close dialog
@@ -134,7 +134,7 @@ class MCC_SaveLoadScreen
 			y = 0.510996 * safezoneH + safezoneY;
 			w = 0.20625 * safezoneW;
 			h = 0.15394 * safezoneH;
-			onLBSelChanged = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onLBSelChanged = "[3] spawn MCC_fnc_s_mcc_loadConfig";
 		};
 
 		class MCC_saveDescription: MCC_RscText	//Description fo the saved mission
@@ -182,7 +182,7 @@ class MCC_SaveLoadScreen
 		class MCC_saveUIButton: MCC_RscButton	//Save to UI
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_mcc_loadConfig";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 			tooltip = "Save a mission to profile name space - choose a slot from the above list first";
 			text = "Save To Profile"; //--- ToDo: Localize;
@@ -195,7 +195,7 @@ class MCC_SaveLoadScreen
 		class MCC_loadUIButton: MCC_RscButton	//Load from UI
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[4] spawn MCC_fnc_s_mcc_loadConfig";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 			tooltip = "Load a mission from profile name space - choose a slot from the above list first";
 			text = "Load From Profile"; //--- ToDo: Localize;
@@ -209,7 +209,7 @@ class MCC_SaveLoadScreen
 		{
 			idc = -1;
 			colorDisabled[] = {1,0.4,0.3,0.8};
-			onButtonClick = __EVAL("[5] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[5] spawn MCC_fnc_s_mcc_loadConfig";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.85)";
 			tooltip = "Save all missions's object in SQM file format and copy it to clipboard."; //--- ToDo: Localize;
 			text = "Save All (SQM)"; //--- ToDo: Localize;
@@ -223,7 +223,7 @@ class MCC_SaveLoadScreen
 		{
 			idc = -1;
 			colorDisabled[] = {1,0.4,0.3,0.8};
-			onButtonClick = __EVAL("[7] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[7] spawn MCC_fnc_s_mcc_loadConfig";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.85)";
 			tooltip = "Save only MCC/Zeus missions's object in SQM file format and copy it to clipboard."; //--- ToDo: Localize;
 			text = "Save MCC (SQM)"; //--- ToDo: Localize;
@@ -237,7 +237,7 @@ class MCC_SaveLoadScreen
 		{
 			idc = -1;
 			colorDisabled[] = {1,0.4,0.3,0.8};
-			onButtonClick = __EVAL("[6] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[6] spawn MCC_fnc_s_mcc_loadConfig";
 			tooltip = "Save MCC's 3D editor placments in a composition's format to clipboard and RPT file"; //--- ToDo: Localize;
 			text = "Save Comp"; //--- ToDo: Localize;
 			x = 0.402604 * safezoneW + safezoneX;
@@ -255,7 +255,7 @@ class MCC_SaveLoadScreen
 			y = 0.456 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;
 			h = 0.044 * safezoneH;
-			onButtonClick = __EVAL("[8] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[8] spawn MCC_fnc_s_mcc_loadConfig";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "Activate Persistent data saving and loading from DB"; //--- ToDo: Localize;
 		};
@@ -267,7 +267,7 @@ class MCC_SaveLoadScreen
 			y = 0.456 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;
 			h = 0.044 * safezoneH;
-			onButtonClick = __EVAL("[9] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\mcc_loadConfig.sqf'");
+			onButtonClick = "[9] spawn MCC_fnc_s_mcc_loadConfig";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "Clear defualt persistent data from DB"; //--- ToDo: Localize;
 		};

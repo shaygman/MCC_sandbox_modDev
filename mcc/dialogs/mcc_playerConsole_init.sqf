@@ -316,7 +316,7 @@ private _groupIconHandle = addMissionEventHandler ["GroupIconClick", {
 
 //Add - Ctrl + number group selections handlers
 if (isnil "MCC_consoleGroupSelectionEH") then {
-	MCC_consoleGroupSelectionEH = (findDisplay 46) displayAddEventHandler  ["KeyDown", format ["nul = _this execVM '%1mcc\general_scripts\console\groupNumbersSelectionEH.sqf';",MCC_path]];
+	MCC_consoleGroupSelectionEH = (findDisplay 46) displayAddEventHandler  ["KeyDown", "nul = _this spawn MCC_fnc_s_groupNumbersSelectionEH;"];
 };
 
 MCC_fnc_mapDrawWPConsole =

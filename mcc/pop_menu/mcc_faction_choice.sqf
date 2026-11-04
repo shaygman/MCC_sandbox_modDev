@@ -84,7 +84,7 @@ if (!_refresh) exitWith {};
  //If it's not first time refresh the menu
 if (!(missionNamespace getVariable ["mcc_firstTime",true])) then {
 	while {dialog} do {closeDialog 0};
-	nul=[nil,nil,nil,nil,0] execVM MCC_path + "mcc\Dialogs\mcc_PopupMenu.sqf";
+	nul=[nil,nil,nil,nil,0] spawn MCC_fnc_s_mcc_PopupMenu;
 } else {
 	missionNamespace setVariable ["mcc_firstTime",false];
 };

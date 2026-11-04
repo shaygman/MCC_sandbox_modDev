@@ -5,7 +5,7 @@ class MCCMWDialog
 {
 	idd = MCCMWDialog_IDD;
 	movingEnable = true;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\mcc_mw_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_mw_init";
 
 	controlsBackground[] =
 	{
@@ -58,7 +58,7 @@ class MCCMWDialog
 		class MCC_MWGenerate: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\missionWizard\scripts\missionWizardInit.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_missionWizardInit";
 			text = "Generate Mission"; //--- ToDo: Localize;
 
 			x = 0.45 * safezoneW + safezoneX;
@@ -93,10 +93,10 @@ class MCCMWDialog
 			h = 0.318876 * safezoneH;
 
 			text = "";
-			onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseDown.sqf'");
-			onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseUp.sqf'");
-			onMouseButtonDblClick = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseDblClick.sqf'");
-			onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseMoving.sqf'");
+			onMouseButtonDown = "[_this] spawn MCC_fnc_s_groupGen_mouseDown";
+			onMouseButtonUp = "[_this] spawn MCC_fnc_s_groupGen_mouseUp";
+			onMouseButtonDblClick = "[_this] spawn MCC_fnc_s_groupGen_mouseDblClick";
+			onMouseMoving = "[_this] spawn MCC_fnc_s_groupGen_mouseMoving";
 		};
 
 		class MCCMWZoneTittle: MCC_RscText
@@ -115,7 +115,7 @@ class MCCMWDialog
 		{
 			idc = 1023;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged = __EVAL("[0,0,0] execVM '"+MCCPATH+"mcc\pop_menu\zones.sqf'");
+			onLBSelChanged = "[0,0,0] spawn MCC_fnc_s_zones";
 
 			x = 0.591667 * safezoneW + safezoneX;
 			y = 0.456017 * safezoneH + safezoneY;

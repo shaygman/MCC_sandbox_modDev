@@ -103,7 +103,7 @@ if (_conType in ["bunker","wall"]) then {
 
 	//Create marker
 	_markerName = format ["MCC_constractMarkerName_%1",["MCC_constractMarkerName_",1] call bis_fnc_counter];
-	[[[_markerName], _pos, "colorBlue", "loc_Tourism", format ["Building %1: 0/%2 crates",_text,_reqCrates],false],"BIS_fnc_markerCreate", _side,false] call BIS_fnc_MP;
+	[[_markerName], _pos, "colorBlue", "loc_Tourism", format ["Building %1: 0/%2 crates",_text,_reqCrates],false] remoteExec ["BIS_fnc_markerCreate", _side];
 
 	//Main loop
 	_complete 	= false;
@@ -146,7 +146,7 @@ if (_conType in ["bunker","wall"]) then {
 				//give XP
 				if ((_prop getVariable ["MCC_loadedBy",""]) != "" && CP_activated) then
 				{
-					[[_prop getVariable ["MCC_loadedBy",""], 200 ,"For logstics"], "MCC_fnc_addRating", true] spawn BIS_fnc_MP;
+					[_prop getVariable ["MCC_loadedBy",""], 200 ,"For logstics"] remoteExec ["MCC_fnc_addRating", 0];
 				};
 
 				deletevehicle _prop;
@@ -157,9 +157,9 @@ if (_conType in ["bunker","wall"]) then {
 				_newObjects set [count _newObjects, _prop];
 
 				//Update marker
-				[compile format ['deleteMarker "%1";',_markerName],"BIS_fnc_spawn", _side ,false] call BIS_fnc_MP;
+				_markerName remoteExec ["deleteMarker", _side];
 				sleep 1;
-				[[[_markerName], _pos, "colorBlue", "loc_Tourism", format ["Building %1: %2/%3 crates",_text, _availableCrates, _reqCrates],false],"BIS_fnc_markerCreate", _side,false] call BIS_fnc_MP;
+				[[_markerName], _pos, "colorBlue", "loc_Tourism", format ["Building %1: %2/%3 crates",_text, _availableCrates, _reqCrates],false] remoteExec ["BIS_fnc_markerCreate", _side];
 			};
 
 			if (_availableCrates >= _reqCrates) then {
@@ -170,7 +170,7 @@ if (_conType in ["bunker","wall"]) then {
 
 	sleep 2;
 	//Update marker
-	[compile format ['deleteMarker %1;',str _markerName],"BIS_fnc_spawn", _side ,false] call BIS_fnc_MP;
+	_markerName remoteExec ["deleteMarker", _side];
 
 	//Clear stuff
 	{
@@ -195,7 +195,7 @@ if (_conType in ["bunker","wall"]) then {
 			_const setVariable ["mcc_const_name",_markerName, true];
 			_const setVariable ["side",_side, true];
 
-			[[[_markerName], _pos, "colorBlue", "mil_dot", _text,false],"BIS_fnc_markerCreate", _side,false] call BIS_fnc_MP;
+			[[_markerName], _pos, "colorBlue", "mil_dot", _text,false] remoteExec ["BIS_fnc_markerCreate", _side];
 
 			_const addMPEventHandler ["MPKilled",{
 													private ["_obj","_mark","_side"];
@@ -203,10 +203,10 @@ if (_conType in ["bunker","wall"]) then {
 													_mark = _obj getVariable ["mcc_const_name",""];
 													_side = _obj getVariable ["side",civilian];
 
-													[compile format ['deleteMarker "%1";',_mark],"BIS_fnc_spawn", _side ,false] call BIS_fnc_MP;
+													_mark remoteExec ["deleteMarker", _side];
 												}];
 		} else {
-			[[_pos, _dir, _side ,"FOB",true,false], "MCC_fnc_buildSpawnPoint", false, false] spawn BIS_fnc_MP;
+			[_pos, _dir, _side ,"FOB",true,false] remoteExec ["MCC_fnc_buildSpawnPoint", 2];
 		};
 	};
 };

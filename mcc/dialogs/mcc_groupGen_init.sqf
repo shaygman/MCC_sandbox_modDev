@@ -27,10 +27,10 @@ missionNamespace setVariable ["MCC_GroupGenGroupSelected",[]];
 uiNamespace setVariable ["MCC_groupGen_Dialog", _this select 0];
 
 //Add delete button
-(findDisplay groupGen_IDD) displayAddEventHandler ["KeyUp",format ["if (_this select 1 == 211) then {MCC_UMUnit = 3; null = [12] execVM '%1mcc\general_scripts\unitManage\um.sqf'};",MCC_path]];
+(findDisplay groupGen_IDD) displayAddEventHandler ["KeyUp","if (_this select 1 == 211) then {MCC_UMUnit = 3; null = [12] spawn MCC_fnc_s_um};"];
 
 //Assign as Curator on init
-if (player != getAssignedCuratorUnit MCC_curator) then {[compile format ["objectFromNetId '%1' assignCurator MCC_curator;", netid player],"BIS_fnc_spawn",false,false] spawn BIS_fnc_MP};
+if (player != getAssignedCuratorUnit MCC_curator) then {[player, MCC_curator] remoteExec ["assignCurator", 2]};
 
 //Track units if enabled
 if (MCC_trackMarker) then {
@@ -147,7 +147,7 @@ while {(str (finddisplay groupGen_IDD) != "no display")} do {
 
 	if (isnil "mcc_fps_running") then {mcc_fps_running = false};
 	if !(mcc_fps_running) then {
-		[[1],"MCC_fnc_FPS",true,false] spawn BIS_fnc_MP;
+		[1] remoteExec ["MCC_fnc_FPS", 0];
 		sleep 0.5;
 	};
 

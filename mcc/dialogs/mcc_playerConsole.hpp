@@ -37,7 +37,7 @@
 class MCC_playerConsole {
   idd = mcc_playerConsole_IDD;
   movingEnable = 1;
-  onLoad = __EVAL("[] execVM '"+MCCPATH+"mcc\dialogs\mcc_playerConsole_init.sqf'");
+  onLoad = "[] spawn MCC_fnc_s_mcc_playerConsole_init";
 
   controlsBackground[] =
   {
@@ -117,7 +117,7 @@ class mcc_consoleF1: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F1";
-	onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleSwitchMenu.sqf'");
+	onButtonClick = "[1] spawn MCC_fnc_s_conoleSwitchMenu";
 	tooltip = "Main Menu";
 };
 class mcc_consoleF2: MCC_RscButton
@@ -128,7 +128,7 @@ class mcc_consoleF2: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F2";
-	onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleSwitchMenu.sqf'");
+	onButtonClick = "[2] spawn MCC_fnc_s_conoleSwitchMenu";
 	tooltip = "UAV Control";
 };
 class mcc_consoleF3: MCC_RscButton
@@ -139,7 +139,7 @@ class mcc_consoleF3: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F3";
-	onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleSwitchMenu.sqf'");
+	onButtonClick = "[3] spawn MCC_fnc_s_conoleSwitchMenu";
 	tooltip = "AC-130 Control";
 };
 class mcc_consoleF4: MCC_RscButton
@@ -151,7 +151,7 @@ class mcc_consoleF4: MCC_RscButton
 	h = 0.0329871 * safezoneH;
 	text = "F4";
 	tooltip = "Forward Observer Artillery";
-	onButtonClick = __EVAL("[0,0,0,[1]] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleOpenMenu.sqf'");
+	onButtonClick = "[0,0,0,[1]] spawn MCC_fnc_s_conoleOpenMenu";
 };
 class mcc_consoleF5: MCC_RscButton
 {
@@ -193,10 +193,10 @@ class mcc_consoleF6: MCC_RscButton
 		y = 0.2025 * safezoneH + safezoneY;
 		w = 0.590625 * safezoneW;
 		h = 0.56 * safezoneH;
-		onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseDown.sqf'");
-		onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseUp.sqf'");
-		onMouseButtonDblClick = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseDblClick.sqf'");
-		onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseMoving.sqf'");
+		onMouseButtonDown = "[_this] spawn MCC_fnc_s_console_mouseDown";
+		onMouseButtonUp = "[_this] spawn MCC_fnc_s_console_mouseUp";
+		onMouseButtonDblClick = "[_this] spawn MCC_fnc_s_console_mouseDblClick";
+		onMouseMoving = "[_this] spawn MCC_fnc_s_console_mouseMoving";
 	};
  //========================================= Controls========================================
  	class RscControlsGroupCAS: MCC_RscControlsGroupNoScrollbars
@@ -253,7 +253,7 @@ class mcc_consoleF6: MCC_RscButton
 			class MCC_ConsoleCallCASButton: MCC_RscButton
 			{
 				idc = -1;
-				onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\console\console_request.sqf'");
+				onButtonClick = "[1] spawn MCC_fnc_s_console_request";
 
 				text = "Call CAS";
 				x = 0.154688 * safezoneW;
@@ -359,7 +359,7 @@ class mcc_consoleF6: MCC_RscButton
 			class MCC_ConsoleAirdropCallButton: MCC_RscButton
 			{
 				idc = -1;
-				onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\console_request.sqf'");
+				onButtonClick = "[0] spawn MCC_fnc_s_console_request";
 
 				text = "Call Airdrop";
 				x = 0.154688 * safezoneW;
@@ -459,7 +459,7 @@ class mcc_consoleF6: MCC_RscButton
 			class MCC_ConsoleEvacType: MCC_RscCombo
 			{
 				idc = MCC_ConsoleEvacTypeText_IDD;
-				onLBSelChanged = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\evac_focus.sqf'");
+				onLBSelChanged = "[0] spawn MCC_fnc_s_console_evac_focus";
 
 				x = 0.06651 * safezoneW;
 				y = 0.052222 * safezoneH;
@@ -510,7 +510,7 @@ class mcc_consoleF6: MCC_RscButton
 			class MCC_ConsoleCallEvacButton: MCC_RscButton
 			{
 				idc = -1;
-				onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\evacwp.sqf'");
+				onButtonClick = "[0] spawn MCC_fnc_s_evacwp";
 
 				text = "Call EVAC";
 				x = 0.174791 * safezoneW;
@@ -523,7 +523,7 @@ class mcc_consoleF6: MCC_RscButton
 			class MCC_ConsoleCallEvac3WPButton: MCC_RscButton
 			{
 				idc = -1;
-				onButtonClick = __EVAL("nul=[1] execVM '"+MCCPATH+"mcc\general_scripts\console\evacwp.sqf'");
+				onButtonClick = "nul=[1] spawn MCC_fnc_s_evacwp";
 
 				text = "Call EVAC 3 WP";
 				x = 0.174791 * safezoneW;
@@ -767,7 +767,7 @@ class mcc_consoleF6: MCC_RscButton
 		w = 0.1 * safezoneW;
 		h = 0.1 * safezoneH;
 		tooltip = "Add a waypoint to all selected groups";
-		onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\manageWP.sqf'");
+		onButtonClick = "[0] spawn MCC_fnc_s_console_manageWP";
 	};
 	class MCC_ConsoleWPReplace: MCC_RscButton {
 		idc = MCC_CONSOLEWPREPLACE;
@@ -777,7 +777,7 @@ class mcc_consoleF6: MCC_RscButton
 		w = 0.1 * safezoneW;
 		h = 0.1 * safezoneH;
 		tooltip = "Remove all waypoints from any selected groups and add a new waypoint";
-		onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\console\manageWP.sqf'");
+		onButtonClick = "[1] spawn MCC_fnc_s_console_manageWP";
 	};
 	class MCC_ConsoleWPClear: MCC_RscButton {
 		idc = MCC_CONSOLEWPCLEAR;
@@ -787,7 +787,7 @@ class mcc_consoleF6: MCC_RscButton
 		w = 0.1 * safezoneW;
 		h = 0.1 * safezoneH;
 		tooltip = "Remove all waypoints from any selected groups";
-		onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\console\manageWP.sqf'");
+		onButtonClick = "[2] spawn MCC_fnc_s_console_manageWP";
 	};
 	class MCC_ConsoleInfoText: MCC_RscStructuredText
 		{
@@ -806,7 +806,7 @@ class mcc_consoleF6: MCC_RscButton
 		y = 0.668037 * safezoneH + safezoneY;
 		w = 0.06 * safezoneW;
 		h = 0.03 * safezoneH;
-		onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\liveFeed.sqf'");
+		onButtonClick = "[0] spawn MCC_fnc_s_console_liveFeed";
 	};
 
 	class MCC_ConsoleInfoUAVControl: MCC_RscButton {
@@ -816,7 +816,7 @@ class mcc_consoleF6: MCC_RscButton
 		y = 0.1 * safezoneH + safezoneY;
 		w = 0.1 * safezoneW;
 		h = 0.1 * safezoneH;
-		onButtonClick =  __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\console\consoleTakeControl.sqf'");
+		onButtonClick =  "[2] spawn MCC_fnc_s_consoleTakeControl";
 	};
 
 	class MCC_ConsoleMapRulerButton: MCC_RscButton {
@@ -853,7 +853,7 @@ class mcc_consoleF6: MCC_RscButton
 		y = (0.213012 * safezoneH + safezoneY) + (0.494807 * safezoneH);
 		w = 0.06 * safezoneW;
 		h = 0.03 * safezoneH;
-		onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\liveFeed.sqf'");
+		onButtonClick = "[0] spawn MCC_fnc_s_console_liveFeed";
 	};
 
 	class MCC_ConsoleInfoLiveFeedNV: MCC_RscButton {
@@ -863,7 +863,7 @@ class mcc_consoleF6: MCC_RscButton
 		y = (0.213012 * safezoneH + safezoneY) + (0.494807 * safezoneH);
 		w = 0.06 * safezoneW;
 		h = 0.03 * safezoneH;
-		onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\console\liveFeed.sqf'");
+		onButtonClick = "[1] spawn MCC_fnc_s_console_liveFeed";
 	};
 	class MCC_ConsoleInfoLiveFeedTM: MCC_RscButton {
 		idc = MCC_CONSOLEINFOLIVEFEEDTM;
@@ -872,7 +872,7 @@ class mcc_consoleF6: MCC_RscButton
 		y = (0.213012 * safezoneH + safezoneY) + (0.494807 * safezoneH);
 		w = 0.06 * safezoneW;
 		h = 0.03 * safezoneH;
-		onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\console\liveFeed.sqf'");
+		onButtonClick = "[2] spawn MCC_fnc_s_console_liveFeed";
 	};
 
 	class MCC_ConsoleInfoLiveFeedClose: MCC_RscButton {
@@ -882,7 +882,7 @@ class mcc_consoleF6: MCC_RscButton
 		y = (0.213012 * safezoneH + safezoneY) + (0.494807 * safezoneH);
 		w = 0.06 * safezoneW;
 		h = 0.03 * safezoneH;
-		onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\console\liveFeed.sqf'");
+		onButtonClick = "[3] spawn MCC_fnc_s_console_liveFeed";
 	};
 
 	class MCC_ConsoleHelp: MCC_RscStructuredText

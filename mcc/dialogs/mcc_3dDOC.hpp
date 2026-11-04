@@ -27,7 +27,7 @@ class MCC_3dDOCControls:MCC_RscControlsGroup
 		{
 			idc = MCC_3DCompssaveListIDC;
 			colorBackground[] = {0,0,0,0.9};
-			onLBSelChanged = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\docobject\compositionManagerChnage.sqf'");
+			onLBSelChanged = "[0] spawn MCC_fnc_s_compositionManagerChnage";
 
 			x = 0.00572965 * safezoneW;
 			y = 0.0109958 * safezoneH;
@@ -83,7 +83,7 @@ class MCC_3dDOCControls:MCC_RscControlsGroup
 		class MCC_3DCompsaveUIButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\docobject\compositionManagerChnage.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_compositionManagerChnage";
 
 			text = "Save To Profile"; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
@@ -96,7 +96,7 @@ class MCC_3dDOCControls:MCC_RscControlsGroup
 		class MCC_3DComploadUIButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\docobject\compositionManagerChnage.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_compositionManagerChnage";
 
 			text = "Load From Profile"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;

@@ -31,8 +31,8 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			colorBackground[] = { 0, 0, 0,1};
 			onSetFocus = "MCC_UMFocus = true";	
 			onKillFocus = "MCC_UMFocus = false";	
-			onLBSelChanged = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
-			onMouseButtonUp = __EVAL("[8,_this] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onLBSelChanged = "[4] spawn MCC_fnc_s_um";
+			onMouseButtonUp = "[8,_this] spawn MCC_fnc_s_um";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 
 			x = 0.00572965 * safezoneW;
@@ -59,7 +59,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMTeleport: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[0] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_um";
 
 			text = "Teleport"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -72,7 +72,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMHijak: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[2] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_um";
 
 			text = "Hijack"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -85,7 +85,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMMark: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[3] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_um";
 
 			text = "Track units"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -98,7 +98,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMbroadcast: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[11] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[11] spawn MCC_fnc_s_um";
 
 			text = "Broadcast"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -111,7 +111,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMDelete: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[12] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[12] spawn MCC_fnc_s_um";
 
 			text = "Delete"; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
@@ -124,7 +124,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMJoin: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[13] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[13] spawn MCC_fnc_s_um";
 
 			text = "Join"; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
@@ -137,7 +137,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMHALO: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[9] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[9] spawn MCC_fnc_s_um";
 
 			text = "H.A.L.O"; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
@@ -150,7 +150,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMParachute: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[10] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[10] spawn MCC_fnc_s_um";
 
 			text = "Parachute"; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
@@ -163,7 +163,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMKick: MCC_RscButton
 		{
 			idc = MCC_UM_KICK;
-			onButtonClick = __EVAL ("[15] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[15] spawn MCC_fnc_s_um";
 
 			text = "Kick"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -176,7 +176,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 		class MCC_UMBan: MCC_RscButton
 		{
 			idc = MCC_UM_BAN;
-			onButtonClick = __EVAL ("[16] execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um.sqf'");
+			onButtonClick = "[16] spawn MCC_fnc_s_um";
 
 			text = "Ban"; //--- ToDo: Localize;
 			x = 0.234896 * safezoneW;
@@ -233,7 +233,7 @@ class MCC_UMDialogControls:MCC_RscControlsGroup
 			rows = 1;
 			columns = 3;
 			values[] = {0,1,3};
-			onToolBoxSelChanged = __EVAL("_this execVM '"+MCCPATH+"mcc\general_scripts\unitManage\um_camView.sqf'");
+			onToolBoxSelChanged = "_this spawn MCC_fnc_s_um_camView";
 
 			x = 0.292188 * safezoneW;
 			y = 0.134808 * safezoneH;

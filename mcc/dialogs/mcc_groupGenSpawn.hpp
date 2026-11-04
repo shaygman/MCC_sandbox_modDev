@@ -60,7 +60,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_typeComboBox: MCC_RscCombo
 		{
 			idc = MCC_GGUNIT_TYPE;
-			onLBSelChanged = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_change.sqf'");
+			onLBSelChanged = "[3] spawn MCC_fnc_s_group_change";
 
 			x = 0.0572917 * safezoneW;
 			y = 0.0549786 * safezoneH;
@@ -82,7 +82,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_branchComboBox: MCC_RscCombo
 		{
 			idc = UNIT_TYPE;
-			onLBSelChanged = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_change.sqf'");
+			onLBSelChanged = "[0] spawn MCC_fnc_s_group_change";
 
 			x = 0.0572917 * safezoneW;
 			y = 0.0879657 * safezoneH;
@@ -188,7 +188,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_classAddButton: MCC_RscButton
 		{
 			idc = MCC_GGADDIDC;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_change.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_group_change";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.9)";
 
 			text = "Add to List"; //--- ToDo: Localize;
@@ -201,7 +201,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_groupListBoxClearButton: MCC_RscButton
 		{
 			idc = MCC_GGCLEARIDC;
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_change.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_group_change";
 
 			text = "Clear List"; //--- ToDo: Localize;
 			x = 0.183334 * safezoneW;
@@ -213,7 +213,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_groupListSaveButton: MCC_RscButton
 		{
 			idc = MCC_GGSAVE_GROUPIDC;
-			onButtonClick = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_change.sqf'");
+			onButtonClick = "[4] spawn MCC_fnc_s_group_change";
 
 			text = "Save as Custom"; //--- ToDo: Localize;
 			x = 0.292188 * safezoneW;
@@ -226,7 +226,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_groupListBoxCreaterButton: MCC_RscButton
 		{
 			idc = MCC_GGVREATE_IDC;
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\spawn_request.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_spawn_request";
 
 			text = "Create"; //--- ToDo: Localize;
 			x = 0.183334 * safezoneW;
@@ -238,7 +238,7 @@ class MCC_spawnDialogControls:MCC_RscControlsGroup
 		class mcc_groupGen_groupListBoxAddToZoneButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\spawn_request.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_spawn_request";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.9)";
 
 			text = "Spawn in zone"; //--- ToDo: Localize;

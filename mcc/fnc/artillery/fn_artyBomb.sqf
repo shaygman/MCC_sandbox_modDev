@@ -20,6 +20,6 @@ for [{_i=0},{_i<_nshell},{_i=_i+1}] do
 		_shell = _shelltype createVehicle [(_pos select 0) + _shellspread - 2*(random _shellspread) ,(_pos select 1) + _shellspread - 2*(random _shellspread), 100];
 		_shell setVelocity [0, 0, -50];
 		WaitUntil{(position _shell select 2)<35};
-		if (_sound) then {[[[netid _shell,_shell],format["bon_Shell_In_v0%1",[1,2,3,4,5,6,7] select round random 6]], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP};
+		if (_sound) then {[[netid _shell,_shell],format["bon_Shell_In_v0%1",[1,2,3,4,5,6,7] select round random 6]] remoteExec ["MCC_fnc_globalSay3D", 0]};
 		sleep _delay;
 	};

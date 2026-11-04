@@ -75,7 +75,7 @@ class MCC_waypointsDialogControls:MCC_RscControlsGroup
 		class MCC_GroupGenWPAdd: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\manageWP.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_groupGen_manageWP";
 
 			text = "ADD"; //--- ToDo: Localize;
 			x = 0.0687497 * safezoneW;
@@ -87,7 +87,7 @@ class MCC_waypointsDialogControls:MCC_RscControlsGroup
 		class MCC_GroupGenWPReplace: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\manageWP.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_groupGen_manageWP";
 
 			text = "Replace"; //--- ToDo: Localize;
 			x = 0.131771 * safezoneW;
@@ -99,7 +99,7 @@ class MCC_waypointsDialogControls:MCC_RscControlsGroup
 		class MCC_GroupGenWPClear: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\manageWP.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_groupGen_manageWP";
 
 			text = "Clear"; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;

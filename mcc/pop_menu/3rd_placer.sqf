@@ -530,7 +530,7 @@ MCC_3D_CAM_Handler =
 			if (_conMenu) then {
 				if (MCC_canSpawn3DConst) then {
 					_terminate = true;
-					[[_objectPos, _objectDir , _conType,3, playerside], "MCC_fnc_construct_base", false, false] spawn BIS_fnc_MP;
+					[_objectPos, _objectDir , _conType,3, playerside] remoteExec ["MCC_fnc_construct_base", 2];
 					deletevehicle Object3D;
 				};
 			} else {
@@ -593,7 +593,7 @@ MCC_3D_CAM_Handler =
 		//Undo
 		if ((_key in _keysUpObj) && _ctrlKey && !_conMenu) then
 		{
-			_null = [1] execVM MCC_path +"mcc\general_scripts\delete\undo.sqf";
+			_null = [1] spawn MCC_fnc_s_undo;
 		};
 
 		if (_key in MCC_3D_CAM_keys) then
@@ -624,7 +624,7 @@ MCC_3D_CAM_Handler =
 		hintsilent "";
 		waituntil {isnil "MCC_3D_CAM"};
 		while {dialog} do {closeDialog 0; sleep 0.1};
-		if !(MCC_3DterminateNoMCC) then {_null = [nil,nil,nil,nil,0] execVM MCC_path + "mcc\dialogs\mcc_PopupMenu.sqf"};
+		if !(MCC_3DterminateNoMCC) then {_null = [nil,nil,nil,nil,0] spawn MCC_fnc_s_mcc_PopupMenu};
 	};
 
 		//--- Camera no longer exists - terminate and start cleanup

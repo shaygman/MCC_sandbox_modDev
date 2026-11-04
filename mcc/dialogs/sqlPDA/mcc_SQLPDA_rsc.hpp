@@ -16,7 +16,7 @@ class MCC_SQLPDA_rsc
 	fadeOut = 0;
 	name = "MCC_SQLPDA_rsc";
 
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\sqlPDA\mcc_sqlpda_rsc_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_sqlpda_rsc_init";
 
 
 	class controls
@@ -39,10 +39,10 @@ class MCC_SQLPDA_rsc
 			y = 0.533 * safezoneH + safezoneY;
 			w = 0.27 * safezoneW;
 			h = 0.341 * safezoneH;
-			onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseDown.sqf'");
-			onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseUp.sqf'");
-			onMouseButtonDblClick = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseDblClick.sqf'");
-			onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\pda\mouseMoving.sqf'");
+			onMouseButtonDown = "[_this] spawn MCC_fnc_s_pda_mouseDown";
+			onMouseButtonUp = "[_this] spawn MCC_fnc_s_pda_mouseUp";
+			onMouseButtonDblClick = "[_this] spawn MCC_fnc_s_pda_mouseDblClick";
+			onMouseMoving = "[_this] spawn MCC_fnc_s_pda_mouseMoving";
 		};
 	};
 };

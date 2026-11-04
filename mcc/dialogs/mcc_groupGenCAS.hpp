@@ -70,7 +70,7 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 		class MCC_CASCall: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\cas\cas_request.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_cas_request";
 
 			text = "Call"; //--- ToDo: Localize;
 			x = 0.00572967 * safezoneW;
@@ -82,7 +82,7 @@ class MCC_CASDialogControls:MCC_RscControlsGroup
 		class MCC_CASAdd: MCC_RscButton
 		{
 			idc = 27; // idc set to allow hiding button when no mcc_console available
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\cas\cas_request.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_cas_request";
 
 			text = "Add"; //--- ToDo: Localize;
 			x = 0.148959 * safezoneW;

@@ -420,3 +420,40 @@ class CfgMissions
 };
 
 #include "\mcc_sandbox_mod\definesMod.hpp"
+// Eden: Attributes > General > MCC. Read at runtime with getMissionConfigValue "MCC_networkSecurity".
+// Missions without the mod (mission version) can set MCC_networkSecurity = 1; in description.ext instead.
+class Cfg3DEN
+{
+	class Mission
+	{
+		class Scenario
+		{
+			class AttributeCategories
+			{
+				class MCC_Attributes
+				{
+					displayName = "MCC";
+					collapsed = 1;
+					class Attributes
+					{
+						class MCC_networkSecurity
+						{
+							displayName = "Network Security";
+							tooltip = "Normal: MCC accepts network requests from any player (old behaviour).\nStrict: in multiplayer, MCC ignores requests from players who are not allowed to use MCC (see the MCC Access Rights module). Has no effect in single player.";
+							property = "MCC_networkSecurity";
+							control = "Combo";
+							expression = "";
+							defaultValue = "0";
+							typeName = "NUMBER";
+							class Values
+							{
+								class Normal {name = "Normal"; value = 0;};
+								class Strict {name = "Strict (recommended for public servers)"; value = 1;};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};

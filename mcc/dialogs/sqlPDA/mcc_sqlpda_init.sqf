@@ -159,7 +159,7 @@ MCC_fnc_SQLPDAMenuclicked =
 			_text = uinamespace getVariable "MCC_sqlpdaMenu1Data";
 			if (_ctrlData == "MinefieldAP") then {_path = "";_text = ""} else {if (playerside == east) then {_path = "b_"} else {_path = "o_"}};
 
-			[[_markerName, _path, MCC_ConsoleWPpos, uinamespace getVariable "MCC_sqlpdaMenu1Data",_text, time, "default"] ,"MCC_fnc_PDAcreatemarker", playerside,false] call BIS_fnc_MP;
+			[_markerName, _path, MCC_ConsoleWPpos, uinamespace getVariable "MCC_sqlpdaMenu1Data",_text, time, "default"] remoteExec ["MCC_fnc_PDAcreatemarker", playerside];
 		};
 
 		//Menu - enemy - markers - Size set
@@ -173,7 +173,7 @@ MCC_fnc_SQLPDAMenuclicked =
 			//Create marker
 			_markerName = (getplayerUID player) + (uinamespace getVariable "MCC_sqlpdaMenu1Data") + str floor time;
 			_path = if (playerside == east) then {"b_"} else {"o_"};
-			[[_markerName, _path, MCC_ConsoleWPpos, uinamespace getVariable "MCC_sqlpdaMenu1Data", uinamespace getVariable "MCC_sqlpdaMenu2Data", time, "default"] ,"MCC_fnc_PDAcreatemarker", playerside,false] call BIS_fnc_MP;
+			[_markerName, _path, MCC_ConsoleWPpos, uinamespace getVariable "MCC_sqlpdaMenu1Data", uinamespace getVariable "MCC_sqlpdaMenu2Data", time, "default"] remoteExec ["MCC_fnc_PDAcreatemarker", playerside];
 		};
 
 //------------------------------------------------------------------------------------Menu - support----------------------------------------------------------------------------------------------------------------------
@@ -208,7 +208,7 @@ MCC_fnc_SQLPDAMenuclicked =
 			//Create marker
 			_markerName = (getplayerUID player) + (uinamespace getVariable "MCC_sqlpdaMenu1Data") + str floor time;
 			_path = "";
-			[[_markerName, _path, MCC_ConsoleWPpos, uinamespace getVariable "MCC_sqlpdaMenu1Data", _text, time, "default"] ,"MCC_fnc_PDAcreatemarker", playerside,false] call BIS_fnc_MP;
+			[_markerName, _path, MCC_ConsoleWPpos, uinamespace getVariable "MCC_sqlpdaMenu1Data", _text, time, "default"] remoteExec ["MCC_fnc_PDAcreatemarker", playerside];
 		};
 
 //------------------------------------------------------------------------------------Menu - Construct----------------------------------------------------------------------------------------------------------------------

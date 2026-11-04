@@ -30,7 +30,7 @@ if (mcc_missionmaker == (name player)) then
 				if (MCC_capture_state) then
 				{
 					 MCC_capture_var = MCC_capture_var + FORMAT ["
-										[[%1, %2, '%3', '%4', '%5', %6, '%7', '%8', %9],'MCC_fnc_simpleSpawn',true,false] spawn BIS_fnc_MP;		
+										[%1, %2, '%3', '%4', '%5', %6, '%7', '%8', %9] remoteExec ['MCC_fnc_simpleSpawn', 0];		
 										"
 										,MCC3DValue select 0
 										,MCC3DValue select 1
@@ -54,7 +54,7 @@ if (mcc_missionmaker == (name player)) then
 						waitUntil {(_pos distance Object3D > 8) || (time >_time)};
 					};
 					
-					[[MCC3DValue select 0, MCC3DValue select 1, mcc_spawnname, mcc_spawntype, mcc_spawnfaction, mcc_spawnwithcrew,MCC_unitInit,MCC_unitName,mcc_hc],"MCC_fnc_simpleSpawn",true,false] spawn BIS_fnc_MP;		
+					[MCC3DValue select 0, MCC3DValue select 1, mcc_spawnname, mcc_spawntype, mcc_spawnfaction, mcc_spawnwithcrew,MCC_unitInit,MCC_unitName,mcc_hc] remoteExec ["MCC_fnc_simpleSpawn", 0];		
 				};
 			};
 			sleep 0.1;
@@ -427,7 +427,7 @@ if (mcc_missionmaker == (name player)) then
 		_tempText = ctrlText MCC_INITBOX;
 		_presetText = (_presets select(lbCurSel MCC_PRESETS)) select 1; 
 		ctrlSetText [MCC_INITBOX,format ["%1 %2",_tempText,_presetText]];
-		_null = [1] execVM format["%1mcc\pop_menu\spawn_group3d.sqf",MCC_path];
+		_null = [1] spawn MCC_fnc_s_spawn_group3d;
 	};
 } 
 else 

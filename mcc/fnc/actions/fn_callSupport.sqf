@@ -90,7 +90,7 @@ switch (_type) do {
 };
 
 player globalRadio "CuratorWaypointPlacedAttack";
-[[_markerName, _path, _pos, _markerClass, _text, time, "default"] ,"MCC_fnc_PDAcreatemarker", playerside,false] call BIS_fnc_MP;
+[_markerName, _path, _pos, _markerClass, _text, time, "default"] remoteExec ["MCC_fnc_PDAcreatemarker", playerside];
 
 titleText ["Marker Added","PLAIN DOWN"];
 titleFadeOut 10;

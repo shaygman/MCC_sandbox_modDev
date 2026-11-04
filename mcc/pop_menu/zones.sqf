@@ -28,7 +28,7 @@ if (_type == 1) exitWith
 	_comboBox lbSetCurSel MCC_zone_index;
 
 	waituntil {mcc_active_zone == mcc_zone_number};
-	_nul=[1] execVM MCC_path +"mcc\general_scripts\mcc_make_the_marker.sqf";
+	_nul=[1] spawn MCC_fnc_s_mcc_make_the_marker;
 };
 
 //Updating a zone
@@ -38,7 +38,7 @@ if (_type == 2) then
 	mcc_zone_marker_X = _size select 0;
 	mcc_zone_marker_Y = _size select 1;
 	mcc_active_zone = mcc_zone_number;
-	_nul=[1] execVM MCC_path +"mcc\general_scripts\mcc_make_the_marker.sqf";
+	_nul=[1] spawn MCC_fnc_s_mcc_make_the_marker;
 };
 
 if ((lbCurSel MCCZONENUMBER) == -1) exitWith {};

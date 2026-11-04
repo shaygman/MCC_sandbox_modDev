@@ -6,9 +6,9 @@ mcc_fnc_faction_choice		= compile preProcessFileLineNumbers format ["%1mcc\pop_m
 mcc_make_array_units		= compile preProcessFileLineNumbers format ["%1mcc\pop_menu\mcc_make_array_units.sqf",MCC_path];
 
 private "_nul";
-_nul=[] execVM MCC_path + "mcc\pop_menu\mcc_make_array_markers.sqf";
-_nul=[] execVM MCC_path + "mcc\pop_menu\mcc_make_array_obj.sqf";
-_nul=[] execVM MCC_path + "mcc\pop_menu\mcc_make_array_weaponsNoneAce.sqf";
+_nul=[] spawn MCC_fnc_s_mcc_make_array_markers;
+_nul=[] spawn MCC_fnc_s_mcc_make_array_obj;
+_nul=[] spawn MCC_fnc_s_mcc_make_array_weaponsNoneAce;
 
 dummy =[] call mcc_factions;
 

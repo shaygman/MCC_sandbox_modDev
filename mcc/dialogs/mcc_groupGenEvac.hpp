@@ -54,7 +54,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacType: MCC_RscCombo
 		{
 			idc = 40;
-			onLBSelChanged = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\evac\evac_change.sqf'");
+			onLBSelChanged = "[0] spawn MCC_fnc_s_evac_change";
 
 			x = 0.0630208 * safezoneW;
 			y = 0.0439828 * safezoneH;
@@ -75,7 +75,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacSpawn: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\evac\request_heli.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_request_heli";
 
 			text = "Spawn"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -88,7 +88,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacSelected: MCC_RscCombo
 		{
 			idc = 42;
-			onLBSelChanged = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\evac\evac_focus.sqf'");
+			onLBSelChanged = "[0] spawn MCC_fnc_s_evac_evac_focus";
 
 			x = 0.0630208 * safezoneW;
 			y = 0.142944 * safezoneH;
@@ -110,7 +110,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacWp: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[] execVM '"+MCCPATH+"mcc\general_scripts\evac\add_wp_heli.sqf'");
+			onButtonClick = "[] spawn MCC_fnc_s_add_wp_heli";
 
 			text = "1 WP"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -123,7 +123,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evac3Wp: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[] execVM '"+MCCPATH+"mcc\general_scripts\evac\move_heli.sqf'");
+			onButtonClick = "[] spawn MCC_fnc_s_move_heli";
 
 			text = "3 WP"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;
@@ -157,7 +157,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacDelHeli: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\evac\delete_heli.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_delete_heli";
 
 			text = "Del. Evac"; //--- ToDo: Localize;
 			x = 0.0572917 * safezoneW;
@@ -192,7 +192,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacDelPilot: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\evac\delete_heli.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_delete_heli";
 
 			text = "Del. Driver"; //--- ToDo: Localize;
 			x = 0.131771 * safezoneW;
@@ -206,7 +206,7 @@ class MCC_evacDialogControls:MCC_RscControlsGroup
 		class MCC_evacResHeli: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\evac\delete_heli.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_delete_heli";
 
 			text = "Res. Driver"; //--- ToDo: Localize;
 			x = 0.171875 * safezoneW;

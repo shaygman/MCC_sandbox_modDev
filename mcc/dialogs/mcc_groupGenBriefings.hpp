@@ -54,7 +54,7 @@ class MCC_briefingDialogControls: MCC_RscControlsGroup
 		class MCC_briefingBriefing: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[0] execVM '"+MCCPATH+"mcc\pop_menu\briefing.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_briefing";
 
 			text = "Situation"; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
@@ -67,7 +67,7 @@ class MCC_briefingDialogControls: MCC_RscControlsGroup
 		class MCC_briefingEnemy: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[1] execVM '"+MCCPATH+"mcc\pop_menu\briefing.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_briefing";
 
 			text = "Enemy forces"; //--- ToDo: Localize;
 			x = 0.0286457 * safezoneW;
@@ -80,7 +80,7 @@ class MCC_briefingDialogControls: MCC_RscControlsGroup
 		class MCC_briefingFriendly: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[2] execVM '"+MCCPATH+"mcc\pop_menu\briefing.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_briefing";
 
 			text = "Friendly forces"; //--- ToDo: Localize;
 			x = 0.103125 * safezoneW;
@@ -93,7 +93,7 @@ class MCC_briefingDialogControls: MCC_RscControlsGroup
 		class MCC_briefingMission: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[3] execVM '"+MCCPATH+"mcc\pop_menu\briefing.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_briefing";
 
 			text = "Mission"; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
@@ -106,7 +106,7 @@ class MCC_briefingDialogControls: MCC_RscControlsGroup
 		class MCC_briefingSpecial: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[4] execVM '"+MCCPATH+"mcc\pop_menu\briefing.sqf'");
+			onButtonClick = "[4] spawn MCC_fnc_s_briefing";
 
 			text = "Special Tasks"; //--- ToDo: Localize;
 			x = 0.177605 * safezoneW;
@@ -119,7 +119,7 @@ class MCC_briefingDialogControls: MCC_RscControlsGroup
 		class MCC_briefingSupport: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[5] execVM '"+MCCPATH+"mcc\pop_menu\briefing.sqf'");
+			onButtonClick = "[5] spawn MCC_fnc_s_briefing";
 
 			text = "Support"; //--- ToDo: Localize;
 			x = 0.252084 * safezoneW;

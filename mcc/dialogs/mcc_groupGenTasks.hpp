@@ -125,7 +125,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksCreate: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[0] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_tasks_req";
 
 			text = "Create"; //--- ToDo: Localize;
 			x = 0.183334 * safezoneW;
@@ -138,7 +138,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksWP: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[7] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick =  "[7] spawn MCC_fnc_s_tasks_req";
 
 			text = "WP"; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
@@ -151,7 +151,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksWPCin: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[1] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick =  "[1] spawn MCC_fnc_s_tasks_req";
 
 			text = "WP (cin)"; //--- ToDo: Localize;
 			x = 0.0458336 * safezoneW;
@@ -164,7 +164,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksSucceed: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[2] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick =  "[2] spawn MCC_fnc_s_tasks_req";
 
 			text = "Succeed"; //--- ToDo: Localize;
 			x = 0.200521 * safezoneW;
@@ -178,7 +178,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksFailed: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[3] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick =  "[3] spawn MCC_fnc_s_tasks_req";
 
 			text = "Failed"; //--- ToDo: Localize;
 			x = 0.160367 * safezoneW;
@@ -192,7 +192,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksCancled: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[4] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick =  "[4] spawn MCC_fnc_s_tasks_req";
 
 			text = "Cancel"; //--- ToDo: Localize;
 			x = 0.0859376 * safezoneW;
@@ -205,7 +205,7 @@ class MCC_tasksDialogControls: MCC_RscControlsGroup
 		class MCC_TasksDelete: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[8] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick = "[8] spawn MCC_fnc_s_tasks_req";
 
 			text = "Delete"; //--- ToDo: Localize;
 			x = 0.126042 * safezoneW;

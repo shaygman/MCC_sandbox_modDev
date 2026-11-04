@@ -22,6 +22,6 @@ for [{_i=0},{_i<_nshell},{_i=_i+1}] do
 		_bomb = _shelltype createVehicle [(_pos select 0) + _shellspread - 2*(random _shellspread) ,(_pos select 1) + _shellspread - 2*(random _shellspread), 250];
 		_bomb setVelocity [(random 10) - (random 10), (random 10) - (random 10), -10];
 		sleep 1; 
-		if (_sound) then {[[[netid _bomb,_bomb],"SN_Flare_Fired_4"], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP}; 
+		if (_sound) then {[[netid _bomb,_bomb],"SN_Flare_Fired_4"] remoteExec ["MCC_fnc_globalSay3D", 0]}; 
 		sleep _delay;
 	};

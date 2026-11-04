@@ -37,7 +37,7 @@ _cannonsObjects = [];
 
 	if (isPlayer _cannon) then
 	{
-		[[_cannon,_splashpos,_firedelay,_artitype,_nrshells,_spread], "MCC_fnc_artyGetSolution", _cannon, false] spawn BIS_fnc_MP;
+		[_cannon,_splashpos,_firedelay,_artitype,_nrshells,_spread] remoteExec ["MCC_fnc_artyGetSolution", _cannon];
 	}
 	else
 	{

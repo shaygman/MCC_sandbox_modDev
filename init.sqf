@@ -164,12 +164,12 @@ mccPresetsVehicle = [
 					,['Fire','if (isServer) then {_effect = "test_EmptyObjectForFireBig" createVehicle (getpos _this);_effect setpos (getpos _this)};']
 					,['', '']
 					,['======= Misc =======','']
-					,['Create Local Marker', '_this execVM "'+MCC_path+'mcc\general_scripts\create_local_marker.sqf";']
+					,['Create Local Marker', '_this spawn MCC_fnc_s_create_local_marker;']
 					];
 
 mccPresetsUnits = [
 					 ['Recruitable', '_this addAction [format ["Recruit %1", name _this], "'+MCC_path+'mcc\general_scripts\hostages\hostage.sqf",[2],6,false,true];']
-					,['Make Hostage', '_this execVM "'+MCC_path+'mcc\general_scripts\hostages\create_hostage.sqf";']
+					,['Make Hostage', '_this spawn MCC_fnc_s_create_hostage;']
 					,['Join player', '[_this] join (group player);']
 					,['Set Renegade', '_this addrating -2001;']
 					,['Stand Up', '_this setUnitPos "UP";']
@@ -193,7 +193,7 @@ mccPresetsUnits = [
 					,['Fire','if (isServer) then {_effect = "test_EmptyObjectForFireBig" createVehicle (getpos _this);_effect setpos (getpos _this)};']
 					,['', '']
 					,['======= Misc =======','']
-					,['Create Local Marker', '_this execVM "'+MCC_path+'mcc\general_scripts\create_local_marker.sqf";']
+					,['Create Local Marker', '_this spawn MCC_fnc_s_create_local_marker;']
 					];
 
 mccPresetsObjects = [
@@ -213,7 +213,7 @@ mccPresetsObjects = [
 					,['Fire','if (isServer) then {_effect = "test_EmptyObjectForFireBig" createVehicle (getpos _this);_effect setpos (getpos _this)};']
 					,['', '']
 					,['======= Misc =======','']
-					,['Create Local Marker', '_this execVM "'+MCC_path+'mcc\general_scripts\create_local_marker.sqf";']
+					,['Create Local Marker', '_this spawn MCC_fnc_s_create_local_marker;']
 					];
 
 
@@ -244,7 +244,7 @@ call compile preprocessfile format ["%1gaia\gaia_init.sqf",MCC_path];
 
 
 //-----------------------Bon artillery --------------------------------------------
-_nul = [] execVM MCC_path +"bon_artillery\bon_arti_init.sqf";
+_nul = [] spawn MCC_fnc_s_bon_arti_init;
 
 // HEADLESS CLIENT CHECK
 if (isNil "MCC_isHC" ) then {
@@ -558,7 +558,7 @@ MCC_MWMissions			= []; 	//Store all the mission objectives = (MCC_MWMissions sel
 //====================================================================================MCC Engine Init============================================================================================================================
 
 // Initialize and load the pop up menu
-_null=[] execVM MCC_path + "mcc\pop_menu\mcc_init_menu.sqf";
+_null=[] spawn MCC_fnc_s_mcc_init_menu;
 
 mcc_delayed_spawn		= false;
 mcc_caching				= false;
@@ -771,8 +771,8 @@ if ( isServer ) then {
 		if ((MCC_server getVariable [format ["CP_commander%1",side player],""]) == _uid) then
 		{
 			_str = "<t size='1' font = 'puristaLight' color='#FFFFFF'>" + format ["%1 is no longer the commander",_name] + "</t>";
-			_command = format ['["MCC_woosh",true] spawn BIS_fnc_playSound; ["%1",0,0.2,5,1,0.0] spawn bis_fnc_dynamictext;',_str];
-			[[2,compile _command], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+			["MCC_woosh",true] remoteExec ["BIS_fnc_playSound", 0];
+			[_str,0,0.2,5,1,0.0] remoteExec ["bis_fnc_dynamictext", 0];
 
 			MCC_server setVariable [format ["CP_commander%1",(player getVariable ["CP_side",  playerside])],"", true];
 		};
@@ -829,8 +829,8 @@ if ( isServer ) then {
 };
 
 // Handler code for the server for MP purpose
-_null=[] execVM MCC_path + "mcc\pv_handling\mcc_pv_handler.sqf";
-_null=[] execVM MCC_path + "mcc\pv_handling\mcc_extras_pv_handler.sqf";
+_null=[] spawn MCC_fnc_s_mcc_pv_handler;
+_null=[] spawn MCC_fnc_s_mcc_extras_pv_handler;
 
 diag_log format ["%1 - MCC Headless Client available: %2", time, MCC_isHC];
 diag_log format ["%1 - MCC Local Headless Client: %2", time, MCC_isLocalHC];
@@ -846,7 +846,7 @@ diag_log format ["%1 - MCC Local Headless Client: %2", time, MCC_isLocalHC];
 MCC_isDedicated = false;
 if (isServer || isdedicated) then {
 	if (isDedicated) then {MCC_isDedicated = true; publicVariable "MCC_isDedicated"};
-	_null=[] execVM MCC_path + "mcc\roleSelection\scripts\server\server_init.sqf";
+	_null=[] spawn MCC_fnc_s_server_init;
 };
 
 //---------------------------------------------
@@ -954,14 +954,14 @@ if (hasInterface) then {
 
 		if (local player) then {
 			//Save gear EH
-			_eh = player addEventHandler ["killed",{[player] execVM MCC_path + "mcc\general_scripts\save_gear.sqf";}];
+			_eh = player addEventHandler ["killed",{[player] spawn MCC_fnc_s_save_gear;}];
 			player setVariable ["MCC_EH_Killed",_eh];
 
 			//Handle Heal
 			_eh = player addEventHandler ["HandleHeal",{_this spawn {
 											params ["_unit","_healer"];
 											if ((_unit != _healer) && (missionNamespace getVariable ["CP_activated",false])) then {
-												[[getPlayerUID _healer,200,"For Healing"], "MCC_fnc_addRating", _healer, false] spawn BIS_fnc_MP;
+												[getPlayerUID _healer,200,"For Healing"] remoteExec ["MCC_fnc_addRating", _healer];
 											};
 
 											if (missionNamespace getVariable ["MCC_medicSystemEnabled",false]) then {
@@ -990,7 +990,7 @@ if (hasInterface) then {
 			                  if (isnil "MCC_deadGroup") then {MCC_deadGroup = createGroup civilian; publicVariable "MCC_deadGroup"};
 			                  [player] join MCC_deadGroup;
 			                  player attachto [MCC_respawnAnchor,[2,2,2]];
-			                  [] execVM MCC_path + "spectator\specta.sqf";
+			                  [] spawn MCC_fnc_s_specta;
 			              };
 			            }];
 
@@ -1002,7 +1002,7 @@ if (hasInterface) then {
 
 			//Curator
 			if(isMultiplayer) then {
-				[compile format ["MCC_curator addCuratorEditableObjects [[objectFromNetID '%1'],true]", netID player], "BIS_fnc_spawn", false, false] call BIS_fnc_MP;
+				[[player]] remoteExec ["MCC_fnc_rxCuratorAddEditable", 2];
 			};
 		};
 

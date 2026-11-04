@@ -1,6 +1,6 @@
 /*================================================================MCC_fnc_mineSingle======================================================================================
 	Create a mine field
-	Example:[[IEDkind,IEDMarkerName,centerPos,minefieldSize],"MCC_fnc_mineSingle",true,false] call BIS_fnc_MP;
+	Example:[IEDkind,IEDMarkerName,centerPos,minefieldSize] remoteExec ["MCC_fnc_mineSingle",0];
  	Params:
  		IEDkind: string, minefield type: "apv" - AP minefield with warining signs, "ap" - AP minefield without warining signs. "apbv" -  AP bouncing minefield with
  		warining signs, "apb"-  AP bouncing minefield without warining signs, "atv" - AT minefield with warining signs, "at"-  AT minefield without warining signs

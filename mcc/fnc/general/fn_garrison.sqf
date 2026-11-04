@@ -1,6 +1,6 @@
 //===================================================================MCC_fnc_garrison======================================================================================
 //Populate soldiers inside empty houses
-//Example:[[center,radius,action,intanse,faction,side,_groupUnits],"MCC_fnc_garrison",true,false] call BIS_fnc_MP;
+//Example:[center,radius,action,intanse,faction,side,_groupUnits] remoteExec ["MCC_fnc_garrison",0];
 // Params:
 // 	center: array, center of the town to garrison.
 //	radius: number,radius in meters units will garrison buildings.

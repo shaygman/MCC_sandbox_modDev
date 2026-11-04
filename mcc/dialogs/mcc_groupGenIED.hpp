@@ -152,7 +152,7 @@ class MCC_IEDDialogControls:MCC_RscControlsGroup
 		class MCC_trapsType: MCC_RscCombo
 		{
 			idc = MCC_TRAPS_TYPE;
-			onLBSelChanged = __EVAL("[0] execVM '"+MCCPATH+"mcc\fnc\ied\scripts\trap_change.sqf'");
+			onLBSelChanged = "[0] spawn MCC_fnc_s_trap_change";
 
 			x = 0.0802087 * safezoneW;
 			y = 0.0989618 * safezoneH;
@@ -252,7 +252,7 @@ class MCC_IEDDialogControls:MCC_RscControlsGroup
 		class MCC_trapsCreateIED: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL("[0] execVM '"+MCCPATH+"mcc\fnc\ied\scripts\trap_request.sqf'");
+			onButtonClick =  "[0] spawn MCC_fnc_s_trap_request";
 
 			text = "Create IED"; //--- ToDo: Localize;
 			x = 0.154688 * safezoneW;
@@ -265,7 +265,7 @@ class MCC_IEDDialogControls:MCC_RscControlsGroup
 		class MCC_trapsCreateAmbush: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\fnc\ied\scripts\trap_request.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_trap_request";
 
 			text = "Create Ambush"; //--- ToDo: Localize;
 			x = 0.229167 * safezoneW;

@@ -177,7 +177,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		class MCC_convoySpawn: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\convoy\make_convoy_WP.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_make_convoy_WP";
 
 			text = "Spawn"; //--- ToDo: Localize;
 			x = 0.189063 * safezoneW;
@@ -190,7 +190,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		class MCC_convoyReset: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\convoy\reset_convoy_WP.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_reset_convoy_WP";
 
 			text = "Reset"; //--- ToDo: Localize;
 			x = 0.154688 * safezoneW;
@@ -203,7 +203,7 @@ class MCC_convoyDialogControls:MCC_RscControlsGroup
 		class MCC_convoyStart: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\convoy\start_convoy.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_start_convoy";
 
 			text = "Start"; //--- ToDo: Localize;
 			x = 0.229167 * safezoneW;

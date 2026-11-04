@@ -89,7 +89,7 @@ class MCC_debugDialogControls:MCC_RscControlsGroup
 		class MCC_commandlineTextSmall: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[3] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\commandLine.sqf'");
+			onButtonClick =  "[3] spawn MCC_fnc_s_commandLine";
 
 			text = "text"; //--- ToDo: Localize;
 			x = 0.379688 * safezoneW + safezoneX;
@@ -102,7 +102,7 @@ class MCC_debugDialogControls:MCC_RscControlsGroup
 		class MCC_commandlineTextBig: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[4] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\commandLine.sqf'");
+			onButtonClick =  "[4] spawn MCC_fnc_s_commandLine";
 
 			text = "TEXT"; //--- ToDo: Localize;
 			x = 0.419792 * safezoneW + safezoneX;
@@ -115,7 +115,7 @@ class MCC_debugDialogControls:MCC_RscControlsGroup
 		class MCC_commandlineLocal: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[0] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\commandLine.sqf'");
+			onButtonClick =  "[0] spawn MCC_fnc_s_commandLine";
 
 			text = "Local"; //--- ToDo: Localize;
 			x = 0.528646 * safezoneW + safezoneX;
@@ -128,7 +128,7 @@ class MCC_debugDialogControls:MCC_RscControlsGroup
 		class MCC_commandlineGlobal: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick =  __EVAL ("[1] execVM '"+MCCPATH+"mcc\general_scripts\commandLine\commandLine.sqf'");
+			onButtonClick =  "[1] spawn MCC_fnc_s_commandLine";
 
 			text = "Global"; //--- ToDo: Localize;
 			x = 0.56875 * safezoneW + safezoneX;

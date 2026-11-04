@@ -38,7 +38,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 			colorText[] = {1,1,1,1};
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_DISRESPAWNDESC"; 
-			action = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\mcc_start_location.sqf'");
+			action = "[4] spawn MCC_fnc_s_mcc_start_location";
 			
 			x = 0.0057 * safezoneW;
 			y = 0.054978585840815 * safezoneH;
@@ -49,7 +49,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_setWeatherButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_SETWEATH"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_SETWEATHDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -63,7 +63,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_setTimeButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_SETTIME"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_SETTIMEDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -77,7 +77,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_StartLocation: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_STARTLOC"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_STARTLOCDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -91,7 +91,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_debugButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_DEBUG"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_DEBUGDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -105,7 +105,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_markersCallButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[10] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[10] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_MARKERS"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_MARKERSDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -119,7 +119,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_briefingCallButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[11] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[11] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_BRIEFING"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_BRIEFINGDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -133,7 +133,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_tasksCallButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[12] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[12] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_TASKS"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_TASKSDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -147,7 +147,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_triggersCallButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[14] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[14] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_TRIGGERS"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_TRIGGERSDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -161,7 +161,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_jukeBoxCallButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[13] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[13] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_JUKEBOX"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_JUKEBOXDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
@@ -175,7 +175,7 @@ class MCC_rightButtonsControls: MCC_RscControlsGroup
 		class MCC_clientSideCallButton: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[15] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\controlsHandle.sqf'");
+			onButtonClick = "[15] spawn MCC_fnc_s_controlsHandle";
 			text = "$STR_UI_CLIENTSIDE"; //--- ToDo: Localize;
 			tooltip = "$STR_UI_CLIENTSIDEDESC"; //--- ToDo: Localize;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";

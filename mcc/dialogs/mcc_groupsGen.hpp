@@ -19,7 +19,7 @@ class mcc_groupGen
 {
 	idd = groupGen_IDD;
 	movingEnable = true;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\mcc_groupGen_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_groupGen_init";
 
 	controlsBackground[] =
 	{
@@ -71,7 +71,7 @@ class mcc_groupGen
 		{
 			idc = MCC_FACTION;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged = __EVAL("[2] execVM '"+MCCPATH+"mcc\pop_menu\faction.sqf'");
+			onLBSelChanged = "[2] spawn MCC_fnc_s_faction";
 
 			x = 0.236458 * safezoneW + safezoneX;
 			y = 0.0601715 * safezoneH + safezoneY;
@@ -99,7 +99,7 @@ class mcc_groupGen
 			tooltip = "$STR_UI_SHOWWESTDESC";
 			text = "$STR_UI_WEST";
 			colorText[] = {0,0,1,1};
-			onButtonClick = __EVAL("[west] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
+			onButtonClick = "[west] spawn MCC_fnc_s_group_manage";
 
 			x = 0.654688 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
@@ -113,7 +113,7 @@ class mcc_groupGen
 			tooltip = "$STR_UI_SHOWEASTDESC";
 			text = "$STR_UI_EAST";
 			colorText[] = {1,0,0,1};
-			onButtonClick = __EVAL("[east] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
+			onButtonClick = "[east] spawn MCC_fnc_s_group_manage";
 
 			x = 0.70625 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
@@ -127,7 +127,7 @@ class mcc_groupGen
 			tooltip = "$STR_UI_SHOWGUERTDESC";
 			text = "$STR_UI_GUER";
 			colorText[] = {0,1,0,1};
-			onButtonClick = __EVAL("[resistance] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
+			onButtonClick = "[resistance] spawn MCC_fnc_s_group_manage";
 
 			x = 0.757813 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
@@ -140,7 +140,7 @@ class mcc_groupGen
 			idc = -1;
 			tooltip = "$STR_UI_SHOWCIVDESC";
 			text = "$STR_UI_CIV";
-			onButtonClick = __EVAL("[civilian] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
+			onButtonClick = "[civilian] spawn MCC_fnc_s_group_manage";
 
 			x = 0.809375 * safezoneW + safezoneX;
 			y = 0.565974 * safezoneH + safezoneY;
@@ -152,7 +152,7 @@ class mcc_groupGen
 		{
 			idc = -1;
 			tooltip = "$STR_UI_SHOWPLAYERDESC";
-			onButtonClick = __EVAL("['players'] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
+			onButtonClick = "['players'] spawn MCC_fnc_s_group_manage";
 
 			text = "$STR_UI_PLAYER"; //--- ToDo: Localize;
 			x = 0.603125 * safezoneW + safezoneX;
@@ -165,7 +165,7 @@ class mcc_groupGen
 		{
 			idc = -1;
 			tooltip = "$STR_UI_SHOWUNITDESC";
-			onButtonClick = __EVAL("[west,east,resistance,civilian,'players'] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\group_manage.sqf'");
+			onButtonClick = "[west,east,resistance,civilian,'players'] spawn MCC_fnc_s_group_manage";
 
 			text = "$STR_UI_SHOWUNIT"; //--- ToDo: Localize;
 			x = 0.551562 * safezoneW + safezoneX;
@@ -337,7 +337,7 @@ class mcc_groupGen
 			text = "$STR_UI_GHOST";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			tooltip = "$STR_UI_GHOSTDESC";
-			onButtonClick = "if (mcc_missionmaker == (name player)) then {if (captive player) then {player setcaptive false;if (MCC_Chat) then {[['Mission maker is no longer cheating'],'MCC_fnc_globalHint',true,false] call BIS_fnc_MP;};} else {player setcaptive true; if (MCC_Chat) then {[['Mission maker is cheating'],'MCC_fnc_globalHint',true,false] spawn BIS_fnc_MP;}};} else {player globalchat 'Access Denied'};";
+			onButtonClick = "if (mcc_missionmaker == (name player)) then {if (captive player) then {player setcaptive false;if (MCC_Chat) then {['Mission maker is no longer cheating'] remoteExec ['MCC_fnc_globalHint', 0];};} else {player setcaptive true; if (MCC_Chat) then {['Mission maker is cheating'] remoteExec ['MCC_fnc_globalHint', 0];}};} else {player globalchat 'Access Denied'};";
 			x = 0.448438 * safezoneW + safezoneX;
 			y = 0.0491758 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
@@ -350,7 +350,7 @@ class mcc_groupGen
 			text = "$STR_UI_SPEC";
 			tooltip = "$STR_UI_SPECDESC";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onButtonClick = __EVAL("[4] execVM '"+MCCPATH+"mcc\Pop_menu\mission_settings.sqf'");
+			onButtonClick = "[4] spawn MCC_fnc_s_mission_settings";
 
 			x = 0.505729 * safezoneW + safezoneX;
 			y = 0.0491758 * safezoneH + safezoneY;
@@ -374,7 +374,7 @@ class mcc_groupGen
 		class MCC_MissionWIn: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[5] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick = "[5] spawn MCC_fnc_s_tasks_req";
 			text = "$STR_UI_MISSWON";
 			colorText[] = {0,1,0,0.8};
 			tooltip = "$STR_UI_MISSWONDESC";
@@ -389,7 +389,7 @@ class mcc_groupGen
 		class MCC_MissionLost: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[6] execVM '"+MCCPATH+"mcc\pop_menu\tasks_req.sqf'");
+			onButtonClick = "[6] spawn MCC_fnc_s_tasks_req";
 			text = "$STR_UI_MISSFAIL"; //--- ToDo: Localize;
 			colorText[] = {1,0,0,0.8};
 			tooltip = "$STR_UI_MISSFAILDESC"; //--- ToDo: Localize;
@@ -514,10 +514,10 @@ class mcc_groupGen
 		h = 0.46182 * safezoneH;
 
 		text = "";
-		onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseDown.sqf'");
-		onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseUp.sqf'");
-		onMouseButtonDblClick = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseDblClick.sqf'");
-		onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\groupGen\mouseMoving.sqf'");
+		onMouseButtonDown = "[_this] spawn MCC_fnc_s_groupGen_mouseDown";
+		onMouseButtonUp = "[_this] spawn MCC_fnc_s_groupGen_mouseUp";
+		onMouseButtonDblClick = "[_this] spawn MCC_fnc_s_groupGen_mouseDblClick";
+		onMouseMoving = "[_this] spawn MCC_fnc_s_groupGen_mouseMoving";
 	};
 
 	class MCC_Logo: MCC_RscPicture

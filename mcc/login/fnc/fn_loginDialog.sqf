@@ -15,7 +15,7 @@ _ar = [
 	];
 
 // Send data over the network, or when on server, execute directly
-_null = [_ar,"mcc_fnc_login",false,false] call BIS_fnc_MP;
+_null = _ar remoteExec ["mcc_fnc_login", 2];
 
 //Close dialog
 _t = time + 5;
@@ -24,7 +24,7 @@ _missionMaker = missionNamespace getVariable ["mcc_missionmaker",""];
 while {dialog} do {closeDialog 0; sleep 0.1};
 
 while {(missionNamespace getVariable ["mcc_missionmaker",""]) == _missionMaker && time < _t} do {sleep 0.1};
-_null = [nil,nil,nil,nil,0] execVM MCC_path + "mcc\dialogs\mcc_PopupMenu.sqf";
+_null = [nil,nil,nil,nil,0] spawn MCC_fnc_s_mcc_PopupMenu;
 
 
 

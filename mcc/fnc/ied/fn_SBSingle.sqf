@@ -29,7 +29,7 @@ _init = FORMAT [";[_this,' %1','%2',%3] spawn MCC_fnc_manageSB;"
 				, _IEDExplosionType
 				];
 
-[[[netid _sb,_sb], _init], "MCC_fnc_setVehicleInit", false, false] spawn BIS_fnc_MP;
+[[netid _sb,_sb], _init] remoteExec ["MCC_fnc_setVehicleInit", 2];
 
 {_x addCuratorEditableObjects [[_sb],false]} forEach allCurators;
 

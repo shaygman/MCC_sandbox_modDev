@@ -33,7 +33,7 @@ class MCC_respawnDialogControls:MCC_RscControlsGroup
 		class MCC_respawnDialogConfirm: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL("[MCC_currentSide] execVM '"+MCCPATH+"mcc\general_scripts\mcc_start_location.sqf'");
+			onButtonClick = "[MCC_currentSide] spawn MCC_fnc_s_mcc_start_location";
 
 			text = "Set"; //--- ToDo: Localize;
 			x = 0.229167 * safezoneW;

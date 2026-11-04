@@ -174,7 +174,7 @@ class MCC_WeatherDialogControls:MCC_RscControlsGroup
 		{
 			idc = -1;
 			text = "Confirm"; //--- ToDo: Localize;
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\pop_menu\mission_settings.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_mission_settings";
 
 			x = 0.200521 * safezoneW;
 			y = (0.285889+0.043983) * safezoneH;

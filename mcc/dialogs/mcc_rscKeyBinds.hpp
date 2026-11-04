@@ -1,7 +1,7 @@
 class mcc_rscKeyBinds
 {
 	idd = -1;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\mcc_rscKeyBinds_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_rscKeyBinds_init";
 
 	controlsBackground[] =
 	{

@@ -2,19 +2,19 @@
 // Handle CBA keybinds
 //=====================================================================================================================================================================
 //MCC
-["MCC", "openMCC", ["Open MCC", "Open MCC main console"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,0] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path];true}}, {}, [211, [false,true,false]],false] call cba_fnc_addKeybind;
+["MCC", "openMCC", ["Open MCC", "Open MCC main console"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,0] spawn MCC_fnc_s_mcc_PopupMenu;true}}, {}, [211, [false,true,false]],false] call cba_fnc_addKeybind;
 
 //Commander console
-["MCC", "commanderConsole", ["Commander Console", "Player must be its side's commander"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,1] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path];true}}, {}, [207, [false,true,false]],false] call cba_fnc_addKeybind;
+["MCC", "commanderConsole", ["Commander Console", "Player must be its side's commander"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,1] spawn MCC_fnc_s_mcc_PopupMenu;true}}, {}, [207, [false,true,false]],false] call cba_fnc_addKeybind;
 
 //T2T
-["MCC", "t2t", ["Teleport to Team", ""], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[objNull] execVM format["%1mcc\general_scripts\mcc_SpawnToPosition.sqf",MCC_path];true}}, {}, [20, [false,false,true]],false] call cba_fnc_addKeybind;
+["MCC", "t2t", ["Teleport to Team", ""], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[objNull] spawn MCC_fnc_s_mcc_SpawnToPosition;true}}, {}, [20, [false,false,true]],false] call cba_fnc_addKeybind;
 
 //Squad dialog
-["MCC", "squadDialog", ["Squad Management", ""], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,2] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path];true}}, {}, [25, [false,false,false]],false] call cba_fnc_addKeybind;
+["MCC", "squadDialog", ["Squad Management", ""], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,2] spawn MCC_fnc_s_mcc_PopupMenu;true}}, {}, [25, [false,false,false]],false] call cba_fnc_addKeybind;
 
 //SQL PDA
-["MCC", "sqlPDA", ["Squad Leader PDA", "Player must be team leader"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,3] execVM format ["%1mcc\dialogs\mcc_PopupMenu.sqf",MCC_path];true}}, {}, [209, [false,true,false]],false] call cba_fnc_addKeybind;
+["MCC", "sqlPDA", ["Squad Leader PDA", "Player must be team leader"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,3] spawn MCC_fnc_s_mcc_PopupMenu;true}}, {}, [209, [false,true,false]],false] call cba_fnc_addKeybind;
 
 //Interaction
 ["MCC", "interactionKey", ["Interaction", "Interact with objects/units in MCC"], {if (missionNameSpace getVariable ["MCC_interaction",false] && (isnull curatorcamera)) then {[false] call MCC_fnc_CBAInteractionKeybind}}, {[true] call MCC_fnc_CBAInteractionKeybind}, [219, [false,false,false]],false] call cba_fnc_addKeybind;

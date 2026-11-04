@@ -4,7 +4,7 @@ class mcc_loginDialog
 {
 	idd = MCC_LoginDIalog_IDD;
 	movingEnable = true;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\login\scripts\mcc_loginDialog_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_loginDialog_init";
 
 	controlsBackground[] =
 	{
@@ -85,7 +85,7 @@ class mcc_loginDialog
 		{
 			idc = 1006;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged =  __EVAL("[2] execVM '"+MCCPATH+"mcc\Pop_menu\mission_settings.sqf'");
+			onLBSelChanged =  "[2] spawn MCC_fnc_s_mission_settings";
 
 			x = 0.4 * safezoneW + safezoneX;
 			y = 0.34606 * safezoneH + safezoneY;
@@ -97,7 +97,7 @@ class mcc_loginDialog
 		{
 			idc = 1007;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged =  __EVAL("[1] execVM '"+MCCPATH+"mcc\Pop_menu\mission_settings.sqf'");
+			onLBSelChanged =  "[1] spawn MCC_fnc_s_mission_settings";
 			colorText[] = {1,1,1,1};
 
 			x = 0.4 * safezoneW + safezoneX;

@@ -66,7 +66,7 @@ _module setVariable ["mcc_delete",false,true];
 _markerName = format ["ConstCounter_%1",["MCC_ConstCounter_",1] call bis_fnc_counter];
 _module setVariable ["mcc_markerName",_markerName,true];
 
-[[[_markerName], _pos, "colorGreen", "loc_Bunker",_displayName,false],"BIS_fnc_markerCreate", _side,false] call BIS_fnc_MP;
+[[_markerName], _pos, "colorGreen", "loc_Bunker",_displayName,false] remoteExec ["BIS_fnc_markerCreate", _side];
 
 //Building anim
 if !(_instant) then {
@@ -121,9 +121,9 @@ if (_constType != "hq") then {
 
 										{detach _x; deleteVehicle _x} foreach attachedObjects _obj;
 										deleteVehicle _obj;
-										[[[_side], {player addRating (if (playerside != (_this select 0)) then {500} else {-1000})}], "BIS_fnc_spawn", _source, false] spawn BIS_fnc_MP;
+										[_side] remoteExec ["MCC_fnc_rxSideRating", _source];
 
-										[[_text,true],"MCC_fnc_globalHint",_side,false] spawn BIS_fnc_MP;
+										[_text,true] remoteExec ["MCC_fnc_globalHint",_side];
 
 									} else {0};
 								}

@@ -26,7 +26,7 @@ while {(alive _pod) && ((_pod distance _vehicle) < 3 )} do  {
 
 detach _pod;
 
-[[[netid _pod,_pod], "missileLunch"], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
+[[netid _pod,_pod], "missileLunch"] remoteExec ["MCC_fnc_globalSay3D", 0];
 _pod setVelocity [0, 0, -10];
 
 _vehicle setVariable ["MCC_attachedPod",objnull,true];

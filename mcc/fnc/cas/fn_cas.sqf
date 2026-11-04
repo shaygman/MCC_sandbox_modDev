@@ -218,7 +218,7 @@ waituntil {
 				{
 					for [{_x=1},{_x<=12},{_x=_x+1}] do
 					{
-						_nul=[[(_pos select 0)+50 - random 100,(_pos select 1)+50 - random 100,_pos select 2], getpos _plane,"M_AT",200,true,""] execVM MCC_path + "mcc\general_scripts\CAS\missile_guide.sqf";
+						_nul=[[(_pos select 0)+50 - random 100,(_pos select 1)+50 - random 100,_pos select 2], getpos _plane,"M_AT",200,true,""] spawn MCC_fnc_s_missile_guide;
 						[[netid _plane,_plane], "missileLunch"] remoteExec ["MCC_fnc_globalSay3D",0];
 						sleep 0.2;
 					};
@@ -244,7 +244,7 @@ waituntil {
 
 				case 3:	//- Bombs
 				{
-					_nul=[_pos, getpos _plane,"Bo_GBU12_LGB",100,false,""] execVM MCC_path + "mcc\general_scripts\CAS\missile_guide.sqf";
+					_nul=[_pos, getpos _plane,"Bo_GBU12_LGB",100,false,""] spawn MCC_fnc_s_missile_guide;
 				};
 			};
 			*/

@@ -38,7 +38,7 @@ class MCC_jukeboxDialogControls: MCC_RscControlsGroup
 		class MCC_JukeboxMusic: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[6] execVM '"+MCCPATH+"mcc\general_scripts\jukebox\jukebox.sqf'");
+			onButtonClick = "[6] spawn MCC_fnc_s_jukebox";
 
 			text = "Music"; //--- ToDo: Localize;
 			x = 0.00572965 * safezoneW;
@@ -51,7 +51,7 @@ class MCC_jukeboxDialogControls: MCC_RscControlsGroup
 		class MCC_JukeboxSound: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[7] execVM '"+MCCPATH+"mcc\general_scripts\jukebox\jukebox.sqf'");
+			onButtonClick = "[7] spawn MCC_fnc_s_jukebox";
 
 			text = "Sound"; //--- ToDo: Localize;
 			x = 0.0859376 * safezoneW;
@@ -119,7 +119,7 @@ class MCC_jukeboxDialogControls: MCC_RscControlsGroup
 		class MCC_JukeboxLink: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[5] execVM '"+MCCPATH+"mcc\general_scripts\jukebox\jukebox.sqf'");
+			onButtonClick = "[5] spawn MCC_fnc_s_jukebox";
 
 			text = "Link"; //--- ToDo: Localize;
 			x = 0.126042 * safezoneW;
@@ -132,7 +132,7 @@ class MCC_jukeboxDialogControls: MCC_RscControlsGroup
 		class MCC_JukeboxVolume: MCC_RscSlider
 		{
 			idc = MCC_JUKEBOX_VOLUME;
-			onSliderPosChanged = __EVAL ("[4] execVM '"+MCCPATH+"mcc\general_scripts\jukebox\jukebox.sqf'");
+			onSliderPosChanged = "[4] spawn MCC_fnc_s_jukebox";
 
 			x = 0.0572916 * safezoneW;
 			y = 0.109957 * safezoneH;
@@ -182,7 +182,7 @@ class MCC_jukeboxDialogControls: MCC_RscControlsGroup
 		class MCC_JukeboxPlay: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[1] execVM '"+MCCPATH+"mcc\general_scripts\jukebox\jukebox.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_jukebox";
 
 			text = ">"; //--- ToDo: Localize;
 			x = 0.126042 * safezoneW;
@@ -195,7 +195,7 @@ class MCC_jukeboxDialogControls: MCC_RscControlsGroup
 		class MCC_JukeboxStop: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[3] execVM '"+MCCPATH+"mcc\general_scripts\jukebox\jukebox.sqf'");
+			onButtonClick = "[3] spawn MCC_fnc_s_jukebox";
 
 			text = "[]"; //--- ToDo: Localize;
 			x = 0.148959 * safezoneW;

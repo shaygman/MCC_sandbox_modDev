@@ -1331,7 +1331,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8415;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this, 0] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this, 0] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.044 * safezoneH;
@@ -1343,7 +1343,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8416;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this,1] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,1] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.077 * safezoneH;
@@ -1355,7 +1355,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8417;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this,2] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,2] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.143 * safezoneH;
@@ -1367,7 +1367,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8418;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this,3] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,3] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.176 * safezoneH;
@@ -1380,7 +1380,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8419;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this,4] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,4] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.209 * safezoneH;
@@ -1392,7 +1392,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8420;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this,5] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,5] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.11 * safezoneH;
@@ -1404,7 +1404,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			idc = 8421;
 			tooltip = "$STR_LOGIN_CLICKCHANGE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onMouseButtonUp =  __EVAL("[_this,6] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,6] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.242 * safezoneH;
@@ -1417,7 +1417,7 @@ class MCC_keyBindsGroup: MCC_RscControlsGroup
 			tooltip = "$STR_LOGIN_CLICKCLIENTDISABLE";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			text = "Disabled"; //--- ToDo: Localize;
-			onMouseButtonUp =  __EVAL("[_this,7] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\keyBinds.sqf'");
+			onMouseButtonUp =  "[_this,7] spawn MCC_fnc_s_keyBinds";
 
 			x = 0.108281 * safezoneW;
 			y = 0.275 * safezoneH;

@@ -113,7 +113,7 @@ while {alive _suspect && _check} do {
 										{_suspect addmagazine _mag} foreach [1,2,3,4,5];
 										_suspect addweapon _weapon;
 										_suspect selectweapon _weapon;
-										[[[netid _suspect,_suspect], "pig"], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
+										[[netid _suspect,_suspect], "pig"] remoteExec ["MCC_fnc_globalSay3D", 0];
 									};
 
 

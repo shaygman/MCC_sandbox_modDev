@@ -13,7 +13,7 @@ class MCC3D_RSC
 	{    
 		idd = MCC3D_RSC_IDD;
 		duration = 1;
-		onLoad = __EVAL("[] execVM '"+MCCPATH+"mcc\dialogs\mcc_3d_init.sqf'");
+		onLoad = "[] spawn MCC_fnc_s_mcc_3d_init";
 		class controls
 		{
 			class ExampleControl

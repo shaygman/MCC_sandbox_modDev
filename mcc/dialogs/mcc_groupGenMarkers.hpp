@@ -146,7 +146,7 @@ class MCC_markersDialogControls:MCC_RscControlsGroup
 		class MCC_markerSpawnMarker: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[0] execVM '"+MCCPATH+"mcc\pop_menu\markers_req.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_markers_req";
 
 			text = "Marker"; //--- ToDo: Localize;
 			x = 0.177605 * safezoneW;
@@ -159,7 +159,7 @@ class MCC_markersDialogControls:MCC_RscControlsGroup
 		class MCC_markerSpawnBrush: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[1] execVM '"+MCCPATH+"mcc\pop_menu\markers_req.sqf'");
+			onButtonClick = "[1] spawn MCC_fnc_s_markers_req";
 
 			text = "Brush"; //--- ToDo: Localize;
 			x = 0.126042 * safezoneW;
@@ -172,7 +172,7 @@ class MCC_markersDialogControls:MCC_RscControlsGroup
 		class MCC_markerDeleteMarker: MCC_RscButton
 		{
 			idc = -1;
-			onButtonClick = __EVAL ("[2] execVM '"+MCCPATH+"mcc\pop_menu\markers_req.sqf'");
+			onButtonClick = "[2] spawn MCC_fnc_s_markers_req";
 
 			text = "Delete"; //--- ToDo: Localize;
 			x = 0.183334 * safezoneW;

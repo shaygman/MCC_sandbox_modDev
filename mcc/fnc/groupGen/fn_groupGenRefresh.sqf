@@ -14,7 +14,7 @@ private _groupIconHandle = addMissionEventHandler ["GroupIconClick", {
 									"_shift", "_control", "_alt"
 								];
 
-								[_group,_mouseButton,[_posX,_posY],_shift,_control,_alt] execVm format ["%1mcc\general_scripts\groupGen\ClickGroupIcon.sqf",MCC_path];
+								[_group,_mouseButton,[_posX,_posY],_shift,_control,_alt] spawn MCC_fnc_s_ClickGroupIcon;
 							}];
 
 MCC_groupGenRefreshLoop = true;

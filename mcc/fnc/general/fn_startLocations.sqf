@@ -53,7 +53,7 @@ if (!_cpActivated && _respawnDialog) then {
 
 if (_cpActivated) then {
     0 spawn {
-        _null=[] execVM MCC_path + "mcc\roleSelection\scripts\player_init.sqf"
+        _null=[] spawn MCC_fnc_s_player_init
     };
 };
 

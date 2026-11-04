@@ -57,7 +57,7 @@ class MCC_csDialogControls: MCC_RscControlsGroup
 			colorText[] = {1,1,1,1};
 			colorBackground[] = {0,0,0,1};
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged =  __EVAL("[2] execVM '"+MCCPATH+"mcc\Pop_menu\mission_settings.sqf'");			
+			onLBSelChanged =  "[2] spawn MCC_fnc_s_mission_settings";			
 
 			x = 0.0744797 * safezoneW;
 			y = 0.0549788 * safezoneH;
@@ -71,7 +71,7 @@ class MCC_csDialogControls: MCC_RscControlsGroup
 			colorText[] = {1,1,1,1};
 			colorBackground[] = {0,0,0,1};
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged =  __EVAL("[1] execVM '"+MCCPATH+"mcc\Pop_menu\mission_settings.sqf'");
+			onLBSelChanged =  "[1] spawn MCC_fnc_s_mission_settings";
 
 			x = 0.0744797 * safezoneW;
 			y = 0.0879658 * safezoneH;

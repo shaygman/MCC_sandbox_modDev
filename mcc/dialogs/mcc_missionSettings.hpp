@@ -47,7 +47,7 @@ class missionSettings
 		class MissionSettingsButton: MCC_RscButton
 		{
 			idc = -1;
-			action = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
+			action = "[0] spawn MCC_fnc_s_mission_settings_change";
 
 			text = "$STR_UI_MISSIONSETTINGS";
 			x = 0.3 * safezoneW + safezoneX;
@@ -59,7 +59,7 @@ class missionSettings
 		class UISettingsButton: MCC_RscButton
 		{
 			idc = -1;
-			action = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
+			action = "[1] spawn MCC_fnc_s_mission_settings_change";
 
 			text = "UI Settings";
 			x = 0.3 * safezoneW + safezoneX;
@@ -71,7 +71,7 @@ class missionSettings
 		class classMechanicsSettingsButton: MCC_RscButton
 		{
 			idc = -1;
-			action = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
+			action = "[2] spawn MCC_fnc_s_mission_settings_change";
 
 			text = "Mechanics Settings";
 			x = 0.3 * safezoneW + safezoneX;
@@ -83,7 +83,7 @@ class missionSettings
 		class classMedicalSettingsButton: MCC_RscButton
 		{
 			idc = -1;
-			action = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
+			action = "[3] spawn MCC_fnc_s_mission_settings_change";
 
 			text = "Medical System Settings";
 			x = 0.3 * safezoneW + safezoneX;
@@ -95,7 +95,7 @@ class missionSettings
 		class classRSSettingsButton: MCC_RscButton
 		{
 			idc = -1;
-			action = __EVAL("[4] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
+			action = "[4] spawn MCC_fnc_s_mission_settings_change";
 
 			text = "Role Selection Settings";
 			x = 0.3 * safezoneW + safezoneX;
@@ -107,7 +107,7 @@ class missionSettings
 		class classGAIASettingsButton: MCC_RscButton
 		{
 			idc = -1;
-			action = __EVAL("[5] execVM '"+MCCPATH+"mcc\general_scripts\mission_settings\mission_settings_change.sqf'");
+			action = "[5] spawn MCC_fnc_s_mission_settings_change";
 
 			text = "GAIA Settings";
 			x = 0.3 * safezoneW + safezoneX;

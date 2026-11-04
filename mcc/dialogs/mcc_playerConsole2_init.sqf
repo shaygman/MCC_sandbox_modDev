@@ -74,7 +74,7 @@ if ((str (finddisplay mcc_playerConsole2_IDD) != "no display") && (alive MCC_Con
 		MCC_fakeUAV 		= "Camera" camCreate [10,10,10];
 		if (!isnil "MCC_fakeUAVCenter") then {deletevehicle MCC_fakeUAVCenter};
 		MCC_fakeUAVCenter	= "Sign_Sphere10cm_F" createvehicle [((getpos MCC_ConolseUAV) select 0),(getpos MCC_ConolseUAV) select 1, 0];
-		[[[netid MCC_fakeUAVCenter,MCC_fakeUAVCenter], "_this hideObjectGlobal true"], "MCC_fnc_setVehicleInit", false, false] spawn BIS_fnc_MP;
+		[MCC_fakeUAVCenter, true] remoteExec ["hideObjectGlobal", 2];
 		MCC_fakeUAV cameraEffect ["INTERNAL", "BACK", "rendertarget9"];
 		MCC_fakeUAVFOV = 0.6;
 		MCC_fakeUAV camsetTarget MCC_fakeUAVCenter;
@@ -185,7 +185,7 @@ if ((str (finddisplay mcc_playerConsole2_IDD) != "no display") && (alive MCC_Con
 			camdestroy MCC_fakeUAV;
 			MCC_fakeUAV = nil;
 			[(_mccdialog displayctrl MCC_CONSOLE_UAVPIP)] call MCC_fnc_pipOpen;
-			_null = [1] execVM format ["%1mcc\general_scripts\console\conoleSwitchMenu.sqf",MCC_path];
+			_null = [1] spawn MCC_fnc_s_conoleSwitchMenu;
 		};
 	};
 

@@ -30,7 +30,7 @@
 class MCC_playerConsole2 {
   idd = mcc_playerConsole2_IDD;
   movingEnable = 1;
-  onLoad = __EVAL("[] execVM '"+MCCPATH+"mcc\dialogs\mcc_playerConsole2_init.sqf'");
+  onLoad = "[] spawn MCC_fnc_s_mcc_playerConsole2_init";
 
   controlsBackground[] =
   {
@@ -98,7 +98,7 @@ class mcc_consoleF1: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F1";
-	onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleSwitchMenu.sqf'");
+	onButtonClick = "[1] spawn MCC_fnc_s_conoleSwitchMenu";
 	tooltip = "Main Menu";
 };
 class mcc_consoleF2: MCC_RscButton
@@ -109,7 +109,7 @@ class mcc_consoleF2: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F2";
-	onButtonClick = __EVAL("[2] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleSwitchMenu.sqf'");
+	onButtonClick = "[2] spawn MCC_fnc_s_conoleSwitchMenu";
 	tooltip = "UAV Control";
 };
 class mcc_consoleF3: MCC_RscButton
@@ -120,7 +120,7 @@ class mcc_consoleF3: MCC_RscButton
 	w = 0.0229167 * safezoneW;
 	h = 0.0329871 * safezoneH;
 	text = "F3";
-	onButtonClick = __EVAL("[3] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleSwitchMenu.sqf'");
+	onButtonClick = "[3] spawn MCC_fnc_s_conoleSwitchMenu";
 	tooltip = "AC-130 Control";
 };
 class mcc_consoleF4: MCC_RscButton
@@ -132,7 +132,7 @@ class mcc_consoleF4: MCC_RscButton
 	h = 0.0329871 * safezoneH;
 	text = "F4";
 	tooltip = "Forward observer artillery's interface";
-	onButtonClick = __EVAL("[0,0,0,[1]] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleOpenMenu.sqf'");
+	onButtonClick = "[0,0,0,[1]] spawn MCC_fnc_s_conoleOpenMenu";
 };
 class mcc_consoleF5: MCC_RscButton
 {
@@ -219,14 +219,14 @@ class MCC_ConsoleExitButton: MCC_RscButton
 		y = 0.225107 * safezoneH + safezoneY;
 		w = 0.561458 * safezoneW;
 		h = 0.472816 * safezoneH;
-		onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\UAVmouseDown.sqf'");
-		onMouseZChanged = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\UAVmousez.sqf'");
-		onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\UAVmouseMoving.sqf'");
+		onMouseButtonDown = "[_this] spawn MCC_fnc_s_UAVmouseDown";
+		onMouseZChanged = "[_this] spawn MCC_fnc_s_UAVmousez";
+		onMouseMoving = "[_this] spawn MCC_fnc_s_UAVmouseMoving";
 	};
 	class MCC_ConsoleUAVCamera: MCC_RscToolbox
 	{
 		idc = -1;
-		onToolBoxSelChanged = __EVAL("_this execVM '"+MCCPATH+"mcc\general_scripts\console\uav_camView.sqf'");
+		onToolBoxSelChanged = "_this spawn MCC_fnc_s_uav_camView";
 		strings[] = {"Regular","N/V","Thermal"};
 		rows = 1;
 		columns = 3;
@@ -245,7 +245,7 @@ class MCC_ConsoleExitButton: MCC_RscButton
 		y = 0.708919 * safezoneH + safezoneY;
 		w = 0.15 * safezoneW;
 		h = 0.0280063 * safezoneH;
-		onSliderPosChanged = __EVAL("[0,_this] execVM '"+MCCPATH+"mcc\general_scripts\console\uavControl.sqf'");
+		onSliderPosChanged = "[0,_this] spawn MCC_fnc_s_uavControl";
 	};
 	class MCC_ConsoleUAVFlightHightText: MCC_RscText
 	{
@@ -263,7 +263,7 @@ class MCC_ConsoleExitButton: MCC_RscButton
 	class MCC_ConsoleUAVTakeControl: MCC_RscButton
 	{
 		idc = MCC_CONSOLEUAVTAKECONTROL;
-		onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\console\consoleTakeControl.sqf'");
+		onButtonClick = "[0] spawn MCC_fnc_s_consoleTakeControl";
 
 		text = "Take Control"; //--- ToDo: Localize;
 		x = 0.683333 * safezoneW + safezoneX;
@@ -371,7 +371,7 @@ class MCC_ConsoleExitButton: MCC_RscButton
 		w = 0.07 * safezoneW;
 		h = 0.0329871 * safezoneH;
 		text = "Open Map";
-		onButtonClick = __EVAL("[1] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleMap.sqf'");
+		onButtonClick = "[1] spawn MCC_fnc_s_conoleMap";
 		sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
 	};
 };

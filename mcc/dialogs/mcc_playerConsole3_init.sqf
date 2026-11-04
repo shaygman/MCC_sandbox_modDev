@@ -212,7 +212,7 @@ if (dialog && !isNull(missionNamespace getVariable ["MCC_ACConsoleUp",objNull]))
 					missionNamespace setVariable ["MCC_ACConsoleUp",objNull];
 					publicVariable "MCC_ACConsoleUp";
 
-					[[2,compile format ['["MCCNotifications",["AC-130 Left the scene","%1data\AC130_icon.paa",""]] call bis_fnc_showNotification;',MCC_path]], "MCC_fnc_globalExecute", playerSide, false] spawn BIS_fnc_MP;
+					["MCCNotifications",["AC-130 Left the scene",format ["%1data\AC130_icon.paa",MCC_path],""]] remoteExec ["BIS_fnc_showNotification", playerSide];
 				};
 
 				if (isNull(missionNamespace getVariable ["MCC_ACConsoleUp",objNull])) exitWith {
@@ -220,9 +220,9 @@ if (dialog && !isNull(missionNamespace getVariable ["MCC_ACConsoleUp",objNull]))
 					while {dialog} do {closeDialog 0};
 					MCC_ConsoleACMouseButtonDown = false;
 					[(_mccdialog displayctrl MCC_CONSOLE_ACPIP)] call MCC_fnc_pipOpen;
-					_null = [1] execVM format ["%1mcc\general_scripts\console\conoleSwitchMenu.sqf",MCC_path];
+					_null = [1] spawn MCC_fnc_s_conoleSwitchMenu;
 
-					[[2,{["MCCNotifications",["AC-130 Left the scene",format ["%1data\AC130_icon.paa",MCC_path],""]] call bis_fnc_showNotification;}], "MCC_fnc_globalExecute", side player, false] spawn BIS_fnc_MP;
+					["MCCNotifications",["AC-130 Left the scene",format ["%1data\AC130_icon.paa",MCC_path],""]] remoteExec ["BIS_fnc_showNotification", side player];
 				};
 
 				sleep 0.1;

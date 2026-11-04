@@ -23,7 +23,7 @@ class MCC3D_Dialog
 {
 	idd = MCC3D_IDD;
 	movingEnable = false;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\mcc_3d_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_3d_init";
 
 	controlsBackground[] =
 	{
@@ -56,7 +56,7 @@ class MCC3D_Dialog
 			y = 0.0491758 * safezoneH + safezoneY;
 			w = 0.120313 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			onLBSelChanged = __EVAL("[1] execVM '"+MCCPATH+"mcc\pop_menu\faction.sqf'");
+			onLBSelChanged = "[1] spawn MCC_fnc_s_faction";
 		};
 
 		class unit_type : MCC_RscCombo
@@ -67,7 +67,7 @@ class MCC3D_Dialog
 			w = 0.120313 * safezoneW;
 			h = 0.0219914 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged=__EVAL ("[0] execVM '"+MCCPATH+"mcc\pop_menu\group_change3d.sqf'");
+			onLBSelChanged="[0] spawn MCC_fnc_s_group_change3d";
 		};
 
 		class unit_Class : MCC_RscCombo
@@ -78,7 +78,7 @@ class MCC3D_Dialog
 			w = 0.120313 * safezoneW;
 			h = 0.0219914 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
-			onLBSelChanged=__EVAL ("[1] execVM '"+MCCPATH+"mcc\pop_menu\spawn_group3d.sqf'");
+			onLBSelChanged="[1] spawn MCC_fnc_s_spawn_group3d";
 		};
 
 		class setting_Empty : MCC_RscCombo
@@ -89,7 +89,7 @@ class MCC3D_Dialog
 			y = 0.148137 * safezoneH + safezoneY;
 			w = 0.120313 * safezoneW;
 			h = 0.0219914 * safezoneH;
-			onLBSelChanged=__EVAL ("[1] execVM '"+MCCPATH+"mcc\pop_menu\spawn_group3d.sqf'");
+			onLBSelChanged="[1] spawn MCC_fnc_s_spawn_group3d";
 		};
 
 		class nameBox : MCC_RscText
@@ -271,14 +271,14 @@ class MCC3D_Dialog
 
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.65)";
 			text="Add";
-			onButtonClick=__EVAL("[2] execVM '"+MCCPATH+"mcc\pop_menu\spawn_group3d.sqf'");
+			onButtonClick="[2] spawn MCC_fnc_s_spawn_group3d";
 		};
 
 		class MCC3DOpenComp: MCC_RscButton
 		{
 			idc = MCC3DOpenCompIDC;
 			colorDisabled[] = {1,0.4,0.3,0.8};
-			onButtonClick = __EVAL("[0] execVM '"+MCCPATH+"mcc\general_scripts\docobject\compositionManager.sqf'");
+			onButtonClick = "[0] spawn MCC_fnc_s_compositionManager";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 			tooltip = "Open DOC Generator";
 
@@ -293,7 +293,7 @@ class MCC3D_Dialog
 		{
 			idc = -1;
 			colorDisabled[] = {1,0.4,0.3,0.8};
-			onButtonClick = __EVAL("_this execVM '"+MCCPATH+"mcc\general_scripts\boxGen\mcc_boxGen_init.sqf'");
+			onButtonClick = "_this spawn MCC_fnc_s_boxGen_mcc_boxGen_init";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
 			tooltip = "Open Cargo Generator";
 
@@ -327,7 +327,7 @@ class MCC3D_Dialog
 		class MCC_3DCompassMap: MCC_RscMapControl
 		{
 			idc = 0;
-			onMouseButtonDblClick =  __EVAL("[_this,1] execVM '"+MCCPATH+"mcc\general_scripts\3Deditor\mouseDown.sqf'");
+			onMouseButtonDblClick =  "[_this,1] spawn MCC_fnc_s_3Deditor_mouseDown";
 
 			x = 0.78073 * safezoneW + safezoneX;
 			y = 0.719914 * safezoneH + safezoneY;
@@ -339,7 +339,7 @@ class MCC3D_Dialog
 		{
 			idc = -1;
 			colorDisabled[] = {1,0.4,0.3,0.8};
-			onButtonClick = __EVAL("_this execVM '"+MCCPATH+"mcc\general_scripts\3Deditor\openZeus.sqf'");
+			onButtonClick = "_this spawn MCC_fnc_s_openZeus";
 			sizeEx ="(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.9)";
 			tooltip = "Open Zeus";
 

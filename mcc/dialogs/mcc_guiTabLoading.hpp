@@ -6,7 +6,7 @@
 class MCC_SandboxLoading {
 	  idd = MCC_SANDBOXLOADING_IDD;
 	  movingEnable = true;
-	  onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\dialogs\mcc_guiTabLoading_init.sqf'");
+	  onLoad = "_this spawn MCC_fnc_s_mcc_guiTabLoading_init";
 	  
 	  controlsBackground[] = 
 	  {

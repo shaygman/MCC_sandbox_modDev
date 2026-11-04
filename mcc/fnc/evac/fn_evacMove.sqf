@@ -1,6 +1,6 @@
 //===================================================================MCC_fnc_evacMove======================================================================================
 // Move a vehicle across to WP
-// Example:[[[wp1,wp2,wp3], flyInHight, insertion, [netid vehicle,vehicle],assignedCargo  _evac],"MCC_fnc_evacMove",true,false] spawn BIS_fnc_MP;
+// Example:[[wp1,wp2,wp3], flyInHight, insertion, [netid vehicle,vehicle],assignedCargo  _evac] remoteExec ["MCC_fnc_evacMove",0];
 // Params:
 // 	[wp1,wp2,wp3]: array, waypoint positions
 // 	flyInHight: number, if evac is a chopper flight hight, set to 5000 for land or sea vehicle
@@ -115,7 +115,7 @@ else
 
 						if (isMultiplayer) then
 						{
-							 [compile format ["unassignVehicle objectFromNetID '%1'; objectFromNetID '%1' action ['eject', vehicle objectFromNetID '%1']", netID _unit], "BIS_fnc_spawn", _unit, false] spawn BIS_fnc_MP;
+							 _unit remoteExec ["unassignVehicle", _unit]; [_unit, ["eject", vehicle _unit]] remoteExec ["action", _unit];
 						}
 						else
 						{
@@ -239,7 +239,7 @@ else
 			{
 				_rope = _actualRopes select (_forEachIndex % 2);
 
-				[[_x, _rope],"MCC_fnc_fastRopeLocal",_x,false] spawn BIS_fnc_MP;
+				[_x, _rope] remoteExec ["MCC_fnc_fastRopeLocal",_x];
 
 				sleep ( 1 + ((random 6)/10) );
 			} foreach _cargoUnits;
@@ -316,7 +316,7 @@ else
 
 		if (_empty && (!isnil "_startPos")) then
 		{
-			[[[_startPos], _height, 1, [netid _heli,_heli]],"MCC_fnc_evacMove",_heli,false] spawn BIS_fnc_MP;
+			[[_startPos], _height, 1, [netid _heli,_heli]] remoteExec ["MCC_fnc_evacMove",_heli];
 		};
 	};
 };

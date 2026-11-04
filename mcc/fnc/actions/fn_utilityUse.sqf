@@ -101,7 +101,7 @@ if (!(_mag in magazines player) && !(_mag in items player) && !_interaction) the
 };
 
 if (_itemClass in ["MCC_ammoBox"]) then {
-	[[_utility, "Hold %1 to resupply"], "MCC_fnc_createHelper", false] call BIS_fnc_MP;
+	[_utility, "Hold %1 to resupply"] remoteExec ["MCC_fnc_createHelper", 2];
 	_utility spawn	{
 		private ["_t"];
 		_t = time + 600;

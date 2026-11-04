@@ -1,6 +1,6 @@
 //===================================================================MCC_fnc_makeBriefing=================================================================================
 //Server Only - create a Logic based briefing
-//Example:[[_string, _type ,_missionTittle],"MCC_fnc_makeBriefing",false,false] call BIS_fnc_MP;
+//Example:[_string, _type ,_missionTittle] remoteExec ["MCC_fnc_makeBriefing",2];
 // Params:
 // 	_string: string, the briefing string
 //	_type: interger or string, Integer - pre defined mission type or a string for custom one
@@ -64,5 +64,5 @@ if (count _missionInfo > 0) then {
 if (_playMusic in [0,1]) then {
 	_init = format ["0 = _this spawn {if (!isDedicated && (str playerSide ==  '%4')) then {waituntil {alive player};player createDiaryRecord ['diary', ['%1',(toString %3) + '%2']];(_this getVariable 'missionsInfo') spawn MCC_fnc_MWopenBriefing;}};",_tittle, _string ,_missionTittle, _sidePlayer];
 
-	[[[netid _dummy,_dummy], _init], "MCC_fnc_setVehicleInit", true, false] spawn BIS_fnc_MP;
+	[[netid _dummy,_dummy], _init] remoteExec ["MCC_fnc_setVehicleInit", 0];
 };
