@@ -16,9 +16,11 @@ if (count MCC_ConsoleGroupSelected <=0) exitWith {};
 
 _truck = vehicle leader (MCC_ConsoleGroupSelected select 0);
 
-//Find crates types
+//Find crates types: small crates (0-2: ammo, supply, fuel) are shared, big ones differ per side.
+//Use the West list for buying and both lists for picking up crates so East pods are found too.
 _cratesType = missionNamespace getVariable ["MCC_logisticsCrates_TypesWest",[]];
 if (count _cratesType <=0) exitWith {diag_log "MCC Logistics: Error MCC_logisticsCrates_TypesWest not defined"};
+private _allCratesType = _cratesType + ((missionNamespace getVariable ["MCC_logisticsCrates_TypesEast",[]]) - _cratesType);
 
 _attachPoint =switch (getnumber(configfile >> "CfgVehicles" >> typeof _truck >> "side" )) do
 				{
@@ -47,10 +49,11 @@ _fncLoadCrate = {
 	_loadedCrates pushBack (typeof _crate);
 	_truck setVariable ["mcc_supplyTruckCurrentLoad",_loadedCrates, true];
 
-	//reduce cost
-	_res set [_this, (_res select _this) - CRATE_COST];
-	missionNamespace setVariable [format ["MCC_res%1",playerside],_res];
-	publicVariable format ["MCC_res%1",playerside];
+	//reduce cost (server-authoritative)
+	[playerside, _this, -CRATE_COST] call MCC_fnc_resChange;
+
+	//Limited logistics: track the crate's stock
+	if ((missionNamespace getVariable ["MCC_logisticsMode",0]) > 0) then {[_crate] call MCC_fnc_supplyRegister};
 };
 
 if (count _loadedCrates >=_maxLoad) exitWith {[9989,"Maximum Load Reached",5,true] call MCC_fnc_setIDCText;false};
@@ -95,7 +98,7 @@ switch (true) do
 			if (isNull attachedTo _x) then {
 				_nearByCrates pushBack _x;
 			};
-		} foreach (nearestObjects [getposATL _truck, _cratesType ,50]);
+		} foreach (nearestObjects [getposATL _truck, _allCratesType ,50]);
 
 		if (count _nearByCrates >0) then {
 			_crate = _nearByCrates select 0;

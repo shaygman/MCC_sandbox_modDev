@@ -18,6 +18,16 @@ _infinate = param [1, false, [false]];
 if (isNull _object) exitWith {};
 
 _objectAmmo = _object getVariable ["ammoLeft",getNumber (configFile / "CfgVehicles" / typeof _object / "ammo")];
+
+//Limited logistics (Full mode): a registered supply point shares one ammo stock with vehicle rearming,
+//so an empty one stays empty instead of getting a fresh 200, and vehicles are never deleted
+private _limited = !_infinate && {(missionNamespace getVariable ["MCC_logisticsMode",0]) > 1} && {count (_object getVariable ["MCC_supplyCap",[]]) == 3};
+if (_limited && {_objectAmmo <= 0}) exitWith {
+	[9989,"Out of ammo",5,true] call MCC_fnc_setIDCText;
+	systemChat "This supply point is out of ammo";
+};
+private _keepObject = _limited && {_object isKindOf "AllVehicles"};
+
 if (_objectAmmo == 0) then {_objectAmmo = 200};
 
 //Infinate
@@ -42,7 +52,7 @@ player playactionNow "putdown";
 				for "_i" from _magazineCount to (_trashHold-1) do {
 					player addMagazine _magazineClass;
 					_objectAmmo = _objectAmmo - _cost;
-					if (_objectAmmo <= 0) exitWith {deleteVehicle _object};
+					if (_objectAmmo <= 0) exitWith {if (!_keepObject) then {deleteVehicle _object}};
 				};
 			};
 		};
@@ -64,7 +74,7 @@ if (count _eglms >1) then {
 			for "_i" from _magazineCount to (_trashHold-1) do {
 				player addMagazine _magazineClass;
 				_objectAmmo = _objectAmmo - _cost;
-				if (_objectAmmo <= 0) exitWith {deleteVehicle _object};
+				if (_objectAmmo <= 0) exitWith {if (!_keepObject) then {deleteVehicle _object}};
 			};
 		};
 	};
@@ -131,6 +141,8 @@ if (((getNumber(configFile >> "CfgVehicles" >> typeOf player >> "canDeactivateMi
 	};
 };
 
-//Delete if done
-if (_objectAmmo <= 0) exitWith {deleteVehicle _object};
+//Delete if done (a limited-logistics vehicle just runs empty)
+if (_objectAmmo <= 0) exitWith {
+	if (_keepObject) then {_object setVariable ["ammoLeft",0,true]} else {deleteVehicle _object};
+};
 _object setVariable ["ammoLeft",_objectAmmo,true];

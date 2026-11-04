@@ -89,6 +89,7 @@ class CfgFunctions
 		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctionsScripts.hpp"
 		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctionsSecurity.hpp"
+		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctionsSupply.hpp"
 		#include "\mcc_sandbox_mod\mcc\login\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\rts\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\cfg\modules\cfgFunctions.hpp"

@@ -27,11 +27,18 @@ if (uiNameSpace getVariable ["MCC_logisticLoadingPressed", false]) exitWith {};
 uiNameSpace setVariable ["MCC_logisticLoadingPressed", true];
 _truck = vehicle player;
 
-if (typeof vehicle player == "O_Heli_Transport_04_F") then {
-	MCC_logisticsCrates_Types = MCC_logisticsCrates_TypesEast;
-} else {
-	MCC_logisticsCrates_Types = MCC_logisticsCrates_TypesWest;
+//Crate list by the vehicle's side (East vehicles use the East pods), same rule as the load truck dialog
+MCC_logisticsCrates_Types = if (getNumber (configfile >> "CfgVehicles" >> typeof _truck >> "side") == 0) then {MCC_logisticsCrates_TypesEast} else {MCC_logisticsCrates_TypesWest};
+
+//Index of a crate class in the active list, falling back to the other side's list
+private _fnc_crateIndex = {
+	params ["_class"];
+	private _i = MCC_logisticsCrates_Types find _class;
+	if (_i < 0) then {_i = MCC_logisticsCrates_TypesWest find _class};
+	if (_i < 0) then {_i = MCC_logisticsCrates_TypesEast find _class};
+	_i
 };
+private _limited = (missionNamespace getVariable ["MCC_logisticsMode",0]) > 0;
 
 _attachPoint = switch (getnumber(configfile >> "CfgVehicles" >> typeof _truck >> "side" )) do
 				{
@@ -53,13 +60,13 @@ if (_add) then {
 		//if near HQ get type of crate and resources the player want to get or remove
 		if (_startLoad) then {
 			_crateType = MCC_loadTruckC1 lbData (lbCurSel MCC_loadTruckC1);
-			_index = MCC_logisticsCrates_Types find _crateType;
+			_index = [_crateType] call _fnc_crateIndex;
 			if (_index > 5) then {
 				_costFactor = 3;
 				_index = 1;
 			} else {
 				_costFactor = if (_index > 2) then {4} else {1};
-				_index = (_index % 3);
+				_index = ((_index max 0) % 3);
 			};
 			_resLevel = _array select _index;
 		};
@@ -93,10 +100,9 @@ if (_add) then {
 						_loadedCrates set [count _loadedCrates, _crateType];
 						_truck setVariable ["mcc_supplyTruckCurrentLoad",_loadedCrates, true];
 
-						//reduce cost
-						_array set [_index, _resLevel - (CRATE_COST*_costFactor)];
-						missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
-						publicVariable format ["MCC_res%1",playerside];
+						//reduce cost (server-authoritative)
+						[playerside, _index, -(CRATE_COST*_costFactor)] call MCC_fnc_resChange;
+						if (_limited) then {[_crate] call MCC_fnc_supplyRegister};
 					}
 					else
 					{
@@ -132,10 +138,9 @@ if (_add) then {
 					_loadedCrates set [count _loadedCrates, _crateType];
 					_truck setVariable ["mcc_supplyTruckCurrentLoad",_loadedCrates, true];
 
-					//reduce cost
-					_array set [_index, _resLevel - CRATE_COST];
-					missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
-					publicVariable format ["MCC_res%1",playerside];
+					//reduce cost (server-authoritative)
+					[playerside, _index, -CRATE_COST] call MCC_fnc_resChange;
+					if (_limited) then {[_crate] call MCC_fnc_supplyRegister};
 				};
 			}
 			else
@@ -170,9 +175,9 @@ else
 	{
 		_crate =  getSlingLoad _truck;
 		_crateType = typeof _crate;
-		if (_crateType in  MCC_logisticsCrates_Types && _startLoad) then
+		if ((([_crateType] call _fnc_crateIndex) >= 0) && _startLoad) then
 		{
-			_index = MCC_logisticsCrates_Types find _crateType;
+			_index = [_crateType] call _fnc_crateIndex;
 			if (_index > 5) then
 			{
 				_costFactor = 4;
@@ -186,22 +191,11 @@ else
 			_resLevel = _array select _index;
 
 			{ropeDestroy _x} foreach ropes _truck;
-			_factor = if (MCC_isMode) then
-						{
-							switch (_index) do
-							{
-								case 0 : {getAmmoCargo _crate};
-								case 1 : {getRepairCargo _crate};
-								case 2 : {getFuelCargo _crate};
-							};
-						}
-						else {1};
+			_factor = [_crate, _index] call MCC_fnc_supplyRemaining;
 			deleteVehicle _crate;
 
-			//refund cost
-			_array set [_index, _resLevel + (CRATE_COST * _factor * _costFactor)];
-			missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
-			publicVariable format ["MCC_res%1",playerside];
+			//refund cost (server-authoritative)
+			[playerside, _index, CRATE_COST * _factor * _costFactor] call MCC_fnc_resChange;
 		};
 	}
 	else
@@ -210,7 +204,10 @@ else
 		{
 			//get type of crate and resources
 			_crateType = _loadedCrates select (count _loadedCrates -1);
-			_index = MCC_logisticsCrates_Types find _crateType;
+			_index = [_crateType] call _fnc_crateIndex;
+			//Big crates (3-5) are the same resource as the small ones (0-2); unknown crates refund nothing
+			private _refund = _index >= 0;
+			_index = (_index max 0) mod 3;
 			_resLevel = _array select _index;
 
 
@@ -222,16 +219,7 @@ else
 			if (_startLoad) then
 			{
 				detach _crate;
-				_factor = if (MCC_isMode) then
-							{
-								switch (_index) do
-								{
-									case 0 : {getAmmoCargo _crate};
-									case 1 : {getRepairCargo _crate};
-									case 2 : {getFuelCargo _crate};
-								};
-							}
-							else {1};
+				_factor = [_crate, _index] call MCC_fnc_supplyRemaining;
 				deleteVehicle _crate;
 				_unload		= true;
 			}
@@ -278,12 +266,10 @@ else
 				_loadedCrates = _loadedCrates - [-1];
 				_truck setVariable ["mcc_supplyTruckCurrentLoad",_loadedCrates, true];
 
-				if (_startLoad) then
+				if (_startLoad && _refund) then
 				{
-					//refund cost
-					_array set [_index, _resLevel + (CRATE_COST*_factor)];
-					missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
-					publicVariable format ["MCC_res%1",playerside];
+					//refund cost (server-authoritative)
+					[playerside, _index, CRATE_COST*_factor] call MCC_fnc_resChange;
 				};
 			};
 		};

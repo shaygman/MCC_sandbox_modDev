@@ -11,7 +11,8 @@
 		Nothing
 */
 #include "..\defines.sqf"
-private ["_cratesType","_res","_str"];
+private ["_cratesType","_res","_str","_box"];
+private _index = -1;
 
 params [
 	["_side",sideLogic,[sideLogic,""]],
@@ -51,8 +52,7 @@ switch (tolower _boxType) do
 			_str = format ["-%1 <img image='%2' />",CRATE_COST, MCC_ICONAMMO];
 			_box = (_cratesType select 0) createVehicle position player;
 
-			//reduce cost
-			_res set [0, (_res select 0) - CRATE_COST];
+			_index = 0;
 		} else {
 			_str = "Not Enough Ammo";
 		};
@@ -66,8 +66,7 @@ switch (tolower _boxType) do
 			_str = format ["-%1 <img image='%2' />",CRATE_COST, MCC_ICONMETERIALS];
 			_box = (_cratesType select 1) createVehicle position player;
 
-			//reduce cost
-			_res set [1, (_res select 1) - CRATE_COST];
+			_index = 1;
 		} else {
 			_str = "Not Enough Materials";
 		};
@@ -81,15 +80,20 @@ switch (tolower _boxType) do
 			_str = format ["-%1 <img image='%2' />",CRATE_COST, MCC_ICONFUEL];
 			_box = (_cratesType select 2) createVehicle position player;
 
-			//reduce cost
-			_res set [2, (_res select 2) - CRATE_COST];		} else {
+			_index = 2;
+		} else {
 			_str = "Not Enough Fuel";
 		};
 	};
 };
 
-missionNamespace setVariable [format ["MCC_res%1",_side],_res];
-publicVariable format ["MCC_res%1",_side];
+//reduce cost (server-authoritative)
+if (_index >= 0) then {
+	[_side, _index, -CRATE_COST] call MCC_fnc_resChange;
+
+	//Limited logistics: track the crate's stock
+	if ((missionNamespace getVariable ["MCC_logisticsMode",0]) > 0) then {[_box] call MCC_fnc_supplyRegister};
+};
 
 if (_str != "") then {
 	playsound "MCC_pop";

@@ -9,15 +9,16 @@ if (isNull _module) exitWith {};
 if (typeName (_module getVariable ["side",true]) == typeName 1) exitWith {
 
 	_side = [_module getVariable ["side",7]] call BIS_fnc_sideType;
-	_res = [(_module getVariable ["repair",0]),
-	        (_module getVariable ["ammo",0]),
+	//MCC_res<SIDE> order is [ammo, repair, fuel, food, meds]
+	_res = [(_module getVariable ["ammo",0]),
+	        (_module getVariable ["repair",0]),
 	        (_module getVariable ["fuel",0]),
 	        (_module getVariable ["food",0]),
 	        (_module getVariable ["meds",0])
 	        ];
 	waitUntil {time > 1};
-	_argName = format ["MCC_res%1",_side];
-	missionNamespace setVariable [_argName,_res];
+	//Server sets and broadcasts it (module init runs on every machine, only the server's write counts)
+	if (isServer) then {[_side, "all", _res] call MCC_fnc_resChange};
 };
 
 //Not curator exit
@@ -37,15 +38,15 @@ _pos = getpos _module;
 if (count _resualt == 0) exitWith {deleteVehicle _module};
 
 _side = [east,west,resistance] select (_resualt select 0);
-_res = [(_resualt select 1),
-        (_resualt select 2),
+//Dialog order is Materials(repair), Ammo, Fuel, Food, Meds - MCC_res<SIDE> order is [ammo, repair, fuel, food, meds]
+_res = [(_resualt select 2),
+        (_resualt select 1),
         (_resualt select 3),
         (_resualt select 4),
         (_resualt select 5)
         ];
 
-_argName = format ["MCC_res%1",_side];
-missionNamespace setVariable [_argName,_res];
-publicVariable _argName;
+//Server-authoritative write (forwarded to the server when the curator is a client)
+[_side, "all", _res] call MCC_fnc_resChange;
 
 deleteVehicle _module;

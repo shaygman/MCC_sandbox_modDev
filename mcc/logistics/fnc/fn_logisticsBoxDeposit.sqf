@@ -50,6 +50,11 @@ _str = "";
 //If it is a big create
 _cost = if (_cratesType > 2) then {CRATE_COST*2} else {CRATE_COST};
 
+//Limited logistics: a used crate is worth only what is left in it
+if ((missionNamespace getVariable ["MCC_logisticsMode",0]) > 0) then {
+	_cost = floor (_cost * ([_object, _cratesType mod 3] call MCC_fnc_supplyRemaining));
+};
+
 switch (_cratesType mod 3) do
 {
 	//Ammo
@@ -57,7 +62,6 @@ switch (_cratesType mod 3) do
 	{
 		//Add cost
 		_str = format ["+%1 <img image='%2' />",_cost, MCC_ICONAMMO];
-		_res set [0, (_res select 0) + _cost];
 	};
 
 	//Materials
@@ -65,7 +69,6 @@ switch (_cratesType mod 3) do
 	{
 		//Add cost
 		_str = format ["+%1 <img image='%2' />",_cost, MCC_ICONMETERIALS];
-		_res set [1, (_res select 1) + _cost];
 	};
 
 	//Fuel
@@ -73,14 +76,13 @@ switch (_cratesType mod 3) do
 	{
 		//Add cost
 		_str = format ["+%1 <img image='%2' />",_cost, MCC_ICONFUEL];
-		_res set [2, (_res select 2) + _cost];
 	};
 };
 
 deleteVehicle _object;
 
-missionNamespace setVariable [format ["MCC_res%1",_side],_res];
-publicVariable format ["MCC_res%1",_side];
+//add resources (server-authoritative)
+[_side, _cratesType mod 3, _cost] call MCC_fnc_resChange;
 
 //UI notification
 if (_str != "") then {

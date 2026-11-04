@@ -436,6 +436,142 @@ class Cfg3DEN
 					collapsed = 1;
 					class Attributes
 					{
+						class MCC_logisticsMode
+						{
+							displayName = "Limited Logistics";
+							tooltip = "Off: unlimited supply as before. Fuel only / Full: supply trucks, crates and vehicle service run out and refill at bases from side resources.";
+							property = "MCC_logisticsMode";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "Fuel only"; value = 1;};
+								class V3 {name = "Full (fuel, ammo, repair)"; value = 2;};
+							};
+						};
+						class MCC_MWmaxObjectives
+						{
+							displayName = "Mission Wizard: Max Objectives";
+							tooltip = "Objectives per Mission Wizard mission (extra ones above 3 are random types).";
+							property = "MCC_MWmaxObjectives";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "1"; value = 1;};
+								class V2 {name = "2"; value = 2;};
+								class V3 {name = "3"; value = 3;};
+								class V4 {name = "4"; value = 4;};
+								class V5 {name = "5"; value = 5;};
+								class V6 {name = "6"; value = 6;};
+								class V7 {name = "7"; value = 7;};
+								class V8 {name = "8"; value = 8;};
+							};
+						};
+						class MCC_MWmissionSize
+						{
+							displayName = "Mission Wizard: Mission Size";
+							tooltip = "Multiplier on the number of enemies.";
+							property = "MCC_MWmissionSize";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Small"; value = 0.5;};
+								class V2 {name = "Normal"; value = 1;};
+								class V3 {name = "Large"; value = 1.75;};
+								class V4 {name = "Huge"; value = 2.5;};
+							};
+						};
+						class MCC_MWmaxSpawnedUnits
+						{
+							displayName = "Mission Wizard: Max Spawned Units";
+							tooltip = "Performance cap on units one mission or campaign AO may spawn.";
+							property = "MCC_MWmaxSpawnedUnits";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "50"; value = 50;};
+								class V2 {name = "100"; value = 100;};
+								class V3 {name = "150"; value = 150;};
+								class V4 {name = "200"; value = 200;};
+								class V5 {name = "300"; value = 300;};
+								class V6 {name = "400"; value = 400;};
+								class V7 {name = "600"; value = 600;};
+							};
+						};
+						class MCC_campaignMaxAOs
+						{
+							displayName = "Campaign: Simultaneous AOs";
+							tooltip = "How many campaign areas of operation can be active at once.";
+							property = "MCC_campaignMaxAOs";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "1"; value = 1;};
+								class V2 {name = "2"; value = 2;};
+								class V3 {name = "3"; value = 3;};
+							};
+						};
+						class MCC_campaignAOSize
+						{
+							displayName = "Campaign: AO Size";
+							tooltip = "Objective radius (m) of every campaign AO.";
+							property = "MCC_campaignAOSize";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "150 m"; value = 150;};
+								class V2 {name = "300 m"; value = 300;};
+								class V3 {name = "500 m"; value = 500;};
+								class V4 {name = "750 m"; value = 750;};
+								class V5 {name = "1000 m"; value = 1000;};
+								class V6 {name = "1500 m"; value = 1500;};
+							};
+						};
+						class MCC_campaignAmbientCap
+						{
+							displayName = "Campaign: Ambient Groups Cap";
+							tooltip = "Max ambient enemy groups kept around players.";
+							property = "MCC_campaignAmbientCap";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "0"; value = 0;};
+								class V2 {name = "6"; value = 6;};
+								class V3 {name = "12"; value = 12;};
+								class V4 {name = "18"; value = 18;};
+								class V5 {name = "30"; value = 30;};
+								class V6 {name = "45"; value = 45;};
+								class V7 {name = "60"; value = 60;};
+							};
+						};
 						class MCC_networkSecurity
 						{
 							displayName = "Network Security";

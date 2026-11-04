@@ -421,3 +421,5 @@ class MCC_fnc_rxApplyFatigue {allowedTargets=0;};
 class GAIA_fnc_cache {allowedTargets=0;};
 class GAIA_fnc_uncache {allowedTargets=0;};
 class GAIA_fnc_syncCachedGroup {allowedTargets=0;};
+class MCC_fnc_resChange {allowedTargets=2;};
+class MCC_fnc_supplyRegister {allowedTargets=2;};

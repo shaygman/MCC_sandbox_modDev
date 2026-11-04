@@ -9,6 +9,7 @@
 #include "mcc\settings\commanderConsoleSettings.sqf"
 #include "mcc\settings\respawnSettings.sqf"
 #include "mcc\settings\classesSettings.sqf"
+#include "mcc\settings\logisticsSettings.sqf"
 
 //Medic system
 #include "mcc\medic\XEH_preinit.sqf"

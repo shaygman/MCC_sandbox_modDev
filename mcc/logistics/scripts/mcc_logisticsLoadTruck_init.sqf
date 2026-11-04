@@ -34,7 +34,8 @@ _sideID = playerside call BIS_fnc_sideID;
 _startLoad = player getVariable ["mcc_logTruck_screenStart",false];
 
 _isHeli = (vehicle player isKindOf "helicopter");
-MCC_logisticsCrates_Types = MCC_logisticsCrates_TypesWest;
+//Crate list by the vehicle's side (East vehicles use the East pods), same rule as MCC_fnc_logTruckAdd
+MCC_logisticsCrates_Types = if (getNumber (configfile >> "CfgVehicles" >> typeof vehicle player >> "side") == 0) then {MCC_logisticsCrates_TypesEast} else {MCC_logisticsCrates_TypesWest};
 
 //Are we next to the HQ?
 if (_startLoad) then {
@@ -43,10 +44,6 @@ if (_startLoad) then {
 	if (vehicle player isKindOf "helicopter") then {
 		{_x ctrlShow false} foreach [MCC_loadTruckOutpot,MCC_loadTruckOutpot3];
 
-		//Are we using the Tarou
-		if (typeof vehicle player == "O_Heli_Transport_04_F") then {
-			MCC_logisticsCrates_Types = MCC_logisticsCrates_TypesEast;
-		};
 
 		_maxLoad = getNumber(configfile >> "CfgVehicles" >> typeof vehicle player >> "maximumLoad");
 

@@ -16,6 +16,7 @@ if (count MCC_ConsoleGroupSelected <=0) exitWith {};
 
 _truck = vehicle leader (MCC_ConsoleGroupSelected select 0);
 _cratesType = missionNamespace getVariable ["MCC_logisticsCrates_TypesWest",[]];
+private _cratesTypeEast = missionNamespace getVariable ["MCC_logisticsCrates_TypesEast",[]];
 
 _attachPoint = switch (getnumber(configfile >> "CfgVehicles" >> typeof _truck >> "side" )) do
 				{
@@ -40,6 +41,10 @@ if (count _loadedCrates >0) then {
 	//get type of crate and resources
 	_crateType = _loadedCrates select (count _loadedCrates -1);
 	_index = _cratesType find _crateType;
+	if (_index < 0) then {_index = _cratesTypeEast find _crateType};
+	//Big crates (3-5) map to the same resource as the small ones (0-2); unknown crates refund nothing
+	private _refund = _index >= 0;
+	_index = (_index max 0) mod 3;
 	_resLevel = _res select _index;
 
 
@@ -50,14 +55,7 @@ if (count _loadedCrates >0) then {
 
 	if (_startLoad) then {
 		detach _crate;
-		_factor = if (MCC_isMode) then {
-						switch (_index) do
-						{
-							case 0 : {getAmmoCargo _crate};
-							case 1 : {getRepairCargo _crate};
-							case 2 : {getFuelCargo _crate};
-						};
-					} else {1};
+		_factor = [_crate, _index] call MCC_fnc_supplyRemaining;
 		deleteVehicle _crate;
 		_unload		= true;
 	} else {
@@ -96,11 +94,9 @@ if (count _loadedCrates >0) then {
 		_loadedCrates = _loadedCrates - [-1];
 		_truck setVariable ["mcc_supplyTruckCurrentLoad",_loadedCrates, true];
 
-		if (_startLoad) then {
-			//refund cost
-			_res set [_index, _resLevel + (CRATE_COST*_factor)];
-			missionNamespace setVariable [format ["MCC_res%1",playerside],_res];
-			publicVariable format ["MCC_res%1",playerside];
+		if (_startLoad && _refund) then {
+			//refund cost (server-authoritative)
+			[playerside, _index, CRATE_COST*_factor] call MCC_fnc_resChange;
 		};
 	};
 };

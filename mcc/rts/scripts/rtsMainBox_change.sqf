@@ -210,9 +210,7 @@ switch (_index) do {
 						    	    case "med":  {4};
 						    	    default {0};
 						    	};
-						_resources = missionNamespace getVariable [format ["MCC_res%1", playerSide],[500,500,200,200,100]];
-						_resources set [_resIndex, ((_resources select _resIndex)+_valor)];
-						publicVariable (format ["MCC_res%1", playerSide,_resources]);
+						[playerSide, _resIndex, _valor] call MCC_fnc_resChange;
 					};
 				};
 

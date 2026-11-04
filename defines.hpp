@@ -73,6 +73,7 @@ class CfgFunctions
 		#include "mcc\cfg\cfgFunctions.hpp"
 		#include "mcc\cfg\cfgFunctionsScripts.hpp"
 		#include "mcc\cfg\cfgFunctionsSecurity.hpp"
+		#include "mcc\cfg\cfgFunctionsSupply.hpp"
 		#include "mcc\login\cfgFunctions.hpp"
 		#include "mcc\rts\cfgFunctions.hpp"
 		#include "mcc\cfg\modules\cfgFunctions.hpp"

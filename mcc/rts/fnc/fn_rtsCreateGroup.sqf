@@ -26,7 +26,8 @@ _side = switch (tolower _playerside) do
 _cfg =  if (isClass (missionconfigFile >> "cfgMCCRtsGroups")) then {missionConfigFile >> "cfgMCCRtsGroups" >> _cfgName} else {configFile >> "cfgMCCRtsGroups" >> _cfgName};
 _res = getArray (_cfg >> "resources");
 
-_groupArray =getArray (_cfg >> format ["units%1",_side]);
+//RHS/CUP variant of the group when that mod is loaded (falls back to units<Side>[])
+_groupArray = [_cfg, _side] call MCC_fnc_compatGroupUnits;
 
 
 if (count MCC_ConsoleGroupSelected <=0) exitWith {};

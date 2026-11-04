@@ -36,3 +36,6 @@ class switchMove {allowedTargets=0;};
 class titleFadeOut {allowedTargets=0;};
 class titleText {allowedTargets=0;};
 class unassignVehicle {allowedTargets=0;};
+class setAmmoCargo {allowedTargets=0;};
+class setRepairCargo {allowedTargets=0;};
+class setFuelCargo {allowedTargets=0;};
