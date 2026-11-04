@@ -227,6 +227,16 @@ private _ZoneCenters = createHashMap;
    						{_x setVariable ["GAIA_LeadPosition", [(position leader _x),1], false];	};
 
    					 _class = _x getVariable ["GAIA_class",[]];
+
+   					 //Stuck vehicle crews (tanks, armed cars, AA without passengers): unstick action.
+   					 //GAIA_fnc_unstick skips HBQ Driving AI, groups with men on foot, passengers or rides
+   					 //(GAIA_fnc_vehicleTick handles those), groups in combat and waiting waypoints.
+   					 if ((((_x getVariable ["GAIA_LeadPosition",[[],0]]) select 1) > (missionNamespace getVariable ["GAIA_STUCK_CYCLES", 4])) && {!(_class in ["Infantry","ReconInfantry"])}) then
+   					 {
+   					 	if ([_x] call GAIA_fnc_unstick) then {_x setVariable ["GAIA_LeadPosition", [(position leader _x),1], false];};
+   					 };
+
+   					 //Infantry: the old leader teleport stays off
    					 /*
    					 if ((_class in ["Infantry","ReconInfantry"]) and (behaviour leader _x	!="COMBAT") and ((_gaia_LeadPos select 1)>7)) then
    						{(leader _x) setpos (position(([((units _x)-[leader _x])] call BIS_fnc_selectRandom)select 0))};

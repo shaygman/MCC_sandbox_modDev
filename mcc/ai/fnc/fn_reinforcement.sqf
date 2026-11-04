@@ -47,7 +47,8 @@ if(count _vehiclesTypesArray < 2) then {
 if ( (count _vehiclesTypesArray) == 0 ) exitWith { diag_log format ["MCC Warning: no suitable reinforcement group found for %1", _this]; systemchat format ["Error: no suitable reinforcement group for this Faction"]; };
 
 //Find a road
-_nearRoads = ([_startPosDir,500] call MCC_fnc_nearestRoad) select 0;
+//MCC_fnc_nearestRoad returns the sorted road array (empty when there is no road)
+_nearRoads = ([_startPosDir,500] call MCC_fnc_nearestRoad) param [0, objNull];
 
 if ( isnull _nearRoads) exitWith { diag_log format ["MCC Warning: no suitable reinforcement place found for %1", _this]; systemchat format ["Error: no suitable reinforcement place found"]; };
 _startPosDir = getposAtl _nearRoads;
@@ -60,8 +61,11 @@ _limit = [2,3,4] select _size;
 _counter = 1;
 _vehiclesArray = [];
 
-while {_counter <=_limit} do
+//Give up after 50 picks when the faction has no vehicle with seats or turrets (used to loop forever)
+private _attempts = 0;
+while {_counter <=_limit && {_attempts < 50}} do
 {
+	_attempts = _attempts + 1;
 	_vehicleClass = (_vehiclesTypesArray call BIS_fnc_selectRandom) select 0;
 
 	if ((getNumber (configfile >> "CfgVehicles" >> _vehicleClass >> "transportSoldier") > 2) || (count (configfile >> "CfgVehicles" >> _vehicleClass >> "Turrets") >0)) then
@@ -76,6 +80,7 @@ while {_counter <=_limit} do
 		{_x addCuratorEditableObjects [[(_vehicle select 0)],true]} forEach allCurators;
 	};
 };
+if (_vehiclesArray isEqualTo []) exitWith {deleteGroup _groupVehicles; diag_log format ["MCC Warning: no suitable reinforcement vehicle found for %1", _this];};
 sleep 0.5;
 _groupVehicles setFormation "COLUMN";
 
@@ -87,7 +92,8 @@ _cargoyGroupArray = [];
 sleep 1;
 
 //Find a road near destination
-_nearRoads = ([_endPos,500] call MCC_fnc_nearestRoad) call BIS_fnc_selectRandom;
+_nearRoads = [_endPos,500] call MCC_fnc_nearestRoad;
+_nearRoads = if (_nearRoads isEqualTo []) then {objNull} else {selectRandom _nearRoads};
 
 //Add WP
 private ["_wpPos","_car1","_car","_transportCars","_transportCarsGroup"];

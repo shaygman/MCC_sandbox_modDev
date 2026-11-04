@@ -3,6 +3,10 @@ Function: fnc_GAIA_Issue orders.
 
 Description:
 	This function sends all groups of GAIA on their new destination. May the force be with us!
+	Phases: cancel obsolete orders, fortify, attacks on conflict areas (the groups
+	picked per CA get coordinated roles from GAIA_fnc_assignRoles), clear spots,
+	mortar / artillery fire, support requests (GAIA_fnc_requestSupport: artillery,
+	CAS, reinforcements), non combat orders, transport, ambient.
 
 Parameters:
 	- Side
@@ -160,7 +164,7 @@ private _fnc_caCost = {
 						!((_x getVariable  ["GAIA_MortarTarget",[0,0,0]]) in _ca)
 						and
 						//The order he has is indeed mortar stuff.
-						((_x getVariable  ["GAIA_Order",""]) == "DoMortar")
+						((_x getVariable  ["GAIA_Order",""]) in ["DoMortar","DoArtillery"])
 						and
 						//He has actualy opened up his mortar rounds by atleast first cycle
 						(_x getVariable ["GAIA_MortarRound",0]>0)
@@ -326,6 +330,9 @@ private _fnc_caCost = {
 	// Send a minimum of groups, even if points are met
 	_NrGrpsSend  = 0;
 
+	//Groups picked for this CA this cycle; GAIA_fnc_assignRoles gives them attack / flank / support-by-fire / hold roles
+	private _responders = [];
+
 	//Now for each group make sure we check what he needs to do.
 	{
 		 if (
@@ -476,7 +483,7 @@ private _fnc_caCost = {
 					  							_CaHoldsValidTargets
 								  					 )										: {
 
-								  					 														_dummy=[_x,_SelectCA] call GAIA_fnc_doAttack;
+								  					 														_responders pushBack _x;
 								  					 														_PointsSpend = _PointsSpend + _Grpcost;
 								  					 														_NrGrpsSend	 = _NrGrpsSend + 1;
 								  																	};
@@ -497,7 +504,7 @@ private _fnc_caCost = {
 					  							_CaHoldsValidTargets
 								  					 )										: {
 
-								  					 														_dummy=[_x,_SelectCA] call GAIA_fnc_doAttack;
+								  					 														_responders pushBack _x;
 								  					 														_PointsSpend = _PointsSpend + _Grpcost;
 								  					 														_NrGrpsSend	 = _NrGrpsSend + 1;
 								  																	};
@@ -508,6 +515,10 @@ private _fnc_caCost = {
 		 };
 		 //Next group (no sleep per group anymore)
 	}forEach 	([_sideGroups,[_SelectCA],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+
+	//One pass for the whole CA: roles instead of every group attacking on its own
+	//(one responder, or MCC_GAIA_COORDINATION off: plain GAIA_fnc_doAttack as before)
+	[_side, _SelectCA, _responders, _sideGroups] call GAIA_fnc_assignRoles;
 
 
 
@@ -613,7 +624,7 @@ private _clearCandidates = _sideGroups select {("DoClear" in (_x getVariable  ["
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									MORTAR & ARTILLERY ORDERS
-//									REMARK: Version 1 of GAIA has same functionality for artillery as for mortar
+//									Mortars: GAIA_fnc_doMortar, artillery (class Artillery): GAIA_fnc_doArtillery
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //Groups that may hold a mortar target (for the "already fired on" check)
@@ -622,13 +633,13 @@ private _mortarCandidates = _sideGroups select {
 	or {"DoMortar" in (_x getVariable  ["GAIA_Portfolio",[]])}
 	or {"DoArtillery" in (_x getVariable  ["GAIA_Portfolio",[]])}
 };
-//Friendly troops within 200m of a CA, once per CA
+//Danger close: friendly troops near a position, once per position (GAIA_fnc_dangerClose, one nearEntities)
 private _friendlyNearCache = createHashMap;
 private _fnc_friendlyNearCA = {
 	params ["_caPos"];
 	private _near = _friendlyNearCache get _caPos;
 	if (isNil "_near") then {
-		_near = ({side _x == (_HQ_side)} count nearestObjects [_caPos,["Man","Car","Tank"],200]) > 0;
+		_near = [_caPos, _HQ_side] call GAIA_fnc_dangerClose;
 		_friendlyNearCache set [_caPos, _near];
 	};
 	_near
@@ -642,8 +653,6 @@ private _fnc_friendlyNearCA = {
 			   			((side _x) == _HQ_side)
 			   			and
 			   			(count(units _x)>0)
-			   			//and
-			   			//((behaviour leader _x)!="COMBAT")
 			   			and
 					   	(alive (leader _x))
 					   	and
@@ -669,60 +678,62 @@ private _fnc_friendlyNearCA = {
 		   			)
 		   	 then
 		   	 {
-
-
+		   	 		//Self propelled / rocket artillery (class Artillery) uses its own fire mission
+		   	 		private _fnc_fire = if ("DoArtillery" in (_grp getVariable  ["GAIA_Portfolio",[]])) then {GAIA_fnc_doArtillery} else {GAIA_fnc_doMortar};
 		   	 		_MortarFired = false;
+
+		   	 		if ((_grp getVariable ["GAIA_MortarRound",0])>0) then
 		   	 		{
-		   	 			_SelectCA = _x;
-
-
-		   	 			//Anybody of us near?
-		   	 			if 	(
-			   	 					!([_SelectCA] call _fnc_friendlyNearCA)
-			   	 					and
-			   	 					//dont go for stupid targets please.
-			   	 					//if mixed, he will still fire (unknown)
-			   	 					!((([_SelectCA] call _fnc_caCost)select 0) in ["Car","Tank","Helicopter","Ship","Support","Autonomous","Submarine"])
-			   	 					and
-			   	 					//Dont fire on something we already fire on
-			   	 					!((_mortarCandidates findIf {(_x != _grp) and {alive (leader _x)} and {(( _x getVariable ["GAIA_MortarTarget",[0,0,0]] distance _SelectCA )==0)}}) > -1)
-			   	 					and
-			   	 					(
-													(((_grp getVariable  ["GAIA_zone_intend",[]]) select 1)=="MOVE")
-												 	or
-												 	(
-												 		(((_grp getVariable  ["GAIA_zone_intend",[]]) select 1)=="NOFOLLOW")
-												 		and
-												 		([_SelectCA,((_grp getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
-												 	)
-										)
-		   	 					)
-		   	 			then
-		   	 				{
-
-
-		   	 				   //player globalchat format ["Mortar fired:%1",_grp];
-		   	 					_MortarFired = [_grp,_SelectCA] call GAIA_fnc_doMortar;
-		   	 				}
+		   	 			//Busy: finish the fire mission on its target (also missions called by GAIA_fnc_requestSupport),
+		   	 			//unless our troops got close. (The cancel phase above drops it when the CA is gone.)
+		   	 			private _target = _grp getVariable ["GAIA_MortarTarget",[0,0,0]];
+		   	 			if ([_target] call _fnc_friendlyNearCA) then
+		   	 			{
+		   	 				_grp setVariable ["GAIA_MortarRound"					, 0, false];
+		   	 				_grp setVariable ["GAIA_MortarTarget"					, [0,0,0], false];
+		   	 			}
 		   	 			else
-		   	 				{
+		   	 			{
+		   	 				_MortarFired = [_grp,_target] call _fnc_fire;
+		   	 			};
+		   	 		}
+		   	 		else
+		   	 		{
+			   	 		{
+			   	 			_SelectCA = _x;
 
-		   	 					//Cancel! We got troops close!
-		   	 					if ((_grp getVariable ["GAIA_MortarRound",0])>0)
-			   	 				then
-			   	 					{
-			   	 						_grp setVariable ["GAIA_MortarRound"					, 0, false];
-											_grp setVariable ["GAIA_MortarTarget"					, [0,0,0], false];
-										};
-
-
-		   	 				};
-		   	 		  if (isNil "_MortarFired") then {_MortarFired = false};
-		   	 		  if (_MortarFired) exitwith {true;};
-		   	 		} forEach _CA;
+			   	 			if 	(
+				   	 					//Anybody of us near?
+				   	 					!([_SelectCA] call _fnc_friendlyNearCA)
+				   	 					and
+				   	 					//dont go for stupid targets please.
+				   	 					//if mixed, he will still fire (unknown)
+				   	 					!((([_SelectCA] call _fnc_caCost)select 0) in ["Car","Tank","Helicopter","Ship","Support","Autonomous","Submarine"])
+				   	 					and
+				   	 					//Dont fire on something we already fire on
+				   	 					!((_mortarCandidates findIf {(_x != _grp) and {alive (leader _x)} and {(( _x getVariable ["GAIA_MortarTarget",[0,0,0]] distance _SelectCA )==0)}}) > -1)
+				   	 					and
+				   	 					//MOVE: anywhere. NOFOLLOW: in its zone (or anywhere with MCC_GAIA_ARTY_OUTSIDE_ZONE)
+				   	 					([_grp,_SelectCA] call GAIA_fnc_artyMayFire)
+			   	 				)
+			   	 			then
+			   	 				{
+			   	 					_MortarFired = [_grp,_SelectCA] call _fnc_fire;
+			   	 				};
+			   	 		  if (isNil "_MortarFired") then {_MortarFired = false};
+			   	 		  if (_MortarFired) exitwith {true;};
+			   	 		} forEach _CA;
+		   	 		};
 		   	 };
 
 }  forEach _sideGroups;
+
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//									SUPPORT REQUESTS (artillery / CAS / reinforcements)
+// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//Threatening CAs with our groups in contact get one support response each (cooldowns, budgets, danger close)
+[_side, _CA, _caCostCache, _sideGroups, _lambsGroups] call GAIA_fnc_requestSupport;
+
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									NON COMBAT ORDERS
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =

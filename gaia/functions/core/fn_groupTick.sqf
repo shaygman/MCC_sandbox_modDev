@@ -19,7 +19,10 @@ Description:
 		         (serialize and delete, restored by GAIA_fnc_cacheRestoreTick).
 	Vehicles:
 		GAIA groups (with a GAIA_ZONE_INTEND) are passed to GAIA_fnc_vehicleTick
-		when that function exists.
+		when that function exists (it exits for groups that are not local).
+	Headless client groups:
+		GAIA_class / GAIA_Order / GAIA_OrderPosition are sent to the owning
+		headless client when they change, so its vehicle tick sees the orders.
 
 Parameters:
 	0: GROUP
@@ -63,6 +66,28 @@ if (_group getVariable ["mcc_gaia_cache", false]) then {
 	//Stage 2: far from every player -> serialize and delete
 	if !([getPosATL _leader, missionNamespace getVariable ["GAIA_CACHE_STAGE_2", 2000]] call GAIA_fnc_isNearPlayer) then {
 		[_group] call GAIA_fnc_cacheFar;
+	};
+};
+
+//------------------------------- Headless client sync -------------------------------
+//GAIA_fnc_vehicleTick runs where the group is local (headless client: see GAIA_fnc_perFrame).
+//The order variables it reads are set server-local by classifySide / issueOrders: send them to
+//the owner when they change.
+if (!isNull _group && {!local _group} && {(_group getVariable ["GAIA_ZONE_INTEND", []]) isNotEqualTo []}) then {
+	private _owner = groupOwner _group;
+	private _sync = [
+		_group getVariable ["GAIA_class", ""],
+		_group getVariable ["GAIA_Order", ""],
+		_group getVariable ["GAIA_OrderPosition", []],
+		_owner
+	];
+	if ((_group getVariable ["GAIA_HCSYNC", []]) isNotEqualTo _sync) then {
+		_group setVariable ["GAIA_HCSYNC", _sync];
+		if (_owner > 2) then {
+			_group setVariable ["GAIA_class", _sync select 0, _owner];
+			_group setVariable ["GAIA_Order", _sync select 1, _owner];
+			_group setVariable ["GAIA_OrderPosition", _sync select 2, _owner];
+		};
 	};
 };
 

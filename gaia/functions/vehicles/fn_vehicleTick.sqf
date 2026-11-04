@@ -65,6 +65,10 @@ if (!isNull _veh && {!alive _veh || {!canMove _veh}}) then {
 	_veh = objNull;
 };
 
+// Pure crew groups (tanks, armed cars without passengers) are not dismounted: they fight from the vehicle.
+// GAIA_fnc_unstick handles their stuck vehicles.
+if (!isNull _veh && {!(_group getVariable ["GAIA_isRide", false])} && {(units _group) findIf {toLowerANSI ((assignedVehicleRole _x) param [0, ""]) == "cargo"} == -1} && {(units _group) findIf {alive _x && {vehicle _x == _x}} == -1}) exitWith {};
+
 private _onFoot = (units _group) select {alive _x && {vehicle _x == _x}};
 private _mounted = !isNull _veh && {vehicle _leader == _veh};
 

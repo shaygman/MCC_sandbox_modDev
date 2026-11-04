@@ -176,6 +176,29 @@ class GAIA
         class doWait {};
     };
 
+    //Phase B: support requests, coordinated roles, unstick, headless client balancing
+    class Support
+    {
+        #ifdef MCCMODE
+        file = "\mcc_sandbox_mod\gaia\functions\support";
+        #else
+        file = "gaia\functions\support";
+        #endif
+
+        class artyMayFire {};
+        class assignRoles {};
+        class dangerClose {};
+        class doFlank {};
+        class doHold {};
+        class doSupportByFire {};
+        class findLZ {};
+        class findOverwatch {};
+        class fireMission {};
+        class hcBalance {};
+        class requestSupport {};
+        class unstick {};
+    };
+
     class Fortify
     {
         #ifdef MCCMODE

@@ -3,6 +3,8 @@ Function: fnc_DoTransportCar
 
 Description:
 	Organise transport Car
+	Pick-up / drop-off on the side of the nearest road (300 m). Without a road:
+	next to the leader / the destination, via GAIA_fnc_safePos.
 
 Parameters:
 	- group (to be transported
@@ -48,6 +50,16 @@ if (count(_nearroad)>0) then
 _nearRoad 					= ( _wpPos nearRoads 300);
 if (count(_nearroad)>0) then
 {_PosCloseRoadEnd   = position(([_nearRoad,[_wpPos],{_input0 distance _x},"ASCEND"] call BIS_fnc_sortBy )   select 0);};
+
+//No road within 300 m (or a dead end): pick up next to the leader / drop off next to the destination
+//on open, fairly flat ground instead of giving up (GAIA_fnc_safePos never returns the map center)
+if ((count _PosCloseRoadStart) == 0) then {
+	_PosCloseRoadStart = [getPosATL (leader _group), 0, 60, 6, 0, 0.3, 0, getPosATL (leader _group)] call GAIA_fnc_safePos;
+};
+if (((count _PosCloseRoadEnd) == 0) && {[_wpPos] call GAIA_fnc_isValidPos} && {!(surfaceIsWater _wpPos)}) then {
+	_PosCloseRoadEnd = [_wpPos, 0, 80, 6, 0, 0.3, 0, _wpPos] call GAIA_fnc_safePos;
+};
+if (surfaceIsWater _PosCloseRoadStart) then {_PosCloseRoadStart = []};
 
 if (
 			//There is a road found to pickup and a road foudn to drop him off

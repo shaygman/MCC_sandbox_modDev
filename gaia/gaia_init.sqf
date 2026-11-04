@@ -118,6 +118,21 @@ GAIA_EMPTY_GRACE			= 10;
 //Orders that keep a cached group out of dynamic simulation (they have to move while no player is around)
 GAIA_DS_EXCLUDED_ORDERS	= ["DoAttack","DoClear","DoTransport","DoSupport"];
 
+//------------------------------ Phase B tunables (CBA settings are in mcc/settings/gaiaSettings.sqf) ------------------------------
+//Support requests (GAIA_fnc_requestSupport): max new support responses per side per cycle
+GAIA_SUPPORT_PER_CYCLE	= 1;
+if (isNil "GAIA_SUPPORT_STATE") then {GAIA_SUPPORT_STATE = createHashMap;};
+//Coordinated attacks (GAIA_fnc_assignRoles / GAIA_fnc_doFlank): flank bearing offset from the main attack (degrees)
+GAIA_FLANK_ANGLE		= 75;
+//Vehicle unstick (GAIA_fnc_analyzeForces -> GAIA_fnc_unstick): cycles without moving 6 m before acting
+GAIA_STUCK_CYCLES		= 4;
+//Headless clients (GAIA_fnc_hcBalance): groups registered after this mission time are moved to HCs;
+//GAIA vehicle ticks per frame on a headless client
+GAIA_HC_MIN_TIME		= 30;
+GAIA_HC_BUDGET			= 3;
+if (isNil "GAIA_HC_QUEUE") then {GAIA_HC_QUEUE = [];};
+if (isNil "GAIA_HC_OWNERS") then {GAIA_HC_OWNERS = [];};
+
 
 
 

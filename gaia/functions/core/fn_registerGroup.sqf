@@ -11,6 +11,8 @@ Description:
 	is an optimisation, not a requirement. Calling it on a client does nothing.
 	Set GAIA_ZONE_INTEND on the group before (or right after) registering it:
 	the sweep drops registered groups that have no units or no GAIA_ZONE_INTEND.
+	Groups registered for the first time after mission time GAIA_HC_MIN_TIME (30)
+	are queued for headless client balancing (GAIA_fnc_hcBalance).
 
 Parameters:
 	0: GROUP
@@ -42,5 +44,17 @@ if (_registeredKey != "") then {
 
 (GAIA_REGISTRY getOrDefault [_key, [], true]) pushBackUnique _group;
 _group setVariable ["GAIA_REG_SIDE", _key];
+
+//Headless client balancing: groups that appear after the mission start are moved to the
+//headless clients round robin a few seconds later (GAIA_fnc_hcBalance)
+if (
+	_registeredKey isEqualTo ""
+	&& {time > (missionNamespace getVariable ["GAIA_HC_MIN_TIME", 30])}
+	&& {missionNamespace getVariable ["MCC_GAIA_HC_BALANCE", true]}
+	&& {local _group}
+) then {
+	if (isNil "GAIA_HC_QUEUE") then {GAIA_HC_QUEUE = []};
+	GAIA_HC_QUEUE pushBack [_group, time + 5];
+};
 
 true

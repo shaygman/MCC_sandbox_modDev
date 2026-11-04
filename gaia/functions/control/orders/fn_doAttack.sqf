@@ -34,12 +34,15 @@ then
 								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackCar;};
 							case "MotorizedRecon":
 								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackMotorizedRecon;};
+							//Mechanized / motorized infantry: drive to a staging point inside the dismount
+							//distance, infantry assaults on foot (GAIA_fnc_vehicleTick dismounts them)
 							case "MechanizedInfantry":
-								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackMechanizedInfantry;};
+								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackMotorizeInfantry;};
 							case "MotorizedInfantry":
-								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackMechanizedInfantry;};
+								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackMotorizeInfantry;};
+							//Tanks: overwatch position with line of sight first, then search and destroy
 							case "Tank":
-								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackMotorizedRecon;};
+								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackTank;};
 							case "Helicopter":
 								{ _dummy= [_group,_TargetPos] call GAIA_fnc_doAttackHelicopter;};
 							//Autonomous for now the same

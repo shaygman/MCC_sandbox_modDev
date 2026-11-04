@@ -16,7 +16,11 @@ Description:
 		- every ~1 s: refresh the player list (GAIA_PLAYER_LIST) and run
 		  GAIA_fnc_cacheRestoreTick.
 		- every ~10 s: GAIA_fnc_registrySweep.
+		- every ~1 s: GAIA_fnc_hcBalance (headless client list, round robin
+		  transfer of newly spawned GAIA groups to the headless clients).
 	Headless client, every frame:
+		- GAIA_fnc_vehicleTick for GAIA_HC_BUDGET (default 3) of its LOCAL groups
+		  that have a GAIA_ZONE_INTEND (snapshot at most every 2 s).
 		- GAIA_fnc_groupMaintenance for GAIA_MAINT_BUDGET LOCAL groups.
 
 Parameters:
@@ -38,6 +42,8 @@ if (isServer) then {
 		GAIA_PLAYER_LIST = _players;
 		GAIA_PLAYER_LIST_TIME = _now;
 		[] call GAIA_fnc_cacheRestoreTick;
+		//Headless client list + round robin transfer of new GAIA groups
+		[] call GAIA_fnc_hcBalance;
 	};
 
 	//Registry sweep, every 10 seconds
@@ -66,6 +72,30 @@ if (isServer) then {
 		GAIA_PF_IDX = GAIA_PF_IDX + 1;
 		_budget = _budget - 1;
 		if (!isNull _group) then {[_group] call GAIA_fnc_groupTick};
+	};
+};
+
+//------------------------------- Headless client: vehicle tick of its own GAIA groups -------------------------------
+//The registry is server only and GAIA_fnc_vehicleTick only works on local groups, so a headless
+//client runs it for the groups it owns that have a GAIA_ZONE_INTEND (GAIA_HC_BUDGET groups per frame,
+//new snapshot at most every 2 s; vehicleTick throttles itself to once per 5 s per group).
+if (!isServer && {!isNil "GAIA_fnc_vehicleTick"}) then {
+	if (isNil "GAIA_PF_HSNAP") then {GAIA_PF_HSNAP = []; GAIA_PF_HIDX = 0; GAIA_PF_NEXT_HPASS = 0};
+	if (GAIA_PF_HIDX >= count GAIA_PF_HSNAP) then {
+		if (_now >= GAIA_PF_NEXT_HPASS) then {
+			GAIA_PF_NEXT_HPASS = _now + 2;
+			GAIA_PF_HSNAP = allGroups select {local _x && {(_x getVariable ["GAIA_ZONE_INTEND", []]) isNotEqualTo []}};
+			GAIA_PF_HIDX = 0;
+		};
+	};
+	private _hBudget = missionNamespace getVariable ["GAIA_HC_BUDGET", 3];
+	while {_hBudget > 0 && {GAIA_PF_HIDX < count GAIA_PF_HSNAP}} do {
+		private _group = GAIA_PF_HSNAP select GAIA_PF_HIDX;
+		GAIA_PF_HIDX = GAIA_PF_HIDX + 1;
+		_hBudget = _hBudget - 1;
+		if (!isNull _group && {local _group} && {(units _group) isNotEqualTo []} && {alive (leader _group)}) then {
+			[_group] call GAIA_fnc_vehicleTick;
+		};
 	};
 };
 

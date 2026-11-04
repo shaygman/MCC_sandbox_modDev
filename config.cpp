@@ -572,6 +572,102 @@ class Cfg3DEN
 								class V7 {name = "60"; value = 60;};
 							};
 						};
+						class MCC_GAIA_SUPPORT_ENABLED
+						{
+							displayName = "GAIA: AI Support Requests";
+							tooltip = "AI commanders call artillery, CAS and reinforcements on heavy contacts.";
+							property = "MCC_GAIA_SUPPORT_ENABLED";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
+						class MCC_GAIA_SUPPORT_ARTY
+						{
+							displayName = "GAIA: AI Artillery";
+							tooltip = "AI may call mortar/artillery fire missions.";
+							property = "MCC_GAIA_SUPPORT_ARTY";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
+						class MCC_GAIA_SUPPORT_CAS
+						{
+							displayName = "GAIA: AI Close Air Support";
+							tooltip = "AI may call CAS runs.";
+							property = "MCC_GAIA_SUPPORT_CAS";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
+						class MCC_GAIA_SUPPORT_REINF
+						{
+							displayName = "GAIA: AI Reinforcements";
+							tooltip = "AI may call reinforcements when outnumbered.";
+							property = "MCC_GAIA_SUPPORT_REINF";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
+						class MCC_GAIA_COORDINATION
+						{
+							displayName = "GAIA: Coordinated Attacks";
+							tooltip = "Groups split attack, flank, support-by-fire and reserve roles on the same contact.";
+							property = "MCC_GAIA_COORDINATION";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
+						class MCC_GAIA_HC_BALANCE
+						{
+							displayName = "GAIA: Headless Client Balancing";
+							tooltip = "Spread new GAIA groups across all headless clients.";
+							property = "MCC_GAIA_HC_BALANCE";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
 						class MCC_networkSecurity
 						{
 							displayName = "Network Security";

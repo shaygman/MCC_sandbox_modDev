@@ -46,19 +46,8 @@ if ((_isInRange) and !Isnil("_ammo")) then
 
 
 
-		//Fire dudes
-		{
-
-
-			if (alive _x) then
-			{
-
-				(vehicle _x) addMagazine _ammo;
-				_x commandArtilleryFire [_mortarPos, _ammo  , _rounds ];
-
-
-			};
-		}foreach (units _group);
+		//Fire dudes (where the group is local: forwarded to the headless client that owns it)
+		[_group, _mortarPos, _ammo, _rounds, false] call GAIA_fnc_fireMission;
 
 
 		// We finished this round so go up (sometimes faster then other times)

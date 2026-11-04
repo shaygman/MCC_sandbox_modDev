@@ -63,6 +63,8 @@ if (!isnull(_group getVariable  ["GAIA_CombinedOrder",grpNull])) then
 //Clear the current order also
 _group setVariable ["GAIA_Order"							, "None", false];
 _group setVariable ["GAIA_CombinedOrder"			, grpNull, false];
+//Coordinated attack role (GAIA_fnc_assignRoles)
+_group setVariable ["GAIA_Role", nil];
 
 //Clear fortify specific if needed.
 _group setVariable ["Garrisoning",false];  

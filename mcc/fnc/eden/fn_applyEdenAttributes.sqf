@@ -8,7 +8,7 @@
 */
 if (!isServer) exitWith {};
 
-// [scenario attribute (property), missionNamespace variable]
+// [scenario attribute (property), missionNamespace variable, (optional) BOOL setting: 0 = off, 1 = on]
 MCC_edenAttributeMap = [
 	["MCC_logisticsMode", "MCC_logisticsMode"],
 	["MCC_MWmaxObjectives", "MCC_MWmaxObjectives"],
@@ -16,16 +16,23 @@ MCC_edenAttributeMap = [
 	["MCC_MWmaxSpawnedUnits", "MCC_MWmaxSpawnedUnits"],
 	["MCC_campaignMaxAOs", "MCC_campaignMaxAOs"],
 	["MCC_campaignAOSize", "MCC_campaignAOSize"],
-	["MCC_campaignAmbientCap", "MCC_campaignAmbientCap"]
+	["MCC_campaignAmbientCap", "MCC_campaignAmbientCap"],
+	["MCC_GAIA_SUPPORT_ENABLED", "MCC_GAIA_SUPPORT_ENABLED", true],
+	["MCC_GAIA_SUPPORT_ARTY", "MCC_GAIA_SUPPORT_ARTY", true],
+	["MCC_GAIA_SUPPORT_CAS", "MCC_GAIA_SUPPORT_CAS", true],
+	["MCC_GAIA_SUPPORT_REINF", "MCC_GAIA_SUPPORT_REINF", true],
+	["MCC_GAIA_COORDINATION", "MCC_GAIA_COORDINATION", true],
+	["MCC_GAIA_HC_BALANCE", "MCC_GAIA_HC_BALANCE", true]
 ];
 
 [] spawn {
 	waitUntil {time > 1};
 	{
-		_x params ["_attr", "_var"];
+		_x params ["_attr", "_var", ["_isBool", false]];
 		private _value = getMissionConfigValue [_attr, -1];
 		if (_value isEqualType "") then {_value = parseNumber _value};
 		if (_value isEqualType 0 && {_value >= 0}) then {
+			if (_isBool) then {_value = _value > 0};
 			missionNamespace setVariable [_var, _value, true];
 			diag_log format ["MCC: Eden attribute %1 = %2", _attr, _value];
 		};

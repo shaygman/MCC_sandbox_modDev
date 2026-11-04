@@ -258,16 +258,24 @@ if (isNil "MCC_isLocalHC" ) then {
 };
 
 
+// Several headless clients are supported: the server finds every connected HC itself
+// (allUsers + getUserInfo) and GAIA moves newly spawned GAIA groups to them round robin
+// (GAIA_fnc_hcBalance). Each HC runs the GAIA vehicle logic for its own groups (GAIA_fnc_perFrame).
+// MCC_ownerHC stays the single target of the old "spawn on HC" code: the first HC to connect keeps it,
+// the server re-points it when that HC disconnects.
 if (!hasInterface && !isServer) then {
 	0 spawn {
 	    // is HC
 	    waituntil {alive player};
 	    MCC_isHC = true;
 	    MCC_isLocalHC = true;
-	    MCC_ownerHC = player;
-
 	    publicVariable "MCC_isHC";
-	    publicVariable "MCC_ownerHC";
+
+	    private _current = missionNamespace getVariable ["MCC_ownerHC", objNull];
+	    if (!(_current isEqualType objNull) || {isNull _current}) then {
+	    	MCC_ownerHC = player;
+	    	publicVariable "MCC_ownerHC";
+	    };
 	 };
 };
 

@@ -33,8 +33,9 @@ _wptype = waypointType [_group ,(count(waypoints _group)-1)];
  _dummy =[_trnsprtgrp] call GAIA_fnc_removeWaypoints;
  _dummy =[_group] call GAIA_fnc_removeWaypoints;
 
-_PosCloseRoadStart = (position leader _group);
-_PosCloseRoadEnd	= 	_wpPos;
+//Flat, clear landing zones near pickup and drop-off (falls back to the original position)
+_PosCloseRoadStart = [(position leader _group)] call GAIA_fnc_findLZ;
+_PosCloseRoadEnd	= [_wpPos] call GAIA_fnc_findLZ;
   // Get in
  _wpGroup = _group addWaypoint [_PosCloseRoadStart, 0];
  _wpGroup	setWaypointType "GETIN";

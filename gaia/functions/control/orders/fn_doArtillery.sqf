@@ -1,90 +1,81 @@
-//==================================================================fnc_DoInfPatrol===============================================================================================
-// Mortar 
-// Example: [_group, Position] call fnc_DoMortar
-// spirit 1-2-2014
-//===========================================================================================================================================================================	
-private ["_group","_pos","_isInRange","_rounds","_MortarRound","_ammo","_radiusSpread"];
+/* ----------------------------------------------------------------------------
+Function: GAIA_fnc_doArtillery
 
-_group 			= _this select 0; 
-_pos				= _this select 1;
+Description:
+	Fire mission of a GAIA artillery group (class "Artillery", portfolio
+	"DoArtillery": self propelled guns / rocket artillery, artilleryScanner = 1).
+	Called once per GAIA cycle by GAIA_fnc_issueOrders (routine fire) and
+	GAIA_fnc_requestSupport (support call) while the mission runs.
+	Every artillery vehicle of the group fires with its own artillery magazine
+	(GAIA_fnc_fireMission, vehicle mode: forwarded to the headless client that
+	owns the group). Shorter than a mortar mission:
+		round 0: 1 adjusting round per gun, 150 m spread
+		round 1: 1 adjusting round per gun,  60 m spread
+		round 2: fire for effect, 3 rounds per gun, 25 m spread
+		round 3: fire for effect, 2 rounds per gun, 40 m spread -> mission done
+	Uses the same group variables as GAIA_fnc_doMortar (GAIA_MortarRound,
+	GAIA_MortarTarget), the order is "DoArtillery".
 
+Parameters:
+	0: GROUP
+	1: ARRAY - target position (ignored while a mission is running: the
+	           mission target GAIA_MortarTarget is used)
 
-_ammo 				= [];	
-_radiusSpread = 0;
+Returns:
+	BOOL - true when the target is in range of at least one gun (and it fired)
+---------------------------------------------------------------------------- */
+params [["_group", grpNull, [grpNull]], ["_pos", [0,0,0], [[]]]];
 
+if (isNull _group) exitWith {false};
 
-_class 						= _group getVariable ["GAIA_class",[]];
-_MortarRound		  = _group getVariable ["GAIA_MortarRound",0];
-_ammo 						= (getArtilleryAmmo [(assignedVehicle (leader _group))] select 0);
-
-//If we were busy somewhere, finish it
-if (_MortarRound>0) then {_pos = _group getVariable ["GAIA_MortarTarget",[0,0,0]];};
-
-//If this is the second round, we dont check for all sorts of stuff. Finish what you started
-_isInRange 				= (_pos inRangeOfArtillery [[(leader _group)],_ammo  ]) or (_MortarRound>0) ;
-
-		
-// First Shot
-if (_isInRange) then
+//Artillery vehicles of the group
+private _guns = [];
 {
-		switch(true)do
-		{
-				case (_MortarRound<2) : {_radiusSpread= 120;_rounds =1;};
-				case (_MortarRound<3) : {_radiusSpread= 100;_rounds =1;};
-				case (_MortarRound<4) : {_radiusSpread= 080;_rounds =1;};
-				case (_MortarRound<5) : {_radiusSpread= 010;_rounds =3;};
-				//The 'Fire For Effect' will not always be achieved. It can be skipped if we roll 2 in the random roll in the code below
-				case (_MortarRound<=6): {_radiusSpread= 000;_rounds =8;};
-				case (_MortarRound<=10): {_radiusSpread= 010;_rounds =1;};
+	private _veh = vehicle _x;
+	if (
+		alive _x
+		&& {_veh != _x}
+		&& {alive _veh}
+		&& {!(_veh in _guns)}
+		&& {getNumber (configOf _veh >> "artilleryScanner") == 1}
+		&& {(getArtilleryAmmo [_veh]) isNotEqualTo []}
+	) then {_guns pushBack _veh};
+} forEach (units _group);
+if (_guns isEqualTo []) exitWith {false};
 
-		};
-  
-		///Pos is for all mortar in group
-		_mortarPos = [_pos, _radiusSpread, random(360)] call BIS_fnc_relPos;;
-		
-		
-		
-		//Fire dudes
-		{
-	
-			
-			if (alive _x) then
-			{
-		
-				(vehicle _x) addMagazine _ammo;
-				_x commandArtilleryFire [_mortarPos, _ammo  , _rounds ];			
-				
-				
-			};
-		}foreach (units _group);
-		
-		
-		// We finished this round so go up (sometimes faster then other times)
-		_MortarRound = _MortarRound + round((random 2));
-		if (_MortarRound>=10) then
-			{
-					//Specific Mortar information
-					_group setVariable ["GAIA_MortarRound"					, 0, false];
-					_group setVariable ["GAIA_MortarTarget"					, [0,0,0], false];		
-			}
-		else
-			{
-					//Specific Mortar information
-					_group setVariable ["GAIA_MortarRound"					, _MortarRound, false];
-					_group setVariable ["GAIA_MortarTarget"					, _pos, false];		
-			};
+private _round = _group getVariable ["GAIA_MortarRound", 0];
 
-				//Lets set the current Order.
-		_group setVariable ["GAIA_Order"							, "DoMortar", false];
-		//Also note when we gave that order and where the unit was. It gives us a chance to check his progress and to 'unstuck' him if needed.
-		//Also all orders have a lifespan. MCC_GAIA_ORDERLIFETIME
-		_group setVariable ["GAIA_OrderTime"					, Time, false];		
-		_group setVariable ["GAIA_OrderPosition"			, (position leader _group), false];
-		
+//Busy: finish what we started
+if (_round > 0) then {_pos = _group getVariable ["GAIA_MortarTarget", _pos]};
 
+private _ammo = (getArtilleryAmmo [_guns select 0]) select 0;
+private _isInRange = (_round > 0) || {(_guns findIf {_pos inRangeOfArtillery [[_x], (getArtilleryAmmo [_x]) select 0]}) > -1};
+if (!_isInRange) exitWith {false};
+
+private _spread = 150;
+private _rounds = 1;
+switch (true) do {
+	case (_round < 1): {_spread = 150; _rounds = 1};
+	case (_round < 2): {_spread = 60;  _rounds = 1};
+	case (_round < 3): {_spread = 25;  _rounds = 3};
+	default            {_spread = 40;  _rounds = 2};
 };
 
+private _firePos = if (_spread > 0) then {_pos getPos [random _spread, random 360]} else {_pos};
+[_group, _firePos, _ammo, _rounds, true] call GAIA_fnc_fireMission;
 
+_round = _round + 1;
+if (_round >= 4) then {
+	_group setVariable ["GAIA_MortarRound", 0, false];
+	_group setVariable ["GAIA_MortarTarget", [0,0,0], false];
+} else {
+	_group setVariable ["GAIA_MortarRound", _round, false];
+	_group setVariable ["GAIA_MortarTarget", _pos, false];
+};
 
+//Lets set the current Order.
+_group setVariable ["GAIA_Order", "DoArtillery", false];
+_group setVariable ["GAIA_OrderTime", time, false];
+_group setVariable ["GAIA_OrderPosition", (position leader _group), false];
 
-_isInRange
+true
