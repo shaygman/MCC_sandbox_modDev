@@ -10,7 +10,7 @@
         params ["_value"];
         if (_value isEqualTo 0) then {MCC_teleportToTeam = false};
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //MCC Chat
 [
@@ -20,7 +20,7 @@
     localize "STR_GENERAL_MCCGENERAL",
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Sync at start
 [
@@ -30,7 +30,7 @@
     localize "STR_GENERAL_MCCGENERAL",
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Ambient Birds
 [
@@ -46,7 +46,7 @@
             [] spawn MCC_fnc_ambientBirdsSpawnInit;
         };
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Ambient Fire
 [
@@ -63,7 +63,7 @@
         };
     },
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Ambient Fire vehicle burn chance
 [
@@ -75,7 +75,7 @@
     true,
     {},
     false
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Ambient Fire explosives burn chance
 [
@@ -87,7 +87,7 @@
     true,
     {},
     false
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 
 //Ambient Fire crew burn chance
@@ -100,7 +100,7 @@
     true,
     {},
     false
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Ambient Fire burnt crew member will start a new fire
 [
@@ -112,7 +112,7 @@
     true,
     {},
     false
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Artillery computer
 [
@@ -127,7 +127,7 @@
         enableEngineArtillery _value;
     },
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Artillery Spread
 [
@@ -139,9 +139,9 @@
     true,
     {
         params ["_value"];
-        MCC_artillerySpreadArray = call compile _value;
+        MCC_artillerySpreadArray = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Time Multiplier
 [
@@ -155,7 +155,7 @@
         params ["_value"];
         if (isServer) then {setTimeMultiplier _value};
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Disable Curator Edit
 [
@@ -165,7 +165,7 @@
     localize "STR_GENERAL_MCCGENERAL",
     false,
     false
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Logistics
 [
@@ -175,7 +175,7 @@
     localize "STR_GENERAL_MCCGENERAL",
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Armed Civilians Weapons
 [
@@ -187,9 +187,9 @@
     true,
     {
         params ["_value"];
-        MCC_armedCivilansWeapons = call compile _value;
+        MCC_armedCivilansWeapons = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 // ==================== SQL PDA ==========================================
 
@@ -201,4 +201,4 @@
     [localize "STR_GENERAL_MCCGENERAL","Squad Leader PDA"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

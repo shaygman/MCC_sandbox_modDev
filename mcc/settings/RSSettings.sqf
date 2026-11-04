@@ -8,7 +8,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         "MCC Role Selection",
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
 
     //All Weapons
@@ -19,7 +19,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         "MCC Role Selection",
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Kit Change
     [
@@ -29,7 +29,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         "MCC Role Selection",
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Kit Weapons penalty
     [
@@ -39,7 +39,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         "MCC Role Selection",
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Vehicles penalty
     [
@@ -49,7 +49,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         "MCC Role Selection",
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Default groups
     [
@@ -61,9 +61,9 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         true,
         {
             params ["_value"];
-            CP_defaultGroups = call compile _value;
+            CP_defaultGroups = (parseSimpleArray ("[" + _value + "]")) param [0, []];
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //---------------------------- Experiance points -----------------------------------
     /*
@@ -75,7 +75,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         ["MCC Role Selection","Experiance Points"],
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
     */
     //XP notifications
     [
@@ -85,7 +85,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         ["MCC Role Selection","Experiance Points"],
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //XP needed
     [
@@ -95,7 +95,7 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         ["MCC Role Selection","Experiance Points"],
         [1000, 10000, 4000, 0],
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
     /*
     //----------------------------- Flags ---------------------------------------
     //west
@@ -108,9 +108,9 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         true,
         {
             params ["_value"];
-            CP_flagWest = call compile _value;
+            CP_flagWest = (parseSimpleArray ("[" + _value + "]")) param [0, []];
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //east
     [
@@ -122,9 +122,9 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         true,
         {
             params ["_value"];
-            CP_flagEast = call compile _value;
+            CP_flagEast = (parseSimpleArray ("[" + _value + "]")) param [0, []];
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //resistance
     [
@@ -136,8 +136,8 @@ if (count (allMissionObjects "MCC_Module_settingsRS") == 0) then {
         true,
         {
             params ["_value"];
-            CP_flagGUER = call compile _value;
+            CP_flagGUER = (parseSimpleArray ("[" + _value + "]")) param [0, []];
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
     */
 };

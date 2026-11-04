@@ -48,6 +48,9 @@ class CfgMods
 };
 
 //CBA
+// NOTE: CBA recommends registering settings in PreInit. MCC still registers them in PostInit because
+// several setting callbacks touch the player, UI layers and remoteExec, which are not ready in PreInit.
+// Moving this needs in-game testing first.
 class Extended_PostInit_EventHandlers {
 	class MCC_PostInits {
         init = call compile preprocessFileLineNumbers "mcc_sandbox_mod\XEH_preInit.sqf";

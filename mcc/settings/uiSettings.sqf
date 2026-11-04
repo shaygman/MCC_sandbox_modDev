@@ -11,7 +11,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
             params ["_value"];
             setViewDistance _value;
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Grass
     [
@@ -25,7 +25,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
             params ["_value"];
             setTerrainGrid (50 - _value);
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //MCC Action in mouse wheel
     [
@@ -35,7 +35,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
         "MCC User Interface",
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //3D person view
     [
@@ -49,7 +49,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
             params ["_value"];
             [_value] call MCC_fnc_forceCamera;
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Compass
     [
@@ -76,7 +76,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
                 };
             };
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Group Markers
     [
@@ -86,7 +86,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
         ["MCC User Interface","Map"],
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Group Markers
     [
@@ -96,7 +96,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
         ["MCC User Interface","Map"],
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //name Tags
     [
@@ -106,7 +106,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
         ["MCC User Interface","Name Tags"],
         false,
         false
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //name Tags Direct
     [
@@ -116,7 +116,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
         ["MCC User Interface","Name Tags"],
         false,
         false
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Move to server
     //suppression
@@ -137,7 +137,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
                 ["MCC_initSupression", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
             };
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //MCC_hitRadar
     [
@@ -157,7 +157,7 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
                 ["MCC_initSupression", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
             };
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //MCC_hitRadar
     [
@@ -174,5 +174,5 @@ if (count (allMissionObjects "MCC_Module_inGameUI") == 0) then {
                 [] spawn MCC_fnc_PvPInterface
             };
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 };

@@ -7,7 +7,7 @@
    "MCC Commander Console",
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //RTS
 [
@@ -17,7 +17,7 @@
     "MCC Commander Console",
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //-=================================================== Air support ===---
 
@@ -29,7 +29,7 @@
     ["MCC Commander Console","Air support"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AC-130 up time
 [
@@ -39,7 +39,7 @@
     ["MCC Commander Console","Air support"],
     [0, 1200, 300, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Commander Console Purchable CAS
 [
@@ -49,7 +49,7 @@
     ["MCC Commander Console","Air support"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //-==================== Tracking ==================----------
 //Commander Console Show units without GPS
@@ -60,7 +60,7 @@
     ["MCC Commander Console","Tracking"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Commander Show friendly WP
 [
@@ -70,7 +70,7 @@
     ["MCC Commander Console","Tracking"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Commander Console Can command AI
 [
@@ -80,7 +80,7 @@
     ["MCC Commander Console","Tracking"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Live feed helmet
 [
@@ -90,7 +90,7 @@
     ["MCC Commander Console","Live Feed"],
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Live feed helmet
 [
@@ -102,6 +102,6 @@
     true,
     {
         params ["_value"];
-        MCC_ConsoleLiveFeedHelmets = call compile _value;
+        MCC_ConsoleLiveFeedHelmets = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

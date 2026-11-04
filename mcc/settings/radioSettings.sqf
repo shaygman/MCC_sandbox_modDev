@@ -9,7 +9,7 @@
     {
     	[] remoteExec ["MCC_fnc_vonRadio",0];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Global radio distance
 [
@@ -19,7 +19,7 @@
     ["MCC Radio","Distance"],
     [1000, 5000, 2000, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 
 //Global side distance
@@ -30,7 +30,7 @@
     ["MCC Radio","Distance"],
     [3000, 7000, 5000, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Commander side distance
 [
@@ -40,7 +40,7 @@
     ["MCC Radio","Distance"],
     [8000, 20000, 12000, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Group side distance
 [
@@ -50,7 +50,7 @@
     ["MCC Radio","Distance"],
     [300, 1000, 2500, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Kick hot mic
 [
@@ -60,7 +60,7 @@
     ["MCC Radio","Anti-Abuse"],
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Group side distance
 [
@@ -70,4 +70,4 @@
     ["MCC Radio","Anti-Abuse"],
     [5, 60, 30, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

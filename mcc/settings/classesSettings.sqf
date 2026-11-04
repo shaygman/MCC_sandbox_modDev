@@ -8,9 +8,9 @@
     true,
     {
         params ["_value"];
-        MCC_ied_small = call compile _value;
+        MCC_ied_small = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //IED medium
 [
@@ -22,9 +22,9 @@
     true,
     {
         params ["_value"];
-        MCC_ied_medium = call compile _value;
+        MCC_ied_medium = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //IED wrecks
 [
@@ -36,9 +36,9 @@
     true,
     {
         params ["_value"];
-        MCC_ied_wrecks = call compile _value;
+        MCC_ied_wrecks = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //IED Hidden
 [
@@ -50,9 +50,9 @@
     true,
     {
         params ["_value"];
-        MCC_ied_hidden = call compile _value;
+        MCC_ied_hidden = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //-======================= Convoy ==========================
 //HVT
@@ -65,9 +65,9 @@
     true,
     {
         params ["_value"];
-        MCC_convoyHVT = call compile _value;
+        MCC_convoyHVT = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //HVT
 [
@@ -79,6 +79,6 @@
     true,
     {
         params ["_value"];
-        MCC_convoyHVTcar = call compile _value;
+        MCC_convoyHVTcar = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

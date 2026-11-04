@@ -10,7 +10,7 @@
     	MCC_AI_Skill = MCC_AI_Skill_Index/10;
     	publicVariable "MCC_AI_Skill";
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI Skill(aim)
 [
@@ -24,7 +24,7 @@
     	MCC_AI_Aim = MCC_AI_AimIndex/10;
     	publicVariable "MCC_AI_Aim";
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI Skill(Spot)
 [
@@ -38,7 +38,7 @@
     	MCC_AI_Spot = MCC_AI_SpotIndex/10;
     	publicVariable "MCC_AI_Spot";
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI Skill(Command)
 [
@@ -52,7 +52,7 @@
     	MCC_AI_Command = MCC_AI_CommandIndex/10;
     	publicVariable "MCC_AI_Command";
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI Skill(Command)
 [
@@ -66,7 +66,7 @@
     	MCC_AI_Command = MCC_AI_CommandIndex/10;
     	publicVariable "MCC_AI_Command";
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI use smoke grenade and flares
 [
@@ -76,7 +76,7 @@
    	["MCC GAIA","AI Smoke & Flares"],
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI use smoke grenade and flares
 [
@@ -86,7 +86,7 @@
   	["MCC GAIA","AI Smoke & Flares"],
     [20, 80, 50, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI Cache
 [
@@ -96,7 +96,7 @@
   	"MCC GAIA",
     [1000, 10000, 3000, 0],
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //AI use smoke grenade and flares
 [
@@ -106,4 +106,4 @@
    	"MCC GAIA",
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

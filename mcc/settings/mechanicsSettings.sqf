@@ -7,7 +7,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         "MCC Mechanics",
         false,
         false
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Arcade tanks
     [
@@ -17,7 +17,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         "MCC Mechanics",
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Fatigue
     [
@@ -30,7 +30,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         {
         	player enableFatigue MCC_disableFatigue
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //3DTagging
     [
@@ -40,7 +40,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         "MCC Mechanics",
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     // ================================ COVER =========================================
     //Cover system
@@ -51,7 +51,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
        ["MCC Mechanics","Cover"],
         false,
         false
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Cover system UI
     [
@@ -61,7 +61,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
        	["MCC Mechanics","Cover"],
         false,
         false
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Vault
     [
@@ -71,7 +71,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         ["MCC Mechanics","Cover"],
         false,
         false
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
 
     //============================ Interaction ====================================
@@ -83,7 +83,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
        ["MCC Mechanics","Interaction"],
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Interaction
     [
@@ -93,7 +93,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
        ["MCC Mechanics","Interaction"],
         true,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     /* =========================	SURVIVE MOD	========================================*/
 
@@ -109,7 +109,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         	MCC_surviveMod = MCC_surviveModAllowSearch_index > 0;
             MCC_surviveModAllowSearch = (MCC_surviveModAllowSearch_index == 1);
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Load Player Position
     [
@@ -119,7 +119,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         ["MCC Mechanics","Survival"],
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //LLoad Player Gear
     [
@@ -129,7 +129,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         ["MCC Mechanics","Survival"],
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //LLoad Player Stats
     [
@@ -139,7 +139,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         ["MCC Mechanics","Survival"],
         false,
         true
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     // ====================================== AMMO TYPE ========================================================
 
@@ -153,9 +153,9 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         true,
         {
             params ["_value"];
-            MCC_breacingAmmo = call compile _value;
+            MCC_breacingAmmo = (parseSimpleArray ("[" + _value + "]")) param [0, []];
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 
     //Non Lethal Ammo
     [
@@ -167,7 +167,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
         true,
         {
             params ["_value"];
-            MCC_nonLeathalAmmo = call compile _value;
+            MCC_nonLeathalAmmo = (parseSimpleArray ("[" + _value + "]")) param [0, []];
         }
-    ] call CBA_Settings_fnc_init;
+    ] call CBA_fnc_addSetting;
 };

@@ -8,9 +8,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWHVT = call compile _value;
+        MCC_MWHVT = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Radio
 [
@@ -22,9 +22,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWRadio = call compile _value;
+        MCC_MWRadio = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Fuel Tanks
 [
@@ -36,9 +36,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWFuelTanks = call compile _value;
+        MCC_MWFuelTanks = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Radar(Land)
 [
@@ -50,9 +50,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWradar = call compile _value;
+        MCC_MWradar = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Armor
 [
@@ -64,9 +64,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWTanks = call compile _value;
+        MCC_MWTanks = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Air
 [
@@ -78,9 +78,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWAir = call compile _value;
+        MCC_MWAir = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Anti-Air(Vehicle)
 [
@@ -92,9 +92,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWAA = call compile _value;
+        MCC_MWAA = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Artillery
 [
@@ -106,9 +106,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWArtillery = call compile _value;
+        MCC_MWArtillery = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Ammo cache (Box)
 [
@@ -120,9 +120,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWcache = call compile _value;
+        MCC_MWcache = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 
 
@@ -136,9 +136,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWIntelObjects = call compile _value;
+        MCC_MWIntelObjects = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //IED(Small Items)
 [
@@ -150,9 +150,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWIED = call compile _value;
+        MCC_MWIED = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Composition Civ
 [
@@ -164,9 +164,9 @@
     true,
     {
         params ["_value"];
-        MCC_MWSITES = call compile _value;
+        MCC_MWSITES = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Composition Military
 [
@@ -178,6 +178,6 @@
     true,
     {
         params ["_value"];
-        MCC_MWSITESmilitary = call compile _value;
+        MCC_MWSITESmilitary = (parseSimpleArray ("[" + _value + "]")) param [0, []];
     }
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

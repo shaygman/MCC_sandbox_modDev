@@ -10,7 +10,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		    false,
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Enable MCC Complex Medic System
 		[
@@ -20,7 +20,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		    false,
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Medic Heal
 		[
@@ -30,7 +30,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		   	false,
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Medic HUD
 		[
@@ -40,7 +40,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		   	false,
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Bleeding
 		[
@@ -50,7 +50,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		    false,
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Bleeding Time
 		[
@@ -60,7 +60,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		    [30,1200,300,0],
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Bulletproof Vests Effectiveness
 		[
@@ -73,7 +73,7 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    {
 		    	MCC_medicDamageCoef = (10-MCC_medicDamageCoef_index)/10;
 		    }
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 
 		//Punish Team Kill
 		[
@@ -83,6 +83,6 @@ if (count (allMissionObjects "MCC_Module_settingsMedicSystem") == 0) then {
 		    "MCC Medical System",
 		   	false,
 		    true
-		] call CBA_Settings_fnc_init;
+		] call CBA_fnc_addSetting;
 	};
 };

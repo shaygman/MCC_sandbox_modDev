@@ -8,7 +8,7 @@
     ["MCC Respawn","Respawn"],
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Delet players body
 [
@@ -18,7 +18,7 @@
     ["MCC Respawn","Respawn"],
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 
 //Respawn menu
@@ -29,7 +29,7 @@
     ["MCC Respawn","Respawn"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Respawn Cinematic
 [
@@ -39,7 +39,7 @@
     ["MCC Respawn","Respawn"],
     true,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;
 
 //Respawn on Leader
 [
@@ -49,4 +49,4 @@
     ["MCC Respawn","Respawn"],
     false,
     true
-] call CBA_Settings_fnc_init;
+] call CBA_fnc_addSetting;

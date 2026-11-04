@@ -70,6 +70,7 @@ class CfgFunctions
 	{
 		tag = "MCC";
 		#include "mcc\cfg\cfgFunctions.hpp"
+		#include "mcc\cfg\cfgFunctionsScripts.hpp"
 		#include "mcc\login\cfgFunctions.hpp"
 		#include "mcc\rts\cfgFunctions.hpp"
 		#include "mcc\cfg\modules\cfgFunctions.hpp"
