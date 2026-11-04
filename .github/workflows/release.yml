@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "ARMA3-MCC5*"
+    branches:
+      - "claude/great-cannon-anljb6"
   workflow_dispatch:
 
 permissions:
@@ -11,6 +13,8 @@ permissions:
 
 jobs:
   release:
+    # On a branch push, only release when the commit message contains [release]
+    if: github.event_name != 'push' || startsWith(github.ref, 'refs/tags/') || contains(github.event.head_commit.message, '[release]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +34,8 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
+          tag_name: ARMA3-MCC5
+          target_commitish: ${{ github.sha }}
           name: ARMA3-MCC5
           files: ARMA3-MCC5.zip
           body: |
