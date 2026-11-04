@@ -4,7 +4,7 @@ private ["_channelID","_allowed","_spectrum"];
 missionNameSpace setVariable ["MCC_radioBroadcastingChannel",_this];
 _channelID = (missionNameSpace getVariable ["MCC_radioBroadcastingChannel",""]) call MCC_fnc_VONRadiofindChannel;
 
-//[([netId player] + _channelID), "MCC_fnc_VONRadioBroadcast", side player, false] spawn BIS_fnc_MP;
+//([netId player] + _channelID) remoteExec ["MCC_fnc_VONRadioBroadcast", side player];
 
 switch (_channelID select 1) do {
 	//Global
@@ -71,6 +71,6 @@ switch (_channelID select 1) do {
 
 	//cleanup
 	[netId player,"",-1] remoteExec ["MCC_fnc_VONRadioBroadcast", _spectrum, false];
-	//[netId player,"",-1], "MCC_fnc_VONRadioBroadcast", side player, false] spawn BIS_fnc_MP;
+	//[netId player,"",-1] remoteExec ["MCC_fnc_VONRadioBroadcast", side player];
 	player setVariable ["MCC_radioBroadcasting",false];
 };

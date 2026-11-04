@@ -217,7 +217,7 @@ class CAManBase: Man {
 			condition = "((MCC_server getVariable [format ['CP_commander%1',playerside],'']) == getPlayerUID _player) && (missionNamespace getVariable ['MCC_allowConsole',true]) || 'MCC_itemConsole' in (assignedItems player)";
 			displayName = "Commander<br/>Tab";
 			icon = "\A3\Ui_f\data\GUI\Cfg\Ranks\colonel_gs.paa";
-			statement = "_null = [nil,nil,nil,nil,1] execVM '\mcc_sandbox_mod\mcc\dialogs\mcc_PopupMenu.sqf';";
+			statement = "_null = [nil,nil,nil,nil,1] spawn MCC_fnc_s_mcc_PopupMenu;";
 			showDisabled = 0;
 		};
 
@@ -304,7 +304,7 @@ class CAManBase: Man {
 			class ACE_MCC_openSQLPDA {
 				displayName = "Oped<br/>PDA";
 				icon = "\A3\Ui_f\data\IGUI\Cfg\VehicleToggles\wheelbreakiconon_ca.paa";
-				statement = "_null = [nil,nil,nil,nil,3] execVM '\mcc_sandbox_mod\mcc\dialogs\mcc_PopupMenu.sqf';";
+				statement = "_null = [nil,nil,nil,nil,3] spawn MCC_fnc_s_mcc_PopupMenu;";
 			};
 
 			class ACE_MCC_spotEnemy {

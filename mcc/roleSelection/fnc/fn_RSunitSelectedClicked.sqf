@@ -17,24 +17,24 @@ switch (toLower _data) do {
     case "kick": {
     	if (player == leader _unit && _unit != player) then {
 			_str = "<t size='0.6' font = 'puristaLight' color='#FFFFFF'>" + format ["%1 kicked %2 from the squad",name player, name _unit] + "</t>";
-			[[_str,0,0.2,5,1,0.0], "bis_fnc_dynamictext", group _unit, false] spawn BIS_fnc_MP;
+			[_str,0,0.2,5,1,0.0] remoteExec ["bis_fnc_dynamictext", group _unit];
 			[_unit] join grpNull;
 
             if ((missionNamespace getVariable ["CP_activated",false]) && isPlayer _unit) then {
-                [[], "MCC_fnc_setGear", _unit, false] spawn BIS_fnc_MP;
+                [] remoteExec ["MCC_fnc_setGear", _unit];
             };
 		};
     };
 
     case "commander": {
     	if (player == leader _unit && _unit != player) then {
-    		[[[_unit],{(group (_this select 0)) selectLeader (_this select 0);}], "bis_fnc_spawn", group _unit, false] spawn BIS_fnc_MP;
+    		[group _unit, _unit] remoteExec ["selectLeader", group _unit];
     	};
     };
 
     case "teleport": {
     	if ((missionNamespace getVariable ["MCC_teleportToTeam",false]) && _unit in (units player) && _unit != player) then {
-    		[_unit] execVM format ["%1mcc\general_scripts\mcc_SpawnToPosition.sqf",MCC_path];
+    		[_unit] spawn MCC_fnc_s_mcc_SpawnToPosition;
     	};
     };
 };

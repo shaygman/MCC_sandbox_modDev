@@ -8,7 +8,7 @@ class MCC_LOGISTICS_LOAD_TRUCK
 {
 	idd = -1;
 	movingEnable = 1;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\Logistics\scripts\mcc_logisticsLoadTruck_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_logisticsLoadTruck_init";
 
 	controlsBackground[] =
 	{

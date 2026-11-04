@@ -182,8 +182,8 @@ _unit setvariable ["CP_roleImage", _image, true];
 _unit setvariable ["CP_roleLevel", call compile format ["%1Level select 0",_role], true];
 
 //Open subMenu if needed
-if (_select == 1) then {[4] execVM MCC_path+"mcc\roleSelection\scripts\switchDialog.sqf"};			//open weapon menu
-if (_select == 2) then {[5] execVM MCC_path+"mcc\roleSelection\scripts\switchDialog.sqf"};			//open uniform menu
+if (_select == 1) then {[4] spawn MCC_fnc_s_switchDialog};			//open weapon menu
+if (_select == 2) then {[5] spawn MCC_fnc_s_switchDialog};			//open uniform menu
 
 CP_playerUniforms = missionNamespace getVariable format ["CP_player%1_Uniforms_%2_%3",_role,getplayerUID _unit,side _unit];
 if (isnil "CP_playerUniforms") then {

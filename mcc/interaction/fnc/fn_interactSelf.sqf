@@ -39,7 +39,7 @@ if (vehicle player == player) then {
 			isNull(player getVariable ["MCC_rallyPoint",objNull]) &&
 			((tolower (player getvariable ["CP_role","n/a"])) == "officer" ) &&
 			{_x distance player < 15} count units player > 1) then {
-			_array pushBack [format ["[player,player,nil] execVM '%1mcc\general_scripts\respawnTents\DeployRespawnTents.sqf';",MCC_path],"Deploy Rally Point","\a3\ui_f\data\gui\cfg\CommunicationMenu\supplydrop_ca.paa"];
+			_array pushBack ["[player,player,nil] spawn MCC_fnc_s_DeployRespawnTents;","Deploy Rally Point","\a3\ui_f\data\gui\cfg\CommunicationMenu\supplydrop_ca.paa"];
 		};
 	};
 
@@ -91,7 +91,7 @@ if (vehicle player == player) then {
 //Commander Console
 _server = missionNamespace getVariable ["MCC_server",objNull];
 if (((_server getVariable [format ["CP_commander%1",playerside],""]) == getPlayerUID player) && (missionNamespace getVariable ["MCC_allowConsole",true]) || "MCC_itemConsole" in (assignedItems player)) then {
-	_array pushBack [format["_null = [nil,nil,nil,nil,1] execVM '%1mcc\dialogs\mcc_PopupMenu.sqf'",MCC_path],"Commander Console","\A3\Ui_f\data\GUI\Cfg\Ranks\colonel_gs.paa"];
+	_array pushBack ["_null = [nil,nil,nil,nil,1] spawn MCC_fnc_s_mcc_PopupMenu","Commander Console","\A3\Ui_f\data\GUI\Cfg\Ranks\colonel_gs.paa"];
 };
 
 //Radio Channels

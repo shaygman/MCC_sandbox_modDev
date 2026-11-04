@@ -70,14 +70,14 @@ MCC_hijack_effect ppEffectEnable true;
 
 MCC_backToplayerIndex = _targetUnit addaction ["<t color=""#CC0000"">Back To Player</t>", MCC_path + "mcc\general_scripts\unitManage\backToPlayer.sqf",[], 0,false, false, "","vehicle _target == vehicle _this"];
 
-_ok = _targetUnit addEventHandler ["Killed", format ["[_this select 0] execVM '%1mcc\general_scripts\unitManage\backToPlayer.sqf'",MCC_path]];
+_ok = _targetUnit addEventHandler ["Killed", "[_this select 0] spawn MCC_fnc_s_backToPlayer"];
 
 if (MCC_PrevHijacked_Group != "") then {
 	[player] joinSilent _group;
 	waituntil {group player == (groupFromNetID MCC_PrevHijacked_Group)};
 
 	if (isMultiplayer) then {
-		[[2, compile format ["(groupFromNetID '%1') selectLeader objectFromNetId '%2'",netID (group Player), netID player]], "MCC_fnc_globalExecute", leader group player, false] spawn BIS_fnc_MP;
+		[group player, player] remoteExec ["selectLeader", leader group player];
 	} else {
 		(group player) selectLeader player;
 	};

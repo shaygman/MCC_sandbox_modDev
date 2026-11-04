@@ -1,7 +1,7 @@
 class CP_RESPAWNPANEL {
 	idd = -1;
 	movingEnable = false;
-	onLoad =  __EVAL("_this execVM '"+CPPATH+"mcc\roleSelection\scripts\respawnPanel_init.sqf'");
+	onLoad =  "_this spawn MCC_fnc_s_respawnPanel_init";
 	onUnLoad = "missionNameSpace setvariable ['CP_respawnPanelOpen',false];";
 
 	controlsBackground[] =
@@ -410,7 +410,7 @@ class CP_RESPAWNPANEL {
 					h = 0.066 * safezoneH;
 					tooltip = "Press Deploy to get into the action"; //--- ToDo: Localize;
 					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.5)";
-					action = __EVAL("[1] execVM '"+CPPATH+"mcc\roleSelection\scripts\respawnPanel_cmd.sqf'");
+					action = "[1] spawn MCC_fnc_s_respawnPanel_cmd";
 				};
 
 				class CP_XPProgress: MCC_RscProgress
@@ -474,7 +474,7 @@ class CP_RESPAWNPANEL {
 			w = 0.0670311 * safezoneW;
 			h = 0.044 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			action = __EVAL("[0] execVM '"+CPPATH+"mcc\roleSelection\scripts\switchDialog.sqf'");
+			action = "[0] spawn MCC_fnc_s_switchDialog";
 		};
 		class CP_gearPanelButton: CP_RscButtonMenu
 		{
@@ -486,7 +486,7 @@ class CP_RESPAWNPANEL {
 			w = 0.0670311 * safezoneW;
 			h = 0.044 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			action = __EVAL("[1] execVM '"+CPPATH+"mcc\roleSelection\scripts\switchDialog.sqf'");
+			action = "[1] spawn MCC_fnc_s_switchDialog";
 		};
 
 		class CP_squadList: MCC_RscControlsGroup

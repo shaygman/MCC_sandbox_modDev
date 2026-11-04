@@ -206,7 +206,7 @@ while {count _locations > 0 &&	_missionDone <= _missionMax} do {
 	//No locations? mission won
 	if (count _locations == 0) exitWith {
 		//Mission won outro
-		[["everyonewon"], "BIS_fnc_endMissionServer", false, false] spawn BIS_fnc_MP
+		["everyonewon"] remoteExec ["BIS_fnc_endMissionServer", 2]
 	};
 
 	private ["_totalEnemyUnits","_isCQB","_isCiv","_animals","_vehicles","_armor","_artillery","_isRoadblocks","_isIED","_isAS","_isSB","_reinforcement","_obj1","_obj2","_obj3","_weatherChange","_preciseMarkers"];

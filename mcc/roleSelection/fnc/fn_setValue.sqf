@@ -7,7 +7,7 @@
 //
 //Outout: <NOTHING>
 //
-// Example: [_varName1, _value1,_id], "MCC_fnc_setValue", true, false] spawn BIS_fnc_MP;
+// Example: [_varName1, _value1,_id] remoteExec ["MCC_fnc_setValue", 0];
 //==============================================================================================================================================================================
 private ["_varName","_id","_value"];
 _varName 	= _this select 0;

@@ -11,7 +11,7 @@ _air: Should air unis be punished
 _createMarker: Should we delete the marker after placment if not then the trigger will move with the marker if the marker is moved
 Create a restriction zone on a marker defined in mission sqf init.sqf
 
-Example:[[_logic, [east,west,resistance,civilian],10,false,false,false], "MCC_fnc_createRestrictedZones", false, false] spawn BIS_fnc_MP;
+Example:[_logic, [east,west,resistance,civilian],10,false,false,false] remoteExec ["MCC_fnc_createRestrictedZones", 2];
 
 ************************************************************/
 private ["_logic","_markerShape","_sides","_trg","_time","_air","_createMarker","_pos","_trgs","_location","_mName"];

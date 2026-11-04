@@ -153,7 +153,7 @@ if (typeName _wholeMap == typeName true ) then {
 			_mapSize = getnumber (_worldPath >> "mapSize");
 			if (_mapSize == 0) exitWith {
 				diag_log FORMAT ["MCC: Mission Wizard Error: mapSize param not defined for '%1'",worldname];
-				[["mapSize param not defined for '%1'",worldname],"bis_fnc_halt",MCC_fnc_halt, false] call BIS_fnc_MP;
+				["mapSize param not defined for '%1'",worldname] remoteExec ["bis_fnc_halt", MCC_fnc_halt];
 				[[_markerName]] call MCC_MWCleanup;
 			};
 
@@ -194,7 +194,7 @@ if (typeName _wholeMap == typeName true ) then {
 		//--------------------------------------------------------------Create a ceneter trigger --------------------------------------------------------------------------
 		if (count mcc_zone_markposition == 0) exitWith {
 			diag_log "MCC: Mission Wizard Error: Create a zone first";
-			[["MCC: Mission Wizard Error: Create a zone first"],"MCC_fnc_halt",_missionMaker, false] call BIS_fnc_MP;
+			["MCC: Mission Wizard Error: Create a zone first"] remoteExec ["MCC_fnc_halt", _missionMaker];
 			[[_markerName]] call MCC_MWCleanup;
 		};
 
@@ -527,7 +527,7 @@ _objectives = [];
 				_alarm setVariable ["vehicleinit",_init];
 				{_x addCuratorEditableObjects [[_alarm],false]} forEach allCurators;
 
-				[["", getpos _alarm, 100, 100, _activate, _cond,"AlarmSfx",false],"MCC_fnc_MusicTrigger",true,false] spawn BIS_fnc_MP;
+				["", getpos _alarm, 100, 100, _activate, _cond,"AlarmSfx",false] remoteExec ["MCC_fnc_MusicTrigger", 0];
 			};
 			*/
 
@@ -548,12 +548,12 @@ _objectives = [];
 
 			// Is CQB
 			if (_isCQB) then {
-				[[_objPos,(_maxObjectivesDistance*0.5),0,(_totalEnemyUnits*0.05) min 2,_enemyfaction, _enemySide],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+				[_objPos,(_maxObjectivesDistance*0.5),0,(_totalEnemyUnits*0.05) min 2,_enemyfaction, _enemySide] remoteExec ["MCC_fnc_garrison", 2];
 			};
 
 			// Is _isCiv
 			if (_isCiv) then {
-				[[_objPos,(_maxObjectivesDistance*0.5),1,(_totalEnemyUnits*0.05) min 2,_civFaction,"CIV"],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+				[_objPos,(_maxObjectivesDistance*0.5),1,(_totalEnemyUnits*0.05) min 2,_civFaction,"CIV"] remoteExec ["MCC_fnc_garrison", 2];
 			};
 
 
@@ -568,7 +568,7 @@ _objectives = [];
 						_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
 						_pos = [[[_objPos,(_maxObjectivesDistance*0.7)]],["water"],{true}] call BIS_fnc_randomPos;
 
-						[[_pos,_objectType,"large",floor (random 2),_sidePlayer],"MCC_fnc_SBSingle",false,false] spawn BIS_fnc_MP;
+						[_pos,_objectType,"large",floor (random 2),_sidePlayer] remoteExec ["MCC_fnc_SBSingle", 2];
 
 						//Debug
 						if (MCC_debug) then {
@@ -637,7 +637,7 @@ if (_weatherChange != 0) then {
 	MCC_date	= [(MCC_date select 0) + floor (random 10 - random 10), floor ((random 12)+1)  ,  floor ((random 28)+1), _hour,  floor (random 60)];
 	publicVariable "MCC_date";
 
-	[[MCC_date],"MCC_fnc_setTime",true,false] call BIS_fnc_MP;
+	[MCC_date] remoteExec ["MCC_fnc_setTime", 0];
 
 
 	//------------------- Weather ---------------------------------------------------------------------------------
@@ -665,7 +665,7 @@ if (_weatherChange != 0) then {
 			publicVariable "MCC_Lightnings";
 			publicVariable "MCC_Fog";
 
-			[[[MCC_Overcast, MCC_WindForce, MCC_Waves, MCC_Rain, MCC_Lightnings, MCC_Fog]],"MCC_fnc_setWeather",true,false] call BIS_fnc_MP;
+			[[MCC_Overcast, MCC_WindForce, MCC_Waves, MCC_Rain, MCC_Lightnings, MCC_Fog]] remoteExec ["MCC_fnc_setWeather", 0];
 		} else {
 			[[MCC_Overcast, MCC_WindForce, MCC_Waves]] remoteExec ["MCC_fnc_setWeather",0];
 			publicVariable "MCC_Overcast";
@@ -871,7 +871,7 @@ _music = MWinitMissionMusic call BIS_fnc_selectRandom;
 
 if (_playMusic > 0 ) then {_music = ""};
 
-[[_html2, ((_missionName1 select 0) +" " + (_missionName2  select 0)), [_missionTittle], [_missionCenter,_objectives,1,_html,_sounds,_music,_plainText,_sidePlayer,_playMusic,_preciseMarkers]],"MCC_fnc_makeBriefing",false,false] spawn BIS_fnc_MP;
+[_html2, ((_missionName1 select 0) +" " + (_missionName2  select 0)), [_missionTittle], [_missionCenter,_objectives,1,_html,_sounds,_music,_plainText,_sidePlayer,_playMusic,_preciseMarkers]] remoteExec ["MCC_fnc_makeBriefing", 2];
 
 
 //Broadcast missionInfo to all side

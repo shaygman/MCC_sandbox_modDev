@@ -30,7 +30,7 @@ if (typeName (_module getVariable ["rsAllWeapons",true]) == typeName 0) exitWith
 	MCC_rsEnableDriversPilots = ((_module getvariable ["rsEnableDriversPilots",0])==1);
 
 	if (hasInterface) then {
-		_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
+		_null=[] spawn MCC_fnc_s_player_init;
 	};
 };
 
@@ -61,7 +61,7 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
            ];
 
 if (missionNamespace getVariable ["CP_activated",false]) then {
-	_null=[] execVM _path + "mcc\roleSelection\scripts\player_init.sqf";
+	_null=[] spawn MCC_fnc_s_player_init;
 
 	{
 		_sideTickets = format ["MCC_tickets%1", _x];

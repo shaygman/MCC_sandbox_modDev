@@ -38,4 +38,4 @@ publicVariable _varName;
 
 [MCC_ConsoleGroupSelected] spawn MCC_fnc_baseSelected;
 
-[[_side,20,false],"MCC_fnc_rtsScanResources",false,false] spawn BIS_fnc_MP;
+[_side,20,false] remoteExec ["MCC_fnc_rtsScanResources", 2];

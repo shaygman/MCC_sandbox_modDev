@@ -1,6 +1,6 @@
 //================================================================MCC_fnc_buildSpawnPoint=============================================================================
 //Create a spawn point to the given side - SERVER ONLY
-// Example: [[pos, dir, side,size,destructable], "MCC_fnc_buildSpawnPoint", false, false] spawn BIS_fnc_MP;
+// Example: [pos, dir, side,size,destructable] remoteExec ["MCC_fnc_buildSpawnPoint", 2];
 // pos: Array, position
 // dir; number, direction
 // side: string, "west", "east" or "GUER"
@@ -222,7 +222,7 @@ switch (_mode) do
 												_mark = _obj getVariable ["mcc_fob_name",""];
 												_side = _obj getVariable ["side",civilian];
 
-												[compile format ['deleteMarker "%1";',_mark],"BIS_fnc_spawn", _side,false] call BIS_fnc_MP;
+												_mark remoteExec ["deleteMarker", _side];
 
 												_flag = _obj getVariable ["mcc_flag",objnull];
 												if (!isnil "_flag") then
@@ -238,7 +238,7 @@ switch (_mode) do
 			_dummy setvariable ["mcc_fob_name",_name, true];
 
 			//Create marker
-			[[[_name], _pos, "colorGreen", "loc_Bunker",_name,false],"BIS_fnc_markerCreate", _side,false] call BIS_fnc_MP;
+			[[_name], _pos, "colorGreen", "loc_Bunker",_name,false] remoteExec ["BIS_fnc_markerCreate", _side];
 		} else {
 			//Not destroyable
 			_dummy addEventHandler ["handledamage",{0}];

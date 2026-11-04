@@ -358,7 +358,7 @@ switch (_function) do
 
 			while {!(isnull attachedTo _cargo)} do {detach _cargo; sleep .1};
 			_cargo setDir _direction;
-			[netId _cargo,{{_x addCuratorEditableObjects [[objectFromNetId (_this)],true]} forEach allCurators}] remoteExec ["BIS_fnc_spawn",2];
+			{[_x,[[_cargo],true]] remoteExec ["addCuratorEditableObjects",2]} forEach allCurators;
 
 			waitUntil {isTouchingGround _cargo};
 			sleep 5;

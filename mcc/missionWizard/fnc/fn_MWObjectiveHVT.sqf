@@ -34,8 +34,8 @@ MCC_MWcreateHostage =
 	MCC_tempName = format ["MCC_objectUnits_%1", ["MCC_objectUnitsCounter",1] call bis_fnc_counter];
 
 	//Spawn Hostage
-	_null = _unit execVM format ["%1mcc\general_scripts\hostages\create_hostage.sqf", MCC_path];
-	_unit setvariable ["vehicleinit",(_unit getvariable ["vehicleinit",""]) + format ["_this execVM ""%1mcc\general_scripts\hostages\create_hostage.sqf"";", MCC_path]];
+	_null = _unit spawn MCC_fnc_s_create_hostage;
+	_unit setvariable ["vehicleinit",(_unit getvariable ["vehicleinit",""]) + "_this spawn MCC_fnc_s_create_hostage;"];
 	{_x addCuratorEditableObjects [[_unit],false]} forEach allCurators;
 	_unit;
 };
@@ -110,7 +110,7 @@ if (_isCQB) then {
 			_unitPlaced = true;
 
 			//Lets spawn some body guards
-			[[getpos _unit,30,0,2,_faction, _side],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+			[getpos _unit,30,0,2,_faction, _side] remoteExec ["MCC_fnc_garrison", 2];
 		};
 	};
 } else {
@@ -155,12 +155,12 @@ if (_isCQB) then {
 			waituntil {alive _unit};
 
 			//Add to zeus
-			{[[_x,_unit],{(_this select 0) addCuratorEditableObjects [[_this select 1],true];}] remoteExec ["BIS_fnc_spawn",_x]} forEach allCurators;
+			{[_x,[[_unit],true]] remoteExec ["addCuratorEditableObjects",_x]} forEach allCurators;
 
 			MCC_tempName = format ["MCC_objectUnits_%1", ["MCC_objectUnitsCounter",1] call bis_fnc_counter];
 			_init = FORMAT [";%1 = _this;",MCC_tempName];
 
-			[[[netid _unit,_unit], _init], "MCC_fnc_setVehicleInit", true, true] spawn BIS_fnc_MP;
+			[[netid _unit,_unit], _init] remoteExec ["MCC_fnc_setVehicleInit", 0, true];
 
 		} else {
 			_unit = [_spawnPos, _type, _sidePlayer,"Armed Civilian",random 360,true] call MCC_fnc_ACSingle;
@@ -181,7 +181,7 @@ if (_isCQB) then {
 		waituntil {alive _unit};
 
 		//Add to zeus
-		{[[_x,_unit],{(_this select 0) addCuratorEditableObjects [[_this select 1],true];}] remoteExec ["BIS_fnc_spawn",_x]} forEach allCurators;
+		{[_x,[[_unit],true]] remoteExec ["addCuratorEditableObjects",_x]} forEach allCurators;
 	};
 
 	_group setFormDir (round(random 360));

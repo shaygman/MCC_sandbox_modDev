@@ -86,7 +86,7 @@ if ((player distance _object < 7) && ((missionNamespace getVariable ["MCC_intera
 		//create the random loot
 		player setVariable ["MCC_readValue",nil];
 
-		[[format ["SERVER_%1",toupper worldName], "Loot Positions", format ["Object_%1",(getpos _object)], "ARRAY",player,true,[]], "MCC_fnc_inidbGet", false, false] call BIS_fnc_MP;
+		[format ["SERVER_%1",toupper worldName], "Loot Positions", format ["Object_%1",(getpos _object)], "ARRAY",player,true,[]] remoteExec ["MCC_fnc_inidbGet", 2];
 
 		while {isnil "_loot"} do {sleep 0.1;_loot = player getVariable ["MCC_readValue",nil]};
 
@@ -154,7 +154,7 @@ if ((player distance _object < 7) && ((missionNamespace getVariable ["MCC_intera
 
 		//Update server
 		//[format ["SERVER_%1",toupper worldName], "Loot Positions", format ["Object_%1",(getpos _object)], "ARRAY",player,false,_array] call MCC_fnc_inidbGet;
-		[[format ["SERVER_%1",toupper worldName], "Loot Positions", format ["Object_%1",(getpos _object)], "ARRAY",player,false,_array], "MCC_fnc_inidbGet", false, false] call BIS_fnc_MP;
+		[format ["SERVER_%1",toupper worldName], "Loot Positions", format ["Object_%1",(getpos _object)], "ARRAY",player,false,_array] remoteExec ["MCC_fnc_inidbGet", 2];
 	};
 
 };

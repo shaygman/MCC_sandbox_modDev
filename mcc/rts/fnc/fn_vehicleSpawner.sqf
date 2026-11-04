@@ -118,7 +118,7 @@ switch (_action) do
             clearItemCargoGlobal _vehicle;
         };
 
-        [[[_vehicle], {MCC_curator addCuratorEditableObjects [[_this select 0],false];}], "BIS_fnc_spawn", false, false, false] call BIS_fnc_MP;
+        [[_vehicle]] remoteExec ["MCC_fnc_rxCuratorAddEditable", 2];
         closeDialog 0;
     };
 };

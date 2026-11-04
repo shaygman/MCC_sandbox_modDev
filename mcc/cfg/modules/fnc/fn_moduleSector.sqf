@@ -356,7 +356,7 @@ switch _mode do {
 		if (isnil {MCC_fnc_moduleSector_sideSectors}) then {MCC_fnc_moduleSector_sideSectors = [0,0,0,0,0];};
 
 		//--- Execute local function
-		//[[_logic,[],true,"player"],"MCC_fnc_moduleSector",_sides - [sideunknown],true] call bis_fnc_mp;
+		//[_logic,[],true,"player"] remoteExec ["MCC_fnc_moduleSector",_sides - [sideunknown],true];
 
 		_fnc_conversion = {
 			_total = 0;
@@ -441,7 +441,7 @@ switch _mode do {
 			if (str _sides != _sidesOldStr) then {
 
 				//--- Show MP progress HUD - disable HUD
-				//[[_logic,[],true,"player"],"MCC_fnc_moduleSector",_sides - _sidesOld,true] call bis_fnc_mp;
+				//[_logic,[],true,"player"] remoteExec ["MCC_fnc_moduleSector",_sides - _sidesOld,true];
 
 				//--- Add sides
 				{
@@ -609,8 +609,8 @@ switch _mode do {
 				//--- Show notification
 				_ownerName = _owner call bis_fnc_sidename;
 				if (_owner != sideunknown) then {
-					[[format ["sectorCaptured%1",_owner],[_name,_ownerName,_iconTexture,_designation]],"BIS_fnc_showNotification",_sides - [_ownerOld]] call bis_fnc_mp;
-					[[format ["sectorLost%1",_owner],[_name,_ownerName,_iconTexture,_designation]],"BIS_fnc_showNotification",_ownerOld] call bis_fnc_mp;
+					[format ["sectorCaptured%1",_owner],[_name,_ownerName,_iconTexture,_designation]] remoteExec ["BIS_fnc_showNotification", _sides - [_ownerOld]];
+					[format ["sectorLost%1",_owner],[_name,_ownerName,_iconTexture,_designation]] remoteExec ["BIS_fnc_showNotification", _ownerOld];
 				};
 
 				//--- Update flag (not for default owner)

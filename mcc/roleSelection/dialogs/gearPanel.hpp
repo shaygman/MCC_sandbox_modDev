@@ -1,7 +1,7 @@
 class CP_GEARPANEL {
 	idd = -1;
 	movingEnable = true;
-	onLoad =  __EVAL("_this execVM '"+CPPATH+"mcc\roleSelection\scripts\gearPanel_init.sqf'");
+	onLoad =  "_this spawn MCC_fnc_s_gearPanel_init";
 	onUnLoad = "missionNameSpace setvariable ['CP_gearPanelOpen',false];";
 
 	controlsBackground[] =
@@ -344,10 +344,10 @@ class CP_GEARPANEL {
 			y = 0.115 * safezoneH + safezoneY;
 			w = 0.5 * safezoneW;
 			h = 0.793 * safezoneH;
-			onMouseZChanged = __EVAL("['MouseZChanged',_this] execVM '"+CPPATH+"mcc\roleSelection\scripts\camMouseMoving.sqf'");
-			onMouseMoving = __EVAL("['mousemoving',_this] execVM '"+CPPATH+"mcc\roleSelection\scripts\camMouseMoving.sqf'");
-			onMouseButtonDown = __EVAL("['MouseButtonDown',_this] execVM '"+CPPATH+"mcc\roleSelection\scripts\camMouseMoving.sqf'");
-			onMouseButtonUp = __EVAL("['MouseButtonUp',_this] execVM '"+CPPATH+"mcc\roleSelection\scripts\camMouseMoving.sqf'");
+			onMouseZChanged = "['MouseZChanged',_this] spawn MCC_fnc_s_camMouseMoving";
+			onMouseMoving = "['mousemoving',_this] spawn MCC_fnc_s_camMouseMoving";
+			onMouseButtonDown = "['MouseButtonDown',_this] spawn MCC_fnc_s_camMouseMoving";
+			onMouseButtonUp = "['MouseButtonUp',_this] spawn MCC_fnc_s_camMouseMoving";
 		};
 
 		class bottomCtrlsGroup: MCC_RscControlsGroupNoScrollbars
@@ -403,7 +403,7 @@ class CP_GEARPANEL {
 					h = 0.066 * safezoneH;
 					tooltip = "Press Deploy to get into the action"; //--- ToDo: Localize;
 					sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1.5)";
-					action = __EVAL("[1] execVM '"+CPPATH+"mcc\roleSelection\scripts\respawnPanel_cmd.sqf'");
+					action = "[1] spawn MCC_fnc_s_respawnPanel_cmd";
 				};
 
 				class CP_XPProgress: MCC_RscProgress
@@ -467,7 +467,7 @@ class CP_GEARPANEL {
 			w = 0.0670311 * safezoneW;
 			h = 0.044 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			action = __EVAL("[0] execVM '"+CPPATH+"mcc\roleSelection\scripts\switchDialog.sqf'");
+			action = "[0] spawn MCC_fnc_s_switchDialog";
 		};
 		class CP_gearPanelButton: CP_RscButtonMenu
 		{
@@ -479,7 +479,7 @@ class CP_GEARPANEL {
 			w = 0.0670311 * safezoneW;
 			h = 0.044 * safezoneH;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 1)";
-			action = __EVAL("[1] execVM '"+CPPATH+"mcc\roleSelection\scripts\switchDialog.sqf'");
+			action = "[1] spawn MCC_fnc_s_switchDialog";
 		};
 
 		class CP_rolesList: MCC_RscControlsGroup

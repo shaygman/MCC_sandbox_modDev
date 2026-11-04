@@ -103,7 +103,7 @@ switch _mode do {
 		//Enable HUD
 		if (_enableHUD) then {
 			{
-				[[_logic,[],true,"initHUDLocal",false],"MCC_fnc_moduleCapturePoint",_x,true] call bis_fnc_mp;
+				[_logic,[],true,"initHUDLocal",false] remoteExec ["MCC_fnc_moduleCapturePoint", _x, true];
 			} forEach _sides;
 		};
 
@@ -269,7 +269,7 @@ switch _mode do {
 
 					if (isPlayer _x) then {
 						if !(_x in _playersInList) then {_playersInList pushBack _x};
-						[[_logic,[],true,"player",true],"MCC_fnc_moduleCapturePoint",_x] call bis_fnc_mp;
+						[_logic,[],true,"player",true] remoteExec ["MCC_fnc_moduleCapturePoint", _x];
 					};
 				} foreach list _x;
 
@@ -283,7 +283,7 @@ switch _mode do {
 				if !(isNil "_player") then {
 					if ({_player in list _x} count _areas <= 0) then {
 						_playersInList set [_i,-1];
-						[[_logic,[],true,"player",false],"MCC_fnc_moduleCapturePoint",_player] call bis_fnc_mp;
+						[_logic,[],true,"player",false] remoteExec ["MCC_fnc_moduleCapturePoint", _player];
 					};
 				};
 			};
@@ -388,8 +388,8 @@ switch _mode do {
 				//--- Show notification
 				_ownerName = _owner call bis_fnc_sidename;
 				if (_owner != sideunknown) then {
-					[[format ["sectorCaptured%1",_owner],[_name,_ownerName,_iconTexture,_designation]],"BIS_fnc_showNotification",_sides - [_ownerOld]] call bis_fnc_mp;
-					[[format ["sectorLost%1",_owner],[_name,_ownerName,_iconTexture,_designation]],"BIS_fnc_showNotification",_ownerOld] call bis_fnc_mp;
+					[format ["sectorCaptured%1",_owner],[_name,_ownerName,_iconTexture,_designation]] remoteExec ["BIS_fnc_showNotification", _sides - [_ownerOld]];
+					[format ["sectorLost%1",_owner],[_name,_ownerName,_iconTexture,_designation]] remoteExec ["BIS_fnc_showNotification", _ownerOld];
 				};
 			};
 
@@ -421,7 +421,7 @@ switch _mode do {
 		for "_i" from 0 to (count _playersInList)-1 do {
 			private ["_player"];
 			_player = _playersInList select _i;
-			[[_logic,[],true,"player",false],"MCC_fnc_moduleCapturePoint",_player] call bis_fnc_mp;
+			[_logic,[],true,"player",false] remoteExec ["MCC_fnc_moduleCapturePoint", _player];
 			sleep 0.01;
 		};
 

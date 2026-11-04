@@ -144,7 +144,7 @@ if (_objType in ["artillery","aa"]) then {
 if (_objType in ["tanks","aa","artillery","air"]) then {
 		_init = '_this setVehicleLock "LOCKED";';
 	_init = '_this setVehicleLock "LOCKED";';
-	[[[netID _object,_object], _init, false], "MCC_fnc_setVehicleInit", false, false] spawn BIS_fnc_MP;
+	[[netID _object,_object], _init, false] remoteExec ["MCC_fnc_setVehicleInit", 2];
 
 	if (_objType isEqualTo "artillery") then {[0,_object] spawn MCC_fnc_amb_Art};
 	if (_objType isEqualTo "aa") then {[2,_object] spawn MCC_fnc_amb_Art};

@@ -65,7 +65,7 @@ if (_class != "") then {
 	_billboard attachto [_anchor,_billboardPos];
 	_helipad attachto [_anchor,_helipadPos];
 	_helipad setVariable ["MCC_vehicleSpawnerHelipad",true,true];
-	[[_billboard,[_class,_helipad]], "MCC_fnc_vehicleSpawnerInit", true, true] spawn BIS_fnc_MP;
+	[_billboard,[_class,_helipad]] remoteExec ["MCC_fnc_vehicleSpawnerInit", 0, true];
 
 	_billboard setVariable ["mcc_delete",false,true];
 	_helipad setVariable ["mcc_delete",false,true];

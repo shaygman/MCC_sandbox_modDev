@@ -1,6 +1,6 @@
 //==================================================================MCC_fnc_gearAI==================================================================================
 // Gear AI with gear acording to its role
-// Example: [_currentWeapon], "MCC_fnc_addItem", true, false] spawn BIS_fnc_MP;
+// Example: [_currentWeapon] remoteExec ["MCC_fnc_addItem", 0];
 //===================================================================================================================================================================
 private ["_role","_muzzles","_wepItems","_currentWeapon","_unit","_cfg","_items","_selectedItem","_sideUnit","_index","_currentMagazines","_currentWeaponName","_image","_weaponType"];
 

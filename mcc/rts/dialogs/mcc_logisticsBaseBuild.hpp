@@ -8,7 +8,7 @@ class MCC_LOGISTICS_BASE_BUILD
 {
 	idd = -1;
 	movingEnable = 1;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\rts\scripts\mcc_logisticsBaseBuild.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_logisticsBaseBuild";
 
 	class controlsBackground
 	{
@@ -170,10 +170,10 @@ class MCC_LOGISTICS_BASE_BUILD
 			w = 0.216563 * safezoneW;
 			h = 0.319 * safezoneH;
 
-			onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseDown.sqf'");
-			onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseUp.sqf'");
-			onMouseButtonDblClick = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseDblClick.sqf'");
-			onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseMoving.sqf'");
+			onMouseButtonDown = "[_this] spawn MCC_fnc_s_console_mouseDown";
+			onMouseButtonUp = "[_this] spawn MCC_fnc_s_console_mouseUp";
+			onMouseButtonDblClick = "[_this] spawn MCC_fnc_s_console_mouseDblClick";
+			onMouseMoving = "[_this] spawn MCC_fnc_s_console_mouseMoving";
 		};
 	};
 };

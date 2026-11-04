@@ -20,6 +20,6 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
 private ["_radius"];
 _radius = _resualt select 0;
 
-[[_pos, _radius, (_resualt select 1)+10], "MCC_fnc_deleteBrush", false, false] call BIS_fnc_MP;
+[_pos, _radius, (_resualt select 1)+10] remoteExec ["MCC_fnc_deleteBrush", 2];
 
 deleteVehicle _module;

@@ -95,7 +95,7 @@ while {true} do {
 
 			//Send hint
 			if (_showText) then {
-				[[_CompleteText,true],"MCC_fnc_globalHint",_side,false] spawn BIS_fnc_MP;
+				[_CompleteText,true] remoteExec ["MCC_fnc_globalHint", _side];
 			};
 
 		} forEach _sides;
@@ -210,7 +210,7 @@ while {true} do {
 					_Lightnings = (Lightnings -0.2) max 0;
 					_fog = (fog -0.2) max 0;
 				};
-				[[[_overcast, _WindForce, _Waves, _Rain, _Lightnings,_fog,_time]],"MCC_fnc_setWeather",true,false] spawn BIS_fnc_MP;
+				[[_overcast, _WindForce, _Waves, _Rain, _Lightnings,_fog,_time]] remoteExec ["MCC_fnc_setWeather", 0];
 
 
 				_CompleteText = _CompleteText 	+  "<t align='center' size='1.2' color='#FFCF11'> Weather</t><br/>"

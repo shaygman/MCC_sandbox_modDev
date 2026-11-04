@@ -18,16 +18,16 @@ waituntil {!isnil "MCC_mapClick"};
 openMap false;
 cutText ["", "PLAIN DOWN",1,true];
 
-_command = compile format ['titleText ["%1 Request Drop-off at X-ray: %2 Yankee: %3","PLAIN DOWN"]; titleFadeOut 60;',name player, floor (MCC_mapClick select 0), floor (MCC_mapClick select 1)];
-[[_command], "BIS_fnc_spawn", driver _vehicPlayer, false] spawn BIS_fnc_MP;
+[format ["%1 Request Drop-off at X-ray: %2 Yankee: %3",name player, floor (MCC_mapClick select 0), floor (MCC_mapClick select 1)],"PLAIN DOWN"] remoteExec ["titleText", driver _vehicPlayer];
+60 remoteExec ["titleFadeOut", driver _vehicPlayer];
 
-[[1,MCC_mapClick,[9,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]],"MCC_fnc_manageWp",  driver _vehicPlayer, false] spawn BIS_fnc_MP;
+[1,MCC_mapClick,[9,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]] remoteExec ["MCC_fnc_manageWp", driver _vehicPlayer];
 
 if (_vehicPlayer isKindof "air") then
 {
-	[[0,MCC_mapClick,[17,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]],"MCC_fnc_manageWp",  driver _vehicPlayer, false] spawn BIS_fnc_MP;
-	[[0,_prePos,[0,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]],"MCC_fnc_manageWp",  driver _vehicPlayer, false] spawn BIS_fnc_MP;
-	[[0,_prePos,[17,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]],"MCC_fnc_manageWp",  driver _vehicPlayer, false] spawn BIS_fnc_MP;
+	[0,MCC_mapClick,[17,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]] remoteExec ["MCC_fnc_manageWp", driver _vehicPlayer];
+	[0,_prePos,[0,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]] remoteExec ["MCC_fnc_manageWp", driver _vehicPlayer];
+	[0,_prePos,[17,"NO CHANGE","NO CHANGE","FULL","UNCHANGED","", {},0],[group driver _vehicPlayer]] remoteExec ["MCC_fnc_manageWp", driver _vehicPlayer];
 };
 
 //Clean up

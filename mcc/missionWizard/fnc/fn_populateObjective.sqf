@@ -61,7 +61,7 @@ if (_debug) then {diag_log format ["Total enemy's infantry Spawned in main zone:
 //Garrison
 if (_isCQB) then
 {
-	[[_missionCenter,_missionRadius,0,(_totalEnemyUnits*0.005),_enemyfaction,str _enemySide],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+	[_missionCenter,_missionRadius,0,(_totalEnemyUnits*0.005),_enemyfaction,str _enemySide] remoteExec ["MCC_fnc_garrison", 2];
 
 	//lock some doors
 	[_missionCenter,_missionRadius,12] spawn MCC_fnc_deleteBrush;
@@ -70,13 +70,13 @@ if (_isCQB) then
 // Is _isCiv
 if (_isCiv) then
 {
-	[[getmarkerpos str _zoneNumber,((getmarkersize str _zoneNumber) select 0) max ((getmarkersize str _zoneNumber) select 1),1,(_totalEnemyUnits*0.005),_civFaction,"CIV"],"MCC_fnc_garrison",false,false] spawn BIS_fnc_MP;
+	[getmarkerpos str _zoneNumber,((getmarkersize str _zoneNumber) select 0) max ((getmarkersize str _zoneNumber) select 1),1,(_totalEnemyUnits*0.005),_civFaction,"CIV"] remoteExec ["MCC_fnc_garrison", 2];
 };
 
 //Animals
 if (_animals) then
 {
-	[[_zoneNumber],"MCC_fnc_MWspawnAnimals",false,false] spawn BIS_fnc_MP;
+	[_zoneNumber] remoteExec ["MCC_fnc_MWspawnAnimals", 2];
 	if (_debug) then {diag_log format ["MCC: MW - Animals Spawned in Zone: %1", _unitPlaced]};
 };
 
@@ -111,7 +111,7 @@ if (_artillery != 0) then
 //Static
 if (random 1 > 0.3) then
 {
-	[[(_totalEnemyUnits*0.2),_missionCenter,_missionRadius,MCC_MWunitsArrayStatic,4,8,_enemySide,999,_zoneNumber],"MCC_fnc_MWSpawnStatic",false,false] spawn BIS_fnc_MP;
+	[(_totalEnemyUnits*0.2),_missionCenter,_missionRadius,MCC_MWunitsArrayStatic,4,8,_enemySide,999,_zoneNumber] remoteExec ["MCC_fnc_MWSpawnStatic", 2];
 	if (_debug) then {diag_log "Enemy's Static Weapons Spawned in main zone"};
 };
 
@@ -145,7 +145,7 @@ if (_isRoadblocks) then
 					//If no buildings around
 					if ((nearestBuilding _pos) distance _pos >30) then
 					{
-						[[_pos, _dir, _enemyfaction, _enemySide],"MCC_fnc_buildRoadblock",false,false] spawn BIS_fnc_MP;
+						[_pos, _dir, _enemyfaction, _enemySide] remoteExec ["MCC_fnc_buildRoadblock", 2];
 					};
 				};
 			};
@@ -210,7 +210,7 @@ if (_isIED) then
 					};
 
 					//Spawn the IED
-					[[_iedpos,_objectType,"large",floor (random 2),2,false,0,((random 25) + 15),_sidePlayer,_name,_dir,true,_enemySide],"MCC_fnc_trapSingle",false,false] spawn BIS_fnc_MP;
+					[_iedpos,_objectType,"large",floor (random 2),2,false,0,((random 25) + 15),_sidePlayer,_name,_dir,true,_enemySide] remoteExec ["MCC_fnc_trapSingle", 2];
 
 					//Debug
 					if (_debug) then
@@ -241,7 +241,7 @@ if (_reinforcement in [1,2,3]) then
 		_cond set [_x, (_cond select (_x-1)) + 0.3];
 	};
 
-	[[_reinforcement,_enemySide,getpos _missionCenterTrigger, triggerArea _missionCenterTrigger, _cond,_zoneNumber,_enemyfaction,(missionNamespace getVariable ["MCC_reinforcementWarning",true]),_totalEnemyUnits],"MCC_fnc_MWreinforcement",false,false] call BIS_fnc_MP;
+	[_reinforcement,_enemySide,getpos _missionCenterTrigger, triggerArea _missionCenterTrigger, _cond,_zoneNumber,_enemyfaction,(missionNamespace getVariable ["MCC_reinforcementWarning",true]),_totalEnemyUnits] remoteExec ["MCC_fnc_MWreinforcement", 2];
 };
 
 //all sides but the enemy
@@ -260,7 +260,7 @@ if (_isSB) then {
 			_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
 			_pos = [[[_missionCenter,(_missionRadius*0.4)]],["water"],{true}] call BIS_fnc_randomPos;
 
-			[[_pos,_objectType,"large",floor (random 2),_playersSides],"MCC_fnc_SBSingle",false,false] spawn BIS_fnc_MP;
+			[_pos,_objectType,"large",floor (random 2),_playersSides] remoteExec ["MCC_fnc_SBSingle", 2];
 
 			//Debug
 			if (_debug) then
@@ -288,7 +288,7 @@ if (_isAS) then {
 			_objectType = (_unitsArray call BIS_fnc_selectRandom) select 0;
 			_pos = [[[_missionCenter,(_missionRadius*0.4)]],["water"],{true}] call BIS_fnc_randomPos;
 
-			[[_pos,_objectType,_playersSides,"Armed Civilian",random 360],"MCC_fnc_ACSingle",false,false] spawn BIS_fnc_MP;
+			[_pos,_objectType,_playersSides,"Armed Civilian",random 360] remoteExec ["MCC_fnc_ACSingle", 2];
 
 			//Debug
 			if (_debug) then

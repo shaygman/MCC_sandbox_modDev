@@ -23,9 +23,9 @@ while {alive _unit && !(_unit getVariable ["MCC_disarmed",false])} do
 {
 	sleep 0.1;
 	_t = _t + 0.1;
-	if (_t > _time || (getDammage _unit > _dammage) || (_unit getVariable ["MCC_disarmed",false])) exitWith {[[[_unit,""],{(_this select 0) switchmove (_this select 1)}],"BIS_fnc_spawn", true, false] spawn BIS_fnc_MP;};
+	if (_t > _time || (getDammage _unit > _dammage) || (_unit getVariable ["MCC_disarmed",false])) exitWith {[_unit,""] remoteExec ["switchMove", 0];};
 };
 
-[[[_unit,""],{(_this select 0) switchmove (_this select 1)}],"BIS_fnc_spawn", true, false] spawn BIS_fnc_MP;
+[_unit,""] remoteExec ["switchMove", 0];
 _unit enableAI "AUTOTARGET";
 _unit setVariable ["MCC_Stunned", false,true]; 

@@ -1,6 +1,6 @@
 //==================================================================MCC_fnc_addItem=================================================================================
 // Sets gear to role
-// Example: [_currentWeapon], "MCC_fnc_addItem", true, false] spawn BIS_fnc_MP;
+// Example: [_currentWeapon] remoteExec ["MCC_fnc_addItem", 0];
 //========================================================================================================================================================================
 private ["_currentWeapon","_mag","_index","_array","_unit"];
 _currentWeapon = param [0,[0,"",0],[[]]];

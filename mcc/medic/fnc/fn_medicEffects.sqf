@@ -32,7 +32,7 @@ if (missionNamespace getvariable ["MCC_medicBleedingEnabled",false]) then {
 		if ((_unit getVariable ["MCC_clientEffectsTime",time-5]) < time  && isPlayer _unit) then
 		{
 			[_bleeding * 100] spawn BIS_fnc_bloodEffect;
-			[[[netid _unit,_unit], format ["WoundedGuyA_0%1",(floor (random 8))+1]], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
+			[[netid _unit,_unit], format ["WoundedGuyA_0%1",(floor (random 8))+1]] remoteExec ["MCC_fnc_globalSay3D", 0];
 			_unit setVariable ["MCC_clientEffectsTime",time+5+random 10];
 		};
 

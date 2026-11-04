@@ -97,16 +97,16 @@ _ar =	[ 		  _spawnType
 
 // Send data over the network, or when on server, execute directly
 if ( (isServer) && ( (mcc_hc == 0) || !(MCC_isHC) ) ) then {
-	[_ar, "mcc_setup", false, false] spawn BIS_fnc_MP;
+	_ar remoteExec ["mcc_setup", 2];
 	diag_log "MCC: attemping to spawn";
 
 } else {
 	if ( ( mcc_hc == 0 ) || !(MCC_isHC) ) then	{
-		[_ar, "mcc_setup", false, false] spawn BIS_fnc_MP;
+		_ar remoteExec ["mcc_setup", 2];
 	};
 
 	if (( mcc_hc == 1 ) && (MCC_isHC)) then	{
 
-		[_ar, "mcc_setup_hc", MCC_ownerHC, false] spawn BIS_fnc_MP;
+		_ar remoteExec ["mcc_setup_hc", MCC_ownerHC];
 	};
 };

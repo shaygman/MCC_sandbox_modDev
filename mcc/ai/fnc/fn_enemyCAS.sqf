@@ -83,7 +83,7 @@ if (_IsCAS) then {
 		_IsCAS = _this select 2;
 		_sidePlayer = _this select 3;
 
-		[["MCCNotificationBad",["CAS","Enemy CAS approaching",""]], "bis_fnc_showNotification", _sidePlayer, false] spawn BIS_fnc_MP;
+		["MCCNotificationBad",["CAS","Enemy CAS approaching",""]] remoteExec ["bis_fnc_showNotification", _sidePlayer];
 
 		while {(alive _casVehicle)} do {
 			_casVehicle setVehicleAmmo 1;
@@ -95,7 +95,7 @@ if (_IsCAS) then {
 			sleep 60;
 		};
 
-		[["MCCNotificationGood",["CAS","Enemy CAS down",""]], "bis_fnc_showNotification", _sidePlayer, false] spawn BIS_fnc_MP;
+		["MCCNotificationGood",["CAS","Enemy CAS down",""]] remoteExec ["bis_fnc_showNotification", _sidePlayer];
 
 		sleep 30;
 		if (!isNull _casVehicle) then {deleteVehicle _casVehicle;};

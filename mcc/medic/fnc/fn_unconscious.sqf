@@ -31,7 +31,7 @@ if (isplayer _source && _source != _unit) then {
 			if (_answer) then
 			{
 				_string = "<t font='puristaMedium' size='0.5' color='#FFFFFF '>Punished for friendly fire</t>";
-				[[_string,0,1,2,1,0,4], "bis_fnc_dynamictext", _source, false] spawn BIS_fnc_MP;
+				[_string,0,1,2,1,0,4] remoteExec ["bis_fnc_dynamictext", _source];
 				sleep 1;
 				_source setDamage 1;
 			};
@@ -50,7 +50,7 @@ if (isplayer _source && _source != _unit) then {
 			};
 
 			if (side _source getFriend side _unit < 0.6) then {
-				[[getplayeruid _source, (100*_xpFactor),_string], "MCC_fnc_addRating", _source] spawn BIS_fnc_MP;
+				[getplayeruid _source, (100*_xpFactor),_string] remoteExec ["MCC_fnc_addRating", _source];
 			};
 		};
 
@@ -108,7 +108,7 @@ _unit setUnconscious true;
 _unit allowDamage true;
 
 //Add helper
-[[_unit, "Hold %1 to heal"], "MCC_fnc_createHelper", false] call BIS_fnc_MP;
+[_unit, "Hold %1 to heal"] remoteExec ["MCC_fnc_createHelper", 2];
 
 //Handle player
 if (isPlayer _unit) exitWith {

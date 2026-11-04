@@ -17,7 +17,7 @@ deletevehicle _anchor;
 
 if (_deleteModule) then {
 	//Delete Marker
-	[compile format ['deleteMarker "%1";',(_module getVariable ["mcc_markerName",""])],"BIS_fnc_spawn", _side,false] call BIS_fnc_MP;
+	(_module getVariable ["mcc_markerName",""]) remoteExec ["deleteMarker", _side];
 
 	//Delete module
 	deletevehicle _module;

@@ -52,7 +52,7 @@ if (count _unitsArray > 0) then {
 		_ehID = _unit addMPEventHandler ["mpkilled", {
 												_unit = name (_this select 0);
 												_killer = name (_this select 1);
-												[["MCCNotificationBad",["Unit Down",format ["%1 was killed by %2",_unit,_killer],""]], "bis_fnc_showNotification", _sidePlayer, false] spawn BIS_fnc_MP;
+												["MCCNotificationBad",["Unit Down",format ["%1 was killed by %2",_unit,_killer],""]] remoteExec ["bis_fnc_showNotification", _sidePlayer];
 											  }];
 		{_x addCuratorEditableObjects [[_unit],true]} forEach allCurators;
 		_unit setVariable ["MCC_isRTSunit",true,true];

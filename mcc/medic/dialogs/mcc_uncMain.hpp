@@ -2,7 +2,7 @@ class mcc_uncMain
 {
 	idd = -1;
 	movingEnable = 0;
-	onLoad = __EVAL("_this execVM '"+MCCPATH+"mcc\medic\dialogs\mcc_uncMain_init.sqf'");
+	onLoad = "_this spawn MCC_fnc_s_mcc_uncMain_init";
 	duration = 1e+100;
 	fadeIn = 0;
 	fadeOut = 0;

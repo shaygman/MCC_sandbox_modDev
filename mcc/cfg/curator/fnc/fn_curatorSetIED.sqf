@@ -62,7 +62,7 @@ if (_object isKindOf "Man") then {
 	_IEDExplosionType 	= (_resualt select 1);
 	_iedside 			= (_resualt select 2) call BIS_fnc_sideType;
 
-	[[_object, _iedside, _trapvolume, _IEDExplosionType], "MCC_fnc_manageSB", _object, false] spawn BIS_fnc_MP;
+	[_object, _iedside, _trapvolume, _IEDExplosionType] remoteExec ["MCC_fnc_manageSB", _object];
 
 } else {
 	_resualt = ["Make an object act as an IED",[

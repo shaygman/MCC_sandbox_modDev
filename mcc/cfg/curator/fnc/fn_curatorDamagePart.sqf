@@ -57,7 +57,7 @@ if (_resualt select (_resualtCount - 1)) then {
 //Set Damage
 {
 	if (_x) then {
-		[[[_object, _selectionsNames select _foreachIndex], {(_this select 0) setHit [(_this select 1), 1];}], "BIS_fnc_spawn", _object] call BIS_fnc_MP;
+		[_object, [_selectionsNames select _foreachIndex, 1]] remoteExec ["setHit", _object];
 	}
 } forEach _resualt;
 

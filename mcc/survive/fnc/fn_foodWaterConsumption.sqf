@@ -69,7 +69,7 @@ while {(missionNamespace getVariable ["MCC_surviveMod",false])} do 	{
 
 			if (_ratio < 0.3) then {
 				[_ratio * 100] spawn BIS_fnc_bloodEffect;
-				[[[netid player,player], format ["WoundedGuyA_0%1",(floor (random 8))+1]], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
+				[[netid player,player], format ["WoundedGuyA_0%1",(floor (random 8))+1]] remoteExec ["MCC_fnc_globalSay3D", 0];
 			};
 		} else {
 			MCC_medicHungerPPEffectColor ppEffectEnable false;

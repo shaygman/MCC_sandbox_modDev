@@ -29,7 +29,7 @@ if (typeName (_module getVariable ["factionPlayer",true]) == typeName "") exitWi
 
 
 	//Start day/night cycle
-	[[_sidePlayer,_sidePlayer2],"MCC_fnc_dayCycle",false,false] spawn BIS_fnc_MP;
+	[_sidePlayer,_sidePlayer2] remoteExec ["MCC_fnc_dayCycle", 2];
 };
 
 //Not curator exit
@@ -76,6 +76,6 @@ _playMusic = _resualt select 10;
 [_sidePlayer,_factionPlayer,_sideEnemy,_factionEnemy,_factionCiv,_missionMax,_difficulty,_sidePlayer2,_tickets,_missionRotation,_tileSize,_loadDb, _playMusic] remoteExec ["MCC_fnc_campaignInit",2];
 
 //Start day/night cycle
-[[_sidePlayer,_sidePlayer2],"MCC_fnc_dayCycle",false,false] spawn BIS_fnc_MP;
+[_sidePlayer,_sidePlayer2] remoteExec ["MCC_fnc_dayCycle", 2];
 
 deleteVehicle _module;

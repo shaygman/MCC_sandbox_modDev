@@ -197,7 +197,7 @@ class MCC_rtsMainBox
 					idc = 1600;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_1_ca.paa";
 					tooltip = "Primary";
-					action = __EVAL("[1,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[1,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.077 * safezoneH;
@@ -211,7 +211,7 @@ class MCC_rtsMainBox
 					idc = 1605;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_1_ca.paa";
 					tooltip = "Primary";
-					action = __EVAL("[1,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[1,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.077 * safezoneH;
@@ -224,7 +224,7 @@ class MCC_rtsMainBox
 					idc = 1604;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_4_ca.paa";
 					tooltip = "Secondary";
-					action = __EVAL("[2,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[2,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.121 * safezoneH;
@@ -237,7 +237,7 @@ class MCC_rtsMainBox
 					idc = 1606;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_5_ca.paa";
 					tooltip = "Handguns";
-					action = __EVAL("[3,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[3,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.165 * safezoneH;
@@ -250,7 +250,7 @@ class MCC_rtsMainBox
 					idc = 1613;
 					text =  __EVAL(MCCPATH +"mcc\roleSelection\data\ui\cargoMag_ca.paa");
 					tooltip = "magazines";
-					action = __EVAL("[4,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[4,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.209 * safezoneH;
@@ -263,7 +263,7 @@ class MCC_rtsMainBox
 					idc = 1608;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_6_ca.paa";
 					tooltip = "Misc Weapon";
-					action = __EVAL("[6,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[6,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.253 * safezoneH;
@@ -276,7 +276,7 @@ class MCC_rtsMainBox
 					idc = 1609;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_7_ca.paa";
 					tooltip = "Weapon Accessories";
-					action = __EVAL("[7,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[7,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.297 * safezoneH;
@@ -289,7 +289,7 @@ class MCC_rtsMainBox
 					idc = 1610;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_8_ca.paa";
 					tooltip = "Uniforms";
-					action = __EVAL("[8,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[8,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.341 * safezoneH;
@@ -302,7 +302,7 @@ class MCC_rtsMainBox
 					idc = 1601;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_9_ca.paa";
 					tooltip = "Vests";
-					action = __EVAL("[9,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[9,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.385 * safezoneH;
@@ -315,7 +315,7 @@ class MCC_rtsMainBox
 					idc = 1603;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_10_ca.paa";
 					tooltip = "Backpacks";
-					action = __EVAL("[10,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[10,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.429 * safezoneH;
@@ -328,7 +328,7 @@ class MCC_rtsMainBox
 					idc = 1602;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_11_ca.paa";
 					tooltip = "Headgear";
-					action = __EVAL("[11,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[11,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.473 * safezoneH;
@@ -341,7 +341,7 @@ class MCC_rtsMainBox
 					idc = 1611;
 					text = "\a3\Ui_F_Curator\Data\RscCommon\RscAttributeInventory\filter_12_ca.paa";
 					tooltip = "Items";
-					action = __EVAL("[12,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					action = "[12,_this] spawn MCC_fnc_s_rtsMainBox_change";
 
 					x = 0.015469 * safezoneW;
 					y = 0.517 * safezoneH;
@@ -380,7 +380,7 @@ class MCC_rtsMainBox
 				{
 					idc = -1;
 					text = ">";
-					onButtonClick = __EVAL("[20,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					onButtonClick = "[20,_this] spawn MCC_fnc_s_rtsMainBox_change";
 					tooltip = "Buy";
 
 					x = 0.227 * safezoneW;
@@ -393,7 +393,7 @@ class MCC_rtsMainBox
 				{
 					idc = -1;
 					text = "<";
-					onButtonClick = __EVAL("[21,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					onButtonClick = "[21,_this] spawn MCC_fnc_s_rtsMainBox_change";
 					tooltip = "Sell";
 
 					x = 0.227 * safezoneW;
@@ -406,7 +406,7 @@ class MCC_rtsMainBox
 				{
 					idc = -1;
 					text = ">>";
-					onButtonClick = __EVAL("[22,_this] execVM '"+MCCPATH+"mcc\rts\scripts\rtsMainBox_change.sqf'");
+					onButtonClick = "[22,_this] spawn MCC_fnc_s_rtsMainBox_change";
 					tooltip = "Buy to Box";
 
 					x = 0.227 * safezoneW;

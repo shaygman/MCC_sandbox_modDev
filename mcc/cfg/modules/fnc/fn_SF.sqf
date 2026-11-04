@@ -18,7 +18,7 @@ if (player in _synced)then {
 	player setVariable ["MCC_fnc_SFLogic",_logic];
 
 	while { !alive player || isnil "MCC_path"} do {sleep 1};
-	_null = [] execVM MCC_path + "hcam\hcam_init.sqf";
+	_null = [] spawn MCC_fnc_s_hcam_init;
 	player setVariable ["mcc_sf",true,true];
 	sleep 1;
 	waituntil {!(IsNull (findDisplay 46))};

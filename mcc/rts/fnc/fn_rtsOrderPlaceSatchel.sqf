@@ -22,17 +22,4 @@ _pos = screenToWorld (uiNamespace getVariable ["MCC_rtsMenuLeftClickXYpos",[0,0]
 
 _leader = leader _group;
 
-_statment = {
-	_pos = _this select 0;
-	_leader = _this select 1;
-
-	_prepos = getpos _leader;
-	_leader domove _pos;
-	waitUntil {!(alive _leader) || _leader distance _pos < 6};
-	if (!alive _leader) exitWith {};
-	_mine = createMine ['SatchelCharge_F',getpos _leader, [], 0];
-	_leader domove _prepos;
-	_mine spawn {sleep 30; _this setDamage 1};
-};
-
-[[[_pos, _leader], _statment], "BIS_fnc_spawn", _leader, false] call BIS_fnc_MP;
+[_pos, _leader] remoteExec ["MCC_fnc_rxPlaceSatchel", _leader];

@@ -18,7 +18,7 @@ switch (true) do {
 				[_suspect, true] call ACE_captives_fnc_setHandcuffed;
 			} else {
 				sleep 1.5;
-				[[_suspect, "Acts_ExecutionVictim_Loop", false, 0],"MCC_fnc_setUnitAnim", _suspect, false] spawn BIS_fnc_MP;
+				[_suspect, "Acts_ExecutionVictim_Loop", false, 0] remoteExec ["MCC_fnc_setUnitAnim", _suspect];
 			};
 
 			_suspect setVariable ["MCC_disarmed",false,true];
@@ -28,7 +28,7 @@ switch (true) do {
 
 	case (_ctrlData == "follow"): {
 		if ((_suspect getVariable ["MCC_neutralize",false]) && !(_suspect in units group player) && ((({_x getVariable ["MCC_neutralize",false]} count units group player)<2))) exitWith {
-				_null = [_suspect, player, 0,[0]] execVM format ["%1mcc\general_scripts\hostages\hostage.sqf",MCC_path];
+				_null = [_suspect, player, 0,[0]] spawn MCC_fnc_s_hostage;
 		};
 	};
 

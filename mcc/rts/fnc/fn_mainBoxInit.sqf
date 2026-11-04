@@ -64,7 +64,7 @@ _eh = (_mccdialog displayCtrl 1) ctrlAddEventHandler ["LBSelChanged",{
 		params ["_ctrl","_index"];
 		private _class = _ctrl lbData _index;
 		if ((([_class] call BIS_fnc_itemType) select 0) == "Weapon") then {
-			_null = [5,_class] execVM format ["%1mcc\rts\scripts\rtsMainBox_change.sqf",missionNamespace getVariable ["MCC_path",""]];
+			_null = [5,_class] spawn MCC_fnc_s_rtsMainBox_change;
 		};
 	}];
 

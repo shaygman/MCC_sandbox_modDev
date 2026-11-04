@@ -169,12 +169,12 @@ if (_available) then {
 		_const setPosASL _pos;
 		_const setVariable ["MCC_CONST_FORT",true, true];
 	} else {
-		[[_conType, _pos, playerside, str _dir] ,"MCC_fnc_construction", false,false] call BIS_fnc_MP;
+		[_conType, _pos, playerside, str _dir] remoteExec ["MCC_fnc_construction", 2];
 	};
 
 	//broadcast
 	player globalRadio "SentAssemble";
-	[[player,(if (side player == west) then {format["mp_groundsupport_01_slingloadrequested_BHQ_%1",floor random 3]} else {format["mp_groundsupport_01_slingloadrequested_IHQ_%1",floor random 3]})] ,"MCC_fnc_radioSupport", playerside,false] call BIS_fnc_MP;
+	[player,(if (side player == west) then {format["mp_groundsupport_01_slingloadrequested_BHQ_%1",floor random 3]} else {format["mp_groundsupport_01_slingloadrequested_IHQ_%1",floor random 3]})] remoteExec ["MCC_fnc_radioSupport", playerside];
 } else {
 	private ["_str"];
 	_str = "<t size='1' t font = 'puristaLight' color='#FFFFFF'>" + _error + "</t>";

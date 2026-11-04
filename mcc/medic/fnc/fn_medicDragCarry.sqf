@@ -11,7 +11,7 @@ if (_carry) then
 	_targetUnit attachTo [_unit,[0.3, 0, -1.4], "water_surface"];
 	_targetUnit setdir 180;
 	_unit playMoveNow "acinpknlmstpsraswrfldnon_acinpercmrunsraswrfldnon";
-	[[[_targetUnit],{(_this select 0) playactionNow "grabCarried"}], "BIS_fnc_spawn", _targetUnit, false] call BIS_fnc_MP;
+	[_targetUnit,"grabCarried"] remoteExec ["playActionNow", _targetUnit];
 	WaitUntil {!(alive _unit) || (animationstate player in ["acinpercmstpsraswrfldnon","acinpercmrunsraswrfldf","acinpercmrunsraswrfldr","acinpercmrunsraswrfldl"])};
 	detach _targetUnit;
 	_targetUnit attachTo [_unit,[0.7, -0.1, -1.25], "LeftShoulder"];
@@ -21,7 +21,7 @@ if (_carry) then
 else
 {
 	[_targetUnit] call MCC_fnc_dragObject;
-	[[[_targetUnit],{(_this select 0) switchMove "AinjPpneMrunSnonWnonDb_still"}], "BIS_fnc_spawn", true, false] call BIS_fnc_MP;
+	[_targetUnit,"AinjPpneMrunSnonWnonDb_still"] remoteExec ["switchMove", 0];
 };
 
 sleep 1;
@@ -34,13 +34,13 @@ waituntil
 
 [] call MCC_fnc_releaseObject;
 
-[[[_targetUnit],{(_this select 0) playactionNow "released"}], "BIS_fnc_spawn", _targetUnit, false] spawn BIS_fnc_MP;
+[_targetUnit,"released"] remoteExec ["playActionNow", _targetUnit];
 
 if (_targetUnit getVariable ["MCC_medicUnconscious",false]) then
 {
-	[[[_targetUnit],{(_this select 0) playactionNow "Unconscious"}], "BIS_fnc_spawn", _targetUnit, false] spawn BIS_fnc_MP;
+	[_targetUnit,"Unconscious"] remoteExec ["playActionNow", _targetUnit];
 };
 
 
-[[[_unit],{(_this select 0) playactionNow "released"}], "BIS_fnc_spawn", _unit, false] spawn BIS_fnc_MP;
+[_unit,"released"] remoteExec ["playActionNow", _unit];
 if (_carry && !(_unit getVariable ["MCC_medicUnconscious",false])) then {sleep 2; _unit switchMove ""};

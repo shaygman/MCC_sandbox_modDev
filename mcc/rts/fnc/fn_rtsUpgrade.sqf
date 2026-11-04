@@ -25,4 +25,4 @@ private ["_pos","_dir"];
 _pos = getpos _obj;
 _dir = getdir _obj;
 [_obj, false] call MCC_fnc_rtsClearBuilding;
-[[_pos, _dir,_cfgName, 1, _side],"MCC_fnc_construct_base",false] spawn bis_fnc_MP
+[_pos, _dir,_cfgName, 1, _side] remoteExec ["MCC_fnc_construct_base", 2]
