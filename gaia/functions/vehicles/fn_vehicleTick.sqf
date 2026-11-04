@@ -7,6 +7,9 @@
 		2. Close to objective  -> whole group gets out, leader included (GAIA_fnc_dismount).
 		3. After a fight       -> if the objective is still far, get back in the same vehicle (GAIA_fnc_remount).
 		4. Vehicle not 100 m closer to the objective in 90 s -> re-path; after 3 tries, continue on foot.
+		   (Off when HBQ Advanced Driving AI is loaded - it does its own unstuck/route recovery.)
+		LAMBS Danger: groups on LAMBS task waypoints are left alone; contact dismounts are LAMBS's call,
+		GAIA only re-mounts after the fight.
 		5. Vehicle lost        -> forget it (a new ride may be found later).
 	Params:
 		0: GROUP
@@ -31,6 +34,9 @@ if (_intend isEqualTo [] || {(_intend param [1, ""]) == "FORTIFY"}) exitWith {};
 if (_group getVariable ["Garrisoning", false]) exitWith {};
 // GAIA's own transport system (a transporter group carrying another group) handles these
 if ((_group getVariable ["GAIA_Order", ""]) == "DoTransport") exitWith {};
+
+// Groups running a LAMBS task waypoint are LAMBS's job
+if (["LAMBS"] call GAIA_fnc_compat && {(waypoints _group) findIf {"lambs_wp" in toLowerANSI (waypointScript _x)} > -1}) exitWith {};
 
 private _class = _group getVariable ["GAIA_class", ""];
 if (_class in ["Helicopter", "Autonomous", "Ship", "Artillery", "Mortar"]) exitWith {};
@@ -92,7 +98,8 @@ if (count _onFoot > 0 && {_calm >= 3} && {_dist > _remountDist} && {time > (_gro
 };
 
 // 4. Driving but not getting closer (stuck, or wandering around the map): re-path, after 3 tries continue on foot
-if (_mounted && {!_inCombat}) then {
+// Skipped when HBQ Advanced Driving AI is loaded: it has its own unstuck and route recovery.
+if (_mounted && {!_inCombat} && {!(["HBQ"] call GAIA_fnc_compat)}) then {
 	private _stuck = _group getVariable ["GAIA_stuck", [time, _dist, 0]];
 	_stuck params ["_since", "_lastDist", "_tries"];
 	if (_dist < _lastDist - 100) then {

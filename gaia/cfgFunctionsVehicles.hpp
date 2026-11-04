@@ -12,6 +12,8 @@ class GAIA_vehicles
 		file = "gaia\functions\vehicles";
 		#endif
 
+		class detectAIMods {preInit = 1;};
+		class compat {};
 		class isValidPos {};
 		class safePos {};
 		class groupVehicle {};
