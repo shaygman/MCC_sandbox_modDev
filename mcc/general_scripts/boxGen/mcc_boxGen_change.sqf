@@ -217,12 +217,12 @@ _comboBox lbSetCurSel 0;
 if (_type == 4) then //Generate
 {
 	_string = ctrlText MCC_INITBOX;
-	_string = _string + format [';if (isServer) then {clearMagazineCargoGlobal _this; clearWeaponCargoGlobal _this;	clearItemCargoGlobal _this; clearBackpackCargoGlobal _this;[[_this, %1, %2, %3, %4],"MCC_fnc_boxGenerator",_this,false] spawn BIS_fnc_MP};',_targetWeapons, _targetMagazine, _targetItems, _targetRucks];
+	_string = _string + format [';if (isServer) then {clearMagazineCargoGlobal _this; clearWeaponCargoGlobal _this;	clearItemCargoGlobal _this; clearBackpackCargoGlobal _this;[_this, %1, %2, %3, %4] remoteExec ["MCC_fnc_boxGenerator",_this]};',_targetWeapons, _targetMagazine, _targetItems, _targetRucks];
 	ctrlSetText [MCC_INITBOX,_string];
 
 	if (_isMCC3D) then
 	{
-		_null = [1] execVM format["%1mcc\pop_menu\spawn_group3d.sqf",MCC_path];
+		_null = [1] spawn MCC_fnc_s_spawn_group3d;
 	};
 };
 

@@ -85,7 +85,7 @@ if (_button == 0 && _ctrlKey && (count MCC_GroupGenGroupSelected > 0)) then
 	_pos = _ctrl ctrlmapscreentoworld [_posX,_posY];
 
 	//Call the server to handle WP
-	[[1,_pos,[0,"NO CHANGE","NO CHANGE","UNCHANGED","UNCHANGED","true","",0],MCC_GroupGenGroupSelected],"MCC_fnc_manageWp", false, false] spawn BIS_fnc_MP;
+	[1,_pos,[0,"NO CHANGE","NO CHANGE","UNCHANGED","UNCHANGED","true","",0],MCC_GroupGenGroupSelected] remoteExec ["MCC_fnc_manageWp",2];
 };
 
 MCC_doubleClicked = false;

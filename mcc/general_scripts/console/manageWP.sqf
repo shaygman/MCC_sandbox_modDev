@@ -24,7 +24,7 @@ _wpBehavior = ["UNCHANGED", "CARELESS", "SAFE", "AWARE", "COMBAT", "STEALTH"] se
 } foreach MCC_ConsoleGroupSelected;
 
 //Call the server to handle WP
-[[_action,MCC_ConsoleWPpos,[_wpType,"NO CHANGE",_wpFormation,_wpSpeed,_wpBehavior,"true","",0],_groups,true],"MCC_fnc_manageWp", false, false] spawn BIS_fnc_MP;
+[_action,MCC_ConsoleWPpos,[_wpType,"NO CHANGE",_wpFormation,_wpSpeed,_wpBehavior,"true","",0],_groups,true] remoteExec ["MCC_fnc_manageWp",2];
 
 ctrlShow [MCC_CONSOLEWPBCKGR,false];
 ctrlShow [MCC_CONSOLEWPCOMBO,false];

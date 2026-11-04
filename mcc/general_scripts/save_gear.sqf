@@ -53,7 +53,7 @@ if (missionNamespace getVariable ["MCC_disableFatigue",false]) then {
 //Delete dead body
 if (missionNameSpace getVariable ["MCC_deletePlayersBody",false]) then {deleteVehicle _unit};
 
-_null = [(compile format ["MCC_curator addCuratorEditableObjects [[objectFromNetId '%1'],false];",netid player]), "BIS_fnc_spawn", false, false] call BIS_fnc_MP;
+_null = [[player]] remoteExec ["MCC_fnc_rxCuratorAddEditable", 2];
 
 if (missionNamespace getvariable ["MCC_saveGear",false]) then {
 	[	_goggles,
@@ -82,7 +82,7 @@ if (missionNamespace getvariable ["MCC_saveGear",false]) then {
 
 //if lost curator for some reason
 if (((missionNamespace getvariable ["mcc_missionmaker",""])== name player) && (player != getAssignedCuratorUnit MCC_curator)) then {
-	[player, "MCC_fnc_assignCurator", false, false] spawn BIS_fnc_MP;
+	player remoteExec ["MCC_fnc_assignCurator",2];
 };
 
 if (isnil "MCC_TRAINING") then {

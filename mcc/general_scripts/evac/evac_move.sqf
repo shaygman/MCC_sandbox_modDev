@@ -104,7 +104,7 @@ else
 
 						if (isMultiplayer) then
 						{
-							 [compile format ["unassignVehicle objectFromNetID '%1'; objectFromNetID '%1' action ['eject', vehicle objectFromNetID '%1']", netID _unit], "BIS_fnc_spawn", _unit, false] spawn BIS_fnc_MP;
+							 _unit remoteExec ["unassignVehicle", _unit]; [_unit, ["eject", vehicle _unit]] remoteExec ["action", _unit];
 						}
 						else
 						{
@@ -260,7 +260,7 @@ else
 						{
 							_unit action ["GETOUT", vehicle _unit];
 							unassignVehicle _unit;
-							[compile format ["objectFromNetID '%1' switchmove 'crew_tank01_out'", netID _unit], "BIS_fnc_spawn", true, false] call BIS_fnc_MP;
+							[_unit, "crew_tank01_out"] remoteExec ["switchMove", 0];
 						}
 						else
 						{
@@ -285,11 +285,11 @@ else
 						detach _unit;
 						if (isMultiplayer) then
 						{
-							 [compile format ["objectFromNetID '%1' switchmove '';", netID _unit], "BIS_fnc_spawn", true, false] call BIS_fnc_MP;
+							 [_unit, ""] remoteExec ["switchMove", 0];
 						}
 						else
 						{
-							[compile format ["objectFromNetID '%1' switchmove ''", netID _unit], "BIS_fnc_spawn", true, false] call BIS_fnc_MP;
+							[_unit, ""] remoteExec ["switchMove", 0];
 						};
 					};
 
@@ -353,7 +353,7 @@ else
 
 		if (_empty && (!isnil "_startPos")) then
 		{
-			[[[_startPos], _height, 1, [netid _heli,_heli]],"MCC_fnc_evacMove",_heli,false] spawn BIS_fnc_MP;
+			[[_startPos], _height, 1, [netid _heli,_heli]] remoteExec ["MCC_fnc_evacMove",_heli];
 		};
 	};
 };

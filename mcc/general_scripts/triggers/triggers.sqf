@@ -45,7 +45,7 @@ switch (_type) do
 		waituntil {(!MCC_capture_state)};
 		mcc_safe = mcc_safe + FORMAT ['
 							MCC_capture_var = %7;
-							script_handler = [0, %1, %2, "%3", "%4", "%5", "%6", MCC_capture_var,%8,%9,"%10","%11"] execVM "%12mcc\general_scripts\triggers\triggers_execute.sqf";
+							script_handler = [0, %1, %2, "%3", "%4", "%5", "%6", MCC_capture_var,%8,%9,"%10","%11"] spawn MCC_fnc_s_triggers_execute;
 							waitUntil {scriptDone script_handler};'								 
 							,_pos
 							,_size
@@ -60,7 +60,7 @@ switch (_type) do
 							,_stateDiac
 							,MCC_path
 							];
-		[0, _pos, _size, _activate, _cond, Mshape, _text, toArray MCC_capture_var,_timeMin,_timeMax,_stateCond,_stateDiac] execVM MCC_path + "mcc\general_scripts\triggers\triggers_execute.sqf";
+		[0, _pos, _size, _activate, _cond, Mshape, _text, toArray MCC_capture_var,_timeMin,_timeMax,_stateCond,_stateDiac] spawn MCC_fnc_s_triggers_execute;
 
 		while {dialog} do {closedialog 0};
 		_ok = createDialog "mcc_groupGen";
@@ -70,7 +70,7 @@ switch (_type) do
 	{
 		hint "Left click on the map to move a trigger";
 			onMapSingleClick  format[" 	hint 'Trigger moved.'; 
-								_nul=[3,_pos] execVM '%1mcc\general_scripts\triggers\triggers.sqf';
+								_nul=[3,_pos] spawn MCC_fnc_s_triggers;
 								onMapSingleClick """";",MCC_path];
 	};
 	
@@ -79,7 +79,7 @@ switch (_type) do
 		_pos = _this select 1;
 		_text = MCC_triggers select (lbCurSel MCC_TRIGGERS_LIST) select 0;
 		_triggerSelected = MCC_triggers select (lbCurSel MCC_TRIGGERS_LIST) select 1;
-		[1,_pos, _text, _triggerSelected] execVM MCC_path + 'mcc\general_scripts\triggers\triggers_execute.sqf';
+		[1,_pos, _text, _triggerSelected] spawn MCC_fnc_s_triggers_execute;
 								
 	};
 };

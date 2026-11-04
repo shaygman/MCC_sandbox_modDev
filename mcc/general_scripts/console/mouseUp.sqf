@@ -30,6 +30,6 @@ if (_pressed == 1  && (count _groupSelected > 0) && abs (_posX - ((missionNamesp
 	//Call the server to handle WP
 	if (count _groups > 0) then {
 		player globalRadio "CuratorWaypointPlaced";
-		[[if (_ctrlKey) then {0} else {1},_pos,[0,"YELLOW","NO CHANGE","FULL","AWARE","true","",0],_groups,true],"MCC_fnc_manageWp", false, false] spawn BIS_fnc_MP;
+		[if (_ctrlKey) then {0} else {1},_pos,[0,"YELLOW","NO CHANGE","FULL","AWARE","true","",0],_groups,true] remoteExec ["MCC_fnc_manageWp",2];
 	};
 };

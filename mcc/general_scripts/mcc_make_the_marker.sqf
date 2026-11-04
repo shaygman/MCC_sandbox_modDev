@@ -42,7 +42,7 @@ if (!MCC_capture_state) then
 
 		mcc_isnewzone = true;
 
-		_nul= [0] execVM MCC_path + "mcc\general_scripts\mcc_SpawnStuff.sqf";
+		_nul= [0] spawn MCC_fnc_s_mcc_Spawnstuff;
 	};
 
 	if (MCC_capture_state) then {
@@ -64,7 +64,7 @@ if (!MCC_capture_state) then
 									publicVariableServer 'mcc_zone_size';
 									publicVariableServer 'MCC_Marker_dir';
 									mcc_zone_locations set [mcc_zone_number,mcc_hc];
-									script_handler = [0] execVM '"+MCC_path+"mcc\general_scripts\mcc_make_the_marker.sqf';
+									script_handler = [0] spawn MCC_fnc_s_mcc_make_the_marker;
 								  "
 								,mcc_zone_markposition
 								,mcc_zone_number

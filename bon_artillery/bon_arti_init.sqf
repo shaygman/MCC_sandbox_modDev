@@ -50,7 +50,7 @@ arti_func_getLaser = compile (preprocessFileLineNumbers (BON_ARTI_PATH+"bon_arti
 
 if (isServer || isDedicated) then {
 	//server globalchat "bon arti execution - on";
-	"bon_arti_execution" addPublicVariableEventHandler {(_this select 1) execVM (BON_ARTI_PATH+"bon_arti_fire.sqf")};
+	"bon_arti_execution" addPublicVariableEventHandler {(_this select 1) spawn MCC_fnc_s_bon_arti_fire};
 
 	waituntil {! isnil "MCC_server"};
 	for "_i" from 1 to HW_Arti_CannonNumber do{

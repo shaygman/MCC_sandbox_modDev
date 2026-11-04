@@ -42,17 +42,17 @@ switch (_type) do {
 		};
 
 		if (_jukeBoxMusic) then {
-			[[2,compile format ["playMusic '%1'",_track]], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+			_track remoteExec ["playMusic", 0];
 		};
 	};
 
 	//Play
     case 1:	{
 		if (_jukeBoxMusic) then	{
-			[[2,compile format ["playMusic '%1'",_track]], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+			_track remoteExec ["playMusic", 0];
 		} else {
 			if (isClass(configFile >> "CfgSounds" >> _track) || isClass(missionconfigFile >> "CfgSounds" >> _track)) then {
-				[[2,compile format ["playSound '%1'",_track]], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+				_track remoteExec ["playSound", 0];
 			};
 		};
 	};
@@ -66,13 +66,13 @@ switch (_type) do {
 		};
 
 		if (_jukeBoxMusic) then {
-			[[2,compile format ["playMusic '%1'",_track]], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+			_track remoteExec ["playMusic", 0];
 		};
 	};
 
 	//Stop
    	case 3:	{
-		[[2,compile "playMusic ''"], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+		"" remoteExec ["playMusic", 0];
 	};
 
 	//Volume slider
@@ -99,7 +99,7 @@ switch (_type) do {
 						  _cond='%6';
 						  _track='%7';
 						  _jukeBoxMusic=%8;
-						  [[_zone, _zonePos, _zoneX, _zoneY, _activate, _cond,_track,_jukeBoxMusic ],'MCC_fnc_MusicTrigger',true,false] spawn BIS_fnc_MP;
+						  [_zone, _zonePos, _zoneX, _zoneY, _activate, _cond,_track,_jukeBoxMusic ] remoteExec ['MCC_fnc_MusicTrigger',0];
 						   sleep 1;
 						  "
 						  ,_zone
@@ -121,18 +121,18 @@ switch (_type) do {
 		_markerName setmarkertextlocal _markerName;
 
 		//execute on all clients
-		[[_zone, _zonePos, _zoneX, _zoneY, _activate, _cond,_track,_jukeBoxMusic ],'MCC_fnc_MusicTrigger',true,false] spawn BIS_fnc_MP;
+		[_zone, _zonePos, _zoneX, _zoneY, _activate, _cond,_track,_jukeBoxMusic ] remoteExec ['MCC_fnc_MusicTrigger',0];
 	};
 
 	//Switch to music tracks
 	case 6:	 {
 		missionNamespace setvariable ["MCC_jukeboxMusic",true];
-		_null = [13] execVM format ["%1mcc\general_scripts\groupGen\controlsHandle.sqf",MCC_path];
+		_null = [13] spawn MCC_fnc_s_controlsHandle;
 	};
 
 	//Switch to sound tracks
 	case 7:	{
 		missionNamespace setvariable ["MCC_jukeboxMusic",false];
-		_null = [13] execVM format ["%1mcc\general_scripts\groupGen\controlsHandle.sqf",MCC_path];
+		_null = [13] spawn MCC_fnc_s_controlsHandle;
 	};
 };

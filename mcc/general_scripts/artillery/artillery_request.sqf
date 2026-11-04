@@ -32,7 +32,7 @@ if !mcc_isloading then
 						+ 		  "publicVariable ""HW_arti_types"";"
 						+ FORMAT ["HW_arti_number_shells_per_hour = HW_arti_number_shells_per_hour + %1;",nshell]
 						+ 		  "publicVariable ""HW_arti_number_shells_per_hour"";"
-						+ FORMAT ["[[2,{[""MCCNotifications"",[""%1 %2 shells added"",""%3data\ammo_icon.paa"",""""]] call bis_fnc_showNotification;}], ""MCC_fnc_globalExecute"", true, false] spawn BIS_fnc_MP;",_shellName,nshell,MCC_path];
+						+ FORMAT ["[""MCCNotifications"",[""%1 %2 shells added"",""%3data\ammo_icon.paa"",""""]] remoteExec [""BIS_fnc_showNotification"", 0];",_shellName,nshell,MCC_path];
 				} 
 				else 
 				{
@@ -63,7 +63,7 @@ if !mcc_isloading then
 							case "civ" : {MCC_server setVariable ["Arti_CIV_shellsleft",HW_arti_number_shells_per_hour,true]};
 						};	
 							
-						[[2,compile format ['["MCCNotifications",["%2 %1 shells added","%3data\ammo_icon.paa",""]] call bis_fnc_showNotification;',nshell,_shellName,MCC_path]], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+						["MCCNotifications",[format ["%2 %1 shells added",nshell,_shellName],format ["%1data\ammo_icon.paa",MCC_path],""]] remoteExec ["BIS_fnc_showNotification", 0];
 						//["MCCNotifications",[format ["%2 %1 shells added",nshell,_shellName],format ["%1data\ammo_icon.paa",MCC_path],""]] call bis_fnc_showNotification;
 				};
 				hint format ["%1 Artillery enabled. \nAdded %2 artillery rounds",_shellName,nshell];

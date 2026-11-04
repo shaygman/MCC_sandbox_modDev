@@ -24,12 +24,12 @@ switch (_type) do {
 		waituntil {mapClick};
 		if (MCC_UMUnit==0) then {
 			{
-				[[[netID _x,_x],teleportPos], "MCC_fnc_moveToPos", _x, false] spawn BIS_fnc_MP;
+				[[netID _x,_x],teleportPos] remoteExec ["MCC_fnc_moveToPos",_x];
 			} foreach MCC_selectedUnits;
 		} else {
 			{
 				{
-					[[[netID _x,_x],teleportPos], "MCC_fnc_moveToPos", _x, false] spawn BIS_fnc_MP;
+					[[netID _x,_x],teleportPos] remoteExec ["MCC_fnc_moveToPos",_x];
 					sleep 0.2;
 				} foreach (units _x);
 			} foreach MCC_selectedUnits;
@@ -41,11 +41,11 @@ switch (_type) do {
 			_worldPos = deck modelToWorld [0,0,0];
 			if (MCC_UMUnit==0) then
 			{
-				{[[[netID _x,_x],[_worldPos select 0, _worldPos select 1, 15.9]], "MCC_fnc_moveToPos", true, false] spawn BIS_fnc_MP} foreach MCC_selectedUnits;
+				{[[netID _x,_x],[_worldPos select 0, _worldPos select 1, 15.9]] remoteExec ["MCC_fnc_moveToPos",0]} foreach MCC_selectedUnits;
 			}
 			else
 			{
-				{{[[[netID _x,_x],[_worldPos select 0, _worldPos select 1, 15.9]], "MCC_fnc_moveToPos", true, false] spawn BIS_fnc_MP} foreach (units _x);} foreach MCC_selectedUnits;
+				{{[[netID _x,_x],[_worldPos select 0, _worldPos select 1, 15.9]] remoteExec ["MCC_fnc_moveToPos",0]} foreach (units _x);} foreach MCC_selectedUnits;
 			};
 		};
 
@@ -114,7 +114,7 @@ switch (_type) do {
 				_string = "(vehicle _target == vehicle _this) && (getplayerUID player in (missionNamespace getvariable ['MCC_allowedPlayers',[]]) || 'all' in  (missionNamespace getvariable ['MCC_allowedPlayers',[]]) || (serverCommandAvailable '#kick' && missionNamespace getvariable ['MCC_allowAdmin',true]) || (isServer && missionNamespace getvariable ['MCC_allowAdmin',true]) || (player getvariable ['MCC_allowed',false]))";
 				mcc_actionInedx = player addaction ["<t color=""#99FF00"">--= MCC =--</t>",MCC_path + "mcc\dialogs\mcc_PopupMenu.sqf",[nil,nil,nil,nil,0], 0,false, false, "",_string];
 				player setVariable ["MCC_allowed",true,true];
-				_ok = _targetUnit addEventHandler ["Killed", format ["[_this select 0] execVM '%1mcc\general_scripts\unitManage\backToPlayer.sqf'",MCC_path]];
+				_ok = _targetUnit addEventHandler ["Killed", "[_this select 0] spawn MCC_fnc_s_backToPlayer"];
 
 				if (MCC_PrevHijacked_Group != "") then
 				{
@@ -124,7 +124,7 @@ switch (_type) do {
 					{
 						if (isMultiplayer) then
 						{
-							[[2, compile format ["(groupFromNetID '%1') selectLeader objectFromNetId '%2'",netID (group Player), netID player]], "MCC_fnc_globalExecute", true, false] spawn BIS_fnc_MP;
+							[group player, player] remoteExec ["selectLeader", 0];
 						}
 						else
 						{
@@ -267,7 +267,7 @@ switch (_type) do {
 				else
 				{
 				UMName =  MCC_UMunitsNames select (lbCurSel MCC_UM_LIST);
-				[[[netID UMName,UMName],0],"MCC_fnc_highCommand",true,false] call BIS_fnc_MP;
+				[[netID UMName,UMName],0] remoteExec ["MCC_fnc_highCommand",0];
 				};
 			};
 		};
@@ -280,7 +280,7 @@ switch (_type) do {
 				{UMName =  MCC_UMunitsNames select (lbCurSel MCC_UM_LIST)}
 				else {UMName = leader (UMgroupNames select (lbCurSel MCC_UM_LIST))};
 			hint "cleared all High Command units";
-			[[[netID UMName,UMName],1],"MCC_fnc_highCommand",true,false] call BIS_fnc_MP;
+			[[netID UMName,UMName],1] remoteExec ["MCC_fnc_highCommand",0];
 			};
 		};
 
@@ -292,7 +292,7 @@ switch (_type) do {
 				{UMName =  MCC_UMunitsNames select (lbCurSel MCC_UM_LIST)}
 				else {UMName = leader (UMgroupNames select (lbCurSel MCC_UM_LIST))};
 			hint "Group Added";
-			[[[netID UMName,UMName],2],"MCC_fnc_highCommand",true,false] call BIS_fnc_MP;
+			[[netID UMName,UMName],2] remoteExec ["MCC_fnc_highCommand",0];
 			};
 		};
 
@@ -327,7 +327,7 @@ switch (_type) do {
 			if (MCC_UMUnit==0) then
 			{
 				{
-					[[MCC_pos,[netId _x,_x],true,5000,_forEachIndex],"MCC_fnc_paradrop",_x,false] call BIS_fnc_MP;
+					[MCC_pos,[netId _x,_x],true,5000,_forEachIndex] remoteExec ["MCC_fnc_paradrop",_x];
 					sleep 0.5;
 				} foreach MCC_selectedUnits;
 			}
@@ -335,7 +335,7 @@ switch (_type) do {
 			{
 				{
 					{
-						[[MCC_pos,[netId _x,_x],true,5000,_forEachIndex],"MCC_fnc_paradrop",_x,false] call BIS_fnc_MP;
+						[MCC_pos,[netId _x,_x],true,5000,_forEachIndex] remoteExec ["MCC_fnc_paradrop",_x];
 						sleep 0.5;
 					} foreach units _x;
 				} foreach MCC_selectedUnits;
@@ -365,7 +365,7 @@ switch (_type) do {
 			if (MCC_UMUnit==0) then
 				{UMName =  MCC_UMunitsNames select (lbCurSel MCC_UM_LIST)}
 				else {UMName = leader (UMgroupNames select (lbCurSel MCC_UM_LIST))};
-			[[[netid UMName,UMName], MCC_UMPIPView],"MCC_fnc_broadcast",true,false] spawn BIS_fnc_MP;
+			[[netid UMName,UMName], MCC_UMPIPView] remoteExec ["MCC_fnc_broadcast",0];
 		};
 
 		case 12:	//Delete

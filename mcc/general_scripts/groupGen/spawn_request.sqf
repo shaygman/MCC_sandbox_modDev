@@ -98,7 +98,7 @@ if ((lbCurSel MCC_GGUNIT_TYPE) == 1) then
 		if (MCC_capture_state) then
 		{
 			MCC_capture_var = MCC_capture_var + FORMAT ['
-				[[%1,%2,%3,%4,"%5","%6"],"MCC_fnc_garrison",true,false] call BIS_fnc_MP;;
+				[%1,%2,%3,%4,"%5","%6"] remoteExec ["MCC_fnc_garrison",0];;
 				'
 				,_center
 				,_radius
@@ -112,7 +112,7 @@ if ((lbCurSel MCC_GGUNIT_TYPE) == 1) then
 		{
 				//*/
 				mcc_safe = mcc_safe + FORMAT ['
-				[[%1,%2,%3,%4,"%5","%6"],"MCC_fnc_garrison",true,false] call BIS_fnc_MP;;
+				[%1,%2,%3,%4,"%5","%6"] remoteExec ["MCC_fnc_garrison",0];;
 				'
 				,_center
 				,_radius
@@ -121,7 +121,7 @@ if ((lbCurSel MCC_GGUNIT_TYPE) == 1) then
 				,_faction
 				,mcc_sidename
 				];
-				[[_center,_radius,_action,_intanse,_faction,mcc_sidename],"MCC_fnc_garrison",true,false] call BIS_fnc_MP;
+				[_center,_radius,_action,_intanse,_faction,mcc_sidename] remoteExec ["MCC_fnc_garrison",0];
 				//*/
 		};
 	};
@@ -261,6 +261,6 @@ else
 
 	mcc_awareness = "default";
 
-	_nul=[4] execVM MCC_path + "mcc\general_scripts\mcc_SpawnStuff.sqf";
+	_nul=[4] spawn MCC_fnc_s_mcc_Spawnstuff;
 };
 

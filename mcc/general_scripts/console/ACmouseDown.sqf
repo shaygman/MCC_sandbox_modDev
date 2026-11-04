@@ -81,7 +81,7 @@ if (_pressed==0) then {
 				};
 
 
-				[_center, getpos _ac, "B_25mm",1500,1] execVM MCC_path + "mcc\general_scripts\console\ac_fire.sqf";
+				[_center, getpos _ac, "B_25mm",1500,1] spawn MCC_fnc_s_ac_fire;
 
 				//Update ammo count
 				_ammoSelected set [1,(_ammoSelected select 1)-1];
@@ -111,7 +111,7 @@ if (_pressed==0) then {
 				playSound3D ["A3\Sounds_F\arsenal\weapons_vehicles\gatling_30mm\30mm_02_burst.wss",_uav,false,getposasl _uav,1,1,1500];
 
 
-				[_center, getpos _ac, "B_40mm_GPR_Tracer_Red",1500,1] execVM MCC_path + "mcc\general_scripts\console\ac_fire.sqf";
+				[_center, getpos _ac, "B_40mm_GPR_Tracer_Red",1500,1] spawn MCC_fnc_s_ac_fire;
 
 				//Update ammo count
 				_ammoSelected set [1,(_ammoSelected select 1)-1];
@@ -143,7 +143,7 @@ if (_pressed==0) then {
 			};
 
 
-			[_center, getpos _ac, "Sh_105mm_HEAT_MP",1500,1] execVM MCC_path + "mcc\general_scripts\console\ac_fire.sqf";
+			[_center, getpos _ac, "Sh_105mm_HEAT_MP",1500,1] spawn MCC_fnc_s_ac_fire;
 
 			//Update ammo count
 			_ammoSelected set [1,(_ammoSelected select 1)-1];

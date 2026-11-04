@@ -7,7 +7,7 @@ if (!MCC_isBroadcasting) then	{
 	_source = "Sign_Sphere10cm_F" createvehicle [0,0,0];
 	waitUntil {_source != ObjNull};
 
-	[[[netid _source,_source], "_this hideObjectGlobal true"], "MCC_fnc_setVehicleInit", false, false] spawn BIS_fnc_MP;
+	[[netid _source,_source], "_this hideObjectGlobal true"] remoteExec ["MCC_fnc_setVehicleInit",2];
 	
 	_source attachTo [vehicle (_target),[5,5,5]]; 
 	 

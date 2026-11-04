@@ -34,10 +34,10 @@ if (mcc_missionmaker == (name player)) then {
 		if (MCC_capture_state) then {
 			hint "Ambush Captured.";
 			MCC_capture_var = MCC_capture_var
-					+ FORMAT ["[[%1 , '%2' , '%3', %4, %5, %6, %7, %8],'MCC_fnc_ambushSingle',true,false] call BIS_fnc_MP;", MCC_pointA, IEDAmbushspawnname, mcc_sidename, IedName, IEDDir, MCC_pointB, MCC_IEDisSpotter, iedside];
+					+ FORMAT ["[%1 , '%2' , '%3', %4, %5, %6, %7, %8] remoteExec ['MCC_fnc_ambushSingle',0];", MCC_pointA, IEDAmbushspawnname, mcc_sidename, IedName, IEDDir, MCC_pointB, MCC_IEDisSpotter, iedside];
 		} else  {
 			hint "Ambush Placed.";
-			[[MCC_pointA , IEDAmbushspawnname,mcc_sidename, IedName, IEDDir, MCC_pointB, MCC_IEDisSpotter, iedside],"MCC_fnc_ambushSingle",false,false] call BIS_fnc_MP;
+			[MCC_pointA , IEDAmbushspawnname,mcc_sidename, IedName, IEDDir, MCC_pointB, MCC_IEDisSpotter, iedside] remoteExec ["MCC_fnc_ambushSingle",2];
 		};
 
 		MCC_ambushPlacing = false;
@@ -50,7 +50,7 @@ if (mcc_missionmaker == (name player)) then {
 		_nearObjectsB = MCC_pointB nearObjects [MCC_dummy,50];
 
 		if (count _nearObjectsA > 0 && count _nearObjectsB > 0) then{
-			[[MCC_pointA , MCC_pointB],"MCC_fnc_iedSync",true,false] call BIS_fnc_MP;
+			[MCC_pointA , MCC_pointB] remoteExec ["MCC_fnc_iedSync",0];
 		};
 	};
 };

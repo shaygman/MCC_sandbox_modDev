@@ -30,15 +30,15 @@ if (_pressed==0) then {
 	if ("2Rnd_GBU12_LGB" in (MCC_ConolseUAV magazinesTurret [0])) then {MCC_ConsoleUAVmissiles = ["GBU",(MCC_ConolseUAV) ammo "GBU12BombLauncher","GBU12BombLauncher","Bo_GBU12_LGB"]};
 	if ((MCC_ConsoleUAVmissiles select 0) != "" && (MCC_ConsoleUAVmissiles select 1) > 0 && (abs(getdir MCC_ConolseUAV - getdir MCC_fakeUAV) <=90)) then {
 		playSound "missileLunch";
-		[1,""] execVM MCC_path+"mcc\general_scripts\console\uavControl.sqf";
+		[1,""] spawn MCC_fnc_s_uavControl;
 		//MCC_ConolseUAV fire (MCC_ConsoleUAVmissiles select 2);
 		sleep 1;
 		_objects = [];
 		_objects = (getpos MCC_ConolseUAV) nearObjects [(MCC_ConsoleUAVmissiles select 3), 300];
 		_rocket = if (count _objects > 0) then {_objects select 0};
 		if (isnil "_rocket") then {_rocket = getpos MCC_ConolseUAV};
-		[[[netid MCC_fakeUAV,MCC_fakeUAV], "missileLunch"], "MCC_fnc_globalSay3D", true, false] spawn BIS_fnc_MP;
-		[MCC_fakeUAVCenter, getpos _rocket, (MCC_ConsoleUAVmissiles select 3),400,true,""] execVM MCC_path + "mcc\general_scripts\CAS\missile_guide.sqf";
+		[[netid MCC_fakeUAV,MCC_fakeUAV], "missileLunch"] remoteExec ["MCC_fnc_globalSay3D",0];
+		[MCC_fakeUAVCenter, getpos _rocket, (MCC_ConsoleUAVmissiles select 3),400,true,""] spawn MCC_fnc_s_missile_guide;
 		if (!isnil "_rocket") then {deletevehicle _rocket};
 		ctrlSetText [MCC_CONSOLE_UAV_MISSILE_COUNT, format ["%1 #: %2",MCC_ConsoleUAVmissiles select 0,(MCC_ConsoleUAVmissiles select 1)-1]];
 	};

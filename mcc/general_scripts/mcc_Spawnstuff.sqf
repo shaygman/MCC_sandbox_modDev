@@ -78,7 +78,7 @@ if (MCC_capture_state) then
 			  mcc_safe_pos = %19;
 			  mcc_caching = %20;
 			  mcc_delayed_spawn = %21;
-			  script_handler = [0] execVM '%17mcc\general_scripts\mcc_SpawnStuff.sqf';"
+			  script_handler = [0] spawn MCC_fnc_s_mcc_Spawnstuff;"
 			  , mcc_spawntype
 			  , mcc_classtype
 			  , mcc_isnewzone
@@ -125,7 +125,7 @@ if (MCC_capture_state) then
 			  mcc_safe_pos = %19;
 			  mcc_caching = %20;
 			  mcc_delayed_spawn = %21;
-			  script_handler = [0] execVM "%17mcc\general_scripts\mcc_SpawnStuff.sqf";'
+			  script_handler = [0] spawn MCC_fnc_s_mcc_Spawnstuff;'
 			  , mcc_spawntype
 			  , mcc_classtype
 			  , mcc_isnewzone
@@ -305,7 +305,7 @@ else
 
 				if ( (isServer) && ( (mcc_hc == 0) || !(MCC_isHC) ) ) then
 				{
-					[_ar, "mcc_setup", false, false] spawn BIS_fnc_MP;
+					_ar remoteExec ["mcc_setup",2];
 
 					diag_log "MCC: attemping to spawn";
 
@@ -319,15 +319,15 @@ else
 				{
 					if ( ( mcc_hc == 0 ) || !(MCC_isHC) ) then
 					{
-						//[_ar, "mcc_setup", true, false] spawn BIS_fnc_MP;
-						[_ar, "mcc_setup", false, false] spawn BIS_fnc_MP;
+						//_ar remoteExec ["mcc_setup",0];
+						_ar remoteExec ["mcc_setup",2];
 						diag_log format ["Called 'mcc_setup' Remote Event on Server - isServer [%1] - isHC: [%2] - MCC_HC: [%3]", isServer, MCC_isHC, mcc_hc];
 					};
 
 					if (( mcc_hc == 1 ) && (MCC_isHC)) then
 					{
-						//[_ar, "mcc_setup_hc", true, false] spawn BIS_fnc_MP;
-						[_ar, "mcc_setup_hc", MCC_ownerHC, false] spawn BIS_fnc_MP;
+						//_ar remoteExec ["mcc_setup_hc",0];
+						_ar remoteExec ["mcc_setup_hc",MCC_ownerHC];
 						diag_log format ["Called 'mcc_setup_hc' Remote Event on Headless Client - isServer [%1] - isHC: [%2] - MCC_HC: [%3] - MCC_HC_Owner: [%4]", isServer, MCC_isHC, mcc_hc, MCC_ownerHC];
 					};
 				};

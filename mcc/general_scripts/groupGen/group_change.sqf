@@ -328,7 +328,7 @@ if (_action ==4) exitWIth
 			saveProfileNamespace;
 		};
 		
-		_nul = [0] execVM format ["%1mcc\general_scripts\groupGen\group_change.sqf",MCC_path];
+		_nul = [0] spawn MCC_fnc_s_group_change;
 	}
 	else	//Save
 	{

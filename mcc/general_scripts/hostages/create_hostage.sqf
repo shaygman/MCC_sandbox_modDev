@@ -14,8 +14,8 @@ if (MCC_isACE) then {
 	removeallweapons _hostage;
 	_hostage setcaptive true;
 	_init = "_this switchmove 'Acts_ExecutionVictim_Loop';";
-	[[[netID _hostage,_hostage], _init, false], "MCC_fnc_setVehicleInit", true, true] spawn BIS_fnc_MP;
-	/*[[_hostage, "Hold %1 to interact"], "MCC_fnc_createHelper", false] call BIS_fnc_MP;*/
+	[[netID _hostage,_hostage], _init, false] remoteExec ["MCC_fnc_setVehicleInit",0,true];
+	/*[_hostage, "Hold %1 to interact"] remoteExec ["MCC_fnc_createHelper",2];*/
 };
 
 [
@@ -32,7 +32,7 @@ if (MCC_isACE) then {
 	{},
 	{
 		//Success
-		_null = [_target, player, 0,[0]] execVM format ["%1mcc\general_scripts\hostages\hostage.sqf",MCC_path];
+		_null = [_target, player, 0,[0]] spawn MCC_fnc_s_hostage;
 		[name _target,"Thank you!"] remoteExec ["BIS_fnc_showSubtitle", _caller];
 	},
 	{

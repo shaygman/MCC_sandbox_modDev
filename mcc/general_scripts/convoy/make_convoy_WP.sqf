@@ -154,7 +154,7 @@ if !mcc_isloading then {
 									point4 =%9;
 									point5 =%10;
 									vip = %12;
-									[[%1 select 0, %2 select 0, %3 select 0, %4 select 0, %5 select 0,%6, %7, %11 select 0,%12 select 0, %13 select 0],""MCC_fnc_placeConvoy"",false,false] spawn BIS_fnc_MP;
+									[%1 select 0, %2 select 0, %3 select 0, %4 select 0, %5 select 0,%6, %7, %11 select 0,%12 select 0, %13 select 0] remoteExec [""MCC_fnc_placeConvoy"",2];
 								    "
 								  , convoy_car1
 								  , convoy_car2
@@ -172,14 +172,14 @@ if !mcc_isloading then {
 								  ];
 		} else {
 			hint "Convoy placed";
-			[[convoy_car1 select 0, convoy_car2 select 0, convoy_car3 select 0, convoy_car4 select 0, convoy_car5 select 0,_point1, _point2,[mcc_sidename] select 0, vip select 0, vipCar select 0],"MCC_fnc_placeConvoy",false,false] spawn BIS_fnc_MP;
+			[convoy_car1 select 0, convoy_car2 select 0, convoy_car3 select 0, convoy_car4 select 0, convoy_car5 select 0,_point1, _point2,[mcc_sidename] select 0, vip select 0, vipCar select 0] remoteExec ["MCC_fnc_placeConvoy",2];
 			mcc_safe = mcc_safe + FORMAT ["
 									point2 =%7;
 									point3 =%8;
 									point4 =%9;
 									point5 =%10;
 									vip = %12;
-									[[%1 select 0, %2 select 0, %3 select 0, %4 select 0, %5 select 0,%6, %7, %11 select 0,%12 select 0, %13 select 0],""MCC_fnc_placeConvoy"",false,false] spawn BIS_fnc_MP;
+									[%1 select 0, %2 select 0, %3 select 0, %4 select 0, %5 select 0,%6, %7, %11 select 0,%12 select 0, %13 select 0] remoteExec [""MCC_fnc_placeConvoy"",2];
 								    sleep 1;
 								  "
 								  , convoy_car1

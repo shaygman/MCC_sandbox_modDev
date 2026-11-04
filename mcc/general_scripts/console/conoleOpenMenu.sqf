@@ -106,6 +106,6 @@ if (_type == 1) then {											//Switching to Artillery
 		MCC_Console2Open = false;
 		MCC_Console3Open = false;
 		MCC_Console4Open = true;
-		_nul=[1] execVM MCC_path + "bon_artillery\dialog\openMenu.sqf";
+		_nul=[1] spawn MCC_fnc_s_openMenu;
 		};
 	};

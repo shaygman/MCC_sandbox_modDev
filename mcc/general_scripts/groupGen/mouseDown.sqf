@@ -54,7 +54,7 @@ if (mcc_missionmaker == (name player)) then {
 		//worldPos
 		MCC_ConsoleWPpos = _ctrl ctrlMapScreenToWorld [_posX,_posY];
 
-		[0,MCC_ConsoleWPpos] execVM format ["%1mcc\pop_menu\spawn_group3d.sqf",MCC_path];
+		[0,MCC_ConsoleWPpos] spawn MCC_fnc_s_spawn_group3d;
 	};
 
 	//Select zone
@@ -150,7 +150,7 @@ if (mcc_missionmaker == (name player)) then {
 				if (_nearZone) then
 				{
 					deletemarkerlocal _markerName;
-					_null = [2,_pos,_size] execVM MCC_path + "mcc\pop_menu\zones.sqf";
+					_null = [2,_pos,_size] spawn MCC_fnc_s_zones;
 				}
 				else
 				{
@@ -167,7 +167,7 @@ if (mcc_missionmaker == (name player)) then {
 		{
 			hint "Artillery captured.";
 			MCC_capture_var = MCC_capture_var + FORMAT ["
-			[[%1, '%2', %3, %4, %5, %6],'MCC_fnc_artillery',true,false] spawn BIS_fnc_MP;
+			[%1, '%2', %3, %4, %5, %6] remoteExec ['MCC_fnc_artillery',0];
 			"
 			,_ctrl ctrlMapScreenToWorld [_posX,_posY]
 			,shelltype
@@ -194,7 +194,7 @@ if (mcc_missionmaker == (name player)) then {
 		{
 			hint "Spawned Captured";
 			MCC_capture_var = MCC_capture_var + FORMAT ["
-									[[%1 , %2, %3, %4, %5],'MCC_fnc_groupSpawn',false,false] spawn BIS_fnc_MP;
+									[%1 , %2, %3, %4, %5] remoteExec ['MCC_fnc_groupSpawn',2];
 									"
 									, _ctrl ctrlMapScreenToWorld [_posX,_posY]
 									, MCC_groupBroadcast
@@ -207,7 +207,7 @@ if (mcc_missionmaker == (name player)) then {
 		{
 			hint "Spawned";
 
-			[[_ctrl ctrlMapScreenToWorld [_posX,_posY], MCC_groupBroadcast, mcc_hc, mcc_sidename, MCC_isEmpty,missionNamespace getVariable ["mcc_caching",false]],"MCC_fnc_groupSpawn",false,false] spawn BIS_fnc_MP;
+			[_ctrl ctrlMapScreenToWorld [_posX,_posY], MCC_groupBroadcast, mcc_hc, mcc_sidename, MCC_isEmpty,missionNamespace getVariable ["mcc_caching",false]] remoteExec ["MCC_fnc_groupSpawn",2];
 		};
 		sleep 0.5;
 		deleteMarkerLocal "mcc_spawnMarker";
@@ -329,7 +329,7 @@ if (mcc_missionmaker == (name player)) then {
 		if (MCC_capture_state) then {
 			hint "Air support captured.";
 			MCC_capture_var=MCC_capture_var + FORMAT ['
-				[[%1, %2 , %3, %4, %5, %6],"MCC_fnc_airDrop",false,false] spawn BIS_fnc_MP;
+				[%1, %2 , %3, %4, %5, %6] remoteExec ["MCC_fnc_airDrop",2];
 				'
 				,_ammount
 				,MCC_spawnkind
@@ -370,7 +370,7 @@ if (mcc_missionmaker == (name player)) then {
 
 		//[getmarkerpos _marker, MCC_selectedUnits, MCC_UMUnit, MCC_UMparadropIsHalo,_spawn,_away] execVM "mcc\fnc\general\fn_realParadrop.sqf";
 
-		[[getmarkerpos _marker, MCC_selectedUnits, MCC_UMUnit, MCC_UMparadropIsHalo,_spawn,_away], "MCC_fnc_realParadrop", false] spawn BIS_fnc_MP;
+		[getmarkerpos _marker, MCC_selectedUnits, MCC_UMUnit, MCC_UMparadropIsHalo,_spawn,_away] remoteExec ["MCC_fnc_realParadrop",2];
 
 		MCC_UMParadropRequestMarker = false;			//Wait and delete the marker
 		sleep 40;
@@ -397,7 +397,7 @@ if (mcc_missionmaker == (name player)) then {
 		_pos = getMarkerPos  _marker;
 		deletemarkerlocal _marker;
 		MCC_zone_drawing = false;
-		_null = [1,_pos,_size] execVM MCC_path + "mcc\pop_menu\zones.sqf";
+		_null = [1,_pos,_size] spawn MCC_fnc_s_zones;
 	};
 
 	 //Brush Drawing
@@ -441,7 +441,7 @@ if (mcc_missionmaker == (name player)) then {
 		_pos = getMarkerPos  _marker;
 		deletemarkerlocal _marker;
 		MCC_drawTriggers = false;
-		nul=[1,_pos,_size] execVM MCC_path + 'mcc\general_scripts\triggers\triggers.sqf';
+		nul=[1,_pos,_size] spawn MCC_fnc_s_triggers;
 	};
 
 	 //Minefield drawing

@@ -61,4 +61,4 @@ _rally setDir _dir;
 _rally setPosATL _safePos;
 
 //Let the server handle the rally point
-[[player, _rally], "MCC_fnc_createRespawnTent", false] call BIS_fnc_mp;
+[player, _rally] remoteExec ["MCC_fnc_createRespawnTent",2];

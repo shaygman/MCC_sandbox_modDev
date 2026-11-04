@@ -31,7 +31,7 @@ class ArtilleryDialog
 {
 	idd = BON_ARTY_DIALOG;
 	movingEnable = true;
-	onLoad = __EVAL("[] execVM '"+MCCPATH+"bon_artillery\dialog\bon_initartillery.sqf'");
+	onLoad = "[] spawn MCC_fnc_s_bon_initartillery";
 
 	class controlsBackground
 	{
@@ -112,7 +112,7 @@ class ArtilleryDialog
 			h = 0.0329871 * safezoneH;
 			text = "F4";
 			tooltip = "Forward observer artillery's interface";
-			onButtonClick = __EVAL("nul=[0,0,0,[1]] execVM '"+MCCPATH+"mcc\general_scripts\console\conoleOpenMenu.sqf'");
+			onButtonClick = "nul=[0,0,0,[1]] spawn MCC_fnc_s_conoleOpenMenu";
 		};
 		class mcc_consoleF5: MCC_RscButton
 		{
@@ -451,7 +451,7 @@ class ArtilleryDialog
 			size = 0.02821;
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.8)";
 			text = "Confirm";
-			onButtonClick = __EVAL("[] execVM '"+MCCPATH+"bon_artillery\bon_arti_setup.sqf'");
+			onButtonClick = "[] spawn MCC_fnc_s_bon_arti_setup";
 		};
 		class HW_ArtiClearButton : HW_ArtiConfirmButton
 		{
@@ -460,7 +460,7 @@ class ArtilleryDialog
 			w = 0.0630208 * safezoneW;
 			h = 0.022 * safezoneH;
 			text = "Reset";
-			onButtonClick = __EVAL("[] execVM '"+MCCPATH+"bon_artillery\bon_arti_clearcannons.sqf'");
+			onButtonClick = "[] spawn MCC_fnc_s_bon_arti_clearcannons";
 		};
 		class HW_artiCoordApplyButton : MCC_RscButton
 		{
@@ -471,7 +471,7 @@ class ArtilleryDialog
 			h = 0.066 * safezoneH;
 			text = "Copy Position";
 			sizeEx = "(((((safezoneW / safezoneH) min 1.2) / 1.2) / 25) * 0.7)";
-			onButtonClick = __EVAL("[] execVM '"+MCCPATH+"bon_artillery\dialog\apply_pos.sqf'");
+			onButtonClick = "[] spawn MCC_fnc_s_apply_pos";
 		};
 
 		class HW_RequestButton : MCC_RscButton
@@ -483,7 +483,7 @@ class ArtilleryDialog
 			w = 0.0572917 * safezoneW;
 			h = 0.055 * safezoneH;
 			text = "Execute";
-			onButtonClick = __EVAL("player execVM '"+MCCPATH+"bon_artillery\bon_arti_request.sqf'");
+			onButtonClick = "player spawn MCC_fnc_s_bon_arti_request";
 		};
 		class HW_CancelButton : HW_RequestButton
 		{
@@ -493,7 +493,7 @@ class ArtilleryDialog
 			w = 0.0572917 * safezoneW;
 			h = 0.055 * safezoneH;
 			text = "Cancel";
-			onButtonClick = __EVAL("player execVM '"+MCCPATH+"bon_artillery\bon_arti_cancle.sqf'");
+			onButtonClick = "player spawn MCC_fnc_s_bon_arti_cancle";
 		};
 
 
@@ -514,7 +514,7 @@ class ArtilleryDialog
 			w = 0.0114583 * safezoneW;
 			h = 0.022 * safezoneH;
 			text = ">";
-			onButtonClick = __EVAL("'Right' execVM '"+MCCPATH+"bon_artillery\bon_arti_correction.sqf'");
+			onButtonClick = "'Right' spawn MCC_fnc_s_bon_arti_correction";
 		};
 		class HW_ArtiXCorrectionunit : HW_ArtiXCoordunit
 		{
@@ -533,7 +533,7 @@ class ArtilleryDialog
 			w = 0.0114583 * safezoneW;
 			h = 0.022 * safezoneH;
 			text = "<";
-			onButtonClick = __EVAL("'Left' execVM '"+MCCPATH+"bon_artillery\bon_arti_correction.sqf'");
+			onButtonClick = "'Left' spawn MCC_fnc_s_bon_arti_correction";
 		};
 
 		class HW_ArtiYCorrTitle : HW_ArtiTextField
@@ -552,7 +552,7 @@ class ArtilleryDialog
 			w = 0.0114583 * safezoneW;
 			h = 0.022 * safezoneH;
 			text = "+";
-			onButtonClick = __EVAL("'Up' execVM '"+MCCPATH+"bon_artillery\bon_arti_correction.sqf'");
+			onButtonClick = "'Up' spawn MCC_fnc_s_bon_arti_correction";
 		};
 		class HW_ArtiYCorrectionunit : HW_ArtiXCoordunit
 		{
@@ -571,7 +571,7 @@ class ArtilleryDialog
 			w = 0.0114583 * safezoneW;
 			h = 0.022 * safezoneH;
 			text = "-";
-			onButtonClick = __EVAL("'Down' execVM '"+MCCPATH+"bon_artillery\bon_arti_correction.sqf'");
+			onButtonClick = "'Down' spawn MCC_fnc_s_bon_arti_correction";
 		};
 
 		class MCC_mapBackground : MCC_RscPicture
@@ -593,9 +593,9 @@ class ArtilleryDialog
 			y = 0.412 * safezoneH + safezoneY;
 			w = 0.275 * safezoneW;
 			h = 0.352 * safezoneH;
-			onMouseButtonDown = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseDown.sqf'");
-			onMouseButtonUp = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseUp.sqf'");
-			onMouseMoving = __EVAL("[_this] execVM '"+MCCPATH+"mcc\general_scripts\console\mouseMoving.sqf'");
+			onMouseButtonDown = "[_this] spawn MCC_fnc_s_console_mouseDown";
+			onMouseButtonUp = "[_this] spawn MCC_fnc_s_console_mouseUp";
+			onMouseMoving = "[_this] spawn MCC_fnc_s_console_mouseMoving";
 		};
 
 		class MCC_ConsoleMapRulerButton: MCC_RscButton

@@ -95,7 +95,7 @@ if ( !_shift && !_ctrl && !_alt ) then {
 
 	// Is HCam already active? If not, create it.
 	if (!hcam_active) then {
-		nul = [] execVM (hcam_basepath + "helmetcam.sqf");
+		nul = [] spawn MCC_fnc_s_helmetcam;
 	} else {;
 		// Continue only if player isnt alone in group
 		if ( count _units > 1 ) then {

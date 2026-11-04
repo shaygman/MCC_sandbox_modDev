@@ -43,7 +43,7 @@ switch (_simulate) do
 						//Laser target lock on LT
 						if (!isnull (_lasertargets select 0)) then 
 						{ 				
-							_nul=[(_lasertargets select 0), [_pos select 0, _pos select 1, 200],_shelltype,100,true,""] execVM MCC_path + "mcc\general_scripts\CAS\missile_guide.sqf"; 
+							_nul=[(_lasertargets select 0), [_pos select 0, _pos select 1, 200],_shelltype,100,true,""] spawn MCC_fnc_s_missile_guide; 
 						};
 						
 						sleep _delay; 

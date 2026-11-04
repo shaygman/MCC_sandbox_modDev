@@ -19,4 +19,4 @@ hcam_ui_init = {
 
 // Init
 waitUntil {!isNull (findDisplay 46)};
-(findDisplay 46) displayAddEventHandler ["KeyDown"," nul=[_this select 1,_this select 2,_this select 3,_this select 4] execVM (hcam_basepath+'input.sqf'); "];
+(findDisplay 46) displayAddEventHandler ["KeyDown"," nul=[_this select 1,_this select 2,_this select 3,_this select 4] spawn MCC_fnc_s_input; "];

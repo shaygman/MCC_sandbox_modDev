@@ -43,7 +43,7 @@ if (ctrlShown _ctrl) then
 {
 	if (_isMCC3D) then
 	{
-		if (ctrlShown (_display displayCtrl 8017)) then {_null = [0] execVM MCC_path + "mcc\general_scripts\docobject\compositionManager.sqf"};
+		if (ctrlShown (_display displayCtrl 8017)) then {_null = [0] spawn MCC_fnc_s_compositionManager};
 		ctrlShow [MCC_3dTasksControlsIDC,false];
 	};
 	
