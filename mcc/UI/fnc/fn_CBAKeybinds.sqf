@@ -2,7 +2,6 @@
 // Handle CBA keybinds
 //=====================================================================================================================================================================
 //MCC
-["MCC", "openMCC", ["Open MCC", "Open MCC main console"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,0] spawn MCC_fnc_s_mcc_PopupMenu;true}}, {}, [211, [false,true,false]],false] call cba_fnc_addKeybind;
 
 //Commander console
 ["MCC", "commanderConsole", ["Commander Console", "Player must be its side's commander"], {if ((player getVariable ["cpReady",true]) && !(player getvariable ["MCC_medicUnconscious",false]) && (isnull curatorcamera)) then {[nil,nil,nil,nil,1] spawn MCC_fnc_s_mcc_PopupMenu;true}}, {}, [207, [false,true,false]],false] call cba_fnc_addKeybind;

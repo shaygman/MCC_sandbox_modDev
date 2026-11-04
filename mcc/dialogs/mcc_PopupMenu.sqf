@@ -15,47 +15,13 @@ if (count _key > 4) then {
 
 _screen = missionNamespace getvariable ["MCC_mcc_screen",0];
 
+// Index 0 used to open the old MCC main menu. MCC5 replaced it with Zeus: MCC users get a curator
+// (MCC_fnc_curatorAutoAssign) and every old menu feature is an MCC Zeus or Eden module.
 if (_index == 0) exitWith {
-	if !((getplayerUID player in (missionNamespace getvariable ["MCC_allowedPlayers",[]]) || "all" in  (missionNamespace getvariable ["MCC_allowedPlayers",["all"]]) || (serverCommandAvailable "#kick" && missionNamespace getvariable ["MCC_allowAdmin",true]) || (isServer && missionNamespace getvariable ["MCC_allowAdmin",true]) || (player getvariable ["MCC_allowed",false]))) exitWith {};
-
-	if (str findDisplay 2994 != "No display") then {
-		while {dialog} do {closeDialog 0};
+	if (!isNull (getAssignedCuratorLogic player)) then {
+		if (isNull curatorCamera) then {openCuratorInterface};
 	} else {
-		//If not the mission maker move to default screen
-		if (name player != (missionNamespace getvariable ["mcc_missionMaker",""])) then {_screen =0} else {
-			if (_screen == 0) then {_screen =2};
-		};
-
-		switch (_screen) do
-		{
-			case 0:
-			{
-				//Close Dialog
-				if (dialog) exitWith {
-					while {dialog} do {closeDialog 0};
-				};
-
-				_ok = createDialog "mcc_loginDialog";
-				if !(_ok) exitWith { hint "createDialog failed" };
-			};
-			case 1:
-			{
-				_ok = createDialog "MCC3D_Dialog";
-				if !(_ok) exitWith { hint "createDialog failed" };
-			};
-			case 2:
-			{
-				_ok = createDialog "mcc_groupGen";
-				if !(_ok) exitWith { hint "createDialog failed" };
-			};
-			case 3:
-			{
-				_ok = createDialog "MCCMWDialog";
-				if !(_ok) exitWith { hint "createDialog failed" };
-			};
-		};
-
-		missionNamespace setvariable ["MCC_mcc_screen",0];
+		systemChat "MCC: you don't have MCC access (Zeus). Ask the mission maker or an admin.";
 	};
 };
 

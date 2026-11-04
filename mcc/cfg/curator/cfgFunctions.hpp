@@ -32,4 +32,29 @@ class curator
 	class curatorAddValor {description = "Add Valor/Credit to the selected units";};
 	class RscAttributeVehicleCargo {description = "handle the cargo RSC in curator - can't run in uinamespace";};
 	class curatorDrawLine {description = "based on the code by PabstMirror for ACE";};
+
+	//Zeus replacements for the old MCC main menu
+	class curatorFactionClasses {description = "Zeus helper: public vehicle classes of a faction by kind";};
+	class curatorMissionWizard {description = "Zeus module: Mission Wizard";};
+	class curatorArtillery {description = "Zeus module: artillery fire mission";};
+	class curatorConvoy {description = "Zeus module: spawn a convoy";};
+	class curatorConvoyServer {description = "Server: spawn the convoy for the Zeus convoy module";};
+	class curatorConvoyStart {description = "Zeus module: send the convoy";};
+	class curatorAirDrop {description = "Zeus module: air drop crates/vehicles";};
+	class curatorReinforcement {description = "Zeus module: AI reinforcements";};
+	class curatorParadrop {description = "Zeus module: paradrop a group or players";};
+	class curatorDeleteBrush {description = "Zeus module: delete / area brush";};
+	class curatorJukebox {description = "Zeus module: jukebox";};
+	class curatorHostage {description = "Zeus module: make a unit a hostage";};
+	class curatorMakeHostage {description = "Where the unit is local: make it a hostage";};
+	class curatorBriefing {description = "Zeus module: briefing entry";};
+	class curatorBriefingLocal {description = "Clients: add a briefing entry from the Zeus module";};
+	class curatorBroadcast {description = "Zeus module: broadcast a message";};
+	class curatorSaveLoad {description = "Zeus module: open the MCC save/load screen";};
+	class curatorStartLocation {description = "Zeus module: start location / FOB";};
+	class curatorMissionStart {description = "Zeus module: teleport to start, disable respawn, role selection";};
+	class curatorArsenal {description = "Zeus module: arsenal for the Zeus player";};
+	class curatorCASConsole {description = "Zeus module: add CAS to a side's commander console";};
+	class curatorAutoAssign {postInit = 1; description = "Server: give Zeus to every player allowed to use MCC";};
+	class curatorClientInit {postInit = 1; description = "Client: Open Zeus keybind and MCC curator event handlers";};
 };

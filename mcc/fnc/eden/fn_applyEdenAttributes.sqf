@@ -22,7 +22,8 @@ MCC_edenAttributeMap = [
 	["MCC_GAIA_SUPPORT_CAS", "MCC_GAIA_SUPPORT_CAS", true],
 	["MCC_GAIA_SUPPORT_REINF", "MCC_GAIA_SUPPORT_REINF", true],
 	["MCC_GAIA_COORDINATION", "MCC_GAIA_COORDINATION", true],
-	["MCC_GAIA_HC_BALANCE", "MCC_GAIA_HC_BALANCE", true]
+	["MCC_GAIA_HC_BALANCE", "MCC_GAIA_HC_BALANCE", true],
+	["MCC_zeusForMCCUsers", "MCC_zeusForMCCUsers", true]
 ];
 
 [] spawn {

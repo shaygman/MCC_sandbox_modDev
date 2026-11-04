@@ -424,3 +424,6 @@ class GAIA_fnc_syncCachedGroup {allowedTargets=0;};
 class MCC_fnc_resChange {allowedTargets=2;};
 class MCC_fnc_supplyRegister {allowedTargets=2;};
 class GAIA_fnc_fireMission {allowedTargets=0;};
+class MCC_fnc_curatorConvoyServer {allowedTargets=2;};
+class MCC_fnc_curatorMakeHostage {allowedTargets=0;};
+class MCC_fnc_curatorBriefingLocal {allowedTargets=0;};

@@ -15,6 +15,29 @@ Fixed:
 	- Mission Wizard error message used an invalid remoteExec target
 
 
+Changelog R35 (MCC5 roadmap):
+New UI:
+	- The old MCC main menu ("--= MCC =--" action / Ctrl+Del) is gone. MCC users get Zeus automatically (setting "Zeus for MCC Users")
+	- New Zeus modules: Mission Wizard, Artillery, Convoy Spawn / Drive To, Air Drop, CAS Console, Reinforcements, Paradrop, Delete Brush,
+	  Jukebox, Hostage, Briefing, Broadcast, Save/Load, Start Location, Mission Start, Arsenal
+	- New Eden modules: Mission Wizard, Convoy, Fire Mission, Music/Sound; Eden attributes: GAIA control on groups, Zeus editable on objects
+	- Eden scenario attributes (Attributes > General > MCC) for logistics, Mission Wizard, campaign, GAIA support and Zeus access
+GAIA / AI:
+	- Performance rewrite: group registry, one scheduler, cached classification, no 91 zone limit, dynamic simulation caching
+	- Vehicles: AI borrow empty vehicles for long trips, dismount with the leader at the objective, re-mount after contact,
+	  stuck/wrong-way detection; fixed AI driving to the map center
+	- AI calls artillery, CAS and reinforcements; coordinated attack / flank / support-by-fire / reserve roles
+	- Headless client balancing across all HCs
+	- Compatible with LAMBS Danger, LAMBS Suppression and HBQ Advanced Driving AI (auto-detected)
+Missions:
+	- Mission Wizard up to 8 objectives, mission size, unit cap; campaign with up to 3 simultaneous AOs
+Mods:
+	- ACE3, RHS and CUP auto-detected; class lists switch to the loaded mods
+Logistics:
+	- Optional limited logistics (Off / Fuel only / Full): supply trucks and crates run out and refill at bases
+	- Side resources are server-authoritative
+
+
 Changelog R33 hot fix 2:
 Added:
 	- Ambient fire options to "Addon Options"

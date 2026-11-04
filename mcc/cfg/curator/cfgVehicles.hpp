@@ -40,3 +40,4 @@
 #include "MCC_Module_AI_assignToZone.hpp"
 #include "MCC_Module_AAS.hpp"
 #include "MCC_Module_AASSpawnAI.hpp"
+#include "MCC_Module_zeusMenu.hpp"

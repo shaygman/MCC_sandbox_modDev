@@ -4,7 +4,7 @@ class CfgPatches
 
 	class mcc_sandbox
 	{
-		units[] = {"mcc_sandbox_module","mcc_sandbox_moduleSF","mcc_sandbox_moduleRestrictedZone","MCC_Module_AAS","mcc_Module_createZones","MCC_Module_settingsMechanics","MCC_Module_settings","MCC_Module_settingsMedicSystem","MCC_Module_settingsRS","MCC_Module_createIntel","MCC_Module_GAIARespawns","MCC_Module_RTSBuildings","MCC_Module_addValor","MCC_Module_settingsMissionWizard","MCC_Module_AI_assignToZone"};
+		units[] = {"mcc_sandbox_module", "mcc_sandbox_moduleSF", "mcc_sandbox_moduleRestrictedZone", "mcc_sandbox_moduleILS", "mcc_sandbox_moduleStartLocations", "MCC_Module_settings", "mcc_sandbox_moduleGAIASettings", "MCC_Module_settingsMechanics", "MCC_Module_settingsRadio", "MCC_Module_settingsMedicSystem", "mcc_sandbox_modulevehicleSpawner", "MCC_Module_createEvac", "MCC_Module_createIED", "MCC_Module_createArmedCivilian", "MCC_Module_campaignInit", "MCC_Module_captureZone", "MCC_module_vehicleRespawn", "MCC_Module_inGameUI", "mcc_Module_createZones", "MCC_Module_settingsRS", "MCC_Module_createIntel", "MCC_Module_addValor", "MCC_Module_settingsMissionWizard", "MCC_Module_missionWizard", "MCC_Module_convoy", "MCC_Module_fireMission", "MCC_Module_music"};
 		weapons[] = {};
 		requiredVersion = 1.00;
 		requiredAddons[] = {"A3_Modules_F",
@@ -21,7 +21,7 @@ class CfgPatches
 
 	class mcc_sandbox_curatorExp
 	{
-		units[] = {"MCC_Module_Base","MCC_Module_addUnitsToZeusCurator","MCC_Module_ambientCiviliansCurator","MCC_Module_MCCCASCurator","MCC_Module_createEvacCurator","MCC_Module_createIEDCurator","MCC_Module_createArmedCivilianCurator","MCC_Module_nightEffectsCurator","MCC_Module_lockDoorsCurator","MCC_Module_atmosphereCurator","MCC_Module_warZoneCurator","MCC_Module_garrisonBuildingsCurator","MCC_Module_damagePartCurator","MCC_Module_vehicleSpawnerCurator","MCC_Module_campaignInitCurator","MCC_Module_setResourcesCurator","MCC_Module_underCoverCurator","MCC_Module_settingsInGameUICurator","MCC_Module_settingsMedicSystemCurator","MCC_Module_settingsCurator","MCC_Module_settingsMechanicsCurator","MCC_Module_settingsRSCurator","MCC_Module_ambientBirdsCurator","MCC_module_ambientFireCurator","MCC_module_survivalSpawnCratesCurator","MCC_Module_settingsGAIACurator","MCC_Module_createIntelCurator","MCC_Module_LHDSpawnCurator","MCC_Module_LHDSpawnMenuCurator","MCC_Module_GAIARespawnsCurator","MCC_Module_RTSBuildingsCurator","MCC_Module_PylonsChange","MCC_Module_CapturePointCurator","MCC_Module_medicSetStateCurator","MCC_Module_createShopCurator","MCC_Module_addValorCurator","MCC_ModuleObjective_FCurator","MCC_ammoBox","MCC_crateAmmo","MCC_crateSupply","MCC_crateFuel","MCC_Module_cargoLoad","MCC_Module_AI_assignToZone","MCC_Module_ambientCiviliansCuratorDenied","MCC_Module_AASSpawnAI"};
+		units[] = {"MCC_Module_Base","MCC_ModuleObjective_FCurator","MCC_ammoBox","MCC_crateAmmo","MCC_crateSupply","MCC_crateFuel", "MCC_Module_addUnitsToZeusCurator", "MCC_Module_ambientCiviliansCurator", "MCC_Module_MCCCASCurator", "MCC_Module_createEvacCurator", "MCC_Module_createIEDCurator", "MCC_Module_createArmedCivilianCurator", "MCC_Module_nightEffectsCurator", "MCC_Module_lockDoorsCurator", "MCC_Module_atmosphereCurator", "MCC_Module_warZoneCurator", "MCC_Module_garrisonBuildingsCurator", "MCC_Module_damagePartCurator", "MCC_Module_vehicleSpawnerCurator", "MCC_Module_campaignInitCurator", "MCC_Module_setResourcesCurator", "MCC_Module_underCoverCurator", "MCC_Module_CapturePointCurator", "MCC_Module_ambientCiviliansCuratorDenied", "MCC_Module_settingsInGameUICurator", "MCC_Module_settingsMedicSystemCurator", "MCC_Module_settingsCurator", "MCC_Module_settingsMechanicsCurator", "MCC_Module_settingsRSCurator", "MCC_Module_ambientBirdsCurator", "MCC_module_ambientFireCurator", "MCC_module_survivalSpawnCratesCurator", "MCC_Module_settingsGAIACurator", "MCC_Module_createIntelCurator", "MCC_Module_LHDSpawnCurator", "MCC_Module_LHDSpawnMenuCurator", "MCC_Module_GAIARespawnsCurator", "MCC_Module_RTSBuildingsCurator", "MCC_Module_PylonsChange", "MCC_Module_medicSetStateCurator", "MCC_Module_createShopCurator", "MCC_Module_addValorCurator", "MCC_Module_cargoLoad", "MCC_Module_AI_assignToZone", "MCC_Module_AAS", "MCC_Module_AASSpawnAI", "MCC_Module_missionWizardCurator", "MCC_Module_artilleryCurator", "MCC_Module_convoyCurator", "MCC_Module_convoyStartCurator", "MCC_Module_airDropCurator", "MCC_Module_reinforcementCurator", "MCC_Module_paradropCurator", "MCC_Module_deleteBrushCurator", "MCC_Module_jukeboxCurator", "MCC_Module_hostageCurator", "MCC_Module_briefingCurator", "MCC_Module_broadcastCurator", "MCC_Module_saveLoadCurator", "MCC_Module_startLocationCurator", "MCC_Module_missionStartCurator", "MCC_Module_arsenalCurator", "MCC_Module_casConsoleCurator"};
 		weapons[] = {};
 		requiredVersion = 1.00;
 		author = "shay_gman";
@@ -657,6 +657,22 @@ class Cfg3DEN
 							displayName = "GAIA: Headless Client Balancing";
 							tooltip = "Spread new GAIA groups across all headless clients.";
 							property = "MCC_GAIA_HC_BALANCE";
+							control = "Combo";
+							expression = "";
+							defaultValue = "-1";
+							typeName = "NUMBER";
+							class Values
+							{
+								class V0 {name = "Use addon setting"; value = -1;};
+								class V1 {name = "Off"; value = 0;};
+								class V2 {name = "On"; value = 1;};
+							};
+						};
+						class MCC_zeusForMCCUsers
+						{
+							displayName = "Zeus for MCC Users";
+							tooltip = "Players allowed to use MCC (MCC Access Rights module, admins, or everyone by default) get Zeus with all MCC modules. Zeus is how MCC is used in MCC5.";
+							property = "MCC_zeusForMCCUsers";
 							control = "Combo";
 							expression = "";
 							defaultValue = "-1";

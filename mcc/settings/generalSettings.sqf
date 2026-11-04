@@ -202,3 +202,15 @@
     true,
     true
 ] call CBA_fnc_addSetting;
+
+// ==================== Zeus ==========================================
+
+//Zeus for MCC users (MCC_fnc_curatorAutoAssign)
+[
+    "MCC_zeusForMCCUsers",
+    "CHECKBOX",
+    ["Zeus for MCC users","Every player allowed to use MCC (MCC allowed players, admins, host or the MCC Access Rights module) gets Zeus with all MCC modules. Others get nothing"],
+    [localize "STR_GENERAL_MCCGENERAL","Zeus"],
+    true,
+    true
+] call CBA_fnc_addSetting;

@@ -136,11 +136,8 @@ if (missionNamespace getvariable ["MCC_showActionKey",true]) then {
 	};
 	*/
 
-	// Add MCC to the action menu
-	if ((player getVariable ["MCC_actionMCCMain",-1]) != -1) then	{player removeAction (player getVariable ["MCC_actionMCCMain",nil])};
-	_string = "(vehicle _target == vehicle _this) && (getplayerUID player in (missionNamespace getvariable ['MCC_allowedPlayers',[]]) || 'all' in  (missionNamespace getvariable ['MCC_allowedPlayers',['all']]) || (serverCommandAvailable '#kick' && missionNamespace getvariable ['MCC_allowAdmin',true]) || (isServer && missionNamespace getvariable ['MCC_allowAdmin',true]) || (player getvariable ['MCC_allowed',false])) && (missionNamespace getvariable ['MCC_showActionKey',true])";
-	mcc_actionInedx = player addaction ["<t color=""#99FF00"">--= MCC =--</t>", MCC_path + "mcc\dialogs\mcc_PopupMenu.sqf",[nil,nil,nil,nil,0], 0,false, false, "",_string];
-	player setVariable ["MCC_actionMCCMain",mcc_actionInedx];
+	// The "--= MCC =--" scroll action (old main menu) was removed in MCC5: MCC is used through Zeus/Eden modules.
+	if ((player getVariable ["MCC_actionMCCMain",-1]) != -1) then	{player removeAction (player getVariable ["MCC_actionMCCMain",nil]); player setVariable ["MCC_actionMCCMain",-1]};
 
 	if (!MCC_isMode && !MCC_isCBA) then {
 		_string = "(vehicle _target == vehicle _this) && !(getplayerUID player in (missionNamespace getvariable ['MCC_allowedPlayers',[]]) || 'all' in  (missionNamespace getvariable ['MCC_allowedPlayers',['all']]) || (serverCommandAvailable '#kick' && missionNamespace getvariable ['MCC_allowAdmin',true]) || (isServer && missionNamespace getvariable ['MCC_allowAdmin',true]) || (player getvariable ['MCC_allowed',false])) || !(missionNamespace getvariable ['MCC_showActionKey',true])";
