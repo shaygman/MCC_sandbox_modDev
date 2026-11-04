@@ -30,7 +30,7 @@
 1. In **Eden**, use the **MCC 5** menu in the top menu bar (next to the other menus; it works with or without 3den Enhanced):
    - **MCC 5 Mission Settings...** opens the MCC 5 window with every mission option. "Use addon setting" means the CBA setting is used.
    - **Place MCC Module** / **Place Settings Module** drops the module at the screen center and opens its options.
-2. Start the mission. As an MCC user (by default everyone; limit it with the **MCC Access Rights** module), you get **Zeus**. Press **Ctrl+Delete** or **Y** to open it. All MCC tools are under **Modules > MCC**.
+2. Start the mission. As an MCC user (by default everyone; limit it with the **MCC Access Rights** module), you get **Zeus**. Press **Ctrl+Delete** or **Y** to open it. Click the **MCC 5** button at the top of the Zeus screen and double-click a tool to place it at the screen center (or drag it from **Modules > MCC**; use dragging for tools that target a specific unit).
 3. To look at timings and errors, turn on **CBA Addon Options > MCC GAIA > GAIA Debug**. Then check the RPT log (`%LOCALAPPDATA%\Arma 3\*.rpt`) for lines that start with:
    - `GAIA: AI mods detected` — which AI mods MCC found
    - `MCC compat` / `MCC: Eden attribute` — mod detection and Eden settings

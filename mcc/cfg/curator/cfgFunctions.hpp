@@ -56,5 +56,6 @@ class curator
 	class curatorArsenal {description = "Zeus module: arsenal for the Zeus player";};
 	class curatorCASConsole {description = "Zeus module: add CAS to a side's commander console";};
 	class curatorAutoAssign {postInit = 1; description = "Server: give Zeus to every player allowed to use MCC";};
+	class curatorMenuButton {postInit = 1; description = "Client: MCC 5 button and module list on the Zeus screen";};
 	class curatorClientInit {postInit = 1; description = "Client: Open Zeus keybind and MCC curator event handlers";};
 };
