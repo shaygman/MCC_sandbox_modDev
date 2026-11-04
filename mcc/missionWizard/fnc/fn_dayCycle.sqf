@@ -90,8 +90,7 @@ while {true} do {
 			};
 
 			//Broadcast resources
-			missionNamespace setVariable [_resVar,_resArray];
-			publicVariable _resVar;
+			[_side, "all", _resArray] call MCC_fnc_resChange;
 
 			//Send hint
 			if (_showText) then {
@@ -162,8 +161,7 @@ while {true} do {
 			_CompleteText = _CompleteText + "<br/>";
 
 			//Broadcast resources
-			missionNamespace setVariable [_resVar,_resArray];
-			publicVariable _resVar;
+			[_side, "all", _resArray] call MCC_fnc_resChange;
 
 			//War effort
 			if !(_x in [sideLogic,_sidePlayer2]) then {

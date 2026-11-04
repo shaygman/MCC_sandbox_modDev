@@ -49,8 +49,7 @@ if (!isServer) exitWith {};
 	//Load Resources
 	if (_loadResources) then {
 		_tempVar = [format ["%1_%2_%3",_fileName, worldname,missionName], "RESOURCES", str _x, "read",(missionNameSpace getVariable [format ["MCC_res%1",_x],[1500,500,200,200,200]]),true] call MCC_fnc_handleDB;
-		missionNameSpace setVariable [format ["MCC_res%1",_x],_tempVar];
-		publicVariable format ["MCC_res%1",_x];
+		[_x, "all", _tempVar] call MCC_fnc_resChange;
 	};
 
 	//Load civilian relation

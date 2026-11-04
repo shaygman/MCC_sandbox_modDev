@@ -408,8 +408,7 @@ switch _mode do {
 
 				//Don't add more resources then can handle
 				if (_res <= _resources) then {
-					_array set [_type,_res];
-					publicvariable format ["MCC_res%1",_owner];
+					[_owner, _type, 5] call MCC_fnc_resChange;
 				};
 			};
 

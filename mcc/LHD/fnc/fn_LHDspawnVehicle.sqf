@@ -303,9 +303,7 @@ switch (_function) do
 				//Reduce resources
 				if (_operator == 1) then {
 
-				    _array = [(_array select 0) -_costAmmo,(_array select 1) -_costRepair,(_array select 2) -_costFuel,(_array select 3),(_array select 4)];
-				    missionNamespace setVariable [format ["MCC_res%1",playerside],_array];
-				    publicVariable format ["MCC_res%1",playerside];
+				    [playerside, [[0, -_costAmmo], [1, -_costRepair], [2, -_costFuel]]] call MCC_fnc_resChange;
 				} else {
 
 				     //Reduce valor

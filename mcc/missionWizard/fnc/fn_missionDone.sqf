@@ -83,8 +83,7 @@ if (_mission != "side") then {
 
 
 
-missionNamespace setvariable [format ["MCC_res%1",_sidePlayer],_resources];
-publicVariable format ["MCC_res%1",_sidePlayer];
+[_sidePlayer, "all", _resources] call MCC_fnc_resChange;
 
 //--------------------------------------Civilians behavior---------------------------------
 private _civRelations = missionNamespace getvariable [format ["MCC_civRelations_%1",_sidePlayer],0.5];
