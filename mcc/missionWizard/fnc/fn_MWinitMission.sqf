@@ -208,7 +208,7 @@ if (typeName _wholeMap == typeName true ) then {
 			_mapSize = getnumber (_worldPath >> "mapSize");
 			if (_mapSize == 0) exitWith {
 				diag_log FORMAT ["MCC: Mission Wizard Error: mapSize param not defined for '%1'",worldname];
-				[format ["mapSize param not defined for '%1'",worldname]] remoteExec ["MCC_fnc_halt", [0, _missionMaker] select (!isNil "_missionMaker")];
+				if (!isNil "_missionMaker") then {[format ["mapSize param not defined for '%1'",worldname]] remoteExec ["MCC_fnc_halt", _missionMaker]};
 				[[_markerName]] call MCC_MWCleanup;
 			};
 
@@ -242,14 +242,14 @@ if (typeName _wholeMap == typeName true ) then {
 		_missionCenter = (_center select 0);
 		if (isNil "_missionCenter") exitWith {
 			diag_log "MCC: Mission Wizard Error: Can't find mission center";
-			["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt",_missionMaker];
+			if (isNil "_missionMaker") then {diag_log (["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] select 0)} else {["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt", _missionMaker]};
 			[[_markerName]] call MCC_MWCleanup;
 		};
 	} else {
 		//--------------------------------------------------------------Create a ceneter trigger --------------------------------------------------------------------------
 		if (count mcc_zone_markposition == 0) exitWith {
 			diag_log "MCC: Mission Wizard Error: Create a zone first";
-			["MCC: Mission Wizard Error: Create a zone first"] remoteExec ["MCC_fnc_halt", _missionMaker];
+			if (isNil "_missionMaker") then {diag_log (["MCC: Mission Wizard Error: Create a zone first"] select 0)} else {["MCC: Mission Wizard Error: Create a zone first"] remoteExec ["MCC_fnc_halt", _missionMaker]};
 			[[_markerName]] call MCC_MWCleanup;
 		};
 
@@ -283,14 +283,14 @@ if (typeName _wholeMap == typeName true ) then {
 
 		if (isNil "_missionCenter") exitWith {
 			diag_log "MCC: Mission Wizard Error: Can't find mission center";
-			["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt",_missionMaker];
+			if (isNil "_missionMaker") then {diag_log (["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] select 0)} else {["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt", _missionMaker]};
 			[[_markerName]] call MCC_MWCleanup;
 		};
 
 		if (_missionCenter distance2D _markerPos > _radius) exitWith {
 			_missionCenter = nil;
 			diag_log "MCC: Mission Wizard Error: Can't find mission center";
-			["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt",_missionMaker];
+			if (isNil "_missionMaker") then {diag_log (["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] select 0)} else {["MCC: Mission Wizard Error: Can't find mission center try building your mission in a zone"] remoteExec ["MCC_fnc_halt", _missionMaker]};
 			[[_markerName]] call MCC_MWCleanup;
 		};
 	};

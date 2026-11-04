@@ -477,7 +477,7 @@ class MCC_Module_settings : Module_F
 			displayName = "Armed Civilians Weapons";
 			description = "Define the default armed civilians weapons - must be an array of strings";
 			typeName = "STRING";
-			defaultValue = "[""hgun_P07_F"",""hgun_Rook40_F"",""hgun_ACPC2_F"",""hgun_Pistol_heavy_01_F"",""hgun_Pistol_heavy_02_F"",""SMG_01_F"",""SMG_02_F"",""hgun_PDW2000_F""]";
+			defaultValue = "'[""hgun_P07_F"",""hgun_Rook40_F"",""hgun_ACPC2_F"",""hgun_Pistol_heavy_01_F"",""hgun_Pistol_heavy_02_F"",""SMG_01_F"",""SMG_02_F"",""hgun_PDW2000_F""]'";
 			property = "armedCiviliansWeapons";
 		};
 	};

@@ -89,7 +89,7 @@ class MCC_Module_settingsMissionWizard : Module_F
 			displayName = "Variable Class";
 			description = "Array contains all the variable classes";
 			typeName = "STRING";
-			defaultValue = '["B_officer_F","O_officer_F","I_officer_F","C_Nikos"]';
+			defaultValue = "'[""B_officer_F"",""O_officer_F"",""I_officer_F"",""C_Nikos""]'";
 			property = "displayName";
 		};
 

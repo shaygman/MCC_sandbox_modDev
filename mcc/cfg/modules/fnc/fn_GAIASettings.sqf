@@ -55,7 +55,7 @@ if (count _resualt == 0) exitWith {deleteVehicle _module};
 
 //AI skills
 {
-	missionNamespace setVariable [_x,((_resualt select _foreachindex)*0.1) max 1];
+	missionNamespace setVariable [_x,((_resualt select _foreachindex)*0.1) max 0 min 1];
 	publicvariable _x;
 } forEach ["MCC_AI_Skill",
            "MCC_AI_Aim",
@@ -71,11 +71,11 @@ MCC_GAIA_AMBIANT_CHANCE = (_resualt select 4)*20;
 publicvariable "MCC_GAIA_AMBIANT_CHANCE";
 
 //GAIA Cache
-GAIA_CACHE_STAGE_1 = (_resualt select 4) max 500;
+GAIA_CACHE_STAGE_1 = (_resualt select 5) max 500;
 publicvariable "GAIA_CACHE_STAGE_1";
 
 //GAIA control
-MCC_GAIA_ATTACKS_FOR_NONGAIA = (_resualt select 5);
+MCC_GAIA_ATTACKS_FOR_NONGAIA = (_resualt select 6);
 publicvariable "MCC_GAIA_ATTACKS_FOR_NONGAIA";
 
 deleteVehicle _module;

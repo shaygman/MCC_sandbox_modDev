@@ -688,4 +688,5 @@ class Cfg3DEN
 			};
 		};
 	};
+	#include "\mcc_sandbox_mod\mcc\cfg\cfg3DEN.hpp"
 };

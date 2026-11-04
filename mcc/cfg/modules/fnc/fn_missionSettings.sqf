@@ -90,8 +90,16 @@ if (_module isKindOf "MCC_Module_settings") exitWith {
 	//Disable Curator Edit
 	MCC_CuratorEditDisabled = _module getvariable ["CuratorEditDisabled",false];
 
-	//Armed Civilians Weapons
-	MCC_armedCivilansWeapons = call compile (_module getvariable ["armedCiviliansWeapons",["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"]]);
+	//Squad dialog
+	MCC_allowSquadDialog = ((_module getvariable ["squadDialog",1]) isEqualTo 1);
+
+	//Armed Civilians Weapons (the attribute is a string; older missions may hold the array itself)
+	private _weapons = _module getvariable ["armedCiviliansWeapons",""];
+	if (_weapons isEqualType "") then {_weapons = if (_weapons == "") then {nil} else {call compile _weapons}};
+	if (isNil "_weapons" || {!(_weapons isEqualType [])} || {count _weapons == 0}) then {
+		_weapons = ["hgun_P07_F","hgun_Rook40_F","hgun_ACPC2_F","hgun_Pistol_heavy_01_F","hgun_Pistol_heavy_02_F","SMG_01_F","SMG_02_F","hgun_PDW2000_F"];
+	};
+	MCC_armedCivilansWeapons = _weapons;
 };
 
 //Not curator exit
