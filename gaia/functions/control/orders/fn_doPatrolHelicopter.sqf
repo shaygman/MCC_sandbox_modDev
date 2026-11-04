@@ -79,7 +79,7 @@ if !(isnil("_Zone")) then
 		else
 			{
 
-				_landpos =  [([_zone,"ARM_HILLS_FLAT",(side _group)] call  GAIA_fnc_calculateOptimalPosition), 0,100, 12, 0, 60 * (pi / 180), 0] call BIS_fnc_findSafePos;
+				_landpos =  [([_zone,"ARM_HILLS_FLAT",(side _group)] call  GAIA_fnc_calculateOptimalPosition), 0,100, 12, 0, 60 * (pi / 180), 0] call GAIA_fnc_safePos;
 
 				_dummy = ("Land_HelipadEmpty_F" createvehicle _landpos);
 				_group setVariable ["GAIA_LandingSpot"							, _landpos  , false];

@@ -112,11 +112,11 @@ for [{_i = 0}, {((_i<50) and (_best<_minimum))or (_i<10)}, {_i = _i + 1}] do
 			if ((_goal == "VEH_HILLS_ROAD_FLAT" or _goal == "VEH_HILLS_FOREST_FLAT" or _goal == "ARM_HILLS_FLAT" ) and (_found>_best ) ) then
 				//Make sure the vehicle actualy fits (NOT within 3 meter of objects)
 				{
-						//Maybe Findsafepos fails, so remember the old one
-						//Also somehow Findsafepos comes with absurd out of map positions, so guard it to check if in Area.
+						//Findsafepos returns the map center when it fails, which sent vehicles driving across the map.
+						//GAIA_fnc_safePos falls back to the old position instead. Also reject blacklisted results.
 						_oldpos 	 = _pos;
-						_pos = [_pos, 0,40, 12, 0, 60 * (pi / 180), 0]call BIS_fnc_findSafePos;
-						if (count(_pos)==0 or !([_pos,_side] call GAIA_fnc_isBlacklisted)) then
+						_pos = [_pos, 0,40, 12, 0, 60 * (pi / 180), 0, _oldpos] call GAIA_fnc_safePos;
+						if ([_pos,_side] call GAIA_fnc_isBlacklisted) then
 							{_pos = _oldpos};
 				};
 		};
@@ -158,6 +158,10 @@ for [{_i = 0}, {((_i<50) and (_best<_minimum))or (_i<10)}, {_i = _i + 1}] do
 //We failed? Go back to best effort (be advised, it may still be empty!)
 if (count(_fPos) == 0) then
 	{_fPos = _best_effort;};
+
+//Never hand back an empty or map-center position: use the zone's own center instead
+if !([_fPos] call GAIA_fnc_isValidPos) then
+	{_fPos = getMarkerPos _area;};
 
 
 // Return position

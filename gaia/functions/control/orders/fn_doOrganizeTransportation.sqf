@@ -12,7 +12,7 @@ _wpPos = (waypointPosition [_group ,(count(waypoints _group)-1)]);
 _wptype = waypointType [_group ,(count(waypoints _group)-1)];
 
 
-if ( _wppos distance [0,0,0]>0) then
+if ([_wpPos] call GAIA_fnc_isValidPos) then
 	{
 
 		//How fare does he need to travel?
@@ -84,7 +84,7 @@ if ( _wppos distance [0,0,0]>0) then
 							case "Helicopter":
 								{ _dummy= [_group,_TransportGrp] call GAIA_fnc_doTransportHelicopter;};
 							case "Ship":
-								{ _dummy= [_group,_TransportGrp] call fnc_DoTransportShip;};
+								{ /* No ship transport implemented yet */ };
 
 					};
 
@@ -96,7 +96,7 @@ if ( _wppos distance [0,0,0]>0) then
 			  //If this fails, every transport in the universe will try to serve us, maybe something smarter
 			  if (		((_group getVariable  ["GAIA_Order",""]) == "DoTransport")) exitwith {true;};
 			//Lets assume the closest valid transporter is the most logic one (not always true, but i dunno yet how to improve without overcomplicate stuff)
-			}forEach ([AllGroups,[_group],{(leader _input0) distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+			}forEach ([(if (isNil "GAIA_fnc_getGroups") then {allGroups} else {[side _group] call GAIA_fnc_getGroups}),[_group],{(leader _input0) distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
 		};
 	};
 

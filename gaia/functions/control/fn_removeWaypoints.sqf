@@ -42,16 +42,8 @@ while {(count (waypoints _group)) > 0} do
 
 
 
-//Clear the WP array also 
-for [{_i=0},{_i < count _TempArray},{_i=_i+1}] do 
-{
-	
-	if ((_TempArray select _i select 1)==_group) then
-	{
-			_TempArray set [_i, "REMOVE"];
-			_TempArray = _TempArray - ["REMOVE"];
-	};
-};
+//Clear the WP array also (the old in-loop removal skipped entries)
+_TempArray = _TempArray select {(_x select 1) != _group};
 
 
 //In case of combined orders (for now transportation), then in case of we are the transporting party do unload the load
@@ -59,7 +51,7 @@ if (!isnull(_group getVariable  ["GAIA_CombinedOrder",grpNull])) then
 {
 	
 	if !(_group getVariable  ["GAIA_class",""] in ["Infantry","ReconInfantry"]) then
-		{   	 _wpTransporter	= _x addWaypoint [(position leader _group), 0];
+		{   	 _wpTransporter	= _group addWaypoint [(position leader _group), 0];
 				   _wpTransporter	setWaypointType "TR UNLOAD";
 				   _wpTransporter	setWaypointCompletionRadius 20;	
 		};

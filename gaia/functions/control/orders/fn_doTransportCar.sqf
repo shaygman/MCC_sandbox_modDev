@@ -102,7 +102,7 @@ if (
 	_trnsprtgrp setVariable ["GAIA_OrderTime"					, Time, false];
 	_trnsprtgrp setVariable ["GAIA_OrderPosition"			, (_PosCloseRoadEnd), false];
 
-	_x 		 setVariable ["GAIA_CombinedOrder"			, (_group), false];
+	_trnsprtgrp 		 setVariable ["GAIA_CombinedOrder"			, (_group), false];
 	_group setVariable ["GAIA_CombinedOrder"			, (_trnsprtgrp), false];
 
 

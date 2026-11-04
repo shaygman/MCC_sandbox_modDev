@@ -65,6 +65,7 @@
 class CfgFunctions
 {
 	#include "gaia\cfgFunctions.hpp"
+	#include "gaia\cfgFunctionsVehicles.hpp"
 
 	class MCC
 	{

@@ -81,6 +81,7 @@ class UnitList;
 class CfgFunctions
 {
 	#include "\mcc_sandbox_mod\gaia\cfgFunctions.hpp"
+	#include "\mcc_sandbox_mod\gaia\cfgFunctionsVehicles.hpp"
 
 	class MCC
 	{

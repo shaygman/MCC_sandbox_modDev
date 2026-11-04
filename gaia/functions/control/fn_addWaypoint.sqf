@@ -26,6 +26,13 @@ _WPType		= _this select 2;
 
 _Radius		= 40;
 
+//Never send a group to an empty or map-center position (BIS_fnc_findSafePos failure value):
+//hold where the leader is instead.
+if !([_position] call GAIA_fnc_isValidPos) then {
+	if (missionNamespace getVariable ["MCC_GAIA_debug", false]) then {diag_log format ["GAIA: rejected waypoint %1 for %2", _position, _group]};
+	_position = getPosATL (leader _group);
+};
+
 //Blacklist the target position (so no other dudes go here before we arrive and for that make us useless.
 
 	switch (side _group) do
