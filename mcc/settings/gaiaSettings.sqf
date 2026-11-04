@@ -54,20 +54,6 @@
     }
 ] call CBA_fnc_addSetting;
 
-//AI Skill(Command)
-[
-    "MCC_AI_CommandIndex",
-    "SLIDER",
-   	"AI Skill(Command)",
-    ["MCC GAIA","AI Skill"],
-    [1, 10, 5, 0],
-    true,
-    {
-    	MCC_AI_Command = MCC_AI_CommandIndex/10;
-    	publicVariable "MCC_AI_Command";
-    }
-] call CBA_fnc_addSetting;
-
 //AI use smoke grenade and flares
 [
     "MCC_GAIA_AMBIANT",

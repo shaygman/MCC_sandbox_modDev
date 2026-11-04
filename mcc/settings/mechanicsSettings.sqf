@@ -133,7 +133,7 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
 
     //LLoad Player Stats
     [
-        "MCC_surviveModPlayerGear",
+        "MCC_surviveModPlayerStats",
         "CHECKBOX",
         ["Load Player Stats","Load last known player stats on mission start"],
         ["MCC Mechanics","Survival"],

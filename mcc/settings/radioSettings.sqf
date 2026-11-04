@@ -64,7 +64,7 @@
 
 //Group side distance
 [
-    "MCC_vonRadioDistanceGroup",
+    "MCC_vonRadioKickIdleTime",
     "SLIDER",
    	"Time Before Kick",
     ["MCC Radio","Anti-Abuse"],

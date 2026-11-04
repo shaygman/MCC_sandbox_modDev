@@ -706,6 +706,8 @@ class Cfg3DEN
 						};
 					};
 				};
+				// Every other MCC CBA setting, one category per CBA category (generated: python3 tools/gen_eden_settings.py)
+				#include "\mcc_sandbox_mod\mcc\cfg\eden\settingsAttributes.hpp"
 			};
 		};
 	};
