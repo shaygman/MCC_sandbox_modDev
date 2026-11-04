@@ -38,6 +38,7 @@ _ZoneBehave				= [];
 _ZoneIntend				= [];
 _gaia_LeadPos			= [];
 _class						= "";
+private _hasLAMBS	= (["LAMBS"] call GAIA_fnc_compat);
 
 switch (_side) do
 		{
@@ -112,13 +113,15 @@ switch (_side) do
  	 					};
  	 			};
  	 		};
-	 }  forEach AllGroups;
+	 }  forEach ([_side] call GAIA_fnc_getGroups);
 
 
 
 //Update ZONE status
 _zone							= "";
 _TempTargets			= (_Targets select 0)+(_Targets select 1)+(_Targets select 2)+(_Targets select 3);
+//Target positions once, zone checks with the engine (inAreaArray) instead of GAIA_fnc_isPositionInMarker per target per zone
+private _TempTargetPos = _TempTargets apply {position _x};
 {
 	//For anything we have not cleared yet, we keep the zone alarm ringing "ALL ON BOARD!"
 	_TargetInZone 			= false;
@@ -126,35 +129,44 @@ _TempTargets			= (_Targets select 0)+(_Targets select 1)+(_Targets select 2)+(_T
 	_Zone	= _x;
 	if ((count(getmarkerpos _Zone))>0) then
 	{
-			for "_T" from 0 to (count(_TempTargets)-1) do
-				{
+			if ((toUpper (markerShape _Zone)) in ["RECTANGLE","ELLIPSE"]) then {
+				//Target is in the zone
+				_TargetInZone = ((getMarkerPos _Zone) distance [0,0,0]) > 0 && {(_TempTargetPos inAreaArray _Zone) isNotEqualTo []};
+			} else {
+				_TargetInZone = (_TempTargetPos findIf {[_x,_Zone] call GAIA_fnc_isPositionInMarker}) > -1;
+			};
 
-					//Target is in the zone
-					if ([(position (_TempTargets select _T)),_Zone] call GAIA_fnc_isPositionInMarker				) exitWith {_TargetInZone= true;};
+			if (!_TargetInZone) then {
+				//Check if we got a target close by (Relatively 2 times bigger then largest of x and y of the marker size)
+				_Dist	= ((((Getmarkersize _Zone)select 0) max ((Getmarkersize _Zone)select 1))*2);
+				private _ZonePos = getmarkerpos _Zone;
+				_TargetNear = (_TempTargetPos findIf {(_x distance _ZonePos)<_Dist}) > -1;
+			};
 
-					//Check if we got a target close by (Relatively 2 times bigger then largest of x and y of the marker size)
-					_Dist	= ((((Getmarkersize _Zone)select 0) max ((Getmarkersize _Zone)select 1))*2);
-					if (((position (_TempTargets select _T)) distance (getmarkerpos _Zone))<_Dist) then {_TargetNear= true;};
-				};
+			//Zone status arrays grow on demand (no 91 zone limit)
+			private _ZoneIndex = parseNumber _zone;
+			if (_ZoneIndex >= count _ZoneStatus) then {
+				for "_i" from (count _ZoneStatus) to _ZoneIndex do {_ZoneStatus set [_i, 0];};
+			};
 
-				switch(true)do
-				{
-						//Status Red
-						case (_TargetInZone): {
-																		_ZoneStatus set  [(parseNumber _zone ),2];
-																		if (MCC_GAIA_DEBUG and _side==(Side player)) then {_zone setMarkerColorLocal 	"ColorRed"};
-																	};
-						//Orange
-						case (_TargetNear)	: {
-																		_ZoneStatus set  [(parseNumber _zone ),1];
-																		if (MCC_GAIA_DEBUG and _side==(Side player)) then {_zone setMarkerColorLocal 	"ColorOrange"};
-																	};
-						//Green
-						default							  {
-																		_ZoneStatus set  [(parseNumber _zone ),0];
-																		if (MCC_GAIA_DEBUG and _side==(Side player)) then {_zone setMarkerColorLocal 	"ColorGreen"};
-																	};
-				};
+			switch(true)do
+			{
+					//Status Red
+					case (_TargetInZone): {
+																	_ZoneStatus set  [(parseNumber _zone ),2];
+																	if (MCC_GAIA_DEBUG and _side==(Side player)) then {_zone setMarkerColorLocal 	"ColorRed"};
+																};
+					//Orange
+					case (_TargetNear)	: {
+																	_ZoneStatus set  [(parseNumber _zone ),1];
+																	if (MCC_GAIA_DEBUG and _side==(Side player)) then {_zone setMarkerColorLocal 	"ColorOrange"};
+																};
+					//Green
+					default							  {
+																	_ZoneStatus set  [(parseNumber _zone ),0];
+																	if (MCC_GAIA_DEBUG and _side==(Side player)) then {_zone setMarkerColorLocal 	"ColorGreen"};
+																};
+			};
 	};
 }ForEAch _TempZones;
 
@@ -162,22 +174,25 @@ _TempTargets			= (_Targets select 0)+(_Targets select 1)+(_Targets select 2)+(_T
 //Now make sure that any child zones (the ones that have a center position inside a zone) are also warned of this upcoming danger
 //Ofcourse to the max level of Orange as Red is a private indication (inside your zone).
 
+//Zone centers once; status read straight from _ZoneStatus (same array GAIA_fnc_getZoneStatusBehavior reads)
+private _ZoneCenters = createHashMap;
+{_ZoneCenters set [_x, getmarkerpos _x]} forEach _TempZones;
 {
 	_zone = _x;
-	_ZoneBehave	=([_Zone,_side] call GAIA_fnc_getZoneStatusBehavior);
-	_ParentStatus		= (_ZoneBehave select 0);
+	_ParentStatus		= _ZoneStatus param [parseNumber _Zone, 0];
+	if (_ParentStatus isEqualType 0 && {_ParentStatus>0}) then
 	{
-
-			_ZoneBehave	=([_x,_side] call GAIA_fnc_getZoneStatusBehavior);
-			_ChildStatus=(_ZoneBehave select 0);
-			if ( _Childstatus!=2 and _ParentStatus>0 and ([(getmarkerpos _x),_Zone] call GAIA_fnc_isPositionInMarker)) then
-								//Set the child in Orange mode as Red is a private indication (is target in zone)
-								{
-									_ZoneStatus set  [(parseNumber _x ),1];
-									if (MCC_GAIA_DEBUG and _side==(Side player)) then {_x setMarkerColorLocal 	"ColorOrange"};
-								};
-	//Exclude yourself here.
-	}ForEAch (_TempZones - [_x]);
+		{
+				_ChildStatus=_ZoneStatus param [parseNumber _x, 0];
+				if ( _Childstatus isNotEqualTo 2 and ([(_ZoneCenters get _x),_Zone] call GAIA_fnc_inZone)) then
+									//Set the child in Orange mode as Red is a private indication (is target in zone)
+									{
+										_ZoneStatus set  [(parseNumber _x ),1];
+										if (MCC_GAIA_DEBUG and _side==(Side player)) then {_x setMarkerColorLocal 	"ColorOrange"};
+									};
+		//Exclude yourself here.
+		}ForEAch (_TempZones - [_x]);
+	};
 
 }ForEAch _TempZones;
 
@@ -239,10 +254,23 @@ _TempTargets			= (_Targets select 0)+(_Targets select 1)+(_Targets select 2)+(_T
    							(behaviour leader _x	!="STEALTH")
    							and
    							((_x getVariable  ["GAIA_Order",""])!="DoFortify")
+   							and
+   							//LAMBS task waypoints: leave the group alone (like FORTIFY)
+   							{!([_x] call GAIA_fnc_hasLambsWaypoint)}
+   							and
+   							//LAMBS Danger loaded: do not force behaviour every cycle while in contact, only on a new GAIA order
+   							{
+   								!_hasLAMBS
+   								or
+   								{isNull ((leader _x) findNearestEnemy (leader _x))}
+   								or
+   								{(_x getVariable ["GAIA_OrderTime",0]) != (_x getVariable ["GAIA_BehaveOrderTime",-1])}
+   							}
    					 )
    				then
    				//We even found the expected bheavior.
    				{
+   					if (_hasLAMBS) then {_x setVariable ["GAIA_BehaveOrderTime", (_x getVariable ["GAIA_OrderTime",0]), false]};
    					/*
    					_Behaviour="SAFE";		_CombatMode="GREEN";	_Formation="COLUMN";	_Speed = "LIMITED";
 						_Behaviour="AWARE";	_CombatMode="YELLOW";	_Formation="WEDGE";		_Speed = "NORMAL";
@@ -252,7 +280,7 @@ _TempTargets			= (_Targets select 0)+(_Targets select 1)+(_Targets select 2)+(_T
 						//(currentWaypoint _x) setWaypointCombatMode 				(_ZoneBehave select 2);
 						//(currentWaypoint _x) setWaypointSpeed 						(_ZoneBehave select 4);
 						//(currentWaypoint _x) setWaypointFormation 				(_ZoneBehave select 3);
-						if !([(position leader _x),((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker) then
+						if !([(position leader _x),((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone) then
 							 {
 							 		_x  setSpeedMode "NORMAL";
 							 		_x  setBehaviour "AWARE";

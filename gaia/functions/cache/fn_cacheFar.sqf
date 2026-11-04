@@ -1,9 +1,16 @@
+/*
+	GAIA_fnc_cacheFar - cache stage 2: serialize a group (MCC_GAIA_CACHE_STAGE2 /
+	GAIA_CACHE_<pos>) and delete its units and vehicles (deleteVehicle works on
+	remote objects). The emptied group is flagged GAIA_CACHED_FAR so the group
+	maintenance never respawns it; when it is not local (HC) its owner deletes it.
+	In: [GROUP]
+*/
 if(!isServer) exitWith {};
 private ["_group"];
 
 _group 			= _this select 0; 
-_units  		= units _group;
 if (isNull _group) exitWith {};
+_units  		= units _group;
 _vehicles		=  [_group] call  BIS_fnc_groupVehicles;
 _sf 				= [];
 _uv 				= [];
@@ -76,7 +83,7 @@ if (((count (waypoints _group)) - currentWaypoint _group)>0) then
 _sf = 	[_gv  
 				,_uv  
 				,side _group
-				,(_x getVariable  ["GAIA_zone_intend",[]])
+				,(_group getVariable  ["GAIA_zone_intend",[]])
 				,behaviour (leader _group)
 				,combatmode _group
 				,speedmode _group
@@ -95,7 +102,10 @@ missionNamespace setVariable [_var2, _sf ];
 
 //player globalchat format ["%1",_sf];
 
+_group setVariable ["GAIA_CACHED_FAR", true, true];
+[_group] call GAIA_fnc_unregisterGroup;
+
 {deleteVehicle _x;} foreach units _group;
 {deleteVehicle _x;} foreach _vehicles;
-deletegroup _group;
+if (local _group) then {deletegroup _group;};
 

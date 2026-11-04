@@ -1055,38 +1055,12 @@ if (hasInterface) then {
 };
 
 //===============Delete Groups (server and HC client only)====================
-if (isServer || MCC_isLocalHC) then {
-	[] spawn {
-		//Let the mission load first
-		while {time <120} do {sleep 1};
-
-		_gaia_respawn = [];
-		while {true} do {
-			{
-				_gaia_respawn = (missionNamespace getVariable [ "GAIA_RESPAWN_" + str(_x),[] ]);
-
-				//Store ALL original group setups
-				if (count(_gaia_respawn)==0) then {[(_x)] call GAIA_fnc_cacheOriginalGroup;};
-
-				if ((({alive _x} count units _x) == 0) && !(_x getVariable ["MCC_CPGroup",false]) && !( leader _x isKindof "logic")) then {
-
-					//Before we send him to heaven check if he should be reincarnated - respawn groups
-					if (count(_gaia_respawn)==2) then {
-						[_gaia_respawn,(_x getVariable  ["MCC_GAIA_RESPAWN",-1]),(_x getVariable  ["MCC_GAIA_CACHE",false]),(_x getVariable  ["GAIA_zone_intend",[]])] call GAIA_fnc_uncacheOriginalGroup;};
-
-					//Remove the respawn group content before the group is re-used
-					missionNamespace setVariable ["GAIA_RESPAWN_" + str(_x), nil];
-
-					deleteGroup _x;
-				};
-
-				sleep .1;
-
-			} foreach allGroups;
-
-			sleep 2;
-		};
-	};
+//Respawn bookkeeping and deletion of dead/empty groups now run in the GAIA CBA per-frame handler
+//(GAIA_fnc_groupMaintenance, a few groups per frame, starts at mission time 120).
+//Server: all groups (respawn) and deletion of its local groups. HC: deletion of its local groups only.
+//GAIA_fnc_startGaiaCache is idempotent (gaia_init.sqf already starts it).
+if (isServer || {!hasInterface}) then {
+	[] call GAIA_fnc_startGaiaCache;
 };
 
 //============== Namspace saves=================

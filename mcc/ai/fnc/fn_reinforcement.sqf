@@ -148,9 +148,12 @@ _vehiclesArray = _vehiclesArray - _transportCars;
 
 {
 	_x setVariable ["GAIA_ZONE_INTEND",[_zoneMarker,"MOVE"], true];
+	[_x] call GAIA_fnc_registerGroup;
 } foreach _cargoyGroupArray;
 
 sleep 10;
 
 _groupVehicles setVariable ["GAIA_ZONE_INTEND",[_zoneMarker,"MOVE"], true];
+[_groupVehicles] call GAIA_fnc_registerGroup;
 _transportCarsGroup setVariable ["GAIA_ZONE_INTEND",[_zoneMarker,"MOVE"], true];
+[_transportCarsGroup] call GAIA_fnc_registerGroup;

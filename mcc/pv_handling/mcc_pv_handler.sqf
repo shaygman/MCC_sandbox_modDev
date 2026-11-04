@@ -251,6 +251,7 @@ my_pv_handler =
 							{
 								//nul = [leader _unitspawned, _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units,"spawned" ,_p_mcc_awareness  ] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 								_unitspawned setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+								[_unitspawned] call GAIA_fnc_registerGroup;
 								_unitspawned setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 							}
 							else
@@ -318,6 +319,7 @@ my_pv_handler =
 												{
 													//nul = [leader (_unitspawned select 2), _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER","NOWAIT","NOSLOW",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units,"spawned",_p_mcc_awareness] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 													(_unitspawned select 2) setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[(_unitspawned select 2)] call GAIA_fnc_registerGroup;
 													//(_unitspawned select 2) setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else
@@ -332,6 +334,7 @@ my_pv_handler =
 												{
 													//nul = [leader (_unitspawned select 2), _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER",_track_units,"spawned",_specialUps,_specialUpsNr,_specialUpsRandom, _p_mcc_awareness] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 													(_unitspawned select 2) setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[(_unitspawned select 2)] call GAIA_fnc_registerGroup;
 													(_unitspawned select 2) setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else
@@ -346,6 +349,7 @@ my_pv_handler =
 												{
 													//nul = [leader (_unitspawned select 2), _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER","NOWAIT",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units,"spawned",_p_mcc_awareness] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 													(_unitspawned select 2) setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[(_unitspawned select 2)] call GAIA_fnc_registerGroup;
 													(_unitspawned select 2) setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else
@@ -430,6 +434,7 @@ my_pv_handler =
 												{
 													//nul = [leader _unitspawned, _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER", "NOWAIT", "NOSLOW", "spawned",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units, _p_mcc_awareness  ] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 													_unitspawned setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[_unitspawned] call GAIA_fnc_registerGroup;
 													_unitspawned setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else
@@ -445,6 +450,7 @@ my_pv_handler =
 												{
 													//nul = [leader _unitspawned, _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units, "spawned", _p_mcc_awareness   ] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 													_unitspawned setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[_unitspawned] call GAIA_fnc_registerGroup;
 													_unitspawned setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else
@@ -461,6 +467,7 @@ my_pv_handler =
 												{
 													//nul = [leader _unitspawned, _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER", "NOWAIT",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units, "spawned", _p_mcc_awareness  ] execVm format ["%1scripts\UPSMON.sqf",MCC_path];
 													_unitspawned setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[_unitspawned] call GAIA_fnc_registerGroup;
 													_unitspawned setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else
@@ -477,6 +484,7 @@ my_pv_handler =
 												{
 													//nul = [leader _unitspawned, _p_mcc_zone_markername, _p_mcc_zone_behavior, "SHOWMARKER", "NOWAIT",_specialUps,_specialUpsNr,_specialUpsRandom,_track_units, "spawned", _p_mcc_awareness  ] execVm format ["%1scripts\UPSMON.sqf",MCC_path];;
 													_unitspawned setVariable ["GAIA_ZONE_INTEND",[_p_mcc_zone_markername,_p_mcc_zone_behavior], true];
+													[_unitspawned] call GAIA_fnc_registerGroup;
 													_unitspawned setVariable ["mcc_gaia_cache",_p_mcc_cache, true];
 												}
 												else

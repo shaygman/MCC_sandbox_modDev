@@ -60,6 +60,7 @@ if (count _arrayUnits > 0) then {
 			_vehicle = [_spawnPos, (random 360), _vehicleClass, _group] call MCC_fnc_spawnVehicle;
 			{_x addCuratorEditableObjects [[_vehicle select 0],true]} forEach allCurators;
 			(_vehicle select 2) setVariable ["GAIA_ZONE_INTEND",[str _zone,"NOFOLLOW"], true];
+			[(_vehicle select 2)] call GAIA_fnc_registerGroup;
 		};
 
 		//Add a markers to artiilery

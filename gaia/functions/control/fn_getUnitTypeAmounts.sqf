@@ -7,6 +7,7 @@ private ["_group","_infantryCount","_CarCount","_tankCount","_airCount","_shipCo
 		 ,"_staticCount","_staticClass","_submarineCount","_submarineClass","_TurretWeapons"];
 
 _units 			=  param [0,[],[[]]];
+if (isNil "GAIA_WEAPON_FILTER_CACHE") then {GAIA_WEAPON_FILTER_CACHE = createHashMap};
 _infantryCount 	= 0;
 _reconCount		= 0;
 _mortarCount	= 0;
@@ -53,10 +54,12 @@ _ArtCount			=0;
 {
 	if (alive _x) then {
 			_class = typeof (vehicle _x);
-			_vehicleClass = tolower (gettext (configFile >> "CfgVehicles" >> _class >> "vehicleClass"));
-			_SoldierCargo  = getNumber  (configFile >> "CfgVehicles" >> _class >> "transportSoldier");
-			_simulation	= toLower (getText (configfile >> "CfgVehicles" >> _class  >> "simulation"));
-			_armor	= getNumber  (configFile >> "CfgVehicles" >> _class >> "armor");
+			//Config data is cached per class (GAIA_fnc_getClassInfo)
+			([_class] call GAIA_fnc_getClassInfo) params ["_cfgVehicleClass","_cfgSoldierCargo","_cfgSimulation","_cfgArmor"];
+			_vehicleClass = _cfgVehicleClass;
+			_SoldierCargo  = _cfgSoldierCargo;
+			_simulation	= _cfgSimulation;
+			_armor	= _cfgArmor;
 			
 			
 
@@ -71,20 +74,16 @@ _ArtCount			=0;
 					
 					//check his guns
 					{
-					
-					if ( 
-					    !(["Horn", _x, true] call BIS_fnc_inString)
-					     and
-						!(["Smoke", _x, true] call BIS_fnc_inString)
-						and 
-						!(["Flare", _x, true] call BIS_fnc_inString)
-						and 
-						!(["SEARCHLIGHT", _x, true] call BIS_fnc_inString)
-						)
-                     then 
+					//Is this a real gun (no horn, smoke, flare or searchlight)? Cached per weapon class.
+					private _isGun = GAIA_WEAPON_FILTER_CACHE get _x;
+					if (isNil "_isGun") then {
+						//Same case sensitive test as the former BIS_fnc_inString calls
+						_isGun = !("Horn" in _x) && {!("Smoke" in _x)} && {!("Flare" in _x)} && {!("SEARCHLIGHT" in _x)};
+						GAIA_WEAPON_FILTER_CACHE set [_x, _isGun];
+					};
+					if (_isGun) then
 					 {_TurretWeapons = _TurretWeapons + [_x]};
-					    
-					   
+
 					} foreach weapons vehicle _x;
 
 					_UnitAssets = [vehicle _x] call GAIA_fnc_getUnitAssets;

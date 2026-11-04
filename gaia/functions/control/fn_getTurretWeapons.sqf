@@ -1,4 +1,19 @@
-     private ["_result", "_getAnyMagazines", "_findRecurse", "_class"];
+/*
+	GAIA_fnc_getTurretWeapons
+	In:  STRING (CfgVehicles class) or OBJECT (as _this)
+	Out: ARRAY of [weapon, magazines, turret path, turret config string]
+	Config only, so the result is cached per class in GAIA_TURRET_WEAPONS_CACHE
+	(a copy is returned, callers may modify it).
+*/
+     private ["_result", "_getAnyMagazines", "_findRecurse", "_class", "_cacheKey", "_cached"];
+     _cacheKey = switch (typeName _this) do {
+         case "STRING" : {toLower _this};
+         case "OBJECT" : {toLower (typeOf _this)};
+         default {""};
+     };
+     if (isNil "GAIA_TURRET_WEAPONS_CACHE") then {GAIA_TURRET_WEAPONS_CACHE = createHashMap};
+     _cached = GAIA_TURRET_WEAPONS_CACHE get _cacheKey;
+     if (!isNil "_cached") exitWith {+_cached};
      _result = [];
      _getAnyMagazines = {
          private ["_weapon", "_mags"];
@@ -39,4 +54,5 @@
          ) >> "turrets"
      );
      [_class, []] call _findRecurse;
+     if (_cacheKey != "") then {GAIA_TURRET_WEAPONS_CACHE set [_cacheKey, +_result]};
      _result;

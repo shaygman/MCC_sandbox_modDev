@@ -22,6 +22,33 @@ class GAIA
     };
 
 
+    class Core
+    {
+        #ifdef MCCMODE
+        file = "\mcc_sandbox_mod\gaia\functions\core";
+        #else
+        file = "gaia\functions\core";
+        #endif
+
+        class breadcrumbAdd {};
+        class breadcrumbNear {};
+        class breadcrumbPrune {};
+        class cacheRestoreTick {};
+        class dsSetup {};
+        class getClassInfo {};
+        class getGroups {};
+        class groupMaintenance {};
+        class groupTick {};
+        class hasLambsWaypoint {};
+        class inZone {};
+        class perFrame {};
+        class registerGroup {};
+        class registrySweep {};
+        class sideCycle {};
+        class sideSuffix {};
+        class unregisterGroup {};
+    };
+
     class Cache
     {
         #ifdef MCCMODE

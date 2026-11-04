@@ -11,7 +11,7 @@ private _setting = missionNamespace getVariable [format ["MCC_GAIA_compat%1", _m
 if (_setting isEqualTo 1) exitWith {true};
 if (_setting isEqualTo 2) exitWith {false};
 switch (_mod) do {
-	case "LAMBS": {missionNamespace getVariable ["GAIA_hasLAMBS", false]};
+	case "LAMBS": {(["LAMBS"] call GAIA_fnc_compat)};
 	case "HBQ": {missionNamespace getVariable ["GAIA_hasHBQDriving", false]};
 	default {false};
 }

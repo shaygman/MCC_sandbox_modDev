@@ -16,6 +16,7 @@ if (_respawn >=0)  then
 			if (isnull _group) exitwith {};
 			_group  setVariable ["GAIA_zone_intend", _zoneIntend,true];
 			_group  setVariable ["mcc_gaia_cache", _cache];
+			if (_zoneIntend isNotEqualTo []) then {[_group] call GAIA_fnc_registerGroup;};
 
 			//Create Vehicles in group
 			{
@@ -67,7 +68,7 @@ if (_respawn >=0)  then
 			} foreach (_sf select 1);
 
 			//Update the respawn
-			[_group,(_respawn-1)] spawn GAIA_fnc_respawnSet;
+			[_group,(_respawn-1)] call GAIA_fnc_respawnSet;
 
 			_group setspeedmode 	(_sf select 6);
 			_group setformation 	(_sf select 7);

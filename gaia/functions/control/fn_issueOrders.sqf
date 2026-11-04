@@ -39,9 +39,12 @@ private ["_side"
 				,"_MortarFired"
 				,"_CaHoldsValidTargets"
 				,"_IsGaiaControlled"
-				,"_Spot"];
+				,"_Spot"
+				,"_HQ_side"];
 
 _side 										= _this select 0;
+//_HQ_side used to leak in from the caller (startGaia): it is the same side, define it here
+_HQ_side									= _side;
 _CA												=	[];
 _grp											= [];
 _zns											= [];
@@ -81,7 +84,7 @@ switch (_side) do
 			  case east				: {
 			  									 _CA 	= MCC_GAIA_CA_EAST;
 			  									 _zns	=	MCC_GAIA_ZONES_EAST;
-			  									 _tbc	= (MCC_GAIA_TARGETS_WEST select 3)
+			  									 _tbc	= (MCC_GAIA_TARGETS_EAST select 3)
 
 			  									};
 			  case independent: {
@@ -101,6 +104,26 @@ switch (_side) do
 //Note the time, as this is the time where THIS round is running the show.
 _StartTimeIssueOrders = time;
 
+//Groups of this side: all of them (same set as the former allGroups + side check) and the GAIA registered ones
+//(groups with a GAIA_ZONE_INTEND, used in every loop that required one anyway)
+private _allSideGroups	= groups _side;
+private _sideGroups		= [_side] call GAIA_fnc_getGroups;
+
+//Groups running LAMBS Danger task waypoints are left alone (treated like FORTIFY)
+private _lambsGroups	= _allSideGroups select {[_x] call GAIA_fnc_hasLambsWaypoint};
+
+//Conflict Area cost, computed once per CA per cycle (it used to be computed per group per CA)
+private _caCostCache = createHashMap;
+private _fnc_caCost = {
+	params ["_caPos"];
+	private _cost = _caCostCache get _caPos;
+	if (isNil "_cost") then {
+		_cost = [_side,_caPos] call GAIA_fnc_getConflictAreaCost;
+		if (!isNil "_cost") then {_caCostCache set [_caPos, _cost]};
+	};
+	_cost
+};
+
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									CANCEL OBSOLETE ORDERS
 //
@@ -118,6 +141,8 @@ _StartTimeIssueOrders = time;
 			   			(count(units _x)>0)
 			   			and
 			   			(alive (leader _x))
+			   			and
+			   			!(_x in _lambsGroups)
 		  )
 	then
 	{
@@ -135,7 +160,7 @@ _StartTimeIssueOrders = time;
 						!((_x getVariable  ["GAIA_MortarTarget",[0,0,0]]) in _ca)
 						and
 						//The order he has is indeed mortar stuff.
-						((_x getVariable  ["GAIA_Order",""]) != "DoMorter")
+						((_x getVariable  ["GAIA_Order",""]) == "DoMortar")
 						and
 						//He has actualy opened up his mortar rounds by atleast first cycle
 						(_x getVariable ["GAIA_MortarRound",0]>0)
@@ -210,7 +235,7 @@ _StartTimeIssueOrders = time;
 						  and
 						 (behaviour(leader _x)=="COMBAT")
 						 and
-						 !((([_HQ_side,([_CA,leader _x] call BIS_fnc_nearestPosition)] call GAIA_fnc_getConflictAreaCost) select 0 )in ["Helicopter","Autonomous"])
+						 !((([([_CA,leader _x] call BIS_fnc_nearestPosition)] call _fnc_caCost) select 0 )in ["Helicopter","Autonomous"])
 					)
 			then {[_x] call GAIA_fnc_removeWaypoints;/*player globalchat "5"+(_x getVariable  ["GAIA_Order",""]);*/};
 
@@ -231,7 +256,7 @@ _StartTimeIssueOrders = time;
 					)
 			then	{[_x] call GAIA_fnc_removeWaypoints;/*player globalchat "7";*/};
 	};
-}forEach AllGroups;
+}forEach _allSideGroups;
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									ORGANISE DEFENSIVE ORDERS (FOR NOW FORTIFY)
@@ -248,6 +273,8 @@ _StartTimeIssueOrders = time;
 			   			(count(_x getVariable  ["GAIA_zone_intend",[]])>1)
 			   			and
 			   			((_x getVariable  ["GAIA_Order",""]) != "DoFortify")
+			   			and
+			   			!(_x in _lambsGroups)
 		  )
 	then
 	{
@@ -255,7 +282,7 @@ _StartTimeIssueOrders = time;
 			{_dummy=[_x,(position leader _x)] call GAIA_fnc_doFortify;};
 	};
 
-}forEach AllGroups;
+}forEach _sideGroups;
 
 
 
@@ -286,7 +313,10 @@ _StartTimeIssueOrders = time;
 
 
 	//Determine Points of current CA (with how much do we need to attack this? (already taking multipier in effect)).
-	_CaPoints = ([_side,_SelectCA] call GAIA_fnc_getConflictAreaCost) select 2;
+	_CaPoints = ([_SelectCA] call _fnc_caCost) select 2;
+
+	//Does the CA hold targets worth attacking? Same for every group, so once per CA
+	private _CaCostClass = ([_SelectCA] call _fnc_caCost) select 0;
 
 
 
@@ -307,6 +337,8 @@ _StartTimeIssueOrders = time;
 			   			(alive (leader _x))
 			   			and
 			   			(count(_x getVariable  ["GAIA_zone_intend",[]])>1)
+			   			and
+			   			!(_x in _lambsGroups)
 		   			)
 		 then
 		 {
@@ -320,7 +352,7 @@ _StartTimeIssueOrders = time;
 												 	(
 												 		(((_x getVariable  ["GAIA_zone_intend",[]]) select 1)=="NOFOLLOW")
 												 		and
-												 		([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker)
+												 		([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
 												 	)
 												 );
 
@@ -348,19 +380,19 @@ _StartTimeIssueOrders = time;
 					 (
 					 	((_x getVariable  ["GAIA_speed",""])=="SLOW" and ((leader _x) distance _SelectCA)<MCC_GAIA_MAX_SLOW_SPEED_RANGE)
 					 	or
-					 	([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker)
+					 	([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
 					 )
 					 or
 					 (
 					 	((_x getVariable  ["GAIA_speed",""])=="MEDIUM" and ((leader _x) distance _SelectCA)<MCC_GAIA_MAX_MEDIUM_SPEED_RANGE)
 					 	or
-					 	([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker)
+					 	([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
 					 )
 					 or
 					 (
 					 	((_x getVariable  ["GAIA_speed",""])=="FAST" and ((leader _x) distance _SelectCA)<MCC_GAIA_MAX_FAST_SPEED_RANGE)
 					 	or
-					 	([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker)
+					 	([_SelectCA,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
 					 )
 					);
 				};
@@ -391,7 +423,7 @@ _StartTimeIssueOrders = time;
 				_IsGaiaControlled = (count(_x getVariable  ["GAIA_zone_intend",[]])>1);
 
 
-				_CaHoldsValidTargets			= !((([_HQ_side,_SelectCA] call GAIA_fnc_getConflictAreaCost)select 0) in ["Helicopter","Autonomous"]);
+				_CaHoldsValidTargets			= !(_CaCostClass in ["Helicopter","Autonomous"]);
 
 				//What is the cost in points of the current group?
 				_Grpcost 									= _x getVariable ["GAIA_points",0];
@@ -474,9 +506,8 @@ _StartTimeIssueOrders = time;
 
 
 		 };
-		 //Next CA
-		 sleep 0.1;
-	}forEach 	([AllGroups,[_SelectCA],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+		 //Next group (no sleep per group anymore)
+	}forEach 	([_sideGroups,[_SelectCA],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
 
 
 
@@ -487,12 +518,17 @@ _StartTimeIssueOrders = time;
 //									Do Clear Spots (old targets) -> Boots on the ground needed
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+//Groups that can clear at all (portfolio does not change during this phase)
+private _clearCandidates = _sideGroups select {("DoClear" in (_x getVariable  ["GAIA_Portfolio",[]])) and !(_x in _lambsGroups)};
+
 {
 	_Spot = _x;
 	_SpotInfo = (_Spot getVariable ["GAIA_TargetInfo",[]]);
 	if (count(_SpotInfo)>0) then
 		{
 		 _SpotPos = _SpotInfo select 1;
+		 //The dude should be hiding outside a CA (or we will already attack it) - same for every group
+		 private _SpotOutsideCA = ((_CA findIf {(_x distance (_SpotPos)<MCC_GAIA_CA_SIZE)}) < 0);
 				{
 				 if (
 					   			//Seems like allgroups opens up with all sorts of empty groups, better check it
@@ -525,17 +561,18 @@ _StartTimeIssueOrders = time;
 						_GroupBusy				=	((_x getVariable  ["GAIA_Order",""]) in ["DoAttack","DoClear"]) ;
 
 						//Is somebody already moving over there?
-						_SpotIsBeingCleared				= [_SpotPos,_side] call GAIA_fnc_isBlacklisted;
+						//(only checked when it matters, it is the most expensive test)
+						_SpotIsBeingCleared				= if (!_GrpIsInCombat and _CanDoClear and !_GroupIsFleeing and !_GroupBusy) then {[_SpotPos,_side] call GAIA_fnc_isBlacklisted} else {true};
 
 						//The dude should be hiding outside a CA (or we will already attack it)
-						_SpotIsOutsideCA					= !((count([_CA, {(_x distance (_SpotPos)<MCC_GAIA_CA_SIZE)}] call BIS_fnc_conditionalSelect))>0);
+						_SpotIsOutsideCA					= _SpotOutsideCA;
 
 						//He cannot be to far out (only one range as only footmobiles can clear)
 						//Or the spot is in the zone from the group, we clear it, no matter how far we need to go!
 						_SpotIsWithinRange				= (
 																					(((leader _x) distance _SpotPos)<MCC_GAIA_MAX_SLOW_SPEED_RANGE  	)
 																				  or
-						 															([_SpotPos,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker)
+						 															([_SpotPos,((_x getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
 																				);
 								   switch (true) do
 										{
@@ -566,7 +603,7 @@ _StartTimeIssueOrders = time;
 
 										};
 					};
-				}forEach ([AllGroups,[_SpotPos],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy);
+				}forEach (if (_SpotOutsideCA) then {[_clearCandidates,[_SpotPos],{_input0 distance (leader _x)},"ASCEND",{alive (leader _x)}] call BIS_fnc_sortBy} else {[]});
 		};
 
 }forEach _tbc;
@@ -579,6 +616,24 @@ _StartTimeIssueOrders = time;
 //									REMARK: Version 1 of GAIA has same functionality for artillery as for mortar
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//Groups that may hold a mortar target (for the "already fired on" check)
+private _mortarCandidates = _sideGroups select {
+	((_x getVariable ["GAIA_MortarTarget",[0,0,0]]) isNotEqualTo [0,0,0])
+	or {"DoMortar" in (_x getVariable  ["GAIA_Portfolio",[]])}
+	or {"DoArtillery" in (_x getVariable  ["GAIA_Portfolio",[]])}
+};
+//Friendly troops within 200m of a CA, once per CA
+private _friendlyNearCache = createHashMap;
+private _fnc_friendlyNearCA = {
+	params ["_caPos"];
+	private _near = _friendlyNearCache get _caPos;
+	if (isNil "_near") then {
+		_near = ({side _x == (_HQ_side)} count nearestObjects [_caPos,["Man","Car","Tank"],200]) > 0;
+		_friendlyNearCache set [_caPos, _near];
+	};
+	_near
+};
+
 {
 		_grp = _x;
 
@@ -595,6 +650,8 @@ _StartTimeIssueOrders = time;
 					   	(count(_x getVariable  ["GAIA_Portfolio",[]])>0)
 					   	and
 					   	(count(_x getVariable  ["GAIA_zone_intend",[]])>1)
+					   	and
+					   	!(_x in _lambsGroups)
 					   	and
 					   	(
 					   		("DoMortar" in (_x getVariable  ["GAIA_Portfolio",[]]))
@@ -619,17 +676,16 @@ _StartTimeIssueOrders = time;
 		   	 			_SelectCA = _x;
 
 
-		   	 				 ([_side,_SelectCA] call GAIA_fnc_getConflictAreaCost) select 2;
 		   	 			//Anybody of us near?
 		   	 			if 	(
-			   	 					!({side _x == (_HQ_side)} count nearestObjects [_SelectCA,["Man","Car","Tank"],200] >0)
+			   	 					!([_SelectCA] call _fnc_friendlyNearCA)
 			   	 					and
 			   	 					//dont go for stupid targets please.
 			   	 					//if mixed, he will still fire (unknown)
-			   	 					!((([_HQ_side,_SelectCA] call GAIA_fnc_getConflictAreaCost)select 0) in ["Car","Tank","Helicopter","Ship","Support","Autonomous","Submarine"])
+			   	 					!((([_SelectCA] call _fnc_caCost)select 0) in ["Car","Tank","Helicopter","Ship","Support","Autonomous","Submarine"])
 			   	 					and
 			   	 					//Dont fire on something we already fire on
-			   	 					!(({(side _x == (_HQ_side)) and alive (leader _x) and (( _x getVariable ["GAIA_MortarTarget",[0,0,0]] distance _SelectCA )==0)} count (allgroups-[_grp]))>0)
+			   	 					!((_mortarCandidates findIf {(_x != _grp) and {alive (leader _x)} and {(( _x getVariable ["GAIA_MortarTarget",[0,0,0]] distance _SelectCA )==0)}}) > -1)
 			   	 					and
 			   	 					(
 													(((_grp getVariable  ["GAIA_zone_intend",[]]) select 1)=="MOVE")
@@ -637,7 +693,7 @@ _StartTimeIssueOrders = time;
 												 	(
 												 		(((_grp getVariable  ["GAIA_zone_intend",[]]) select 1)=="NOFOLLOW")
 												 		and
-												 		([_SelectCA,((_grp getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_isPositionInMarker)
+												 		([_SelectCA,((_grp getVariable  ["GAIA_zone_intend",[]]) select 0)] call GAIA_fnc_inZone)
 												 	)
 										)
 		   	 					)
@@ -666,7 +722,7 @@ _StartTimeIssueOrders = time;
 		   	 		} forEach _CA;
 		   	 };
 
-}  forEach allgroups;
+}  forEach _sideGroups;
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									NON COMBAT ORDERS
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -687,6 +743,8 @@ _StartTimeIssueOrders = time;
 							and
 							//He is not fortifying
 							((_x getVariable  ["GAIA_Order",""]) != "DoFortify")
+							and
+							!(_x in _lambsGroups)
 
 		   			)
 		   	 then
@@ -741,7 +799,7 @@ _StartTimeIssueOrders = time;
 								  	};
 		   	 			 	};
 		   	 		};
-				 }  forEach allgroups;
+				 }  forEach _sideGroups;
 
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
@@ -770,22 +828,26 @@ _StartTimeIssueOrders = time;
 					   	(
 					   		((_x getVariable  ["GAIA_Order",""]) == "DoPatrol")
 					   		and
-					   		!([(position leader _x),((_x getVariable  ["GAIA_zone_intend",["",[0,0,0]]]) select 0)] call GAIA_fnc_isPositionInMarker)
+					   		!([(position leader _x),((_x getVariable  ["GAIA_zone_intend",["",[0,0,0]]]) select 0)] call GAIA_fnc_inZone)
 					   	)
 					   	and
 					   	//You belong to a footmobile class or you wont be able to getin
 					   	((_x getVariable  ["GAIA_class",""]) in ["Infantry","ReconInfantry"])
+					   	and
+					   	!(_x in _lambsGroups)
 
 		   			)
 		   		//If that is all the case, then go check if somebody can transport you and if you are allowed to be transported based on transport specific rule bases
 		   	 then  { _dummy= [_x] call GAIA_fnc_doOrganizeTransportation};
 		  };
 
-}  forEach allgroups;
+}  forEach _sideGroups;
 
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									AMBIENT BEHAVIOR PHASE ( FOR GOOD LOOKS)
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+//"night" is the same for every group this cycle, evaluate selectBestPlaces once
+private "_IsNightCache";
 {
 
 			if (missionNamespace getVariable ["MCC_GAIA_AMBIANT",true])
@@ -813,7 +875,8 @@ _StartTimeIssueOrders = time;
 		   	 then
 		   	 {
 
-		   	 		 _IsNight			= (((selectBestPlaces [position (leader _x),2, "night", 1, 1]) select 0 select 1)>0.8);
+		   	 		 if (isNil "_IsNightCache") then {_IsNightCache = (((selectBestPlaces [position (leader _x),2, "night", 1, 1]) select 0 select 1)>0.8);};
+		   	 		 _IsNight			= _IsNightCache;
 		   	 		 _LetsDoSome	= ((round(random(missionNamespace getVariable ["MCC_GAIA_AMBIANT_CHANCE",20])))==1);
 		   	 		 _ClosestCA		= ([_CA,leader _x] call BIS_fnc_nearestPosition);
 		   	 		 _PosLead			= position leader _x;
@@ -847,6 +910,6 @@ _StartTimeIssueOrders = time;
 
 		   	 };
 			};
-}  forEach allgroups;
+}  forEach _allSideGroups;
 
 true;

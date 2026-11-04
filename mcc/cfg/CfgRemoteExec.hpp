@@ -418,3 +418,6 @@ class mcc_setup {allowedTargets=2;};
 class mcc_setup_hc {allowedTargets=0;};
 class MCC_fnc_rxEjectUnconscious {allowedTargets=0;};
 class MCC_fnc_rxApplyFatigue {allowedTargets=0;};
+class GAIA_fnc_cache {allowedTargets=0;};
+class GAIA_fnc_uncache {allowedTargets=0;};
+class GAIA_fnc_syncCachedGroup {allowedTargets=0;};

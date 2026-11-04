@@ -1,54 +1,30 @@
-private ["_pos","_IsBlackListed","_WPPos","_TempArray"];
 /* ----------------------------------------------------------------------------
 Function: fnc_isblacklisted
 
 Description:
-	Checks if the given position is witin MCC_GAIA_AWARENESSRANGE.
+	Checks if the given position is witin MCC_GAIA_AWARENESSRANGE of a GAIA
+	waypoint (MCC_GAIA_WPPOS_<SIDE>) or of a recent breadcrumb of that side.
+	Breadcrumbs are looked up in the breadcrumb spatial grid (GAIA_fnc_breadcrumbNear)
+	instead of scanning every breadcrumb.
 
 Parameters:
-	- position 
-	
+	- position
+	- side
+
 Returns:
 	true/false
 
 Author:
 	Spirit
 ---------------------------------------------------------------------------- */
+params ["_pos", "_side"];
 
-_pos 						= _this select 0;
-_side						= _this select 1;
+private _range = MCC_GAIA_AWARENESSRANGE;
 
+//Breadcrumbs (grid)
+if ([_pos, _side, _range] call GAIA_fnc_breadcrumbNear) exitWith {true};
 
-_IsBlackListed 	= false;
-_WPPos 			= [];
-_TempArray 	= [];
+//Waypoints in use ([position, group] entries)
+private _wpPos = missionNamespace getVariable ["MCC_GAIA_WPPOS_" + ([_side] call GAIA_fnc_sideSuffix), []];
 
-switch (_side) do
-		{
-		  case west				: {_TempArray =MCC_GAIA_WPPOS_WEST; };
-		  case east				: {_TempArray =MCC_GAIA_WPPOS_EAST; };
-		  case independent: {_TempArray =MCC_GAIA_WPPOS_INDEP; };
-		  case civilian		: {_TempArray =MCC_GAIA_WPPOS_CIV; };
-		};
-
-
-{
-_WPPos = _WPPos + [_x];
-} forEach _TempArray; 
-
-
-switch (_side) do
-		{
-		  case west				: {_TempArray =MCC_GAIA_BREADCRUMBS_WEST; };
-		  case east				: {_TempArray =MCC_GAIA_BREADCRUMBS_EAST; };
-		  case independent: {_TempArray =MCC_GAIA_BREADCRUMBS_INDEP; };
-		  case civilian		: {_TempArray =MCC_GAIA_BREADCRUMBS_CIV; };
-		};
-
-{
-	if ((_pos distance (_x select 0))<MCC_GAIA_AWARENESSRANGE) 
-	exitWith {_IsBlackListed = true;}
-		
-}forEach _TempArray+_WPPos;
-
-_IsBlackListed
+(_wpPos findIf {(_pos distance (_x select 0)) < _range}) > -1

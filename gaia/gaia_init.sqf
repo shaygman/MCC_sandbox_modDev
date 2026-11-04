@@ -9,7 +9,8 @@ GAIA_scripts 	= format ["%1gaia\scripts\",MCC_path];
 GAIA_fsm 		= format ["%1gaia\fsm\",MCC_path];
 
 //GAIA Public (local) variables
-MCC_GAIA_DEBUG						= false;
+//MCC_GAIA_DEBUG is the CBA setting "MCC_GAIA_debug" (mcc/settings/gaiaSettings.sqf), do not reset it here
+if (isNil "MCC_GAIA_DEBUG") then {MCC_GAIA_DEBUG = false;};
 MCC_GAIA_CA_DEBUG					= [];
 
 
@@ -83,28 +84,50 @@ MCC_GAIA_FACTIONS_WEST		= [];
 MCC_GAIA_FACTIONS_EAST		= [];
 MCC_GAIA_FACTIONS_INDEP		= [];
 MCC_GAIA_FACTIONS_CIV 		= [];
-MCC_GAIA_ZONESTATUS_WEST	=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_WEST set [_i,"0"];};
-MCC_GAIA_ZONESTATUS_EAST	=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_EAST set [_i,"0"];};
-MCC_GAIA_ZONESTATUS_INDEP	=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_INDEP set [_i,"0"];};
-MCC_GAIA_ZONESTATUS_CIV		=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_INDEP set [_i,"0"];};
-MCC_GAIA_TARGETS_WEST			= []; for "_i" from 0 to 90 do  { MCC_GAIA_TARGETS_WEST set [_i,[]];};
-MCC_GAIA_TARGETS_EAST			= []; for "_i" from 0 to 90 do  { MCC_GAIA_TARGETS_EAST set [_i,[]];};
-MCC_GAIA_TARGETS_INDEP		= []; for "_i" from 0 to 90 do  { MCC_GAIA_TARGETS_INDEP set [_i,[]];};
-MCC_GAIA_TARGETS_CIV			= []; for "_i" from 0 to 90 do  { MCC_GAIA_TARGETS_INDEP set [_i,[]];};
+//Zone status per zone number (index = parseNumber zone). These arrays grow on demand
+//(GAIA_fnc_analyzeForces pads them with 0), there is no 91 zone limit anymore.
+MCC_GAIA_ZONESTATUS_WEST	=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_WEST set [_i,0];};
+MCC_GAIA_ZONESTATUS_EAST	=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_EAST set [_i,0];};
+MCC_GAIA_ZONESTATUS_INDEP	=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_INDEP set [_i,0];};
+MCC_GAIA_ZONESTATUS_CIV		=	[]; for "_i" from 0 to 90 do  { MCC_GAIA_ZONESTATUS_CIV set [_i,0];};
+//[_ActualTargets,_RecentTargets,_OldTargets,_ToBeCleared] (see GAIA_fnc_analyzeTargets)
+MCC_GAIA_TARGETS_WEST			= [[],[],[],[]];
+MCC_GAIA_TARGETS_EAST			= [[],[],[],[]];
+MCC_GAIA_TARGETS_INDEP		= [[],[],[],[]];
+MCC_GAIA_TARGETS_CIV			= [[],[],[],[]];
+
+//------------------------------ GAIA core (server) ------------------------------
+//Group registry: str side -> array of GAIA groups (GAIA_fnc_registerGroup / unregisterGroup / getGroups)
+if (isNil "GAIA_REGISTRY") then {GAIA_REGISTRY = createHashMap;};
+//Groups flagged "mcc_gaia_cache" (rebuilt by GAIA_fnc_registrySweep)
+if (isNil "GAIA_CACHE_GROUPS") then {GAIA_CACHE_GROUPS = [];};
+//Objects that hold a GAIA_TargetInfo (replaces the allUnits+vehicles scan in GAIA_fnc_analyzeTargets)
+if (isNil "GAIA_KNOWN_TARGETS") then {GAIA_KNOWN_TARGETS = [];};
+//Breadcrumb spatial grid (GAIA_fnc_breadcrumbAdd / breadcrumbPrune / breadcrumbNear)
+if (isNil "GAIA_BC_GRID") then {GAIA_BC_GRID = createHashMap;};
+GAIA_BC_CELL					= 100;	//grid cell size (m)
+GAIA_BC_MERGE					= 10;		//a new breadcrumb closer than this to an existing one refreshes it instead
+GAIA_BC_CAP						= 1500;	//max breadcrumbs per side
+//Per frame handler budgets (groups per frame) and minimum time between two passes (s)
+GAIA_GROUP_BUDGET			= 5;
+GAIA_GROUP_PASS_MIN		= 1;
+GAIA_MAINT_BUDGET			= 5;
+GAIA_MAINT_PASS_MIN		= 2;
+GAIA_SWEEP_INTERVAL		= 10;
+GAIA_EMPTY_GRACE			= 10;
+//Orders that keep a cached group out of dynamic simulation (they have to move while no player is around)
+GAIA_DS_EXCLUDED_ORDERS	= ["DoAttack","DoClear","DoTransport","DoSupport"];
 
 
 
 
-//We spawn GAIA for each side (but dont worry, it will only be really active if there are units.)
-//Still a smarter solution is welcome.
+//GAIA only becomes active for a side when that side has GAIA groups.
 
-[WEST] 				spawn GAIA_fnc_startGaia;
-[EAST] 				spawn GAIA_fnc_startGaia;
-[independent] spawn GAIA_fnc_startGaia;
-[civilian] 		spawn GAIA_fnc_startGaia;
+//One scheduler for all sides now (it only runs on the server, see GAIA_fnc_startGaia)
+[] spawn GAIA_fnc_startGaia;
 
-
-[] spawn GAIA_fnc_startGaiaCache;
+//Per frame handler for the per group work (server) and empty group deletion (server and HC)
+if (isServer || {!hasInterface}) then {[] call GAIA_fnc_startGaiaCache;};
 
 [] spawn GAIA_FNC_ambientCombat;
 

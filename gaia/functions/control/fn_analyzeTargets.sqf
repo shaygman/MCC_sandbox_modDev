@@ -43,37 +43,27 @@ _NewTargetInfo	= [];
 
 
 
+//How far around a group leader we look for targets (CBA setting MCC_GAIA_TARGET_RANGE, default 1000)
+private _targetRange = missionNamespace getVariable ["MCC_GAIA_TARGET_RANGE", 1000];
+if (isNil "GAIA_KNOWN_TARGETS") then {GAIA_KNOWN_TARGETS = []};
+
 {
    if (
    			//Seems like allgroups opens up with all sorts of empty groups, better check it
-   			((side _x) == _HQ_side)
-   			and
    			(count(units _x)>0)
    		)
    then
    {
       _unit = leader _x;
 
-      //sleep 2;
-      //player globalchat format ["%1, %2, %3",(position _unit),_unit,_x];
-
-
       //Place a breadcrumb
-      	_vehicleClass = tolower (gettext (configFile >> "CfgVehicles" >> typeof (vehicle _unit) >> "vehicleClass"));
+      	_vehicleClass = ([typeof (vehicle _unit)] call GAIA_fnc_getClassInfo) select 0;
       //Except for air, as air is not 'clearing the ground'
       if ((_vehicleClass != "air")) then
       {
       	//Now where ever a unit has last been, place a breadcrumb (so even static guards).
       	// This is used for making the patrols as optimized as possible. We try to avoid those positions.
-
-      	switch (_HQ_side) do
-						{
-						  case west				: {MCC_GAIA_BREADCRUMBS_WEST = MCC_GAIA_BREADCRUMBS_WEST + [[(position _unit),time]];};
-						  case east				: {MCC_GAIA_BREADCRUMBS_EAST = MCC_GAIA_BREADCRUMBS_EAST + [[(position _unit),time]];};
-						  case independent: {MCC_GAIA_BREADCRUMBS_INDEP = MCC_GAIA_BREADCRUMBS_INDEP + [[(position _unit),time]];};
-						  case civilian		: {MCC_GAIA_BREADCRUMBS_CIV	 = MCC_GAIA_BREADCRUMBS_CIV + [[(position _unit),time]];};
-						};
-
+      	[_HQ_side, (position _unit)] call GAIA_fnc_breadcrumbAdd;
       };
 
 
@@ -105,16 +95,32 @@ _NewTargetInfo	= [];
       		{
       			_Target setVariable ["GAIA_TargetInfo", [time,_Target_Pos,_Target_posAcc], false];
 
+      			//Remember every object that holds target info (shared by all sides, like GAIA_TargetInfo)
+      			if !(_Target getVariable ["GAIA_isKnownTarget", false]) then {
+      				_Target setVariable ["GAIA_isKnownTarget", true, false];
+      				GAIA_KNOWN_TARGETS pushBack _Target;
+      			};
       		};
-      }foreach (_unit neartargets 1500);
+      }foreach (_unit neartargets _targetRange);
    };
-} forEach AllGroups;
+} forEach (groups _HQ_side);
 
 //
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									Phase 3: Update Target Lists
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
+//Forget known targets that can no longer be listed: deleted, dead men (allUnits only holds living units)
+//and targets whose info is older then the auto clear time.
+GAIA_KNOWN_TARGETS = GAIA_KNOWN_TARGETS select {
+	private _keep = (
+		!isNull _x
+		&& {alive _x || {!(_x isKindOf "CAManBase")}}
+		&& {(time - ((_x getVariable ["GAIA_TargetInfo",[-1e10]]) select 0)) < _TArgetAutoCleared}
+	);
+	if (!_keep && {!isNull _x}) then {_x setVariable ["GAIA_isKnownTarget", nil, false]};
+	_keep
+};
 
 //if (MCC_GAIA_DEBUG) then {[_HQ_side,"HQ"] sidechat "Updating the targetlist."; };
 {
@@ -141,7 +147,7 @@ _NewTargetInfo	= [];
       		};
 	};
 
-} forEach allUnits+vehicles;
+} forEach GAIA_KNOWN_TARGETS;
 
 // Debug to be cleared case (name the unit a)
 //a  setVariable ["GAIA_TargetInfo", [(time -400),(position a),1], false];
@@ -160,7 +166,7 @@ for [{_i=0},{_i < count _ToBeCleared},{_i=_i+1}] do
 	_OldTargetInfo = (_ToBeCleared select _i) getVariable ["GAIA_TargetInfo",[]];
 
 	//Check if we are in clear range and if so, clear this dude
-	if ([(_OldTargetInfo select 1),_HQ_side ] call GAIA_fnc_isCleared) then
+	if ([(_OldTargetInfo select 1),_HQ_side,MCC_GAIA_CLEARRANGE] call GAIA_fnc_breadcrumbNear) then
 		{
 			(_ToBeCleared select _i) setVariable ["GAIA_TargetInfo", [(time-_TArgetAutoCleared),(_OldTargetInfo select 1),(_OldTargetInfo select 2)], false];
 		}
@@ -185,53 +191,8 @@ switch (_HQ_side) do
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 //									Phase 6: Clear Outdated Breadcrumps
 // = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-switch (_HQ_side) do
-			{
-			  case west				: {
-			  											for [{_i=0},{_i < count MCC_GAIA_BREADCRUMBS_WEST},{_i=_i+1}] do
-															{
-
-																if ((time-((MCC_GAIA_BREADCRUMBS_WEST select _i) select 1))>_LiveTimeBreadcrumb) then
-																{
-																	MCC_GAIA_BREADCRUMBS_WEST set [_i, "REMOVE"];
-																	MCC_GAIA_BREADCRUMBS_WEST = MCC_GAIA_BREADCRUMBS_WEST - ["REMOVE"];
-																}
-															};
-			  									};
-			  case east				: {
-			  											for [{_i=0},{_i < count MCC_GAIA_BREADCRUMBS_EAST},{_i=_i+1}] do
-															{
-
-																if ((time-((MCC_GAIA_BREADCRUMBS_EAST select _i) select 1))>_LiveTimeBreadcrumb) then
-																{
-																	MCC_GAIA_BREADCRUMBS_EAST set [_i, "REMOVE"];
-																	MCC_GAIA_BREADCRUMBS_EAST = MCC_GAIA_BREADCRUMBS_EAST - ["REMOVE"];
-																}
-															};
-			  									};
-			  case independent: {
-			  											for [{_i=0},{_i < count MCC_GAIA_BREADCRUMBS_INDEP},{_i=_i+1}] do
-															{
-
-																if ((time-((MCC_GAIA_BREADCRUMBS_INDEP select _i) select 1))>_LiveTimeBreadcrumb) then
-																{
-																	MCC_GAIA_BREADCRUMBS_INDEP set [_i, "REMOVE"];
-																	MCC_GAIA_BREADCRUMBS_INDEP = MCC_GAIA_BREADCRUMBS_INDEP - ["REMOVE"];
-																}
-															};
-			  									};
-			  case civilian: {
-			  											for [{_i=0},{_i < count MCC_GAIA_BREADCRUMBS_CIV},{_i=_i+1}] do
-															{
-
-																if ((time-((MCC_GAIA_BREADCRUMBS_CIV select _i) select 1))>_LiveTimeBreadcrumb) then
-																{
-																	MCC_GAIA_BREADCRUMBS_CIV set [_i, "REMOVE"];
-																	MCC_GAIA_BREADCRUMBS_CIV = MCC_GAIA_BREADCRUMBS_CIV - ["REMOVE"];
-																}
-															};
-			  									};
-			};
+//Remove outdated breadcrumbs, cap them and rebuild the breadcrumb grid of this side
+[_HQ_side, _LiveTimeBreadcrumb] call GAIA_fnc_breadcrumbPrune;
 
 
 

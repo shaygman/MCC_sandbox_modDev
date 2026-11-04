@@ -39,26 +39,25 @@ switch (_HQ_side) do
 // Removed spots from selection (we leave that up to clear patrols, no longer attacks
 //SPOTS (so fully cleared)
 
+//Target positions are read once (instead of once per CA)
+private _TargetPositions = [];
 {
-	_SelectedCA = _x;
-	_delete 		= true;
-	{
-		_TargetInfo = (_x getVariable ["GAIA_TargetInfo",[]]);
-		if (count(_TargetInfo)>0) then
-			{
-				_TargetPos = _TargetInfo select 1;
-				if ((_SelectedCA distance _TargetPos)<MCC_GAIA_CA_SIZE) exitwith {_delete = false;}
-			};
-	}forEach (_Targets /*+_Spots*/);
-	if (_delete) then {_ca=_ca - [_x]};
-}forEach _Ca;
+	_TargetInfo = (_x getVariable ["GAIA_TargetInfo",[]]);
+	if (count(_TargetInfo)>0) then {_TargetPositions pushBack (_TargetInfo select 1)};
+}forEach (_Targets /*+_Spots*/);
+
+_CA = _CA select {
+	private _SelectedCA = _x;
+	(_TargetPositions findIf {(_SelectedCA distance _x)<MCC_GAIA_CA_SIZE}) > -1
+};
 
 // Do create a CA on each position of a target that is not in range of 200 within the next the CA
 {
 	_TargetInfo = _x getVariable ["GAIA_TargetInfo",[]];
-	if !((count([_ca, {((_x distance (_TargetInfo select 1))<(MCC_GAIA_CA_SIZE*2))}] call BIS_fnc_conditionalSelect))>0)
+	private _TargetPos = _TargetInfo select 1;
+	if ((_CA findIf {(_x distance _TargetPos)<(MCC_GAIA_CA_SIZE*2)}) < 0)
 	then
-		{_ca  = _ca + [(_TargetInfo select 1)];	};
+		{_CA pushBack _TargetPos;	};
 }forEach _Targets;
 
 // Order the CA's. The one who is the closest to any zone wins

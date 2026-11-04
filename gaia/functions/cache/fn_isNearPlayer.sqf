@@ -1,30 +1,29 @@
 // F3 - Near Player Function
 // Credits: Please see the F3 online manual (http://www.ferstaberinde.com/f3/en/)
 // ====================================================================================
-
-// DECLARE VARIABLES AND FUNCTIONS
-private ["_ent","_distance","_pos","_players"];
-
-_pos =  (_this select 0);
-_distance = _this select 1;
-
+// In:  [position, distance]
+// Out: true when a player is closer than distance to position
+// On the server the player list is taken from GAIA_PLAYER_LIST (refreshed every
+// second by the GAIA per-frame handler) instead of being rebuilt on every call.
 // ====================================================================================
 
-// Create a list of all players
-_players = [];
+params ["_pos", "_distance"];
 
-if (count(playableUnits)==0) then 
-{
-	_players = [player];
-}
-else
-{
+private _players = [];
+
+if (isServer && {!isNil "GAIA_PLAYER_LIST_TIME"} && {(time - GAIA_PLAYER_LIST_TIME) < 2}) then {
+	_players = GAIA_PLAYER_LIST;
+} else {
+	// Create a list of all players
+	if (count(playableUnits)==0) then
 	{
-	        if (isPlayer _x) then {_players = _players + [_x]};
-	} forEach playableUnits;
+		_players = [player];
+	}
+	else
+	{
+		_players = playableUnits select {isPlayer _x};
+	};
 };
-// ====================================================================================
 
 // Check whether a player is in the given distance - return true if yes
-if (({_x distance _pos < _distance} count _players) > 0) exitWith {true};
-false;
+(_players findIf {(_x distance _pos) < _distance}) > -1

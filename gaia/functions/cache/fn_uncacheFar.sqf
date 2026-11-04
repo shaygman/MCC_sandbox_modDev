@@ -16,6 +16,7 @@ missionNamespace setVariable [_var2, (_sf select 10)];
 
 //I gues we were cached, because we just got uncached.
 _group  setVariable ["mcc_gaia_cache", true,true];
+if ((_sf select 3) isNotEqualTo []) then {[_group] call GAIA_fnc_registerGroup;};
 
 
 //Create Vehicles in group
@@ -75,7 +76,7 @@ _group  setVariable ["mcc_gaia_cache", true,true];
 } foreach (_sf select 1);
 
 //Update the respawn
-[_group,(_sf select 9)] spawn GAIA_fnc_respawnSet;
+[_group,(_sf select 9)] call GAIA_fnc_respawnSet;
 
 _group setspeedmode 	(_sf select 6);
 _group setformation 	(_sf select 7);

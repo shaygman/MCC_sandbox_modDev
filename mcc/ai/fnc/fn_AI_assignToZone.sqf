@@ -32,12 +32,14 @@ _zoneNumber = (_resualt select 0)+1;
 
 if (_object isEqualType grpNull) then {
 	_object setVariable ["GAIA_ZONE_INTEND",[str _zoneNumber ,((MCC_spawn_behaviors select (_resualt select 1)) select 1)], true];
+	[_object] call GAIA_fnc_registerGroup;
 	[objNull, localize "STR_DISP_CURATOR_ERROR_ASSIGNTOZONE_SUCCESS"] call bis_fnc_showCuratorFeedbackMessage;
 };
 
 if (_object isEqualType objNull) then {
 	if (side group _object in [west,resistance,east,civilian]) then {
 		(group _object) setVariable ["GAIA_ZONE_INTEND",[str _zoneNumber ,((MCC_spawn_behaviors select (_resualt select 1)) select 1)], true];
+		[(group _object)] call GAIA_fnc_registerGroup;
 		[objNull, localize "STR_DISP_CURATOR_ERROR_ASSIGNTOZONE_SUCCESS"] call bis_fnc_showCuratorFeedbackMessage;
 	};
 };

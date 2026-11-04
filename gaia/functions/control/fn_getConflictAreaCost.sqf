@@ -3,6 +3,7 @@ Function: fnc_GetCAPoints
 
 Description:
 	Get the points of the CA
+	(GAIA_fnc_issueOrders caches the result per CA for one cycle)
 
 Parameters:
 	- Side
@@ -60,7 +61,7 @@ switch (_side) do
 
 
 	{
-		if ([_CA,_x] call GAIA_fnc_isPositionInMarker				) exitWith {_Zone=_x;};
+		if ([_CA,_x] call GAIA_fnc_inZone				) exitWith {_Zone=_x;};
 	}foreach _zns;
 
 

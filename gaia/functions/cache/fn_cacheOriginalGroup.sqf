@@ -85,7 +85,7 @@ if (({alive _x} count units _group) > 0) then
 		_sf = 	[_gv
 						,_uv
 						,side _group
-						,(_x getVariable  ["GAIA_zone_intend",[]])
+						,(_group getVariable  ["GAIA_zone_intend",[]])
 						,behaviour (leader _group)
 						,combatmode _group
 						,speedmode _group
@@ -96,7 +96,7 @@ if (({alive _x} count units _group) > 0) then
 
 
 		_var2 = "GAIA_RESPAWN_" + str(_group);
-		missionNamespace setVariable [_var2,[ _sf,((_x) getVariable ["MCC_GAIA_CACHE", false])]  ];
+		missionNamespace setVariable [_var2,[ _sf,((_group) getVariable ["MCC_GAIA_CACHE", false])]  ];
 
 
 };
