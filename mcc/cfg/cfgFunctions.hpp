@@ -229,3 +229,19 @@ class dynamicDialog
 
 	class initDynamicDialog {description = "init the dynamic dialog";};
 };
+
+class compat
+{
+	#ifdef MCCMODE
+	file = "\mcc_sandbox_mod\mcc\fnc\compat";
+	#else
+	file = "mcc\fnc\compat";
+	#endif
+
+	class detectMods {preInit = 1; description = "Detect CBA/ACE/RHS/CUP once and set MCC_is* flags";};
+	class compatPreset {description = "Best default class list for a key for the loaded mods";};
+	class compatApply {description = "Swap a class-list setting for the mod preset if it is at vanilla default / expand auto";};
+	class compatSlugMagazines {description = "Cached CfgMagazines scan for shotgun slug magazines";};
+	class compatGroupUnits {description = "cfgMCCRtsGroups units for a side with RHS/CUP variants";};
+	class compatInit {postInit = 1; description = "Apply mod presets to class-list settings, re-apply on CBA_SettingChanged";};
+};

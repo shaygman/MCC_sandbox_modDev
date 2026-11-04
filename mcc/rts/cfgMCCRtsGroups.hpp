@@ -13,6 +13,13 @@ class MCC_rtsGroup_Transport
 	unitsEast[] = {"O_Truck_03_transport_F"};
 	unitsWest[] = {"B_Truck_01_transport_F"};
 	unitsGuer[] = {"I_Truck_02_transport_F"};
+	// Mod variants, used by MCC_fnc_compatGroupUnits when RHS / CUP is loaded and every class exists
+	unitsEastRHS[] = {"RHS_Ural_MSV_01"};
+	unitsWestRHS[] = {"rhsusf_M1078A1P2_WD_fmtv_usarmy"};
+	unitsGuerRHS[] = {"rhsgref_cdf_zil131"};
+	unitsEastCUP[] = {"CUP_O_Ural_RU"};
+	unitsWestCUP[] = {"CUP_B_MTVR_USA"};
+	unitsGuerCUP[] = {"CUP_I_MTVR_RACS"};
 	needelectricity = 0;
 	actions[] = {"MCC_rts_orderStop","MCC_rts_OrderGetout","MCC_rts_LoadResources","MCC_rts_UnLoadResources","MCC_rts_LoadResourcesWithdrawAmmo","MCC_rts_LoadResourcesWithdrawSupply","MCC_rts_LoadResourcesWithdrawFuel", "MCC_rts_takeControl"};
 	actionFNC = "MCC_fnc_rtsCreateGroup";

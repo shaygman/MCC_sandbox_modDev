@@ -147,13 +147,14 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
     [
         "MCC_breacingAmmo",
         "EDITBOX",
-        ["Breaching Ammo","Shooting this ammo from less then 10 meters will unlock doors"],
+        ["Breaching Ammo","Magazine classes. Shooting this ammo from less then 10 meters will unlock doors. ""auto"" = every shotgun slug magazine found in the loaded mods"],
         ["MCC Mechanics","Ammo Type"],
-        '["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug"]',
+        '["auto"]',
         true,
         {
             params ["_value"];
             MCC_breacingAmmo = (parseSimpleArray ("[" + _value + "]")) param [0, []];
+            if (!isNil "MCC_fnc_compatApply") then {["MCC_breacingAmmo"] call MCC_fnc_compatApply};
         }
     ] call CBA_fnc_addSetting;
 
@@ -161,13 +162,14 @@ if (count (allMissionObjects "MCC_Module_settingsMechanics") == 0) then {
     [
         "MCC_nonLeathalAmmo",
         "EDITBOX",
-        ["Non Lethal Ammo","Shooting this ammo from less then 10 meters will unlock doors"],
+        ["Non Lethal Ammo","Magazine classes. Shooting this ammo at a unit closer than 30 meters stuns it instead of killing it. ""auto"" = every shotgun slug magazine found in the loaded mods"],
         ["MCC Mechanics","Ammo Type"],
-        '["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug"]',
+        '["auto"]',
         true,
         {
             params ["_value"];
             MCC_nonLeathalAmmo = (parseSimpleArray ("[" + _value + "]")) param [0, []];
+            if (!isNil "MCC_fnc_compatApply") then {["MCC_nonLeathalAmmo"] call MCC_fnc_compatApply};
         }
     ] call CBA_fnc_addSetting;
 };

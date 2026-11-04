@@ -59,13 +59,14 @@
 [
     "MCC_convoyHVT",
     "EDITBOX",
-    ["HVT","High value target, array first element is display name, second is the unit class"],
+    ["HVT","High value target, array first element is display name, second is the unit class. Left at default: RHS/CUP officers are added when those mods are loaded. Add ""auto"" to keep them in a custom list."],
     ["MCC Classes", "Convoy"],
     '[["None","0"],["B.Officer","B_officer_F"],["B. Pilot","B_Helipilot_F"],["O. Officer","O_officer_F"],["O. Pilot","O_helipilot_F"],["I.Commander","I_officer_F"],["Citizen","C_man_polo_1_F"],["C.Pilot","C_man_pilot_F"],["Orestes","C_Orestes"],["Nikos","C_Nikos"],["Hunter","C_man_hunter_1_F"],["Kerry","I_G_Story_Protagonist_F"]]',
     true,
     {
         params ["_value"];
         MCC_convoyHVT = (parseSimpleArray ("[" + _value + "]")) param [0, []];
+        if (!isNil "MCC_fnc_compatApply") then {["MCC_convoyHVT"] call MCC_fnc_compatApply};
     }
 ] call CBA_fnc_addSetting;
 
@@ -73,12 +74,13 @@
 [
     "MCC_convoyHVTcar",
     "EDITBOX",
-    ["HVT Vehicle","High value target, array first element is display name, second is the vehicle class"],
+    ["HVT Vehicle","High value target, array first element is display name, second is the vehicle class. Left at default: RHS/CUP cars are added when those mods are loaded. Add ""auto"" to keep them in a custom list."],
     ["MCC Classes", "Convoy"],
     '[["Default",""],["Hunter","B_Hunter_F"],["MRAP","I_MRAP_03_F"],["Quadbike","B_Quadbike_F"],["Ifrit","O_Ifrit_F"],["Offroad","C_Offroad_01_F"],["SUV","C_SUV_01_F"],["Hatchback","C_Hatchback_01_F"]]',
     true,
     {
         params ["_value"];
         MCC_convoyHVTcar = (parseSimpleArray ("[" + _value + "]")) param [0, []];
+        if (!isNil "MCC_fnc_compatApply") then {["MCC_convoyHVTcar"] call MCC_fnc_compatApply};
     }
 ] call CBA_fnc_addSetting;

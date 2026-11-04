@@ -1,7 +1,9 @@
 private ["_string","_null","_nul","_dummyGroup","_dummy","_name","_keyDown","_savesArray"];
 MCC_isMode = isClass (configFile >> "CfgPatches" >> "mcc_sandbox");	//check if MCC is mod version
-MCC_isACE = isClass (configFile >> "CfgPatches" >> "ace_common");
-MCC_isCBA = isClass (configFile >> "CfgPatches" >> "cba_main");
+//Mod flags (MCC_isACE, MCC_isCBA, MCC_isRHS, MCC_isCUP ...) are set at preInit by MCC_fnc_detectMods - keep them
+if (isNil "MCC_compat_detected" && {!isNil "MCC_fnc_detectMods"}) then {call MCC_fnc_detectMods};
+if (isNil "MCC_isACE") then {MCC_isACE = isClass (configFile >> "CfgPatches" >> "ace_common")};
+if (isNil "MCC_isCBA") then {MCC_isCBA = isClass (configFile >> "CfgPatches" >> "cba_main")};
 MCC_initDone = false;
 MCC_GUI1initDone = false;
 
@@ -64,8 +66,9 @@ if (isnil"MCC_t2tIndex") then {MCC_t2tIndex	= 1}; 			//0 - Disabled. 1- JIP, 2- 
 
 //non-lethal ammo & breaching ammo
 //Define non-lethal ammunition player using this ammunition on units closer then 30 meters will not kill them but stun them.
-if (isnil"MCC_nonLeathalAmmo") then {MCC_nonLeathalAmmo = ["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug","CUP_8Rnd_B_Beneli_74Slug"]};
-if (isnil"MCC_breacingAmmo") then {MCC_breacingAmmo = ["prpl_8Rnd_12Gauge_Slug","prpl_6Rnd_12Gauge_Slug","rhsusf_8Rnd_Slug","rhsusf_5Rnd_Slug","CUP_8Rnd_B_Beneli_74Slug"]};
+//Default: every shotgun slug magazine of the loaded mods (config scan, cached)
+if (isnil"MCC_nonLeathalAmmo") then {MCC_nonLeathalAmmo = if (isNil "MCC_fnc_compatSlugMagazines") then {[]} else {[] call MCC_fnc_compatSlugMagazines}};
+if (isnil"MCC_breacingAmmo") then {MCC_breacingAmmo = if (isNil "MCC_fnc_compatSlugMagazines") then {[]} else {[] call MCC_fnc_compatSlugMagazines}};
 
 //How long in days(24H-game time) will it take for spawn position to refresh
 if (isnil "MCC_surviveModRefresh") then {MCC_surviveModRefresh = 1};
@@ -75,9 +78,9 @@ if (isnil "MCC_allowRTS") then {MCC_allowRTS = true};
 
 //----------------------IED settings---------------------------------------------
 // IED types the first one is display name the second is the classname [displayName, ClassName]
-MCC_ied_small = [["Plastic Crates","Land_CratesPlastic_F"],["Plastic Canister","Land_CanisterPlastic_F"],["Sack","Land_Sack_F"],["Road Cone","RoadCone"],["Tyre","Land_Tyre_F"],["Radio","Land_SurvivalRadio_F"],["Suitcase","Land_Suitcase_F"],["Grinder","Land_Grinder_F"],["MultiMeter","Land_MultiMeter_F"],["Plastic Bottle","Land_BottlePlastic_V1_F"],["Fuel Canister","Land_CanisterFuel_F"],["FM Radio","Land_FMradio_F"],["Camera","Land_HandyCam_F"],["Laptop","Land_Laptop_F"],["Mobile Phone","Land_MobilePhone_old_F"],["Smart Phone","Land_MobilePhone_smart_F"],["Longrange Radio","Land_PortableLongRangeRadio_F"],["Satellite Phone","Land_SatellitePhone_F"],["Money","Land_Money_F"]];
-MCC_ied_medium = [["Wheel Cart","Land_WheelCart_F"],["Metal Barrel","Land_MetalBarrel_F"],["Plastic Barrel","Land_BarrelSand_F"],["Pipes","Land_Pipes_small_F"],["Wooden Crates","Land_CratesShabby_F"],["Wooden Box","Land_WoodenBox_F"],["Cinder Blocks","Land_Ytong_F"],["Sacks Heap","Land_Sacks_heap_F"], ["Water Barrel","Land_WaterBarrel_F"],["Water Tank","Land_WaterTank_F"]];
-MCC_ied_wrecks = [["MI-48","Land_UWreck_Heli_Attack_02_F"],["BMP2","Land_Wreck_BMP2_F"],["Car","Land_Wreck_Car_F"],["Car2","Land_Wreck_Car2_F"],["Car Dismantled","Land_Wreck_CarDismantled_F"],["Blackfoot","Land_Wreck_Heli_Attack_01_F"],["HMMW","Land_Wreck_HMMWV_F"],["Hunter","Land_Wreck_Hunter_F"],["Offroad2","Land_Wreck_Offroad2_F"],["Skoda","Land_Wreck_Skodovka_F"],["Slammer","Land_Wreck_Slammer_F"],["T72","Land_Wreck_T72_hull_F"],["Truck","Land_Wreck_Truck_dropside_F"],["Truck2","Land_Wreck_Truck_F"],["UAZ","Land_Wreck_UAZ_F"],["Van","Land_Wreck_Van_F"],["Car Wreck","Land_Wreck_Car3_F"],["BRDM Wreck","Land_Wreck_BRDM2_F"],["Offroad Wreck","Land_Wreck_Offroad_F"],["Truck Wreck","Land_Wreck_Truck_FWreck"]];
+if (isNil "MCC_ied_small") then {MCC_ied_small = [["Plastic Crates","Land_CratesPlastic_F"],["Plastic Canister","Land_CanisterPlastic_F"],["Sack","Land_Sack_F"],["Road Cone","RoadCone"],["Tyre","Land_Tyre_F"],["Radio","Land_SurvivalRadio_F"],["Suitcase","Land_Suitcase_F"],["Grinder","Land_Grinder_F"],["MultiMeter","Land_MultiMeter_F"],["Plastic Bottle","Land_BottlePlastic_V1_F"],["Fuel Canister","Land_CanisterFuel_F"],["FM Radio","Land_FMradio_F"],["Camera","Land_HandyCam_F"],["Laptop","Land_Laptop_F"],["Mobile Phone","Land_MobilePhone_old_F"],["Smart Phone","Land_MobilePhone_smart_F"],["Longrange Radio","Land_PortableLongRangeRadio_F"],["Satellite Phone","Land_SatellitePhone_F"],["Money","Land_Money_F"]];};
+if (isNil "MCC_ied_medium") then {MCC_ied_medium = [["Wheel Cart","Land_WheelCart_F"],["Metal Barrel","Land_MetalBarrel_F"],["Plastic Barrel","Land_BarrelSand_F"],["Pipes","Land_Pipes_small_F"],["Wooden Crates","Land_CratesShabby_F"],["Wooden Box","Land_WoodenBox_F"],["Cinder Blocks","Land_Ytong_F"],["Sacks Heap","Land_Sacks_heap_F"], ["Water Barrel","Land_WaterBarrel_F"],["Water Tank","Land_WaterTank_F"]];};
+if (isNil "MCC_ied_wrecks") then {MCC_ied_wrecks = [["MI-48","Land_UWreck_Heli_Attack_02_F"],["BMP2","Land_Wreck_BMP2_F"],["Car","Land_Wreck_Car_F"],["Car2","Land_Wreck_Car2_F"],["Car Dismantled","Land_Wreck_CarDismantled_F"],["Blackfoot","Land_Wreck_Heli_Attack_01_F"],["HMMW","Land_Wreck_HMMWV_F"],["Hunter","Land_Wreck_Hunter_F"],["Offroad2","Land_Wreck_Offroad2_F"],["Skoda","Land_Wreck_Skodovka_F"],["Slammer","Land_Wreck_Slammer_F"],["T72","Land_Wreck_T72_hull_F"],["Truck","Land_Wreck_Truck_dropside_F"],["Truck2","Land_Wreck_Truck_F"],["UAZ","Land_Wreck_UAZ_F"],["Van","Land_Wreck_Van_F"],["Car Wreck","Land_Wreck_Car3_F"],["BRDM Wreck","Land_Wreck_BRDM2_F"],["Offroad Wreck","Land_Wreck_Offroad_F"],["Truck Wreck","Land_Wreck_Truck_FWreck"]];};
 
 MCC_ied_mine = [
                 ["Mine Field AP - Visable","apv"],
@@ -90,7 +93,7 @@ MCC_ied_mine = [
 				["Mine Field Naval - Bottom","nv"],
 				["Mine Field Naval - PDM","pdm"]
 			   ];
-MCC_ied_hidden = [["Dirt Small","IEDLandSmall_Remote_Ammo"],["Dirt Big","IEDLandBig_Remote_Ammo"],["Urban Small","IEDUrbanSmall_Remote_Ammo"],["Urban Big","IEDUrbanBig_Remote_Ammo"]];
+if (isNil "MCC_ied_hidden") then {MCC_ied_hidden = [["Dirt Small","IEDLandSmall_Remote_Ammo"],["Dirt Big","IEDLandBig_Remote_Ammo"],["Urban Small","IEDUrbanSmall_Remote_Ammo"],["Urban Big","IEDUrbanBig_Remote_Ammo"]];};
 
 //------------------------Convoy settings----------------------------------------
 MCC_convoyHVT = [["None","0"],["B.Officer","B_officer_F"],["B. Pilot","B_Helipilot_F"],["O. Officer","O_officer_F"],["O. Pilot","O_helipilot_F"],["I.Commander","I_officer_F"],["Citizen","C_man_polo_1_F"],["C.Pilot","C_man_pilot_F"],["Orestes","C_Orestes"],["Nikos","C_Nikos"],["Hunter","C_man_hunter_1_F"],["Kerry","I_G_Story_Protagonist_F"]];
@@ -226,7 +229,7 @@ mccPresetsObjects = [
 //---------------------------General objects---------------------------------
 //Dummy object for OO saving "UserTexture_1x2_F"
 MCC_dummy = if (MCC_isACE) then {"ACE_DefuseObject"} else {"bomb"};
-MCC_supplyTracks = ["B_Truck_01_transport_F","O_Truck_03_transport_F","I_Truck_02_transport_F","B_Truck_01_covered_F","B_T_Truck_01_transport_F","B_T_Truck_01_covered_F","O_Truck_03_covered_F","O_Truck_02_transport_F","O_Truck_02_covered_F","O_T_Truck_03_transport_ghex_F","O_T_Truck_03_covered_ghex_F","I_Truck_02_covered_F"];
+MCC_supplyTracks = ["B_Truck_01_transport_F","O_Truck_03_transport_F","I_Truck_02_transport_F","B_Truck_01_covered_F","B_T_Truck_01_transport_F","B_T_Truck_01_covered_F","O_Truck_03_covered_F","O_Truck_02_transport_F","O_Truck_02_covered_F","O_T_Truck_03_transport_ghex_F","O_T_Truck_03_covered_ghex_F","I_Truck_02_covered_F"] + (["supplyTrucks"] call MCC_fnc_compatPreset);
 MCC_supplyAttachPoints = [
 							[[0,0,0],[0,-2,0],[0,-4,0]],
 							[[0,-1,0],[0,-2.5,0],[0,-4,0]],
