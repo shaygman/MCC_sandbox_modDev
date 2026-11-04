@@ -115,19 +115,7 @@ switch (true) do {
 
 						if (_x getVariable ["MCC_medicUnconscious",false]) then	{
 
-							[[_x],{_this spawn {
-									_unit = _this select 0;
-
-									_unit setUnconscious false;
-									unassignVehicle _unit;
-									[_unit] orderGetIn false;
-									_unit action ["Eject", vehicle _unit];
-									moveOut _unit;
-									waitUntil {vehicle _unit == _unit};
-									sleep 0.1;
-									_unit setUnconscious true;
-								};
-							}] remoteExec ["BIS_fnc_spawn", _x];
+							[_x] remoteExec ["MCC_fnc_rxEjectUnconscious", _x];
 						};
 					} forEach (crew _object);
 				};

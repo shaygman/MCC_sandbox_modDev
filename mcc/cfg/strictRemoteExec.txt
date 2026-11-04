@@ -1,0 +1,37 @@
+MCC - locking down remoteExec on a public server
+================================================
+
+MCC has two layers of protection. You can use either or both.
+
+1) MCC Network Security (easy, no files to edit)
+   Eden Editor > Attributes > General > MCC > Network Security = Strict.
+   In multiplayer, MCC then ignores code-running and spawning requests from players who are not
+   allowed to use MCC. Who is allowed comes from the "MCC Access Rights" module (player UIDs or
+   synced units, plus admins if the module allows them). Without that module everyone is allowed,
+   so Strict mainly matters together with the module. Single player is not affected.
+   Missions that do not use Eden attributes can add this line to description.ext instead:
+       MCC_networkSecurity = 1;
+
+2) Engine whitelist (strongest; blocks every function and command that is not listed)
+   Add this to your mission's description.ext. It keeps MCC working and blocks everything else.
+   If your mission or other mods use their own remoteExec calls, add those classes too.
+
+class CfgRemoteExec
+{
+	class Functions
+	{
+		mode = 1;
+		jip = 1;
+		#include "\mcc_sandbox_mod\mcc\cfg\CfgRemoteExec.hpp"
+		#include "\mcc_sandbox_mod\mcc\radio\CfgRemoteExec.hpp"
+		#include "\mcc_sandbox_mod\mcc\aas\CfgRemoteExec.hpp"
+	};
+	class Commands
+	{
+		mode = 1;
+		#include "\mcc_sandbox_mod\mcc\cfg\CfgRemoteExecCommands.hpp"
+	};
+};
+
+Test the mission in multiplayer after turning this on. Blocked calls are written to the server
+RPT as "remoteExec ... blocked".

@@ -6,6 +6,7 @@
 //	_init: string, the new init command (use _this instead of this)
 //    _save: Boolean, should the init be saved as a variable - default true
 //==============================================================================================================================================================================	
+if !(["MCC_fnc_setVehicleInit"] call MCC_fnc_remoteAllowed) exitWith {};
 private ["_unit","_unitinit","_save"];
 
 _unit 		= if (((_this select 0) select 0) == "") then {(_this select 0) select 1} else {objectFromNetID ((_this select 0) select 0)};

@@ -87,7 +87,7 @@ if (_object isKindOf "Man") then {
 	_iedside 			= (_resualt select 6) call BIS_fnc_sideType;
 
 
-	_ok = [_object, _trapvolume, _IEDExplosionType, _IEDDisarmTime, _IEDJammable, _IEDTriggerType, _trapdistance, _iedside] execVM "mcc_sandbox_mod\mcc\fnc\ied\fn_createIED.sqf";
+	_ok = [_object, _trapvolume, _IEDExplosionType, _IEDDisarmTime, _IEDJammable, _IEDTriggerType, _trapdistance, _iedside] spawn MCC_fnc_createIED;
 	//[_object, _trapvolume, _IEDExplosionType, _IEDDisarmTime, _IEDJammable, _IEDTriggerType, _trapdistance, _iedside] remoteExec ["MCC_fnc_createIED",2];
 };
 

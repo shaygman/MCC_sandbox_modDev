@@ -10,14 +10,14 @@ if (isServer) then
 
 	if (isnil "MCC_Chat") then {MCC_Chat = true};
 
-	mcc_setup =  {_this call my_pv_handler};
+	mcc_setup =  {if (["mcc_setup"] call MCC_fnc_remoteAllowed) then {_this call my_pv_handler}};
 	diag_log format ["Added 'mcc_setup' EventHandler for Server"];
 };
 
 if ( MCC_isLocalHC ) then
 {
 	if (isnil "MCC_Chat") then {MCC_Chat = true};
-	mcc_setup_hc ={_this call my_pv_handler};
+	mcc_setup_hc ={if (["mcc_setup_hc"] call MCC_fnc_remoteAllowed) then {_this call my_pv_handler}};
 	if (isnil "MCC_Chat") then {MCC_Chat = true};
 	diag_log format ["Added 'mcc_setup_hc' EventHandler for HeadLess Client"];
 };

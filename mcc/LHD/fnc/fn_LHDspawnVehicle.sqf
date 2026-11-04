@@ -338,15 +338,7 @@ switch (_function) do
 				//Add catapult
 				if (_cargo isKindOf "air") then {
 
-					[_cargo,["<t color=""#ff1111"">Steam Catapult</t>",{
-						_target = (_this select 0);
-						driver (_target) action ["ENGINEON", _target];
-						addCamShake [5, 4, 15];
-						for [{_i=1},{_i<=50},{_i=_i+5}] do {
-							_target setvelocity [_i* sin (getdir _target),_i * cos (getdir _target),.15];
-							sleep 0.02;
-						};
-						},[],1,true,true,"action","(driver _target == _this) && (isEngineOn _target) &&(_target distance2D (missionNamespace getVariable ['MCC_startfly',[0,0,0]])<15)"]] remoteExec ["addAction",0];
+					[_cargo] remoteExec ["MCC_fnc_rxAddCatapultAction", 0, _cargo];
 				};
 
 			} else {

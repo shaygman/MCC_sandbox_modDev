@@ -5,8 +5,8 @@ MCC_3D_PLACER = compile preProcessFileLineNumbers format["%1mcc\pop_menu\3rd_pla
 if ( (isServer) || (MCC_isLocalHC) ) then {
 	//mcc_patrol_switch = compile preProcessFileLineNumbers format["%1mcc\pop_menu\patrol_switch.sqf",MCC_path];
 	mcc_fps_running = false;
-	MCC_fnc_simpleSpawn = {[(_this select 0), (_this select 1), (_this select 2), (_this select 3), (_this select 4), (_this select 5), (_this select 6), (_this select 7), (_this select 8)] spawn MCC_fnc_s_simple_spawn};
-	MCC_fnc_FPS = {[(_this select 0)] spawn MCC_fnc_s_fps_benchmark;};
+	MCC_fnc_simpleSpawn = {if !(["MCC_fnc_simpleSpawn"] call MCC_fnc_remoteAllowed) exitWith {}; [(_this select 0), (_this select 1), (_this select 2), (_this select 3), (_this select 4), (_this select 5), (_this select 6), (_this select 7), (_this select 8)] spawn MCC_fnc_s_simple_spawn};
+	MCC_fnc_FPS = {if !(["MCC_fnc_FPS"] call MCC_fnc_remoteAllowed) exitWith {}; [(_this select 0)] spawn MCC_fnc_s_fps_benchmark;};
 };
 
 
@@ -18,7 +18,7 @@ if (isServer) then {
 // 	_commander: object, unit that is the commander
 // 	_action: integer, 0 - make new commander, 1 - remove all groups from the commander, 2 - add group to the commander
 //==============================================================================================================================================================================
-	MCC_fnc_highCommand = {[(_this select 0), (_this select 1)] spawn MCC_fnc_s_hc_server};
+	MCC_fnc_highCommand = {if !(["MCC_fnc_highCommand"] call MCC_fnc_remoteAllowed) exitWith {}; [(_this select 0), (_this select 1)] spawn MCC_fnc_s_hc_server};
 
 //===================================================================MCC_fnc_boxGenerator======================================================================================
 // Create an empty box with the given weapons and items
@@ -31,7 +31,7 @@ if (isServer) then {
 // 	_items:  array 1st: item class 2nd: ammount [["itemClass1","itemClass2"],[5,5]]
 // 	_rucks: array 1st: ruck class 2nd: ammount [["ruckClass1","ruckClass2"],[5,5]]
 //==============================================================================================================================================================================
-	MCC_fnc_boxGenerator = {[(_this select 0), (_this select 1), (_this select 2), (_this select 3), (_this select 4)] spawn MCC_fnc_s_box_spawn;};
+	MCC_fnc_boxGenerator = {if !(["MCC_fnc_boxGenerator"] call MCC_fnc_remoteAllowed) exitWith {}; [(_this select 0), (_this select 1), (_this select 2), (_this select 3), (_this select 4)] spawn MCC_fnc_s_box_spawn;};
 
 //===================================================================MCC_fnc_placeConvoy======================================================================================
 // Place a convoy up to 5 cars facing the direction stated with ot without an HVT
@@ -44,7 +44,7 @@ if (isServer) then {
 // 	VIPcalss: string, vip class if none "0"
 //	VIPcar: string, vehicle class if VIPclass = "0" will be ignored
 //==============================================================================================================================================================================
-	MCC_fnc_placeConvoy = {[(_this select 0), (_this select 1), (_this select 2), (_this select 3) , (_this select 4), (_this select 5), (_this select 6), (_this select 7), (_this select 8), (_this select 9)] spawn MCC_fnc_s_place_convoy};
+	MCC_fnc_placeConvoy = {if !(["MCC_fnc_placeConvoy"] call MCC_fnc_remoteAllowed) exitWith {}; [(_this select 0), (_this select 1), (_this select 2), (_this select 3) , (_this select 4), (_this select 5), (_this select 6), (_this select 7), (_this select 8), (_this select 9)] spawn MCC_fnc_s_place_convoy};
 
 //===================================================================MCC_fnc_startConvoy======================================================================================
 // Make the convoy drive through the specific waypoints
@@ -53,5 +53,5 @@ if (isServer) then {
 // 	[wp1, wp2, wp3]: array, waypoints positions
 // 	isVIP: string, if = "0" no vip else there is a vip
 //==============================================================================================================================================================================
-	MCC_fnc_startConvoy = {[(_this select 0), (_this select 1)] spawn MCC_fnc_s_start_convoy_execute};
+	MCC_fnc_startConvoy = {if !(["MCC_fnc_startConvoy"] call MCC_fnc_remoteAllowed) exitWith {}; [(_this select 0), (_this select 1)] spawn MCC_fnc_s_start_convoy_execute};
 };

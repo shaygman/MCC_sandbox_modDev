@@ -87,6 +87,7 @@ class CfgFunctions
 		tag = "MCC";
 		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctionsScripts.hpp"
+		#include "\mcc_sandbox_mod\mcc\cfg\cfgFunctionsSecurity.hpp"
 		#include "\mcc_sandbox_mod\mcc\login\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\rts\cfgFunctions.hpp"
 		#include "\mcc_sandbox_mod\mcc\cfg\modules\cfgFunctions.hpp"
@@ -116,14 +117,14 @@ class CfgFunctions
 
 class cfgRemoteExec {
 	class Functions {
-		// State of remoteExec: 0-turned off, 1-turned on, taking whitelist into account, 2-turned on, however, ignoring whitelists (default because of backward compatibility)
-		mode = 2;
-		// Ability to send jip messages: 0-disabled, 1-enabled (default)
-		jip = 1;
-
+		// The mod does not set "mode": the mission (description.ext) or server decides.
+		// For the engine-level lock, set mode = 1 in your mission. See mcc\cfg\strictRemoteExec.txt.
 		#include "\mcc_sandbox_mod\mcc\cfg\cfgRemoteExec.hpp"
 		#include "\mcc_sandbox_mod\mcc\radio\cfgRemoteExec.hpp"
 		#include "\mcc_sandbox_mod\mcc\AAS\cfgRemoteExec.hpp"
+	};
+	class Commands {
+		#include "\mcc_sandbox_mod\mcc\cfg\CfgRemoteExecCommands.hpp"
 	};
 };
 

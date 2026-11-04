@@ -310,7 +310,7 @@ private _groupIconHandle = addMissionEventHandler ["GroupIconClick", {
 
    								 if (!(MCC_Console1Open) && dialog) exitWith {};
 
-								[_group,_mouseButton,[_posX,_posY],_shift,_control,_alt] execVM format ["%1mcc\fnc\console\fn_consoleClickGroupIcon.sqf",MCC_path];
+								[_group,_mouseButton,[_posX,_posY],_shift,_control,_alt] spawn MCC_fnc_consoleClickGroupIcon;
 								//[_group,_button,[_posx,_posy],_shift,_ctrl,_alt] spawn MCC_fnc_consoleClickGroupIcon;
 							}];
 

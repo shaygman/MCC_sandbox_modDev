@@ -7,4 +7,4 @@
 	Single player always returns 0, since nobody else can send requests.
 */
 if (!isMultiplayer) exitWith {0};
-missionNamespace getVariable ["MCC_networkSecurityOverride", getMissionConfigValue ["MCC_networkSecurity", 0]]
+getMissionConfigValue ["MCC_networkSecurity", 0]

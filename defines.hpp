@@ -71,6 +71,7 @@ class CfgFunctions
 		tag = "MCC";
 		#include "mcc\cfg\cfgFunctions.hpp"
 		#include "mcc\cfg\cfgFunctionsScripts.hpp"
+		#include "mcc\cfg\cfgFunctionsSecurity.hpp"
 		#include "mcc\login\cfgFunctions.hpp"
 		#include "mcc\rts\cfgFunctions.hpp"
 		#include "mcc\cfg\modules\cfgFunctions.hpp"
@@ -97,13 +98,17 @@ class CfgFunctions
 
 class cfgRemoteExec {
 	class Functions {
-		// State of remoteExec: 0-turned off, 1-turned on, taking whitelist into account, 2-turned on, however, ignoring whitelists (default because of backward compatibility)
+		// 0 = off, 1 = whitelist enforced, 2 = whitelist ignored (old default).
+		// Set to 1 for public servers; MCC's own calls are all listed below.
 		mode = 2;
-		// Ability to send jip messages: 0-disabled, 1-enabled (default)
 		jip = 1;
 		#include "mcc\cfg\cfgRemoteExec.hpp"
 		#include "mcc\radio\cfgRemoteExec.hpp"
 		#include "mcc\AAS\cfgRemoteExec.hpp"
+	};
+	class Commands {
+		mode = 2;
+		#include "mcc\cfg\CfgRemoteExecCommands.hpp"
 	};
 };
 

@@ -1,3 +1,20 @@
+Changelog R34 (MCC5 revamp):
+Security:
+	- Replaced all BIS_fnc_MP calls with remoteExec
+	- Removed code sent over the network (BIS_fnc_spawn, compile format, remoteExec "call"/"addAction" with code); replaced with named functions
+	- Rebuilt the remoteExec whitelist (functions and engine commands). The mod no longer forces remoteExec mode 2
+	- New Eden attribute: Attributes > General > MCC > Network Security (Normal / Strict)
+	- See mcc\cfg\strictRemoteExec.txt for locking down public servers
+	- CBA text settings are read as data (parseSimpleArray) instead of being run as code
+Changed:
+	- 154 scripts that ran through execVM are now compiled once as functions (MCC_fnc_s_*)
+	- CBA settings use CBA_fnc_addSetting
+	- Wiki links point to mccsandbox.fandom.com
+Fixed:
+	- Hidden characters in config.cpp broke the "Add Valor" Zeus module entry
+	- Mission Wizard error message used an invalid remoteExec target
+
+
 Changelog R33 hot fix 2:
 Added:
 	- Ambient fire options to "Addon Options"

@@ -153,7 +153,7 @@ if (typeName _wholeMap == typeName true ) then {
 			_mapSize = getnumber (_worldPath >> "mapSize");
 			if (_mapSize == 0) exitWith {
 				diag_log FORMAT ["MCC: Mission Wizard Error: mapSize param not defined for '%1'",worldname];
-				["mapSize param not defined for '%1'",worldname] remoteExec ["bis_fnc_halt", MCC_fnc_halt];
+				[format ["mapSize param not defined for '%1'",worldname]] remoteExec ["MCC_fnc_halt", [0, _missionMaker] select (!isNil "_missionMaker")];
 				[[_markerName]] call MCC_MWCleanup;
 			};
 

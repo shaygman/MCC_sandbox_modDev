@@ -16,6 +16,14 @@ _namesList 	= call compile (_logic getvariable ["names","[]"]);
 _namesList = _namesList + (missionNameSpace getVariable ["MCC_allowedPlayers",[]]);
 missionNamespace setVariable ["MCC_allowAdmin",_logic getvariable ["allowAdmin",true]];
 
+// Server keeps its own copy for Strict network security. localNamespace cannot be changed by clients,
+// unlike MCC_allowedPlayers, which is shared with publicVariable.
+if (isServer) then {
+	localNamespace setVariable ["MCC_accessNames", (localNamespace getVariable ["MCC_accessNames", []]) + _namesList];
+	localNamespace setVariable ["MCC_accessUnits", (localNamespace getVariable ["MCC_accessUnits", []]) + (synchronizedObjects _logic)];
+	localNamespace setVariable ["MCC_accessAdmin", _logic getvariable ["allowAdmin",true]];
+};
+
 _logic setpos [1000,10,0];
 waituntil {isplayer player && alive player && MCC_initDone};
 
