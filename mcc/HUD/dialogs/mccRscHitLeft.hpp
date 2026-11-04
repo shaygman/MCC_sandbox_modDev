@@ -5,7 +5,7 @@ class MCC_rssHitLeft {
 	duration = 0.3;
 	fadeIn = 0.1;
 	fadeOut = 0.1;
-	name = "‏‏mccRscHitLeft";
+	name = "mccRscHitLeft";
 
 	class Controls {
 		class hitDetect: MCC_RscPicture

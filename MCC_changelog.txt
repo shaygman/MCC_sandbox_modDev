@@ -1,4 +1,4 @@
-Changelog R33:
+Changelog R33 hot fix 2:
 Added:
 	- Ambient fire options to "Addon Options"
 		- Vehicle fire chance - Chance a destroyed vehicle will start a fire

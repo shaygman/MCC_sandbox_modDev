@@ -28,11 +28,11 @@ if (_open) then
 				_text = _text +"<t size='0.8'>* Draw a bounding box around group for multi-select or individually select groups by holding Ctrl and clicking on a squad's icon</t><br/><br/>";
 				_text = _text +"<t size='0.8'>* You can create group squads together by pressing Ctrl + 1-9 keys, press 1-9 key to quickly select the squads again</t><br/><br/>";
 				_text = _text +"<t size='0.8'>* Issue orders by double clicking the map or create a quick waypoint by holding Ctrl + double click the map</t><br/><br/>";
-				_text = _text + "<a underline='true' href='http://mccsandbox.wikia.com/wiki/Commander_Console'>Wiki:&#160;Comander&#160;Console</a>"
+				_text = _text + "<a underline='true' href='https://mccsandbox.fandom.com/wiki/Commander_Console'>Wiki:&#160;Comander&#160;Console</a>"
 			};
 			case ("squadDialog") :
 			{
-				_text = _text + "<a underline='true' href='http://mccsandbox.wikia.com/wiki/Squad_Dialog'>Wiki:&#160;Squad&#160;Dialog</a>"
+				_text = _text + "<a underline='true' href='https://mccsandbox.fandom.com/wiki/Squad_Dialog'>Wiki:&#160;Squad&#160;Dialog</a>"
 			};
 
 			case ("mccmain") :
@@ -45,7 +45,7 @@ if (_open) then
 				_text = _text +"<t size='0.8'>* Delete selected groups by pressing the Delete key</t><br/><br/>";
 				_text = _text +"<t size='0.8'>* Use the group managment sectio bellow to control units inside the group</t><br/><br/>";
 				_text = _text +"<t size='0.8'>* Press Alt + left mouse button to open the 3D editor</t><br/><br/>";
-				_text = _text + "<a underline='true' href='http://mccsandbox.wikia.com/wiki/Zones'>Wiki:&#160;MCC</a>"
+				_text = _text + "<a underline='true' href='https://mccsandbox.fandom.com/wiki/Zones'>Wiki:&#160;MCC</a>"
 			};
 		};
 

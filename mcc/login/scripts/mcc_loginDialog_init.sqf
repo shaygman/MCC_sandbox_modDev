@@ -24,7 +24,7 @@ _mccdialog = finddisplay 2990;
 
 //set text
 _text = format["<img size='2' align='center' shadow='0' image='%1data\iconWikia.paa' />",MCC_path] +
-		"<a underline='true' color='#0000FF' align='center' shadow='1' href='http://mccsandbox.wikia.com/wiki/Getting_started'>Visit MCC Wiki</a> <br />" +
+		"<a underline='true' color='#0000FF' align='center' shadow='1' href='https://mccsandbox.fandom.com/wiki/Getting_started'>Visit MCC Wiki</a> <br />" +
 		format["<img size='2' align='center' shadow='0' image='%1data\iconDiscord.paa' />",MCC_path] +
 		"<a underline='true' color='#0000FF' align='center' shadow='1' href='https://discord.gg/3DzkzAn'>Join our Discord</a> <br />";
 

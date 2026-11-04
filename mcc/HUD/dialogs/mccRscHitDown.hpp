@@ -5,7 +5,7 @@ class MCC_rssHitDown {
 	duration = 0.3;
 	fadeIn = 0.1;
 	fadeOut = 0.1;
-	name = "‏‏mccRscHitDown";
+	name = "mccRscHitDown";
 
 	class Controls {
 		class hitDetect: MCC_RscPicture
