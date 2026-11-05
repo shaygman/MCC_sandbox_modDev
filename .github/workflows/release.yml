@@ -39,6 +39,8 @@ jobs:
           name: ARMA3-MCC5
           files: ARMA3-MCC5.zip
           body: |
+            ![MCC 5](https://raw.githubusercontent.com/haganahzion/Arma3-MCC5/${{ github.sha }}/docs/mcc5_banner.png)
+
             MCC Sandbox 5 for Arma 3.
 
             **Install:** download `ARMA3-MCC5.zip`, unzip it, move the `@mcc_sandbox_a3` folder into your Arma 3 folder,
