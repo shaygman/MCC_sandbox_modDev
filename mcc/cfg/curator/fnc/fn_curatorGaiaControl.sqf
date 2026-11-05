@@ -2,11 +2,8 @@
 	MCC_fnc_curatorGaiaControl
 	Zeus module "GAIA: Control Group". Puts AI groups (any side, e.g. BLUFOR friendlies or the group a player is in)
 	under GAIA. Groups: the group the module was dropped on, otherwise every group selected in Zeus.
-	Orders:
-		- Follow the tasks: the group goes to the nearest unfinished task of its side, fights there, then the next one
-		- Attack / patrol the nearest MCC zone
-		- Defend the nearest MCC zone (fortify)
-		- Release from GAIA
+	No questions asked: GAIA takes over, uses vehicles, works through the side's tasks (nearest first),
+	and when no task is left the group patrols its area.
 	Params:
 		0: OBJECT - the placed module
 */
@@ -35,11 +32,5 @@ if (_groups isEqualTo []) exitWith {
 	[objNull, "Drop this on an AI group, or select AI groups first (groups led by a player can't be given to GAIA)"] call BIS_fnc_showCuratorFeedbackMessage;
 };
 
-private _result = [format ["GAIA: Control %1 group(s)", count _groups], [
-	["Order", ["Follow the tasks (objectives)", "Attack / patrol the nearest zone", "Defend the nearest zone", "Release from GAIA"]],
-	["Use vehicles (find rides, dismount at objective)", true]
-]] call MCC_fnc_initDynamicDialog;
-if (_result isEqualTo []) exitWith {};
-
-[_groups, _result select 0, _result select 1] remoteExec ["MCC_fnc_gaiaControlGroups", 2];
-[objNull, format ["GAIA now controls %1 group(s)", count _groups]] call BIS_fnc_showCuratorFeedbackMessage;
+[_groups, 0, true] remoteExec ["MCC_fnc_gaiaControlGroups", 2];
+[objNull, format ["GAIA now controls %1 group(s): they work through the tasks, then patrol", count _groups]] call BIS_fnc_showCuratorFeedbackMessage;

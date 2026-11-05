@@ -2,7 +2,7 @@
 	MCC_fnc_gaiaTaskTick  (server)
 	For a group with GAIA_followTasks: picks the nearest unfinished task of the group's side that has a destination,
 	makes sure an MCC zone covers it (creating one if needed) and points GAIA at that zone. When the task is done,
-	the next call moves the group on to the next task. With no tasks left, the group keeps its last zone.
+	the next call moves the group on to the next task. With no tasks left, the group patrols its last zone (or the nearest one).
 	Params:
 		0: GROUP
 */
@@ -15,7 +15,19 @@ private _current = _group getVariable ["GAIA_followTask", ""];
 private _tasks = ([_leader] call BIS_fnc_tasksUnit) select {
 	!([_x] call BIS_fnc_taskCompleted) && {([_x] call BIS_fnc_taskDestination) isNotEqualTo [0,0,0]}
 };
-if (_tasks isEqualTo []) exitWith {};
+// No open tasks: patrol. Keep the current zone, or take the nearest one (or make one around the group).
+if (_tasks isEqualTo []) exitWith {
+	if ((_group getVariable ["GAIA_ZONE_INTEND", []]) isEqualTo []) then {
+		private _zone = [getPosATL _leader] call MCC_fnc_gaiaNearestZone;
+		if (_zone < 1) then {
+			_zone = [] call MCC_fnc_MWnextZoneNumber;
+			[_zone, getPosATL _leader, [300, 300]] call MCC_fnc_MWUpdateZone;
+		};
+		_group setVariable ["GAIA_ZONE_INTEND", [str _zone, "MOVE"], true];
+		[_group] call GAIA_fnc_registerGroup;
+	};
+	_group setVariable ["GAIA_followTask", "", true];
+};
 
 // Keep the current task while it's open, else the nearest open one
 private _task = if (_current in _tasks) then {_current} else {
