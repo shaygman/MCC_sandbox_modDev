@@ -56,6 +56,10 @@ class curator
 	class curatorArsenal {description = "Zeus module: arsenal for the Zeus player";};
 	class curatorCASConsole {description = "Zeus module: add CAS to a side's commander console";};
 	class curatorAutoAssign {postInit = 1; description = "Server: give Zeus to every player allowed to use MCC";};
+	class curatorGaiaControl {description = "Zeus: put selected AI groups under GAIA (follow tasks, attack, defend, release)";};
+	class gaiaControlGroups {description = "Server: put groups under GAIA control";};
+	class gaiaNearestZone {description = "Nearest MCC zone to a position";};
+	class gaiaTaskTick {description = "Server: point a task-following GAIA group at its next task";};
 	class curatorMenuButton {postInit = 1; description = "Client: MCC 5 button and module list on the Zeus screen";};
 	class curatorClientInit {postInit = 1; description = "Client: Open Zeus keybind and MCC curator event handlers";};
 };

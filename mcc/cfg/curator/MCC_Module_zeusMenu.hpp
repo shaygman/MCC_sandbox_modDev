@@ -140,3 +140,12 @@ class MCC_Module_casConsoleCurator : MCC_Module_Base
 	displayName = "CAS for Commander Console";
 	function = "MCC_fnc_curatorCASConsole";
 };
+
+class MCC_Module_gaiaControlCurator : MCC_Module_Base
+{
+	scopeCurator = 2;
+	category = "MCC";
+	displayName = "GAIA: Control Group";
+	function = "MCC_fnc_curatorGaiaControl";
+	portrait = "\A3\ui_f\data\igui\cfg\simpleTasks\types\attack_ca.paa";
+};

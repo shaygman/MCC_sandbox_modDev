@@ -427,3 +427,4 @@ class GAIA_fnc_fireMission {allowedTargets=0;};
 class MCC_fnc_curatorConvoyServer {allowedTargets=2;};
 class MCC_fnc_curatorMakeHostage {allowedTargets=0;};
 class MCC_fnc_curatorBriefingLocal {allowedTargets=0;};
+class MCC_fnc_gaiaControlGroups {allowedTargets=2;};

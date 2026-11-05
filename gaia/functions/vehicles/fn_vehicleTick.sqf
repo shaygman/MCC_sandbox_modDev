@@ -24,10 +24,12 @@ if (time < (_group getVariable ["GAIA_vehNext", 0])) exitWith {};
 _group setVariable ["GAIA_vehNext", time + 5];
 
 if !(missionNamespace getVariable ["MCC_GAIA_vehiclesEnabled", true]) exitWith {};
+if (_group getVariable ["GAIA_noVehicles", false]) exitWith {};
 
 private _leader = leader _group;
 if (!alive _leader || {!local _leader}) exitWith {};
-if ((units _group) findIf {isPlayer _x} > -1) exitWith {};
+// Groups led by a player are left alone; AI-led groups with players in them (e.g. a player squad member) are handled
+if (isPlayer _leader) exitWith {};
 
 private _intend = _group getVariable ["GAIA_ZONE_INTEND", []];
 if (_intend isEqualTo [] || {(_intend param [1, ""]) == "FORTIFY"}) exitWith {};
