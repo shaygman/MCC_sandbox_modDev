@@ -13,13 +13,38 @@ class Display3DEN
 				class MCC5_Menu
 				{
 					text = "MCC 5";
-					items[] = {"MCC5_Settings","MCC5_Modules","MCC5_SettingsModules","MCC5_Separator","MCC5_Zeus","MCC5_About"};
+					items[] = {"MCC5_Settings","MCC5_MW_Options","MCC5_MW_Generate","MCC5_MW_Regenerate","MCC5_MW_Clear","MCC5_SeparatorMW","MCC5_Modules","MCC5_SettingsModules","MCC5_Separator","MCC5_Zeus","MCC5_About"};
 				};
 				class MCC5_Settings
 				{
 					text = "MCC 5 Mission Settings...";
 					picture = "\mcc_sandbox_mod\data\mod.paa";
 					action = "edit3DENMissionAttributes 'MCC5';";
+				};
+				class MCC5_MW_Options
+				{
+					text = "Mission Wizard...";
+					picture = "\a3\ui_f\data\igui\cfg\simpleTasks\types\map_ca.paa";
+					action = "edit3DENMissionAttributes 'MCC5_MW';";
+				};
+				class MCC5_MW_Generate
+				{
+					text = "Generate Mission";
+					action = "[] call MCC_fnc_edenWizardGenerate;";
+				};
+				class MCC5_MW_Regenerate
+				{
+					text = "Regenerate Mission (clear + generate)";
+					action = "[true] call MCC_fnc_edenWizardGenerate;";
+				};
+				class MCC5_MW_Clear
+				{
+					text = "Clear Generated Mission";
+					action = "[] call MCC_fnc_edenWizardClear;";
+				};
+				class MCC5_SeparatorMW
+				{
+					value = 0;
 				};
 				class MCC5_Modules
 				{
@@ -33,7 +58,7 @@ class Display3DEN
 				};
 				class MCC5_M0
 				{
-					text = "Mission Wizard";
+					text = "Mission Wizard (generated at mission start)";
 					action = "private _e = create3DENEntity ['Logic','MCC_Module_missionWizard',screenToWorld [0.5,0.5]]; if (!isNull _e) then {set3DENSelected [_e]; do3DENAction 'OpenAttributes'};";
 				};
 				class MCC5_M1
@@ -134,7 +159,7 @@ class Display3DEN
 				{
 					text = "About MCC 5";
 					picture = "\mcc_sandbox_mod\data\mod.paa";
-					action = "['MCC Sandbox 5 - Mission Control Center. Settings: MCC 5 > Mission Settings. Modules: MCC 5 > Place MCC Module.', 0, 10] call BIS_fnc_3DENNotification;";
+					action = "['MCC Sandbox 5 - Mission Control Center. Settings: MCC 5 > Mission Settings. Missions: MCC 5 > Mission Wizard... then Generate Mission. Modules: MCC 5 > Place MCC Module.', 0, 10] call BIS_fnc_3DENNotification;";
 				};
 			};
 		};

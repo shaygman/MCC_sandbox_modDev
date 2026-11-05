@@ -427,6 +427,10 @@ class CfgMissions
 
 class Cfg3DEN
 {
+	class Attributes
+	{
+		#include "\mcc_sandbox_mod\mcc\cfg\eden\attributesControls.hpp"
+	};
 	class Mission
 	{
 		// Own window: Eden top menu "MCC 5" > "MCC 5 Mission Settings..." (edit3DENMissionAttributes "MCC5")
@@ -710,6 +714,7 @@ class Cfg3DEN
 				#include "\mcc_sandbox_mod\mcc\cfg\eden\settingsAttributes.hpp"
 			};
 		};
+		#include "\mcc_sandbox_mod\mcc\cfg\eden\missionWizard3DEN.hpp"
 	};
 	#include "\mcc_sandbox_mod\mcc\cfg\cfg3DEN.hpp"
 };

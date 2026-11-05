@@ -245,3 +245,29 @@ class compat
 	class compatGroupUnits {description = "cfgMCCRtsGroups units for a side with RHS/CUP variants";};
 	class compatInit {postInit = 1; description = "Apply mod presets to class-list settings, re-apply on CBA_SettingChanged";};
 };
+
+class edenWizard
+{
+	#ifdef MCCMODE
+	file = "\mcc_sandbox_mod\mcc\fnc\edenWizard";
+	#else
+	file = "mcc\fnc\edenWizard";
+	#endif
+	class edenWizardGenerate {description = "Eden menu: generate a Mission Wizard mission as Eden entities (editor only)";};
+	class edenWizardClear {description = "Eden menu: delete the MCC Mission Wizard layers (editor only)";};
+	class edenWizardBuild {description = "Editor wizard: builds the mission from MCC5MW_ctx";};
+	class edenWizardOptions {description = "Editor wizard: reads the MCC5_MW scenario attributes";};
+	class edenWizardFactionData {description = "Editor wizard: faction units/vehicles/groups from config (cached)";};
+	class edenWizardFactionCombo {description = "Eden attribute control: faction drop-down load/save";};
+	class edenWizardCreate {description = "Editor wizard: create one Eden entity in the wizard layer";};
+	class edenWizardName {description = "Editor wizard: unique variable name";};
+	class edenWizardFindPos {description = "Editor wizard: terrain position helpers";};
+	class edenWizardSetting {description = "Editor wizard: MW class-list setting";};
+	class edenWizardZone {description = "Editor wizard: trigger + MCC Create Zones module";};
+	class edenWizardAssign {description = "Editor wizard: sync a group to the zone Assign to Zone module";};
+	class edenWizardSpawnGroup {description = "Editor wizard: place an AI group";};
+	class edenWizardGarrison {description = "Editor wizard: units in building positions";};
+	class edenWizardTask {description = "Editor wizard: task logic + success/fail triggers";};
+	class edenWizardObjective {description = "Editor wizard: build one objective";};
+	class edenWizardPopulate {description = "Editor wizard: main zone forces and threats";};
+};
