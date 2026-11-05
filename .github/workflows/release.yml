@@ -23,6 +23,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Read version
+        id: ver
+        run: echo "version=$(tr -d ' \r\n' < VERSION)" >> "$GITHUB_OUTPUT"
+
       - name: Build PBO
         run: python3 tools/build_pbo.py build
 
@@ -34,22 +38,9 @@ jobs:
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ARMA3-MCC5
+          tag_name: ARMA3-MCC5-v${{ steps.ver.outputs.version }}
           target_commitish: ${{ github.sha }}
-          name: ARMA3-MCC5
+          name: ARMA3-MCC5 v${{ steps.ver.outputs.version }}
           files: ARMA3-MCC5.zip
-          body: |
-            ![MCC 5](https://raw.githubusercontent.com/haganahzion/Arma3-MCC5/${{ github.sha }}/docs/mcc5_banner.png)
-
-            MCC Sandbox 5 for Arma 3.
-
-            **Install:** download `ARMA3-MCC5.zip`, unzip it, move the `@mcc_sandbox_a3` folder into your Arma 3 folder,
-            then in the Arma 3 Launcher go to Mods > Local mod and pick `@mcc_sandbox_a3`. Requires **CBA_A3**.
-            Untick any old MCC version. Full steps: INSTALL.md inside the zip.
-
-            **What's new:** the old MCC menu is replaced by Zeus and Eden modules; GAIA AI rewritten for performance,
-            with smart vehicle use, AI support calls (artillery, CAS, reinforcements) and coordinated attacks;
-            bigger Mission Wizard missions and multi-AO campaigns; ACE3/RHS/CUP auto-detected; LAMBS and HBQ
-            Advanced Driving AI compatible; optional limited logistics; security fixes. See MCC_changelog.txt (R34, R35).
-
-            This build has not been tested in game yet. Please report problems with your RPT log.
+          body_path: docs/RELEASE_NOTES.md
+          make_latest: true
